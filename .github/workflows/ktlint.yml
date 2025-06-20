@@ -21,15 +21,12 @@ jobs:
         uses: android-actions/setup-android@v2
 
       - name: Grant execute permission for gradlew
-        working-directory: HEARTZ-ANDROID
         run: chmod +x gradlew
 
       - name: Create local.properties with base.url and kakao key
-        working-directory: HEARTZ-ANDROID
         run: |
           echo "base.url=https://ci-placeholder.local" >> local.properties
           echo "kakao.native.app.key=ci-placeholder-kakao-key" >> local.properties
 
       - name: Run ktlint
-        working-directory: HEARTZ-ANDROID
         run: ./gradlew ktlintCheck
