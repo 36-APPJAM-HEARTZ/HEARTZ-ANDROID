@@ -5,5 +5,5 @@ import com.heartz.app.domain.model.DummyResultModel
 
 fun ResponseDummyDto.toDomain(): DummyResultModel =
     DummyResultModel(
-        info = info,
+        info = info
     )

@@ -9,6 +9,6 @@ import retrofit2.http.GET
 interface DummyService {
     @GET("/api/v1/service")
     suspend fun getDummies(
-        @Body request: RequestDummyDto,
+        @Body request: RequestDummyDto
     ): DummyBaseResponse<ResponseDummyDto>
 }

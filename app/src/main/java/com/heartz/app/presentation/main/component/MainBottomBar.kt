@@ -39,26 +39,26 @@ fun MainBottomBar(
     visible: Boolean,
     tabs: ImmutableList<MainNavTab>,
     currentTab: MainNavTab?,
-    onTabSelected: (MainNavTab) -> Unit,
+    onTabSelected: (MainNavTab) -> Unit
 ) {
     AnimatedVisibility(
         visible = visible,
         enter = EnterTransition.None,
-        exit = ExitTransition.None,
+        exit = ExitTransition.None
     ) {
         Column(
             modifier =
-                Modifier
-                    .background(Color.White),
+            Modifier
+                .background(Color.White)
         ) {
             Row(
                 modifier =
-                    Modifier
-                        .navigationBarsPadding()
-                        .fillMaxWidth()
-                        .padding(vertical = 21.dp),
+                Modifier
+                    .navigationBarsPadding()
+                    .fillMaxWidth()
+                    .padding(vertical = 21.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly,
+                horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 tabs.forEach { tab ->
                     key(tab.route) {
@@ -66,7 +66,7 @@ fun MainBottomBar(
                         MainBottomBarItem(
                             tab = tab,
                             selected = selected,
-                            onClick = { onTabSelected(tab) },
+                            onClick = { onTabSelected(tab) }
                         )
                     }
                 }
@@ -80,21 +80,21 @@ fun RowScope.MainBottomBarItem(
     modifier: Modifier = Modifier,
     tab: MainNavTab,
     selected: Boolean,
-    onClick: () -> Unit,
+    onClick: () -> Unit
 ) {
     val bottomItemColor = if (selected) Red80 else Pink80
     Column(
         modifier =
-            modifier
-                .noRippleClickable(onClick = onClick)
-                .weight(1f),
+        modifier
+            .noRippleClickable(onClick = onClick)
+            .weight(1f),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(1.dp),
+        verticalArrangement = Arrangement.spacedBy(1.dp)
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(tab.icon),
             contentDescription = stringResource(tab.contentDescription),
-            tint = bottomItemColor,
+            tint = bottomItemColor
         )
     }
 }
@@ -108,7 +108,7 @@ private fun MainBottomBarPreview() {
             visible = true,
             tabs = MainNavTab.entries.toImmutableList(),
             currentTab = currentTab,
-            onTabSelected = { currentTab = it },
+            onTabSelected = { currentTab = it }
         )
     }
 }

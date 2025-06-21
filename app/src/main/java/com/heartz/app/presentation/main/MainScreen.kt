@@ -19,18 +19,18 @@ fun MainScreen(navigator: MainNavigator = rememberMainNavigator()) {
                 visible = navigator.showBottomBar(),
                 tabs = MainNavTab.entries.toImmutableList(),
                 currentTab = navigator.currentTab,
-                onTabSelected = navigator::navigate,
+                onTabSelected = navigator::navigate
             )
         },
         modifier =
-            Modifier
-                .background(Color.White)
-                .systemBarsPadding()
-                .fillMaxSize(),
+        Modifier
+            .background(Color.White)
+            .systemBarsPadding()
+            .fillMaxSize()
     ) { innerPadding ->
         MainNavHost(
             navigator = navigator,
-            modifier = Modifier.padding(innerPadding),
+            modifier = Modifier.padding(innerPadding)
         )
     }
 }

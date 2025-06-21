@@ -14,15 +14,15 @@ import androidx.compose.ui.graphics.Color
 fun QuestScreen() {
     Column(
         modifier =
-            Modifier
-                .fillMaxSize()
-                .background(Color.White),
+        Modifier
+            .fillMaxSize()
+            .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = "quest Screen",
-            color = Color.Black,
+            color = Color.Black
         )
     }
 }

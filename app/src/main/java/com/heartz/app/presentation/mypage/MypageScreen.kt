@@ -14,15 +14,15 @@ import androidx.compose.ui.graphics.Color
 fun MypageScreen() {
     Column(
         modifier =
-            Modifier
-                .fillMaxSize()
-                .background(Color.White),
+        Modifier
+            .fillMaxSize()
+            .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = "mypage Screen",
-            color = Color.Black,
+            color = Color.Black
         )
     }
 }

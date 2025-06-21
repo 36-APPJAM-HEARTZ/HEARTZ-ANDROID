@@ -13,7 +13,7 @@ import com.heartz.app.presentation.quest.navigation.questGraph
 @Composable
 fun MainNavHost(
     navigator: MainNavigator,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     NavHost(
         enterTransition = { EnterTransition.None },
@@ -21,7 +21,7 @@ fun MainNavHost(
         popEnterTransition = { EnterTransition.None },
         popExitTransition = { ExitTransition.None },
         navController = navigator.navController,
-        startDestination = navigator.startDestination,
+        startDestination = navigator.startDestination
     ) {
         homeGraph()
         questGraph()

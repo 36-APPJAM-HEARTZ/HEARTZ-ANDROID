@@ -6,9 +6,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import org.sopt.dateroad.data.datalocal.datasourceimpl.DummyLocalDataSource
 import org.sopt.dateroad.data.datalocal.datasourceimpl.DummyLocalDataSourceImpl
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)

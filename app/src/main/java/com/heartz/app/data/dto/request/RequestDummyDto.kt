@@ -8,5 +8,5 @@ data class RequestDummyDto(
     @SerialName("id")
     val id: Int,
     @SerialName("email")
-    val email: String,
+    val email: String
 )

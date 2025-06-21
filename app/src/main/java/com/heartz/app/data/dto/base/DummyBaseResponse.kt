@@ -12,5 +12,5 @@ data class DummyBaseResponse<T>(
     @SerialName("message")
     val message: String,
     @SerialName("data")
-    val data: T,
+    val data: T
 )

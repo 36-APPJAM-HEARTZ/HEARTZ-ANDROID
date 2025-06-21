@@ -6,5 +6,5 @@ import com.heartz.app.domain.model.Dummy
 fun Dummy.toData(): RequestDummyDto =
     RequestDummyDto(
         id = this.id,
-        email = this.email,
+        email = this.email
     )

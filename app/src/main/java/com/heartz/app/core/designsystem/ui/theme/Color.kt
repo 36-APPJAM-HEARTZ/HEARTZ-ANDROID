@@ -9,5 +9,5 @@ val Pink80 = Color(0xFFFFB0B0)
 val HeartzColorScheme =
     darkColorScheme(
         primary = Red80,
-        secondary = Pink80,
+        secondary = Pink80
     )

@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ResponseDummyDto(
     @SerialName("info")
-    val info: List<String>,
+    val info: List<String>
 )

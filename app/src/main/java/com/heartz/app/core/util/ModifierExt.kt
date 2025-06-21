@@ -10,7 +10,7 @@ inline fun Modifier.noRippleClickable(crossinline onClick: () -> Unit = {}): Mod
     composed {
         this.clickable(
             indication = null,
-            interactionSource = remember { MutableInteractionSource() },
+            interactionSource = remember { MutableInteractionSource() }
         ) {
             onClick()
         }

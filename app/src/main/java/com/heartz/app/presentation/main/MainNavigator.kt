@@ -15,7 +15,7 @@ import com.heartz.app.presentation.mypage.navigation.navigateToMypage
 import com.heartz.app.presentation.quest.navigation.navigateToQuest
 
 class MainNavigator(
-    val navController: NavHostController,
+    val navController: NavHostController
 ) {
     private val currentDestination: NavDestination?
         @Composable get() =
@@ -62,7 +62,8 @@ class MainNavigator(
 }
 
 @Composable
-fun rememberMainNavigator(navController: NavHostController = rememberNavController()): MainNavigator =
-    remember(navController) {
-        MainNavigator(navController)
-    }
+fun rememberMainNavigator(
+    navController: NavHostController = rememberNavController()
+): MainNavigator = remember(navController) {
+    MainNavigator(navController)
+}

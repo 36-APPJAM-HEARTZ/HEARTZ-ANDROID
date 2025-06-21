@@ -8,9 +8,12 @@ import com.heartz.app.data.service.DummyService
 import javax.inject.Inject
 
 class DummyRemoteDataSourceImpl
-    @Inject
-    constructor(
-        private val dummyService: DummyService,
-    ) : DummyRemoteDataSource {
-        override suspend fun getDummies(request: RequestDummyDto): DummyBaseResponse<ResponseDummyDto> = dummyService.getDummies(request)
-    }
+@Inject
+constructor(
+    private val dummyService: DummyService
+) : DummyRemoteDataSource {
+    override suspend fun getDummies(
+        request: RequestDummyDto
+    ): DummyBaseResponse<ResponseDummyDto> =
+        dummyService.getDummies(request)
+}

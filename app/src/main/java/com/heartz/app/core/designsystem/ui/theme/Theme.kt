@@ -8,6 +8,6 @@ fun HeartzTheme(content: @Composable () -> Unit) {
     MaterialTheme(
         colorScheme = HeartzColorScheme,
         typography = Typography,
-        content = content,
+        content = content
     )
 }

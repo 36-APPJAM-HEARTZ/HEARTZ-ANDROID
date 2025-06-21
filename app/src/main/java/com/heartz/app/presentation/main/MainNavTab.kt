@@ -21,28 +21,28 @@ import com.heartz.app.presentation.quest.navigation.Quest
 enum class MainNavTab(
     @DrawableRes val icon: Int,
     @StringRes val contentDescription: Int,
-    val route: MainTabRoute,
+    val route: MainTabRoute
 ) {
     QUEST(
         icon = ic_folder_open,
         contentDescription = ic_quest_desc,
-        route = Quest,
+        route = Quest
     ),
     HOME(
         icon = ic_home,
         contentDescription = ic_home_desc,
-        route = Home,
+        route = Home
     ),
     FIGURE(
         icon = ic_graph,
         contentDescription = ic_figure_desc,
-        route = Figure,
+        route = Figure
     ),
     MYPAGE(
         icon = ic_user,
         contentDescription = ic_mypage_desc,
-        route = Mypage,
-    ),
+        route = Mypage
+    )
     ;
 
     companion object {
