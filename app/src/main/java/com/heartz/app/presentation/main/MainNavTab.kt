@@ -42,8 +42,7 @@ enum class MainNavTab(
         icon = ic_user,
         contentDescription = ic_mypage_desc,
         route = Mypage
-    )
-    ;
+    );
 
     companion object {
         @Composable

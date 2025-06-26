@@ -10,7 +10,7 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ApiModule {
+object ServiceModule {
     @Provides
     @Singleton
     fun providesDummyService(retrofit: Retrofit): DummyService = retrofit.create(

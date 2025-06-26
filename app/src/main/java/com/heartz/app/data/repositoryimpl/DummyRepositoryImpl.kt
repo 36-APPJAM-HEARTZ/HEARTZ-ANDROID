@@ -15,10 +15,7 @@ constructor(
 ) : DummyRepository {
     override suspend fun getDummies(request: Dummy): Result<DummyResultModel> =
         runCatching {
-            val response =
-                dummyService.getDummies(
-                    request = request.toData()
-                )
+            val response = dummyService.getDummies(request = request.toData())
             response.data.toDomain()
         }
 }

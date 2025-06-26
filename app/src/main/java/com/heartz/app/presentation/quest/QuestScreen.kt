@@ -13,8 +13,7 @@ import androidx.compose.ui.graphics.Color
 @Composable
 fun QuestScreen() {
     Column(
-        modifier =
-        Modifier
+        modifier = Modifier
             .fillMaxSize()
             .background(Color.White),
         horizontalAlignment = Alignment.CenterHorizontally,
