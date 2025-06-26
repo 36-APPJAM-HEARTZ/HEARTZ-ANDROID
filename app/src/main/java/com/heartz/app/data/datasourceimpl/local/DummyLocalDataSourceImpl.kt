@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
+import com.heartz.app.data.datasource.local.DummyLocalDataSource
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -13,9 +14,7 @@ private const val FILE_NAME = "date_road_datastore"
 
 private val Context.dataStore by preferencesDataStore(name = FILE_NAME)
 
-class DummyLocalDataSourceImpl
-@Inject
-constructor(
+class DummyLocalDataSourceImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : DummyLocalDataSource {
     companion object {
