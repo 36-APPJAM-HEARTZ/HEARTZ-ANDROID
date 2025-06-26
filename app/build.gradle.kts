@@ -1,20 +1,39 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.ktlint)
 }
+val properties =
+    Properties().apply {
+        load(project.rootProject.file("local.properties").inputStream())
+    }
 
 android {
-    namespace = "com.android.heartz"
-    compileSdk = 35
+    namespace = "com.heartz.app"
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.android.heartz"
-        minSdk = 28
-        targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = "com.heartz.app"
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
+        versionCode = libs.versions.versionCode.get().toInt()
+        versionName = libs.versions.versionName.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "BASE_URL", properties["base.url"].toString())
+        buildConfigField(
+            "String",
+            "KAKAO_NATIVE_APP_KEY",
+            properties["kakao.native.app.key"].toString()
+        )
     }
 
     buildTypes {
@@ -27,20 +46,66 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
+    }
+    buildFeatures {
+        compose = true
+        buildConfig = true
     }
 }
 
 dependencies {
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    // Test
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.bundles.test)
+
+    // Debug
+    debugImplementation(libs.bundles.debug)
+
+    // AndroidX
+    implementation(libs.bundles.androidx)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.kotlinx.collections.immutable)
+
+    // Google
+    implementation(platform(libs.google.firebase.bom))
+    implementation(libs.google.firebase.crashlytics)
+
+    // Network
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.bundles.okhttp)
+    implementation(libs.bundles.retrofit)
+    implementation(libs.kotlinx.serialization.json)
+
+    // Hilt
+    implementation(libs.bundles.hilt)
+    ksp(libs.hilt.compiler)
+
+    // Coil
+    implementation(libs.coil.compose)
+
+    // Timber
+    implementation(libs.timber)
+
+    // Kakao Login
+    implementation(libs.bundles.kakao)
+
+    // Ui
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    debugImplementation(libs.androidx.ui.tooling)
+}
+
+ktlint {
+    android = true
+    debug = true
+    coloredOutput = true
+    verbose = true
+    outputToConsole = true
 }
