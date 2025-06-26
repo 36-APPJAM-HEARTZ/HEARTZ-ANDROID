@@ -10,7 +10,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-private const val FILE_NAME = "date_road_datastore"
+private const val FILE_NAME = "heartz_datastore"
 
 private val Context.dataStore by preferencesDataStore(name = FILE_NAME)
 
