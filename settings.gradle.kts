@@ -20,6 +20,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "heartz"
+rootProject.name = "byeboo"
 include(":app")
  

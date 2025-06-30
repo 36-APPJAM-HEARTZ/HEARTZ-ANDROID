@@ -16,11 +16,11 @@ val properties =
     }
 
 android {
-    namespace = "com.heartz.app"
+    namespace = "com.byeboo.app"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.heartz.app"
+        applicationId = "com.byeboo.app"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = libs.versions.versionCode.get().toInt()
