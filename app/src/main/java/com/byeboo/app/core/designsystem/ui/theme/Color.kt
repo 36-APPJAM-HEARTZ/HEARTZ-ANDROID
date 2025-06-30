@@ -103,7 +103,7 @@ class ByeBooColors(
     white: Color,
     black50: Color,
     isLight: Boolean
-){
+) {
     var primary50 by mutableStateOf(primary50)
         private set
     var primary100 by mutableStateOf(primary100)
@@ -221,7 +221,7 @@ class ByeBooColors(
         isLight
     )
 
-    fun update(colors: ByeBooColors){
+    fun update(colors: ByeBooColors) {
         primary50 = colors.primary50
         primary100 = colors.primary100
         primary200 = colors.primary200
