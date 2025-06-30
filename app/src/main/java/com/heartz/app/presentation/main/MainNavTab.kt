@@ -3,8 +3,8 @@ package com.heartz.app.presentation.main
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
-import com.heartz.app.R.drawable.ic_quest
 import com.heartz.app.R.drawable.ic_home
+import com.heartz.app.R.drawable.ic_quest
 import com.heartz.app.R.drawable.ic_user
 import com.heartz.app.R.string.ic_home_desc
 import com.heartz.app.R.string.ic_mypage_desc

@@ -56,7 +56,7 @@ class MainNavigator(
             currentDestination?.hasRoute(it::class) == true
         }
 
-    fun navigateToOnboarding(navOptions : NavOptions){
+    fun navigateToOnboarding(navOptions: NavOptions) {
         navController.navigateToOnboarding(navOptions)
     }
 
