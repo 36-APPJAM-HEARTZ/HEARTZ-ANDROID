@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -26,9 +27,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.heartz.app.core.designsystem.ui.theme.Gray40
 import com.heartz.app.core.designsystem.ui.theme.HeartzTheme
-import com.heartz.app.core.designsystem.ui.theme.Pink80
-import com.heartz.app.core.designsystem.ui.theme.Red80
+import com.heartz.app.core.designsystem.ui.theme.Purple60
 import com.heartz.app.core.util.noRippleClickable
 import com.heartz.app.presentation.main.MainNavTab
 import kotlinx.collections.immutable.ImmutableList
@@ -82,7 +84,7 @@ fun RowScope.MainBottomBarItem(
     selected: Boolean,
     onClick: () -> Unit
 ) {
-    val bottomItemColor = if (selected) Red80 else Pink80
+    val bottomItemColor = if (selected) Purple60 else Gray40
     Column(
         modifier =
         modifier
@@ -95,6 +97,11 @@ fun RowScope.MainBottomBarItem(
             imageVector = ImageVector.vectorResource(tab.icon),
             contentDescription = stringResource(tab.contentDescription),
             tint = bottomItemColor
+        )
+        Text(
+            text = stringResource(tab.contentDescription),
+            fontSize = 14.sp,
+            color = bottomItemColor
         )
     }
 }

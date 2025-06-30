@@ -5,14 +5,15 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hasRoute
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.heartz.app.presentation.graph.navigation.navigateToFigure
-import com.heartz.app.presentation.home.navigation.Home
 import com.heartz.app.presentation.home.navigation.navigateToHome
 import com.heartz.app.presentation.mypage.navigation.navigateToMypage
+import com.heartz.app.presentation.onboarding.navigation.navigateToOnboarding
 import com.heartz.app.presentation.quest.navigation.navigateToQuest
+import com.heartz.app.presentation.splash.navigation.Splash
 
 class MainNavigator(
     val navController: NavHostController
@@ -22,7 +23,7 @@ class MainNavigator(
             navController
                 .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Home
+    val startDestination = Splash
 
     val currentTab: MainNavTab?
         @Composable get() =
@@ -45,7 +46,6 @@ class MainNavigator(
         when (tab) {
             MainNavTab.QUEST -> navController.navigateToQuest(navOptions)
             MainNavTab.HOME -> navController.navigateToHome(navOptions)
-            MainNavTab.FIGURE -> navController.navigateToFigure(navOptions)
             MainNavTab.MYPAGE -> navController.navigateToMypage(navOptions)
         }
     }
@@ -55,6 +55,14 @@ class MainNavigator(
         MainNavTab.contains {
             currentDestination?.hasRoute(it::class) == true
         }
+
+    fun navigateToOnboarding(navOptions: NavOptions) {
+        navController.navigateToOnboarding(navOptions)
+    }
+
+    fun navigateToHome(navOptions: NavOptions) {
+        navController.navigateToHome(navOptions)
+    }
 
     fun navigateUp() {
         navController.navigateUp()
