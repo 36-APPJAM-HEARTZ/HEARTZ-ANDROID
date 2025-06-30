@@ -18,7 +18,7 @@ import com.heartz.app.core.designsystem.type.ButtonType
 import com.heartz.app.core.util.noRippleClickable
 
 @Composable
-fun HeartzButton(
+fun ByeBooButton(
     text: String,
     onClick: () -> Unit,
     type: ButtonType = ButtonType.PRIMARY,
@@ -65,13 +65,13 @@ fun HeartzButton(
 
 @Preview
 @Composable
-private fun HeartzButtonPreview() {
+private fun ByeBooButtonPreview() {
     MaterialTheme {
         Column(
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            HeartzButton(
+            ByeBooButton(
                 text = "다음으로",
                 onClick = { }
             )

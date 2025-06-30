@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.heartz.app.core.designsystem.component.button.HeartzButton
+import com.heartz.app.core.designsystem.component.button.ByeBooButton
 
 @Composable
 fun OnboardingScreen(
@@ -31,7 +31,7 @@ fun OnboardingScreen(
     Scaffold(
         containerColor = Color.White,
         bottomBar = {
-            HeartzButton(
+            ByeBooButton(
                 text = "다음으로",
                 onClick = {
                     viewModel.saveNicknameAndNavigate(navigateToHome)
@@ -63,7 +63,9 @@ fun OnboardingScreen(
             ),
             keyboardActions = KeyboardActions(
                 onDone = {
-                    viewModel.saveNicknameAndNavigate(navigateToHome)
+                    if (uiState.nickname.trim().isNotBlank()) {
+                        viewModel.saveNicknameAndNavigate(navigateToHome)
+                    }
                 }
             )
         )
