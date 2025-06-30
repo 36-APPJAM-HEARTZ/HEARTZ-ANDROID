@@ -4,7 +4,6 @@
     <!-- bottom bar-->
     <string name="ic_quest_desc">퀘스트</string>
     <string name="ic_home_desc">홈</string>
-    <string name="ic_figure_desc">그래프</string>
-    <string name="ic_mypage_desc">마이페이지</string>
+    <string name="ic_mypage_desc">내 정보</string>
 
 </resources>

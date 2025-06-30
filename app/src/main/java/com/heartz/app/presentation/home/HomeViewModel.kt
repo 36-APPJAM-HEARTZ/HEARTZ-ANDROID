@@ -12,9 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class HomeViewModel
-@Inject
-constructor(
+class HomeViewModel @Inject constructor(
     private val dummyRepository: DummyRepository
 ) : ViewModel() {
     var uiState = MutableStateFlow(HomeState())

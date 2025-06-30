@@ -1,0 +1,71 @@
+package com.heartz.app.presentation.onboarding
+
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.heartz.app.core.designsystem.component.button.HeartzButton
+
+@Composable
+fun OnboardingScreen(
+    navigateToHome: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: OnboardingViewModel = hiltViewModel()
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    Scaffold(
+        containerColor = Color.White,
+        bottomBar = {
+            HeartzButton(
+                text = "다음으로",
+                onClick = {
+                    viewModel.saveNicknameAndNavigate(navigateToHome)
+                },
+                enabled = uiState.nickname.isNotBlank(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            )
+        },
+        modifier = modifier
+    ) { paddingValues ->
+        OutlinedTextField(
+            value = uiState.nickname,
+            onValueChange = viewModel::updateNickname,
+            placeholder = { Text("닉네임을 입력해주세요") },
+            singleLine = true,
+            textStyle = TextStyle(
+                color = Color.Black,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Normal
+            ),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(paddingValues)
+                .padding(16.dp),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    viewModel.saveNicknameAndNavigate(navigateToHome)
+                }
+            )
+        )
+    }
+}
