@@ -61,7 +61,19 @@ val black = Color(0xFF000000)
 val white = Color(0xFFFFFFFF)
 
 // opacity
-val black50 = Color(0x80000000)
+val black80 = black.copy(alpha = 0.8f)
+val black50 = black.copy(alpha = 0.5f)
+
+val white50 = white.copy(alpha = 0.5f)
+val white10 = white.copy(alpha = 0.1f)
+
+val primary300_20 = primary300.copy(alpha = 0.2f)
+val primary50_50 = primary50.copy(alpha = 0.5f)
+
+val secondary300_30 = secondary300.copy(alpha = 0.3f)
+val secondary300_10 = secondary300.copy(alpha = 0.1f)
+
+val gray900_80 = gray900.copy(alpha = 0.8f)
 
 @Stable
 class ByeBooColors(
@@ -101,7 +113,15 @@ class ByeBooColors(
     gray900: Color,
     black: Color,
     white: Color,
+    black80: Color,
     black50: Color,
+    white50: Color,
+    white10: Color,
+    primary300_20: Color,
+    primary50_50: Color,
+    secondary300_30: Color,
+    secondary300_10: Color,
+    gray900_80: Color,
     isLight: Boolean
 ) {
     var primary50 by mutableStateOf(primary50)
@@ -176,7 +196,23 @@ class ByeBooColors(
         private set
     var white by mutableStateOf(white)
         private set
+    var black80 by mutableStateOf(black80)
+        private set
     var black50 by mutableStateOf(black50)
+        private set
+    var white50 by mutableStateOf(white50)
+        private set
+    var white10 by mutableStateOf(white10)
+        private set
+    var primary300_20 by mutableStateOf(primary300_20)
+        private set
+    var primary50_50 by mutableStateOf(primary50_50)
+        private set
+    var secondary300_30 by mutableStateOf(secondary300_30)
+        private set
+    var secondary300_10 by mutableStateOf(secondary300_10)
+        private set
+    var gray900_80 by mutableStateOf(gray900_80)
         private set
     var isLight by mutableStateOf(isLight)
 
@@ -217,7 +253,15 @@ class ByeBooColors(
         gray900,
         black,
         white,
+        black80,
         black50,
+        white50,
+        white10,
+        primary300_20,
+        primary50_50,
+        secondary300_30,
+        secondary300_10,
+        gray900_80,
         isLight
     )
 
@@ -258,7 +302,15 @@ class ByeBooColors(
         gray900 = colors.gray900
         black = colors.black
         white = colors.white
+        black80 = colors.black80
         black50 = colors.black50
+        white50 = colors.white50
+        white10 = colors.white10
+        primary300_20 = colors.primary300_20
+        primary50_50 = colors.primary50_50
+        secondary300_30 = colors.secondary300_30
+        secondary300_10 = colors.secondary300_10
+        gray900_80 = colors.gray900_80
         isLight = colors.isLight
     }
 }
@@ -300,7 +352,15 @@ fun ByeBooDarkColors(
     Gray900: Color = gray900,
     Black: Color = black,
     White: Color = white,
-    Black50: Color = black50
+    Black80: Color = black80,
+    Black50: Color = black50,
+    White50: Color = white50,
+    White10: Color = white10,
+    Primary300_20: Color = primary300_20,
+    Primary50_50: Color = primary50_50,
+    Secondary300_30: Color = secondary300_30,
+    Secondary300_10: Color = secondary300_10,
+    Gray900_80: Color = gray900_80,
 ) = ByeBooColors(
     Primary50,
     Primary100,
@@ -338,6 +398,14 @@ fun ByeBooDarkColors(
     Gray900,
     Black,
     White,
+    Black80,
     Black50,
+    White50,
+    White10,
+    Primary300_20,
+    Primary50_50,
+    Secondary300_30,
+    Secondary300_10,
+    Gray900_80,
     isLight = true
 )
