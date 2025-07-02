@@ -7,7 +7,6 @@ import com.byeboo.app.R
 
 enum class LargeTagType (
     @StringRes val titleResId: Int,
-    val horizontalPadding: Dp = 17.5.dp,
     val verticalPadding: Dp = 3.dp,
     val roundedCorner: Dp = 12.dp
 ) {

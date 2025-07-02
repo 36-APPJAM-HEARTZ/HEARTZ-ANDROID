@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme.typography
+import com.byeboo.app.core.designsystem.ui.theme.gray50
 
 @Composable
 fun LargeTag(
@@ -28,19 +31,21 @@ fun LargeTag(
 
     Box(
         modifier = modifier
+            .width(85.dp)
             .background(
                 color = backgroundColor,
                 shape = RoundedCornerShape(largeTagType.roundedCorner)
             )
             .padding(
-                horizontal = largeTagType.horizontalPadding,
                 vertical = largeTagType.verticalPadding
-            )
+            ),
+        contentAlignment = Alignment.Center
+
     ) {
         Text(
             text = stringResource(largeTagType.titleResId),
-            color = ByeBooTheme.colors.gray50,
-            style = ByeBooTheme.typography.body4,
+            color = gray50,
+            style = typography.body4,
         )
     }
 }
