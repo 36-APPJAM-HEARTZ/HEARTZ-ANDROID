@@ -27,10 +27,10 @@ fun ByeBooButton(
     onClick: () -> Unit,
     buttonText: String,
     buttonTextColor: Color,
-    buttonHorizontalPadding: Dp,
     modifier: Modifier = Modifier,
     buttonBackgroundColor: Color = Color.Unspecified,
     buttonStrokeColor: Color = Color.Unspecified,
+    buttonHorizontalPadding: Dp = 0.dp,
 ) {
     Row(
         modifier = modifier
