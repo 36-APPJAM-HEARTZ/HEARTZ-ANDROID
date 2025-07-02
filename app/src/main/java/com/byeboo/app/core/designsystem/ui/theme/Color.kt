@@ -360,7 +360,7 @@ fun ByeBooDarkColors(
     Primary50Alpha50: Color = primary50Alpha50,
     Secondary300Alpha30: Color = secondary300Alpha30,
     Secondary300Alpha10: Color = secondary300Alpha10,
-    Gray900Alpha80: Color = gray900Alpha80,
+    Gray900Alpha80: Color = gray900Alpha80
 ) = ByeBooColors(
     Primary50,
     Primary100,
