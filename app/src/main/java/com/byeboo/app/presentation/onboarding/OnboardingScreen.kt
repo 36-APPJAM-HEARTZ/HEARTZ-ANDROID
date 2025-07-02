@@ -18,7 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.byeboo.app.core.designsystem.component.button.ByeBooButton
+import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
+import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
 fun OnboardingScreen(
@@ -31,15 +32,14 @@ fun OnboardingScreen(
     Scaffold(
         containerColor = Color.White,
         bottomBar = {
-            ByeBooButton(
-                text = "다음으로",
+            ByeBooActivationButton(
+                buttonDisableColor = ByeBooTheme.colors.blackAlpha50,
+                buttonText = "다음으로",
+                buttonDisableTextColor = ByeBooTheme.colors.gray400,
                 onClick = {
                     viewModel.saveNicknameAndNavigate(navigateToHome)
                 },
-                enabled = uiState.nickname.isNotBlank(),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+                isEnabled = uiState.nickname.isNotBlank()
             )
         },
         modifier = modifier

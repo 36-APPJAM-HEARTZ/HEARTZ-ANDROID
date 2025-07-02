@@ -4,9 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,8 +20,7 @@ fun ByeBooLine(
 ) {
     Box(
         modifier = modifier
-            .width(312.dp)
-            .height(1.dp)
+            .size(width = 312.dp, height = 1.dp)
             .background(color = whiteAlpha10)
     )
 }
