@@ -1,6 +1,7 @@
 package com.byeboo.app.core.designsystem.component.button
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -37,7 +39,9 @@ fun ByeBooActivationButton(
             .clip(RoundedCornerShape(12.dp))
             .background(color = buttonBackgroundColor)
             .noRippleClickable(onClick = { if (isEnabled) onClick })
-            .padding(vertical = 16.dp)
+            .padding(vertical = 16.dp),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = buttonText,
