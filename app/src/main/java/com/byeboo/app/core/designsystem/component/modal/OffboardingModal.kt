@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -80,10 +81,10 @@ fun OffboardingModal(
 
             ByeBooButton(
                 onClick = onClick,
-                buttonHorizontalPadding = 80.dp,
                 buttonText = "바로가기",
                 buttonTextColor = ByeBooTheme.colors.white,
-                buttonBackgroundColor = ByeBooTheme.colors.primary300
+                buttonBackgroundColor = ByeBooTheme.colors.primary300,
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }
