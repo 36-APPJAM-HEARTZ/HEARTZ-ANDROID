@@ -33,7 +33,7 @@ fun ByeBooButton(
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(buttonBackgroundColor)
+            .background(color = buttonBackgroundColor)
             .border(width = 1.dp, color = buttonStrokeColor, shape = RoundedCornerShape(12.dp))
             .noRippleClickable(onClick = onClick)
             .padding(horizontal = buttonHorizontalPadding, vertical = 16.dp)

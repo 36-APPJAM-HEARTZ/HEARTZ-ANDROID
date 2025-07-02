@@ -35,7 +35,7 @@ fun ByeBooActivationButton(
     Row(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(buttonBackgroundColor)
+            .background(color = buttonBackgroundColor)
             .noRippleClickable(onClick = { if (isEnabled) onClick })
             .padding(vertical = 16.dp)
     ) {
