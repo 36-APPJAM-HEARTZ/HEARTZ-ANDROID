@@ -1,4 +1,4 @@
-package com.byeboo.app.core.designsystem.component.guide
+package com.byeboo.app.core.designsystem.component.modal
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
