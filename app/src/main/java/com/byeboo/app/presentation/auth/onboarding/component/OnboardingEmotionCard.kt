@@ -37,11 +37,9 @@ fun OnboardingEmotionCard(
     val textColor = if (isSelected) ByeBooTheme.colors.primary300 else ByeBooTheme.colors.gray300
     val backgroundColor =
         if (isSelected) {
-            ByeBooTheme.colors.primary300.copy(alpha = 0.1f)
+            ByeBooTheme.colors.primary300Alpha10
         } else {
-            ByeBooTheme.colors.white.copy(
-                alpha = 0.1f
-            )
+            ByeBooTheme.colors.whiteAlpha10
         }
 
     Box(

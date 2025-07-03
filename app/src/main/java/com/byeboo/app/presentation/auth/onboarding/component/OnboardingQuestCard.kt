@@ -38,19 +38,11 @@ fun OnboardingQuestCard(
 ) {
     val borderColor = if (isSelected) ByeBooTheme.colors.primary300 else Color.Transparent
     val textColor = if (isSelected) ByeBooTheme.colors.primary300 else ByeBooTheme.colors.gray300
-    val backgroundColor =
-        if (isSelected) {
-            ByeBooTheme.colors.primary300.copy(alpha = 0.1f)
-        } else {
-            ByeBooTheme.colors.primary300.copy(
-                alpha = 0.1f
-            )
-        }
 
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(12.dp))
-            .background(backgroundColor)
+            .background(ByeBooTheme.colors.whiteAlpha10)
             .border(2.dp, borderColor, RoundedCornerShape(12.dp))
             .noRippleClickable() { onCardClick() }
             .padding(vertical = 24.dp)
@@ -61,7 +53,7 @@ fun OnboardingQuestCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = ColorPainter(ByeBooTheme.colors.white.copy(alpha = 0.1f)),
+                painter = ColorPainter(ByeBooTheme.colors.whiteAlpha10),
                 contentDescription = null,
                 modifier = Modifier
                     .size(56.dp)

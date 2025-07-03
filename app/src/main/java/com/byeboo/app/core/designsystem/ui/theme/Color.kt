@@ -67,6 +67,7 @@ val blackAlpha50 = black.copy(alpha = 0.5f)
 val whiteAlpha50 = white.copy(alpha = 0.5f)
 val whiteAlpha10 = white.copy(alpha = 0.1f)
 
+val primary300Alpha10 = primary300.copy(alpha = 0.1f)
 val primary300Alpha20 = primary300.copy(alpha = 0.2f)
 val primary50Alpha50 = primary50.copy(alpha = 0.5f)
 
@@ -117,6 +118,7 @@ class ByeBooColors(
     blackAlpha50: Color,
     whiteAlpha50: Color,
     whiteAlpha10: Color,
+    primary300Alpha10: Color,
     primary300Alpha20: Color,
     primary50Alpha50: Color,
     secondary300Alpha30: Color,
@@ -204,6 +206,8 @@ class ByeBooColors(
         private set
     var whiteAlpha10 by mutableStateOf(whiteAlpha10)
         private set
+    var primary300Alpha10 by mutableStateOf(primary300Alpha10)
+        private set
     var primary300Alpha20 by mutableStateOf(primary300Alpha20)
         private set
     var primary50Alpha50 by mutableStateOf(primary50Alpha50)
@@ -257,6 +261,7 @@ class ByeBooColors(
         blackAlpha50,
         whiteAlpha50,
         whiteAlpha10,
+        primary300Alpha10,
         primary300Alpha20,
         primary50Alpha50,
         secondary300Alpha30,
@@ -306,6 +311,7 @@ class ByeBooColors(
         blackAlpha50 = colors.blackAlpha50
         whiteAlpha50 = colors.whiteAlpha50
         whiteAlpha10 = colors.whiteAlpha10
+        primary300Alpha10 = colors.primary300Alpha10
         primary300Alpha20 = colors.primary300Alpha20
         primary50Alpha50 = colors.primary50Alpha50
         secondary300Alpha30 = colors.secondary300Alpha30
@@ -356,6 +362,7 @@ fun ByeBooDarkColors(
     BlackAlpha50: Color = blackAlpha50,
     WhiteAlpha50: Color = whiteAlpha50,
     WhiteAlpha10: Color = whiteAlpha10,
+    Primary300Alpha10: Color = primary300Alpha10,
     Primary300Alpha20: Color = primary300Alpha20,
     Primary50Alpha50: Color = primary50Alpha50,
     Secondary300Alpha30: Color = secondary300Alpha30,
@@ -402,6 +409,7 @@ fun ByeBooDarkColors(
     BlackAlpha50,
     WhiteAlpha50,
     WhiteAlpha10,
+    Primary300Alpha10,
     Primary300Alpha20,
     Primary50Alpha50,
     Secondary300Alpha30,
