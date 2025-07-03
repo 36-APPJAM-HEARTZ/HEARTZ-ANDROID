@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -37,7 +36,6 @@ fun InProgressContent(
             color = ByeBooTheme.colors.primary300,
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .padding(8.dp)
         )
     }
 }
@@ -58,7 +56,6 @@ fun AvailableContent(
             color = ByeBooTheme.colors.primary50,
             modifier = Modifier
                 .align(Alignment.TopStart)
-                .padding(8.dp)
         )
     }
 }
@@ -128,9 +125,9 @@ fun LockedContent(
 fun QuestPreview() {
     ByeBooTheme {
         Row {
-            InProgressContent(questNumber = 1, imageResId = R.drawable.ic_launcher_background)
+            InProgressContent(questNumber = 1, imageResId = R.drawable.quest_inprogress)
             Spacer(modifier = Modifier.width(10.dp))
-            AvailableContent(questNumber = 1, imageResId = R.drawable.ic_launcher_background)
+            AvailableContent(questNumber = 1, imageResId = R.drawable.quest_available)
             Spacer(modifier = Modifier.width(10.dp))
             LockedContent(questNumber = 1)
             Spacer(modifier = Modifier.width(10.dp))
