@@ -1,4 +1,4 @@
-package com.byeboo.app.presentation.onboarding
+package com.byeboo.app.presentation.auth.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
