@@ -44,7 +44,7 @@ fun OnboardingQuestCard(
             .clip(RoundedCornerShape(12.dp))
             .background(ByeBooTheme.colors.whiteAlpha10)
             .border(2.dp, borderColor, RoundedCornerShape(12.dp))
-            .noRippleClickable() { onCardClick() }
+            .noRippleClickable(onCardClick)
             .padding(vertical = 24.dp)
     ) {
         Column(

@@ -47,7 +47,7 @@ fun OnboardingEmotionCard(
             .clip(RoundedCornerShape(12.dp))
             .background(backgroundColor)
             .border(2.dp, borderColor, RoundedCornerShape(12.dp))
-            .noRippleClickable() { onCardClick() }
+            .noRippleClickable(onCardClick)
             .padding(vertical = 12.dp)
     ) {
         Column(
@@ -57,7 +57,7 @@ fun OnboardingEmotionCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = ColorPainter(ByeBooTheme.colors.white.copy(alpha = 0.1f)),
+                painter = ColorPainter(ByeBooTheme.colors.whiteAlpha10),
                 contentDescription = null,
                 modifier = Modifier
                     .width(73.dp)

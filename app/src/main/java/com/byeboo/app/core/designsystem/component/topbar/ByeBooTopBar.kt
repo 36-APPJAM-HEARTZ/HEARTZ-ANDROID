@@ -51,7 +51,7 @@ fun ByeBooTopBar(
                     tint = ByeBooTheme.colors.white,
                     modifier = Modifier
                         .size(24.dp)
-                        .noRippleClickable { onNavigateBack() }
+                        .noRippleClickable(onNavigateBack)
                 )
             } else {
                 Spacer(modifier = Modifier.size(24.dp))
@@ -64,7 +64,7 @@ fun ByeBooTopBar(
                     tint = ByeBooTheme.colors.white,
                     modifier = Modifier
                         .size(24.dp)
-                        .noRippleClickable { onCloseClick() }
+                        .noRippleClickable(onCloseClick)
                 )
             } else {
                 Spacer(modifier = Modifier.size(24.dp))

@@ -70,8 +70,8 @@ fun ImprovedQuestPreview() {
             modifier = Modifier.padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            QuestBox(1, QuestState.InProgress, imageResId = R.drawable.ic_launcher_background)
-            QuestBox(2, QuestState.Available, imageResId = R.drawable.ic_launcher_background)
+            QuestBox(1, QuestState.InProgress, imageResId = R.drawable.quest_inprogress)
+            QuestBox(2, QuestState.Available, imageResId = R.drawable.quest_available)
             QuestBox(3, QuestState.TimerLocked("23:59"))
             QuestBox(4, QuestState.Locked)
         }
