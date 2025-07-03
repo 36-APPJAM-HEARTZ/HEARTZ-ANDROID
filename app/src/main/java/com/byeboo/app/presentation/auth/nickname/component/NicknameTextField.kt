@@ -22,8 +22,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,7 +49,7 @@ fun NicknameTextField(
     val borderColor = remember(validationState) {
         when (validationState) {
             ValidationState.Valid -> primary300
-            ValidationState.InValid -> error300
+            ValidationState.Invalid -> error300
             ValidationState.Empty -> whiteAlpha10
         }
     }
@@ -63,7 +64,7 @@ fun NicknameTextField(
                 .border(1.dp, borderColor, shape)
                 .clip(shape)
                 .background(whiteAlpha10)
-                .padding(horizontal = 24.dp, vertical = 17.5.dp)
+                .padding(horizontal = 24.dp, vertical = 18.dp)
         ) {
             BasicTextField(
                 value = value,
@@ -97,9 +98,9 @@ fun NicknameTextField(
                 }
             )
 
-            if (validationState == ValidationState.InValid) {
+            if (validationState == ValidationState.Invalid) {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_error),
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_error),
                     contentDescription = "Invalid",
                     tint = Color.Unspecified,
                     modifier = Modifier.align(Alignment.CenterEnd)
@@ -111,7 +112,7 @@ fun NicknameTextField(
 
         val guideColor = when (validationState) {
             ValidationState.Valid -> primary300
-            ValidationState.InValid -> error300
+            ValidationState.Invalid -> error300
             ValidationState.Empty -> gray400
         }
 
@@ -181,7 +182,7 @@ fun NicknameTextFieldPreview() {
             Spacer(modifier = Modifier.height(16.dp))
             NicknameTextField(
                 value = "하츠핑♡",
-                validationState = ValidationState.InValid,
+                validationState = ValidationState.Invalid,
                 onValueChange = {}
             )
         }
