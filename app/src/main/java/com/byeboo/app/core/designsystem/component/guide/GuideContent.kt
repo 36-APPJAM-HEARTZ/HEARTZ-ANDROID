@@ -54,7 +54,7 @@ fun GuideContent(
         Spacer(modifier = Modifier.height(32.dp))
 
         Image(
-            painter = painterResource(id = R.drawable.bori_quest_start),
+            painter = painterResource(id = R.drawable.bori_clover),
             contentDescription = "이미지",
             modifier = Modifier.size(width = 262.dp, height = 259.dp)
         )
