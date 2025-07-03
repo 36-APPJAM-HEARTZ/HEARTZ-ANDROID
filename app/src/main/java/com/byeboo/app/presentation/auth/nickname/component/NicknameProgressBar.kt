@@ -16,15 +16,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.designsystem.ui.theme.primary300
-import com.byeboo.app.core.designsystem.ui.theme.primary300Alpha20
 
 @Composable
 fun StepProgressBar(
     currentStep: Int,
     modifier: Modifier = Modifier,
-    activeColor: Color = primary300,
-    inactiveColor: Color = primary300Alpha20
+    activeColor: Color = ByeBooTheme.colors.primary300,
+    inactiveColor: Color = ByeBooTheme.colors.primary300Alpha20
 ) {
     Row(
         horizontalArrangement = Arrangement.spacedBy(6.dp),

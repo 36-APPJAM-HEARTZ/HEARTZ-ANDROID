@@ -31,12 +31,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.designsystem.ui.theme.error300
-import com.byeboo.app.core.designsystem.ui.theme.gray300
-import com.byeboo.app.core.designsystem.ui.theme.gray400
-import com.byeboo.app.core.designsystem.ui.theme.primary300
-import com.byeboo.app.core.designsystem.ui.theme.white
-import com.byeboo.app.core.designsystem.ui.theme.whiteAlpha10
 import com.byeboo.app.presentation.auth.nickname.ValidationState
 
 @Composable
@@ -46,12 +40,10 @@ fun NicknameTextField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val borderColor = remember(validationState) {
-        when (validationState) {
-            ValidationState.Valid -> primary300
-            ValidationState.Invalid -> error300
-            ValidationState.Empty -> whiteAlpha10
-        }
+    val borderColor = when (validationState) {
+        ValidationState.Valid -> ByeBooTheme.colors.primary300
+        ValidationState.Invalid -> ByeBooTheme.colors.error300
+        ValidationState.Empty -> ByeBooTheme.colors.whiteAlpha10
     }
 
     val shape = remember { RoundedCornerShape(12.dp) }
@@ -63,15 +55,15 @@ fun NicknameTextField(
                 .fillMaxWidth()
                 .border(1.dp, borderColor, shape)
                 .clip(shape)
-                .background(whiteAlpha10)
+                .background(ByeBooTheme.colors.whiteAlpha10)
                 .padding(horizontal = 24.dp, vertical = 18.dp)
         ) {
             BasicTextField(
                 value = value,
                 onValueChange = onValueChange,
-                textStyle = ByeBooTheme.typography.body3.copy(color = white),
+                textStyle = ByeBooTheme.typography.body3.copy(color = ByeBooTheme.colors.white),
                 singleLine = true,
-                cursorBrush = SolidColor(white),
+                cursorBrush = SolidColor(ByeBooTheme.colors.white),
                 visualTransformation = VisualTransformation.None,
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(
@@ -90,7 +82,7 @@ fun NicknameTextField(
                             Text(
                                 text = "닉네임을 입력해주세요",
                                 style = ByeBooTheme.typography.body3,
-                                color = gray300
+                                color = ByeBooTheme.colors.gray300
                             )
                         }
                         innerTextField()
@@ -111,9 +103,9 @@ fun NicknameTextField(
         Spacer(modifier = Modifier.height(16.dp))
 
         val guideColor = when (validationState) {
-            ValidationState.Valid -> primary300
-            ValidationState.Invalid -> error300
-            ValidationState.Empty -> gray400
+            ValidationState.Valid -> ByeBooTheme.colors.primary300
+            ValidationState.Invalid -> ByeBooTheme.colors.error300
+            ValidationState.Empty -> ByeBooTheme.colors.gray400
         }
 
         if (validationState == ValidationState.Valid) {
@@ -130,7 +122,7 @@ fun NicknameTextField(
                 Text(
                     text = "${value.length}/5",
                     style = ByeBooTheme.typography.cap2,
-                    color = gray400
+                    color = ByeBooTheme.colors.gray400
                 )
             }
         } else {

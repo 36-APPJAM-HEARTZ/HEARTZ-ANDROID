@@ -22,8 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.designsystem.ui.theme.black
-import com.byeboo.app.core.designsystem.ui.theme.white
 import com.byeboo.app.core.util.noRippleClickable
 
 @Composable
@@ -37,7 +35,7 @@ fun ByeBooTopBar(
         modifier = modifier
             .fillMaxWidth()
             .height(56.dp)
-            .background(black)
+            .background(ByeBooTheme.colors.black)
     ) {
         Row(
             modifier = Modifier
@@ -50,7 +48,7 @@ fun ByeBooTopBar(
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
                     contentDescription = "뒤로가기",
-                    tint = white,
+                    tint = ByeBooTheme.colors.white,
                     modifier = Modifier
                         .size(24.dp)
                         .noRippleClickable { onNavigateBack() }
@@ -63,7 +61,7 @@ fun ByeBooTopBar(
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
                     contentDescription = "닫기",
-                    tint = white,
+                    tint = ByeBooTheme.colors.white,
                     modifier = Modifier
                         .size(24.dp)
                         .noRippleClickable { onCloseClick() }
@@ -77,7 +75,7 @@ fun ByeBooTopBar(
             Text(
                 text = it,
                 style = ByeBooTheme.typography.sub1,
-                color = white,
+                color = ByeBooTheme.colors.white,
                 modifier = Modifier.align(Alignment.Center),
                 textAlign = TextAlign.Center
             )

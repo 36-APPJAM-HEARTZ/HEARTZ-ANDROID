@@ -23,9 +23,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.designsystem.ui.theme.gray300
-import com.byeboo.app.core.designsystem.ui.theme.primary300
-import com.byeboo.app.core.designsystem.ui.theme.white
 import com.byeboo.app.core.util.noRippleClickable
 
 @Composable
@@ -36,10 +33,16 @@ fun OnboardingEmotionCard(
     onCardClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val borderColor = if (isSelected) primary300 else Color.Transparent
-    val textColor = if (isSelected) primary300 else gray300
+    val borderColor = if (isSelected) ByeBooTheme.colors.primary300 else Color.Transparent
+    val textColor = if (isSelected) ByeBooTheme.colors.primary300 else ByeBooTheme.colors.gray300
     val backgroundColor =
-        if (isSelected) primary300.copy(alpha = 0.1f) else white.copy(alpha = 0.1f)
+        if (isSelected) {
+            ByeBooTheme.colors.primary300.copy(alpha = 0.1f)
+        } else {
+            ByeBooTheme.colors.white.copy(
+                alpha = 0.1f
+            )
+        }
 
     Box(
         modifier = modifier
@@ -56,7 +59,7 @@ fun OnboardingEmotionCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
-                painter = ColorPainter(white.copy(alpha = 0.1f)),
+                painter = ColorPainter(ByeBooTheme.colors.white.copy(alpha = 0.1f)),
                 contentDescription = null,
                 modifier = Modifier
                     .width(73.dp)

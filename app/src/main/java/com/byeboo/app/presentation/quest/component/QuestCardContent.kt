@@ -20,11 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.designsystem.ui.theme.primary300
-import com.byeboo.app.core.designsystem.ui.theme.primary300Alpha20
-import com.byeboo.app.core.designsystem.ui.theme.primary50
-import com.byeboo.app.core.designsystem.ui.theme.secondary300
-import com.byeboo.app.core.designsystem.ui.theme.whiteAlpha10
 
 @Composable
 fun InProgressContent(
@@ -34,12 +29,12 @@ fun InProgressContent(
 ) {
     QuestCardContainer(
         modifier = modifier,
-        backgroundColor = primary300Alpha20
+        backgroundColor = ByeBooTheme.colors.primary300Alpha20
     ) {
         BackgroundImageLayer(imageResId)
         QuestNumberLabel(
             questNumber = questNumber,
-            color = primary300,
+            color = ByeBooTheme.colors.primary300,
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(8.dp)
@@ -55,12 +50,12 @@ fun AvailableContent(
 ) {
     QuestCardContainer(
         modifier = modifier,
-        backgroundColor = primary300
+        backgroundColor = ByeBooTheme.colors.primary300
     ) {
         BackgroundImageLayer(imageResId)
         QuestNumberLabel(
             questNumber = questNumber,
-            color = primary50,
+            color = ByeBooTheme.colors.primary50,
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(8.dp)
@@ -76,8 +71,8 @@ fun TimerLockedContent(
 ) {
     QuestCardContainer(
         modifier = modifier,
-        backgroundColor = whiteAlpha10,
-        borderColor = secondary300
+        backgroundColor = ByeBooTheme.colors.whiteAlpha10,
+        borderColor = ByeBooTheme.colors.secondary300
     ) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -86,7 +81,7 @@ fun TimerLockedContent(
             Text(
                 text = String.format("%02d", questNumber),
                 style = ByeBooTheme.typography.cap1,
-                color = secondary300,
+                color = ByeBooTheme.colors.secondary300,
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Start
             )
@@ -94,14 +89,14 @@ fun TimerLockedContent(
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_lock),
                 contentDescription = "locked",
-                tint = whiteAlpha10,
+                tint = ByeBooTheme.colors.whiteAlpha10,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
 
             Text(
                 text = remainingTime,
                 style = ByeBooTheme.typography.cap1,
-                color = secondary300,
+                color = ByeBooTheme.colors.secondary300,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -116,13 +111,13 @@ fun LockedContent(
 ) {
     QuestCardContainer(
         modifier = modifier,
-        backgroundColor = whiteAlpha10
+        backgroundColor = ByeBooTheme.colors.whiteAlpha10
     ) {
-        QuestNumberLabel(questNumber, whiteAlpha10)
+        QuestNumberLabel(questNumber, ByeBooTheme.colors.whiteAlpha10)
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_lock),
             contentDescription = "locked",
-            tint = whiteAlpha10,
+            tint = ByeBooTheme.colors.whiteAlpha10,
             modifier = Modifier.align(Alignment.Center)
         )
     }
