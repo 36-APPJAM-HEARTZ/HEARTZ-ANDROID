@@ -16,9 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.tag.LargeTag
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.designsystem.ui.theme.primary300
 import com.byeboo.app.core.designsystem.ui.theme.white
-import com.byeboo.app.core.designsystem.ui.theme.whiteAlpha10
 import com.byeboo.app.core.util.noRippleClickable
 
 
@@ -26,16 +24,16 @@ import com.byeboo.app.core.util.noRippleClickable
 fun EmotionChip(
     emotionType: LargeTagType,
     isSelected: Boolean = false,
-    onChipClick: (() -> Unit)? = null
+    onChipClick: ((LargeTagType) -> Unit)? = null
 ) {
 
-    val backgroundColor = if (isSelected) primary300 else whiteAlpha10
+    val backgroundColor = if (isSelected) ByeBooTheme.colors.primary300 else ByeBooTheme.colors.whiteAlpha10
 
     Column(
         modifier = Modifier
             .then(
                 if (onChipClick != null) {
-                    Modifier.noRippleClickable(onChipClick) // 칩 클릭 이 필 수가 아니럐ㄸ
+                    Modifier.noRippleClickable(onClick = {onChipClick(emotionType)})
                 } else {
                     Modifier
                 }
