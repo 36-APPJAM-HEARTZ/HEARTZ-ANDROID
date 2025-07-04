@@ -17,7 +17,7 @@ import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
-fun QuestTitle(
+fun QuestJourneyTitle(
     dayCount: Int,
     nickname: String,
     journeyTitle: JourneyType
@@ -62,11 +62,11 @@ fun QuestTitle(
 
 @Preview
 @Composable
-private fun QuestTitlePreview() {
+private fun QuestJourneyTitlePreview() {
 
     ByeBooTheme {
 
-        QuestTitle(dayCount = 10, nickname = "하츠핑", journeyTitle = JourneyType.EMOTION_FACING)
+        QuestJourneyTitle(dayCount = 10, nickname = "하츠핑", journeyTitle = JourneyType.EMOTION_FACING)
 
     }
 
