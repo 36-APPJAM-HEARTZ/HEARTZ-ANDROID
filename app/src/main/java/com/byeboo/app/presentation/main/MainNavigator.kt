@@ -9,9 +9,9 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.byeboo.app.presentation.auth.onboarding.navigation.navigateToOnboarding
 import com.byeboo.app.presentation.home.navigation.navigateToHome
 import com.byeboo.app.presentation.mypage.navigation.navigateToMypage
-import com.byeboo.app.presentation.onboarding.navigation.navigateToOnboarding
 import com.byeboo.app.presentation.quest.navigation.navigateToQuest
 import com.byeboo.app.presentation.splash.navigation.Splash
 
