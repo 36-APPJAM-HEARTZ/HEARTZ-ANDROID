@@ -1,4 +1,4 @@
-package com.byeboo.app.core.designsystem.component.button
+package com.byeboo.app.presentation.offbording.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

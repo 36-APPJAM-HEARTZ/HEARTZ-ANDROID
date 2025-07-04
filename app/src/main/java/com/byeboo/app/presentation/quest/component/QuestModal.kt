@@ -1,4 +1,4 @@
-package com.byeboo.app.core.designsystem.component.modal
+package com.byeboo.app.presentation.quest.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -6,9 +6,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -17,7 +17,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
@@ -25,10 +29,10 @@ import com.byeboo.app.core.designsystem.component.button.ByeBooButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
-fun OffboardingModal(
+fun QuestModal(
+    questNumber: String,
+    questQuestion: String,
     onClick: () -> Unit,
-    titleText: String,
-    guideText: String,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -36,15 +40,25 @@ fun OffboardingModal(
             .width(264.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(color = ByeBooTheme.colors.gray900Alpha80)
-            .padding(24.dp)
+            .padding(24.dp),
     ) {
         Column(
             modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Image(
+                painter = painterResource(id = R.drawable.bori_quest_banner),
+                contentDescription = "이미지",
+                Modifier
+                    .fillMaxWidth()
+                    .height(58.dp)
+            )
+
+            Spacer(modifier = Modifier.height((17.5).dp))
+
             Text(
-                text = "축하드려요!",
+                text = questNumber,
                 style = ByeBooTheme.typography.body2,
                 color = ByeBooTheme.colors.gray400
             )
@@ -52,7 +66,7 @@ fun OffboardingModal(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = titleText,
+                text = questQuestion,
                 style = ByeBooTheme.typography.sub2,
                 color = ByeBooTheme.colors.gray50,
                 textAlign = TextAlign.Center
@@ -60,26 +74,21 @@ fun OffboardingModal(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Image(
-                painter = painterResource(id = R.drawable.bori_clover),
-                contentDescription = "이미지",
-                modifier = Modifier.size(160.dp)
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
             Text(
-                text = guideText,
-                style = ByeBooTheme.typography.body2,
-                color = ByeBooTheme.colors.gray400,
-                textAlign = TextAlign.Center
+                text = buildAnnotatedString {
+                    withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline)) {
+                        append(text = "작성 TIP")
+                    }
+                },
+                style = ByeBooTheme.typography.body4,
+                color = ByeBooTheme.colors.gray300
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height((17.5).dp))
 
             ByeBooButton(
                 onClick = onClick,
-                buttonText = "바로가기",
+                buttonText = "진행하기",
                 buttonTextColor = ByeBooTheme.colors.white,
                 buttonBackgroundColor = ByeBooTheme.colors.primary300,
             )
@@ -89,12 +98,12 @@ fun OffboardingModal(
 
 @Preview(showBackground = true)
 @Composable
-fun OffboardingModalPreview() {
+fun QuestModalPreview() {
     ByeBooTheme {
-        OffboardingModal(
-            onClick = {},
-            titleText = "감정 직면 여정을\n모두 마무리 했어요",
-            guideText = "보리가 하츠핑님께\n하고싶은 말이 있다고 해요"
+        QuestModal(
+            questNumber = "열 번째 퀘스트",
+            questQuestion = "연애에서 반복됐던 문제 패턴\n3가지를 생각해보아요.",
+            onClick = {}
         )
     }
 }

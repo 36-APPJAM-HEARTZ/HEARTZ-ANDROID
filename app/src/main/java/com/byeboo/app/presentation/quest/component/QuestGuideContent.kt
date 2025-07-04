@@ -1,4 +1,4 @@
-package com.byeboo.app.core.designsystem.component.guide
+package com.byeboo.app.presentation.quest.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
