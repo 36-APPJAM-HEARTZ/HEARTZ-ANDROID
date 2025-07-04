@@ -36,6 +36,7 @@ fun ByeBooActivationButton(
 
     Row(
         modifier = modifier
+            .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(color = buttonBackgroundColor)
             .noRippleClickable(onClick = { if (isEnabled) onClick })
@@ -56,7 +57,9 @@ fun ByeBooActivationButton(
 fun ByeBooActivationButtonPreview() {
     ByeBooTheme {
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = (25.5).dp)
         ) {
             ByeBooActivationButton(
                 buttonDisableColor = ByeBooTheme.colors.blackAlpha50,
