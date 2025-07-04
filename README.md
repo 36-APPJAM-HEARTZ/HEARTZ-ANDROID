@@ -68,7 +68,7 @@ ByeBoo의 메인 캐릭터인 '보리'를 만나볼 수 있으며<br/>
 ## **🎁 Convention**
 
 🎉 [그라운드룰](https://lively-mars-3b7.notion.site/225ab823e68d8012a77df3bb361c33a7?source=copy_link)<br/>
-💫 [Git Convention](https://lively-mars-3b7.notion.site/Git-Convention-216ab823e68d80f88991f7d974e17541?source=copy_link)<br/>
+💫 [Git & Branch Convention](https://lively-mars-3b7.notion.site/Git-Convention-216ab823e68d80f88991f7d974e17541?source=copy_link)<br/>
 ✍️ [Issue & PR Convention](https://lively-mars-3b7.notion.site/Issue-PR-Convention-216ab823e68d803ba888cf3702831e2f?source=copy_link)<br/>
 📂 [Packaging Convention](https://lively-mars-3b7.notion.site/Package-Convention-216ab823e68d80e68b7efed278181350?source=copy_link)<br/>
 
