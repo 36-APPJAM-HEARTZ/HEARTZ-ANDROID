@@ -30,8 +30,7 @@ fun ByeBooActivationButton(
     isEnabled: Boolean = false
 ) {
     val buttonBackgroundColor = if (isEnabled) ByeBooTheme.colors.primary300 else buttonDisableColor
-    val buttonTextStyle =
-        if (isEnabled) ByeBooTheme.typography.body1 else ByeBooTheme.typography.body2
+    val buttonTextStyle = if (isEnabled) ByeBooTheme.typography.body1 else ByeBooTheme.typography.body2
     val buttonTextColor = if (isEnabled) ByeBooTheme.colors.white else buttonDisableTextColor
 
     Row(
