@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.chip.EmotionChip
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.designsystem.ui.theme.whiteAlpha10
 
 @Composable
 fun EmotionDescriptionCard(
@@ -29,7 +28,7 @@ fun EmotionDescriptionCard(
             .width(312.dp)
             .height(152.dp)
             .background(
-                color = whiteAlpha10,
+                color = ByeBooTheme.colors.whiteAlpha10,
                 shape = RoundedCornerShape(12.dp)
             )
     ) {

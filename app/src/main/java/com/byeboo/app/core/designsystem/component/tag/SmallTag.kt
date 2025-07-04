@@ -7,20 +7,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme.typography
-import com.byeboo.app.core.designsystem.ui.theme.gray300
-import com.byeboo.app.core.designsystem.ui.theme.secondary300
 
 @Composable
 fun SmallTag(
     modifier: Modifier = Modifier,
     tagText: String = "",
-    tagColor: Color = secondary300
+    tagColor: Color = ByeBooTheme.colors.secondary300
 
 ) {
     Text(
         text = tagText,
-        style = typography.cap1.copy(color = tagColor),
+        style = ByeBooTheme.typography.cap1.copy(color = tagColor),
         modifier = modifier
     )
 
@@ -40,7 +37,7 @@ private fun SmallTagPreview() {
             SmallTag(
                 modifier = Modifier,
                 tagText = "STEP 1",
-                tagColor = gray300
+                tagColor = ByeBooTheme.colors.gray300
             )
 
         }

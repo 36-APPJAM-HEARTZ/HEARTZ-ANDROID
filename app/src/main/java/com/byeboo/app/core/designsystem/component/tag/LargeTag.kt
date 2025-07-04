@@ -14,13 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme.typography
-import com.byeboo.app.core.designsystem.ui.theme.gray50
+
 
 @Composable
 fun LargeTag(
@@ -44,8 +42,8 @@ fun LargeTag(
     ) {
         Text(
             text = stringResource(largeTagType.titleResId),
-            color = gray50,
-            style = typography.body4,
+            color = ByeBooTheme.colors.gray50,
+            style = ByeBooTheme.typography.body4,
         )
     }
 }

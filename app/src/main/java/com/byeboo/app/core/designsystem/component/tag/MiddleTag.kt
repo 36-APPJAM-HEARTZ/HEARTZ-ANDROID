@@ -18,13 +18,6 @@ import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.type.TagColorType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme.typography
-import com.byeboo.app.core.designsystem.ui.theme.gray300
-import com.byeboo.app.core.designsystem.ui.theme.primary300
-import com.byeboo.app.core.designsystem.ui.theme.primary50
-import com.byeboo.app.core.designsystem.ui.theme.secondary300
-import com.byeboo.app.core.designsystem.ui.theme.secondary300Alpha30
-import com.byeboo.app.core.designsystem.ui.theme.whiteAlpha10
 
 @Composable
 fun MiddleTag(
@@ -51,7 +44,7 @@ fun MiddleTag(
         Text(
             text = tagText,
             color = middleTagColor(middleTagType.textColor),
-            style = typography.cap1
+            style = ByeBooTheme.typography.cap1
         )
     }
 }
@@ -59,12 +52,12 @@ fun MiddleTag(
 @Composable
 fun middleTagColor(colorType: TagColorType): Color {
     return when (colorType) {
-        TagColorType.WHITE_ALPHA_10 -> whiteAlpha10
-        TagColorType.SECONDARY_ALPHA_30 -> secondary300Alpha30
-        TagColorType.GRAY_300 -> gray300
-        TagColorType.SECONDARY_300 -> secondary300
-        TagColorType.PRIMARY_50 -> primary50
-        TagColorType.PRIMARY_300 -> primary300
+        TagColorType.WHITE_ALPHA_10 -> ByeBooTheme.colors.whiteAlpha10
+        TagColorType.SECONDARY_ALPHA_30 -> ByeBooTheme.colors.secondary300Alpha30
+        TagColorType.GRAY_300 -> ByeBooTheme.colors.gray300
+        TagColorType.SECONDARY_300 -> ByeBooTheme.colors.secondary300
+        TagColorType.PRIMARY_50 -> ByeBooTheme.colors.primary50
+        TagColorType.PRIMARY_300 -> ByeBooTheme.colors.primary300
     }
 }
 
