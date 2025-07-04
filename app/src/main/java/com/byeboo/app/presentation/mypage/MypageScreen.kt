@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +17,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.byeboo.app.core.designsystem.component.button.ByeBooButton
+import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
+import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
 fun MypageScreen(
@@ -44,15 +43,14 @@ fun MypageScreen(
 
         Spacer(modifier = Modifier.height(40.dp))
 
-        ByeBooButton(
-            text = "테스트",
+        ByeBooActivationButton(
+            buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
+            buttonText = "테스트",
             onClick = {
                 viewModel.logout()
             },
-            enabled = true,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
+            buttonDisableTextColor = ByeBooTheme.colors.gray300,
+            isEnabled = true
         )
     }
 }
