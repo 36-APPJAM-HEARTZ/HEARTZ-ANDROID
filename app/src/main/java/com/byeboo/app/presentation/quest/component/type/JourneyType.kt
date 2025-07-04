@@ -1,4 +1,4 @@
-package com.byeboo.app.presentation.quest
+package com.byeboo.app.presentation.quest.component.type
 
 enum class JourneyType(
     val title: String

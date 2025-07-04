@@ -1,4 +1,4 @@
-package com.byeboo.app.presentation.quest
+package com.byeboo.app.presentation.quest.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

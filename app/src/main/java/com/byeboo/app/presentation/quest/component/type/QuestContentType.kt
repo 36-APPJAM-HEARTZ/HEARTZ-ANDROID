@@ -1,9 +1,7 @@
-package com.byeboo.app.presentation.quest
-
+package com.byeboo.app.presentation.quest.component.type
 
 import androidx.annotation.DrawableRes
 import com.byeboo.app.R
-
 
 enum class QuestContentType(@DrawableRes val iconResId: Int) {
     THINKING(R.drawable.ic_think),

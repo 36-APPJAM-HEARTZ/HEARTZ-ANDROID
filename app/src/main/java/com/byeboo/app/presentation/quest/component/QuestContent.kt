@@ -1,4 +1,4 @@
-package com.byeboo.app.presentation.quest
+package com.byeboo.app.presentation.quest.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.contenttext.ContentText
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.presentation.quest.component.type.QuestContentType
 
 @Composable
 fun QuestContent(

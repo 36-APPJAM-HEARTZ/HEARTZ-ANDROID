@@ -1,4 +1,4 @@
-package com.byeboo.app.presentation.quest
+package com.byeboo.app.presentation.quest.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.presentation.quest.component.type.JourneyType
 
 @Composable
 fun QuestJourneyTitle(
