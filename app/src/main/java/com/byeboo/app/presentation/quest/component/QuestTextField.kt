@@ -141,7 +141,7 @@ fun ByeBooQuestTextFieldPreview() {
 
             QuestTextField(
                 questWritingState = QuestWritingState.Writing,
-                value = "안녕하세요. \n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.",
+                value = "안녕하세요. 하츠핑입니다.",
                 onValueChange = {},
                 placeholder = "내용을 입력해주세요."
             )
