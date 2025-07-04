@@ -55,6 +55,8 @@ kakao = "2.21.4"
 #Third Party
 ksp = "2.0.21-1.0.25"
 
+#BottomSheet
+advancedBottomSheet = "0.1.0"
 
 
 ktlint = "11.6.1"
@@ -119,6 +121,9 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 
 # Kakao
 kakao-v2-user = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
+
+#BottomSheet
+advanced-bottom-sheet = { group = "io.morfly.compose", name = "advanced-bottomsheet-material3", version.ref = "advancedBottomSheet" }
 
 [bundles]
 androidx = [

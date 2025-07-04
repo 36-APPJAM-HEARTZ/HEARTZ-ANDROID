@@ -100,6 +100,9 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     debugImplementation(libs.androidx.ui.tooling)
+
+    // BottomSheet
+    implementation(libs.advanced.bottom.sheet)
 }
 
 ktlint {
