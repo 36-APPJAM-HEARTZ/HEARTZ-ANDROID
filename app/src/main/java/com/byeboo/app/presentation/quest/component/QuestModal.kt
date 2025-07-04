@@ -98,7 +98,7 @@ fun QuestModal(
 
 @Preview(showBackground = true)
 @Composable
-fun QuestModalPreview() {
+private fun QuestModalPreview() {
     ByeBooTheme {
         QuestModal(
             questNumber = "열 번째 퀘스트",

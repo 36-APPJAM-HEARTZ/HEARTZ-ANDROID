@@ -78,7 +78,7 @@ fun GuideContent(
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun GuideContentPreview() {
+private fun GuideContentPreview() {
     ByeBooTheme {
         GuideContent(
             userName = "하츠핑",

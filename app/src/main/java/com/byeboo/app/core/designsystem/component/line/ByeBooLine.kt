@@ -27,7 +27,7 @@ fun ByeBooLine(
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun ByeBooLinePreview() {
+private fun ByeBooLinePreview() {
     ByeBooTheme {
         Column(
             modifier = Modifier.fillMaxWidth()

@@ -124,7 +124,7 @@ fun QuestTextField(
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun ByeBooQuestTextFieldPreview() {
+private fun ByeBooQuestTextFieldPreview() {
     ByeBooTheme {
         Column(
             modifier = Modifier

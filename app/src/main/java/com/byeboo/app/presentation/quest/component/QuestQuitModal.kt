@@ -25,7 +25,7 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.designsystem.ui.theme.gray900Alpha80
 
 @Composable
-fun QuitModal(
+fun QuestQuitModal(
     stayButton: () -> Unit,
     quitButton: () -> Unit,
     modifier: Modifier = Modifier
@@ -88,12 +88,12 @@ fun QuitModal(
 
 @Preview(showBackground = true)
 @Composable
-fun QuitModalPreview() {
+private fun QuestQuitModalPreview() {
     ByeBooTheme {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            QuitModal(
+            QuestQuitModal(
                 stayButton = {},
                 quitButton = {}
             )

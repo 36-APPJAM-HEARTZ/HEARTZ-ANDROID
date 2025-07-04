@@ -85,7 +85,7 @@ fun ByeBooTopBar(
 
 @Composable
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
-fun PreviewByeBooTopBarNoTitle() {
+private fun PreviewByeBooTopBarNoTitle() {
     ByeBooTheme {
         ByeBooTopBar(
             title = "제목을 입력해주세요",
