@@ -22,7 +22,7 @@ fun QuestStepTitle(
         verticalAlignment = Alignment.CenterVertically
     ) {
         SmallTag(
-            tagText = "STEP${stepNumber}"
+            tagText = "STEP ${stepNumber}"
         )
 
         Spacer(modifier = Modifier.width(8.dp))
