@@ -81,7 +81,7 @@ fun OffboardingModal(
                 onClick = onClick,
                 buttonText = "바로가기",
                 buttonTextColor = ByeBooTheme.colors.white,
-                buttonBackgroundColor = ByeBooTheme.colors.primary300,
+                buttonBackgroundColor = ByeBooTheme.colors.primary300
             )
         }
     }

@@ -29,7 +29,7 @@ fun ByeBooButton(
     buttonTextColor: Color,
     modifier: Modifier = Modifier,
     buttonBackgroundColor: Color = Color.Unspecified,
-    buttonStrokeColor: Color = Color.Unspecified,
+    buttonStrokeColor: Color = Color.Unspecified
 ) {
     Row(
         modifier = modifier

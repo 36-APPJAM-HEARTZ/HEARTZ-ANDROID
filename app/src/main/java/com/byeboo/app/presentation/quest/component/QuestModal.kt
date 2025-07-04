@@ -40,7 +40,7 @@ fun QuestModal(
             .width(264.dp)
             .clip(RoundedCornerShape(12.dp))
             .background(color = ByeBooTheme.colors.gray900Alpha80)
-            .padding(24.dp),
+            .padding(24.dp)
     ) {
         Column(
             modifier = Modifier,
@@ -90,7 +90,7 @@ fun QuestModal(
                 onClick = onClick,
                 buttonText = "진행하기",
                 buttonTextColor = ByeBooTheme.colors.white,
-                buttonBackgroundColor = ByeBooTheme.colors.primary300,
+                buttonBackgroundColor = ByeBooTheme.colors.primary300
             )
         }
     }

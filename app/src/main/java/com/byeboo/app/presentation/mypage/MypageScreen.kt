@@ -50,7 +50,7 @@ fun MypageScreen(
                 viewModel.logout()
             },
             buttonDisableTextColor = ByeBooTheme.colors.gray300,
-            isEnabled = true,
+            isEnabled = true
         )
     }
 }
