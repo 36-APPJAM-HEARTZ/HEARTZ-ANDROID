@@ -1,4 +1,4 @@
-package com.byeboo.app.presentation.quest
+package com.byeboo.app.presentation.quest.component.bottomsheet
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

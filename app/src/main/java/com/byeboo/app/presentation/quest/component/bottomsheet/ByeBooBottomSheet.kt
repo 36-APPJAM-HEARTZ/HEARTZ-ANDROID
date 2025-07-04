@@ -1,4 +1,4 @@
-package com.byeboo.app.presentation.quest
+package com.byeboo.app.presentation.quest.component.bottomsheet
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -87,7 +87,7 @@ fun ByeBooBottomSheet(
             )
 
             Spacer(modifier = Modifier.height(37.dp))
-            
+
             ByeBooActivationButton(
                 buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
                 buttonText =  buttonText,
