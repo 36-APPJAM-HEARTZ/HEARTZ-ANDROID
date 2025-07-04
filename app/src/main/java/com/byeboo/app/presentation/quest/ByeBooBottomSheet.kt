@@ -26,6 +26,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
 import com.byeboo.app.core.designsystem.component.chip.EmotionChip
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
@@ -59,6 +60,7 @@ fun ByeBooBottomSheet(
 
         var selectedEmotion by remember { mutableStateOf<LargeTagType?>(null) }
 
+        var buttonText = if (isSelected) "선택 완료" else "완료"
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -85,9 +87,14 @@ fun ByeBooBottomSheet(
             )
 
             Spacer(modifier = Modifier.height(37.dp))
-
-            //Todo : Button 추가
-
+            
+            ByeBooActivationButton(
+                buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
+                buttonText =  buttonText,
+                buttonDisableTextColor = ByeBooTheme.colors.gray300,
+                onClick = {},
+                isEnabled = isSelected
+            )
         }
     }
 }
@@ -152,7 +159,7 @@ fun ByeBooBottomSheetPreview() {
             onDismiss = {},
             sheetState = previewSheetState,
             dragHandle = { ByeBooDragHandle() },
-            isSelected = true,
+            isSelected = false,
 
         )
     }
