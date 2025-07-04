@@ -37,7 +37,7 @@ fun QuestTextField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
     placeholder: String = "",
-    isQuestion: Boolean = true,
+    isQuestion: Boolean = true
 ) {
     val currentCharCount = value.length
     val maxCharCount = if (isQuestion) 500 else 200
@@ -134,7 +134,7 @@ fun ByeBooQuestTextFieldPreview() {
                 questWritingState = QuestWritingState.BeforeWriting,
                 value = "",
                 onValueChange = {},
-                placeholder = "내용을 입력해주세요.",
+                placeholder = "내용을 입력해주세요."
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -143,7 +143,7 @@ fun ByeBooQuestTextFieldPreview() {
                 questWritingState = QuestWritingState.Writing,
                 value = "안녕하세요. \n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.\n하츠핑입니다.",
                 onValueChange = {},
-                placeholder = "내용을 입력해주세요.",
+                placeholder = "내용을 입력해주세요."
             )
 
             Spacer(modifier = Modifier.height(10.dp))
