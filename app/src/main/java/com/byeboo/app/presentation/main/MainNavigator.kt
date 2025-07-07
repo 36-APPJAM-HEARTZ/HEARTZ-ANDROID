@@ -65,7 +65,7 @@ class MainNavigator(
     }
 
     fun navigateToQuestComplete(navOptions: NavOptions) {
-        navController.navigateTOQ
+        //Todo: QuestComplete Screen 연결
     }
 
     fun navigateUp() {
