@@ -54,9 +54,11 @@ fun ByeBooButton(
 @Composable
 private fun ByeBooButtonPreview2() {
     ByeBooTheme {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp)) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp)
+        ) {
             ByeBooButton(
                 onClick = {},
                 buttonText = "버튼",
