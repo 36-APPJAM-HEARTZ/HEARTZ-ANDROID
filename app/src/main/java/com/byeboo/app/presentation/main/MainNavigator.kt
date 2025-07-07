@@ -64,6 +64,10 @@ class MainNavigator(
         navController.navigateToHome(navOptions)
     }
 
+    fun navigateToQuestComplete(navOptions: NavOptions) {
+        navController.navigateTOQ
+    }
+
     fun navigateUp() {
         navController.navigateUp()
     }

@@ -9,6 +9,7 @@ import androidx.navigation.navOptions
 import com.byeboo.app.presentation.auth.onboarding.navigation.onboardingGraph
 import com.byeboo.app.presentation.home.navigation.homeGraph
 import com.byeboo.app.presentation.mypage.navigation.mypageGraph
+import com.byeboo.app.presentation.quest.behavior.navigation.questBehaviorWritingGraph
 import com.byeboo.app.presentation.quest.navigation.questGraph
 import com.byeboo.app.presentation.splash.navigation.splashGraph
 
@@ -41,6 +42,11 @@ fun MainNavHost(
         onboardingGraph(
             navigateToHome = {
                 navigator.navigateToHome(clearStackNavOptions)
+            }
+        )
+        questBehaviorWritingGraph(
+            navigateToQuestComplete = {
+                navigator.navigateToQuestComplete(clearStackNavOptions)
             }
         )
         homeGraph()
