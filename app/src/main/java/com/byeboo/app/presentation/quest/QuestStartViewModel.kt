@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest
 
+import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -7,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class QuestStartViewModel @Inject constructor() {
-    private val _uiState = MutableStateFlow(QuestStartState())
-    val uiState: StateFlow<QuestStartState> = _uiState.asStateFlow()
+class QuestStartViewModel @Inject constructor() : ViewModel() {
+    private val _state = MutableStateFlow(QuestStartState())
+    val state: StateFlow<QuestStartState> = _state.asStateFlow()
 }
