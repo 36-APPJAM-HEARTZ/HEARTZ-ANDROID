@@ -20,10 +20,11 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
 fun QuestEmotionDescriptionCard(
+    modifier: Modifier,
     emotionType: LargeTagType
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(
                 color = ByeBooTheme.colors.whiteAlpha10,
@@ -36,7 +37,7 @@ fun QuestEmotionDescriptionCard(
         ) {
             EmotionChip(emotionType = emotionType, isSelected = true)
 
-            Spacer(modifier = Modifier.width(24.dp))
+            Spacer(modifier = modifier.width(24.dp))
 
             Text(
                 text = getEmotionComment(emotionType),
@@ -60,6 +61,6 @@ private fun getEmotionComment(emotionType: LargeTagType): String {
 @Composable
 private fun EmotionDescriptionCardPreview() {
     ByeBooTheme {
-        QuestEmotionDescriptionCard(emotionType = LargeTagType.EMOTION_NEUTRAL)
+        QuestEmotionDescriptionCard(modifier = Modifier, emotionType = LargeTagType.EMOTION_NEUTRAL)
     }
 }

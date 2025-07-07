@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.painter.ColorPainter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,6 +20,7 @@ import com.byeboo.app.core.util.noRippleClickable
 
 @Composable
 fun EmotionChip(
+    modifier: Modifier = Modifier,
     emotionType: LargeTagType,
     isSelected: Boolean = false,
     onChipClick: ((LargeTagType) -> Unit)? = null
@@ -28,7 +28,7 @@ fun EmotionChip(
     val backgroundColor = if (isSelected) ByeBooTheme.colors.primary300 else ByeBooTheme.colors.whiteAlpha10
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .then(
                 if (onChipClick != null) {
                     Modifier.noRippleClickable(onClick = { onChipClick(emotionType) })
@@ -46,7 +46,7 @@ fun EmotionChip(
                 .height(84.dp)
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = modifier.height(8.dp))
 
         LargeTag(
             largeTagType = emotionType,

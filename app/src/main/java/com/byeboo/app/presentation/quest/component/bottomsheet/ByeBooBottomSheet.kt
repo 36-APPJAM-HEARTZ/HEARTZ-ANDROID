@@ -34,9 +34,9 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ByeBooBottomSheet(
+    modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
     onEmotionSelected: (LargeTagType) -> Unit = {},
-    modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     isBackgroundDimmed: Boolean = true,
     dragHandle: @Composable () -> Unit = {},
