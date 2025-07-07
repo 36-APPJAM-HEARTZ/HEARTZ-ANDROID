@@ -1,4 +1,4 @@
-package com.byeboo.app.presentation.auth.nickname.component
+package com.byeboo.app.presentation.auth.userinfo.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -16,40 +15,55 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.presentation.auth.nickname.ValidationState
+import com.byeboo.app.presentation.auth.userinfo.model.UserInfoValidationState
 
 @Composable
 fun NicknameTextField(
     value: String,
-    validationState: ValidationState,
     onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    validationState: UserInfoValidationState,
+    modifier: Modifier = Modifier,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
+
 ) {
-    val borderColor = when (validationState) {
-        ValidationState.Valid -> ByeBooTheme.colors.primary300
-        ValidationState.Invalid -> ByeBooTheme.colors.error300
-        ValidationState.Empty -> ByeBooTheme.colors.whiteAlpha10
-    }
+    val focusState = remember { mutableStateOf(false) }
+
+    val focusManager = LocalFocusManager.current
 
     val shape = remember { RoundedCornerShape(12.dp) }
-    val keyboardController = LocalSoftwareKeyboardController.current
 
-    Column(modifier = modifier) {
+    val borderColor = if (focusState.value) {
+        when (validationState) {
+            UserInfoValidationState.Valid -> ByeBooTheme.colors.primary300
+            UserInfoValidationState.Invalid -> ByeBooTheme.colors.error300
+            UserInfoValidationState.Empty -> ByeBooTheme.colors.whiteAlpha10
+        }
+    } else {
+        Color.Transparent
+    }
+
+    val guideColor = when (validationState) {
+        UserInfoValidationState.Valid -> ByeBooTheme.colors.primary300
+        UserInfoValidationState.Invalid -> ByeBooTheme.colors.error300
+        UserInfoValidationState.Empty -> ByeBooTheme.colors.gray400
+    }
+
+    Column(modifier = modifier.padding(vertical = 8.dp)) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -61,18 +75,19 @@ fun NicknameTextField(
             BasicTextField(
                 value = value,
                 onValueChange = onValueChange,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .onFocusChanged { focusState.value = it.isFocused },
                 textStyle = ByeBooTheme.typography.body3.copy(color = ByeBooTheme.colors.white),
                 singleLine = true,
                 cursorBrush = SolidColor(ByeBooTheme.colors.white),
                 visualTransformation = VisualTransformation.None,
-                keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+                keyboardOptions = keyboardOptions,
                 keyboardActions = KeyboardActions(
                     onDone = {
-                        keyboardController?.hide()
+                        focusManager.clearFocus()
                     }
                 ),
-                modifier = Modifier
-                    .fillMaxWidth(),
                 decorationBox = { innerTextField ->
                     Box(
                         modifier = Modifier.fillMaxWidth(),
@@ -90,7 +105,7 @@ fun NicknameTextField(
                 }
             )
 
-            if (validationState == ValidationState.Invalid) {
+            if (validationState == UserInfoValidationState.Invalid && focusState.value) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_error),
                     contentDescription = "Invalid",
@@ -100,15 +115,9 @@ fun NicknameTextField(
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.padding(top = 16.dp))
 
-        val guideColor = when (validationState) {
-            ValidationState.Valid -> ByeBooTheme.colors.primary300
-            ValidationState.Invalid -> ByeBooTheme.colors.error300
-            ValidationState.Empty -> ByeBooTheme.colors.gray400
-        }
-
-        if (validationState == ValidationState.Valid) {
+        if (validationState == UserInfoValidationState.Valid) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -132,7 +141,7 @@ fun NicknameTextField(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "* 2자 이상 5자 이하, 영어 또는 숫자 또는 한글로 구성",
+                        text = "* 공백 없 영어, 숫자 한글로 구성",
                         style = ByeBooTheme.typography.cap2,
                         color = guideColor,
                         modifier = Modifier.weight(1f)
@@ -145,38 +154,12 @@ fun NicknameTextField(
                 }
 
                 Text(
-                    text = "* 한글 초성 및 모음은 허가하지 않음",
+                    text = "* 2자 이상 5자 이하",
                     style = ByeBooTheme.typography.cap2,
                     color = guideColor,
                     modifier = Modifier.padding(top = 2.dp)
                 )
             }
-        }
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFF000000)
-@Composable
-fun NicknameTextFieldPreview() {
-    ByeBooTheme {
-        Column(modifier = Modifier.padding(16.dp)) {
-            NicknameTextField(
-                value = "",
-                validationState = ValidationState.Empty,
-                onValueChange = {}
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            NicknameTextField(
-                value = "하츠",
-                validationState = ValidationState.Valid,
-                onValueChange = {}
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            NicknameTextField(
-                value = "하츠핑♡",
-                validationState = ValidationState.Invalid,
-                onValueChange = {}
-            )
         }
     }
 }
