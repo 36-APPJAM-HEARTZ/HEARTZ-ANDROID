@@ -2,6 +2,7 @@ package com.byeboo.app.presentation.quest.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -23,12 +24,11 @@ fun QuestJourneyTitle(
     nickname: String,
     journeyTitle: JourneyType
 ) {
-
     Column(
         modifier = Modifier
-            .padding(horizontal = 24.dp, vertical = 20.dp)
+            .fillMaxWidth()
+            .padding(vertical = 19.dp)
     ) {
-
         MiddleTag(
             middleTagType = MiddleTagType.QUEST_START_DAY,
             text = dayCount.toString()
@@ -45,7 +45,6 @@ fun QuestJourneyTitle(
                 }
 
                 append("을 진행 중이에요.")
-
             },
             color = ByeBooTheme.colors.gray50,
             style = ByeBooTheme.typography.head1
@@ -64,11 +63,11 @@ fun QuestJourneyTitle(
 @Preview
 @Composable
 private fun QuestJourneyTitlePreview() {
-
     ByeBooTheme {
-
-        QuestJourneyTitle(dayCount = 10, nickname = "하츠핑", journeyTitle = JourneyType.EMOTION_FACING)
-
+        QuestJourneyTitle(
+            dayCount = 10,
+            nickname = "하츠핑",
+            journeyTitle = JourneyType.FACE_EMOTION
+        )
     }
-
 }

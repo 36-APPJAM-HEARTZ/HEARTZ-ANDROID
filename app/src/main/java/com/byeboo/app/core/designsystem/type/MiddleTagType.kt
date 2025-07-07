@@ -5,8 +5,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 
-
-enum class MiddleTagType (
+enum class MiddleTagType(
     @StringRes val titleResId: Int,
     val backgroundColor: TagColorType,
     val textColor: TagColorType,
@@ -50,8 +49,6 @@ enum class MiddleTagType (
         textColor = TagColorType.GRAY_300,
         dynamicContent = true
     )
-
-
 }
 
 enum class TagColorType {
@@ -61,7 +58,4 @@ enum class TagColorType {
     SECONDARY_300,
     PRIMARY_50,
     PRIMARY_300
-
 }
-
-

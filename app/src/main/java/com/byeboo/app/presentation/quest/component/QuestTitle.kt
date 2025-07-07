@@ -3,6 +3,7 @@ package com.byeboo.app.presentation.quest.component
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -22,18 +23,15 @@ fun QuestTitle(
     questQuestion: String
 
 ) {
-
     Column(
         modifier = Modifier
-            .width(360.dp)
-            .padding(horizontal = 24.dp, vertical = 9.5.dp)
+            .fillMaxWidth()
+            .padding(vertical = 10.dp)
     ) {
-
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
-
-            SmallTag(tagText = "STEP ${stepNumber}")
+            SmallTag(tagText = "STEP $stepNumber")
 
             Spacer(modifier = Modifier.width(8.dp))
 
@@ -65,12 +63,11 @@ fun QuestTitle(
 @Preview
 @Composable
 private fun QuestTitlePreview() {
-
     ByeBooTheme {
         QuestTitle(
             stepNumber = 1,
             createdAt = "2025.07.04",
-            questQuestion = "수박을 어떻게 하면 많이 먹을지 생각해보아요.")
+            questQuestion = "수박을 어떻게 하면 많이 먹을지 생각해보아요."
+        )
     }
-
 }

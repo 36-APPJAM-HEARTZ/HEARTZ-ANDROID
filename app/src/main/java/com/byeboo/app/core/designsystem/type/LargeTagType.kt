@@ -5,7 +5,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 
-enum class LargeTagType (
+enum class LargeTagType(
     @StringRes val titleResId: Int,
     val verticalPadding: Dp = 3.dp,
     val roundedCorner: Dp = 12.dp
@@ -25,7 +25,4 @@ enum class LargeTagType (
     EMOTION_RELIEF(
         titleResId = R.string.type_emotion_relief
     )
-
-
 }
-

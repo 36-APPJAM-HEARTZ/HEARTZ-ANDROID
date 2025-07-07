@@ -3,9 +3,9 @@ package com.byeboo.app.presentation.quest.component
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,15 +26,12 @@ fun QuestContent(
     titleText: String,
     contentText: String
 ) {
-
     val icon = ImageVector.vectorResource(id = titleIcon.iconResId)
 
     Column(
         modifier = Modifier
-            .width(360.dp)
-            .padding(horizontal = 24.dp, vertical = 24.dp)
+            .fillMaxWidth()
     ) {
-
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -50,27 +47,22 @@ fun QuestContent(
                 color = ByeBooTheme.colors.gray200,
                 style = ByeBooTheme.typography.body2
             )
-
-
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         ContentText(text = contentText)
-
     }
-
 }
 
 @Preview()
 @Composable
 private fun QuestContentPreview() {
-
     ByeBooTheme {
         QuestContent(
             titleIcon = QuestContentType.THINKING,
             titleText = "제목을 입력해주세요.",
-            contentText = "내용을 입력해주세요.")
+            contentText = "내용을 입력해주세요."
+        )
     }
-
 }

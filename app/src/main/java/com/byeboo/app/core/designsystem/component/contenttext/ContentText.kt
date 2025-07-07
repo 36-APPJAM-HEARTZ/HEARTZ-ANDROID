@@ -14,7 +14,7 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
 fun ContentText(
-    text : String,
+    text: String,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -35,15 +35,10 @@ fun ContentText(
     }
 }
 
-
 @Preview()
 @Composable
 private fun ContentTextPreview() {
     ByeBooTheme {
-
         ContentText("내용을 입력해주세요.")
     }
-
-
-
 }

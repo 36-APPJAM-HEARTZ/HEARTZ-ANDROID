@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,29 +19,22 @@ import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
-fun EmotionDescriptionCard(
+fun QuestEmotionDescriptionCard(
     emotionType: LargeTagType
 ) {
-
     Box(
         modifier = Modifier
-            .width(312.dp)
-            .height(152.dp)
+            .fillMaxWidth()
             .background(
                 color = ByeBooTheme.colors.whiteAlpha10,
                 shape = RoundedCornerShape(12.dp)
             )
+            .padding(horizontal = 24.dp, vertical = 18.dp)
     ) {
-
         Row(
-            modifier = Modifier
-                .padding(
-                    horizontal = 24.dp,
-                    vertical = 18.dp
-                ),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            EmotionChip(emotionType = emotionType, isSelected = true) {}
+            EmotionChip(emotionType = emotionType, isSelected = true)
 
             Spacer(modifier = Modifier.width(24.dp))
 
@@ -55,25 +48,18 @@ fun EmotionDescriptionCard(
 }
 
 private fun getEmotionComment(emotionType: LargeTagType): String {
-
     return when (emotionType) {
         LargeTagType.EMOTION_NEUTRAL -> "마음이 가벼워졌다면 다행이에요. 당신은 지금 아주 건강하게 감정을 정리하고 있어요."
         LargeTagType.EMOTION_SELF_AWARE -> "마음이 가벼워졌다면"
         LargeTagType.EMOTION_SADNESS -> "마음"
         LargeTagType.EMOTION_RELIEF -> "당신은 지금 아주 건강하게 감정을 정리하고 있어요."
-
     }
-
-
 }
 
 @Preview
 @Composable
 private fun EmotionDescriptionCardPreview() {
     ByeBooTheme {
-
-        EmotionDescriptionCard(emotionType = LargeTagType.EMOTION_NEUTRAL)
-
+        QuestEmotionDescriptionCard(emotionType = LargeTagType.EMOTION_NEUTRAL)
     }
-
 }

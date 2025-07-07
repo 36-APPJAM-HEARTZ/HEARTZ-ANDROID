@@ -2,7 +2,6 @@ package com.byeboo.app.presentation.quest.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -19,13 +18,11 @@ import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
-
 @Composable
 fun QuestCompleteCard(
     modifier: Modifier = Modifier
 ) {
-
-    Box(
+    Column(
         modifier = modifier
             .background(
                 color = ByeBooTheme.colors.whiteAlpha10,
@@ -33,44 +30,39 @@ fun QuestCompleteCard(
             )
             .padding(
                 horizontal = 60.dp,
-                vertical = 20.dp
-            )
+                vertical = 24.dp
+            ),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "QUEST",
+            color = ByeBooTheme.colors.primary300,
+            textAlign = TextAlign.Center,
+            style = ByeBooTheme.typography.head1
+        )
 
-    ){
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "QUEST",
-                color = ByeBooTheme.colors.primary300,
-                textAlign = TextAlign.Center,
-                style = ByeBooTheme.typography.head1
-            )
+        Text(
+            text = "COMPLETE!",
+            color = ByeBooTheme.colors.primary50,
+            textAlign = TextAlign.Center,
+            style = ByeBooTheme.typography.head1
+        )
 
-            Text(
-                text = "COMPLETE!",
-                color = ByeBooTheme.colors.primary50,
-                textAlign = TextAlign.Center,
-                style = ByeBooTheme.typography.head1
-            )
+        Spacer(modifier = Modifier.height(16.dp))
 
-            Spacer(modifier = Modifier.height(16.dp))
+        Image(
+            painter = painterResource(id = R.drawable.img_congrate),
+            contentDescription = "complete bori img"
+        )
 
-            Image(
-                painter = painterResource(id = R.drawable.img_congrate),
-                contentDescription = "complete bori img"
-            )
+        Spacer(modifier = Modifier.height(16.dp))
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = "기특해요 ! \n 점점 극복에 가까워지고 있어요 :)",
-                color = ByeBooTheme.colors.gray300,
-                textAlign = TextAlign.Center,
-                style = ByeBooTheme.typography.body3
-            )
-
-        }
+        Text(
+            text = "기특해요 ! \n점점 극복에 가까워지고 있어요 :)",
+            color = ByeBooTheme.colors.gray300,
+            textAlign = TextAlign.Center,
+            style = ByeBooTheme.typography.body3
+        )
     }
 }
 
@@ -78,8 +70,6 @@ fun QuestCompleteCard(
 @Composable
 private fun QuestCompleteCardPreview() {
     ByeBooTheme {
-
         QuestCompleteCard()
-
     }
 }

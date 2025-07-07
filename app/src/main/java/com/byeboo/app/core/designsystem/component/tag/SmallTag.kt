@@ -11,7 +11,7 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 @Composable
 fun SmallTag(
     modifier: Modifier = Modifier,
-    tagText: String = "",
+    tagText: String,
     tagColor: Color = ByeBooTheme.colors.secondary300
 
 ) {
@@ -20,7 +20,6 @@ fun SmallTag(
         style = ByeBooTheme.typography.cap1.copy(color = tagColor),
         modifier = modifier
     )
-
 }
 
 @Preview
@@ -28,10 +27,9 @@ fun SmallTag(
 private fun SmallTagPreview() {
     ByeBooTheme {
         Column {
-
             SmallTag(
                 modifier = Modifier,
-                tagText = "STEP 1",
+                tagText = "STEP 1"
             )
 
             SmallTag(
@@ -39,7 +37,6 @@ private fun SmallTagPreview() {
                 tagText = "STEP 1",
                 tagColor = ByeBooTheme.colors.gray300
             )
-
         }
     }
 }

@@ -12,12 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
-
 @Composable
 fun ByeBooDragHandle(
     content: @Composable () -> Unit = {}
 ) {
-
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -31,6 +29,4 @@ fun ByeBooDragHandle(
         )
         content()
     }
-
-
 }

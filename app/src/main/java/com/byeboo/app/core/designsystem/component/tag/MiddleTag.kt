@@ -23,12 +23,13 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 fun MiddleTag(
     middleTagType: MiddleTagType,
     modifier: Modifier = Modifier,
-    text: String = "",
-    ) {
-
-    val tagText = if (middleTagType.dynamicContent) stringResource(middleTagType.titleResId, text)
-    else stringResource(middleTagType.titleResId)
-
+    text: String
+) {
+    val tagText = if (middleTagType.dynamicContent) {
+        stringResource(middleTagType.titleResId, text)
+    } else {
+        stringResource(middleTagType.titleResId)
+    }
 
     Box(
         modifier = modifier
@@ -61,7 +62,6 @@ fun middleTagColor(colorType: TagColorType): Color {
     }
 }
 
-
 @Composable
 @Preview(showBackground = true)
 private fun MiddleTagPreview() {
@@ -73,8 +73,6 @@ private fun MiddleTagPreview() {
                 .fillMaxSize()
                 .background(color = Color.Black)
         ) {
-
-
             MiddleTag(
                 middleTagType = MiddleTagType.QUEST_START_DAY,
                 modifier = Modifier,
@@ -86,24 +84,6 @@ private fun MiddleTagPreview() {
                 middleTagType = MiddleTagType.QUEST_PERIOD,
                 modifier = Modifier,
                 text = "2025-11-11 ~ 2025-11-20"
-            )
-
-            MiddleTag(
-                middleTagType = MiddleTagType.QUEST_OPTIONAL,
-                modifier = Modifier
-
-            )
-
-            MiddleTag(
-                middleTagType = MiddleTagType.QUEST_ESSENTIAL,
-                modifier = Modifier
-
-            )
-
-            MiddleTag(
-                middleTagType = MiddleTagType.QUEST_TIP,
-                modifier = Modifier
-
             )
         }
     }

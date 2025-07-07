@@ -35,13 +35,13 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 @Composable
 fun ByeBooBottomSheet(
     onDismiss: () -> Unit,
+    onEmotionSelected: (LargeTagType) -> Unit = {},
     modifier: Modifier = Modifier,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     isBackgroundDimmed: Boolean = true,
     dragHandle: @Composable () -> Unit = {},
     isSelected: Boolean = false
 ) {
-
     ModalBottomSheet(
         onDismissRequest = onDismiss,
         modifier = modifier,
@@ -50,7 +50,6 @@ fun ByeBooBottomSheet(
         scrimColor = if (isBackgroundDimmed) ByeBooTheme.colors.blackAlpha80 else Color.Transparent,
         dragHandle = dragHandle
     ) {
-
         val density = LocalDensity.current
         val configuration = LocalConfiguration.current
         val screenHeight = configuration.screenHeightDp.dp
@@ -66,7 +65,7 @@ fun ByeBooBottomSheet(
                 .fillMaxWidth()
                 .height(with(density) { currentHeight.toDp() })
                 .padding(horizontal = 24.dp, vertical = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
                 text = "퀘스트를 완료한 후,\n어떤 감정이 느껴지시나요?",
@@ -81,8 +80,7 @@ fun ByeBooBottomSheet(
             EmotionChipList(
                 selectedEmotion = selectedEmotion,
                 onEmotionSelected = {
-
-                        selectedEmotion = if (selectedEmotion == it) null else it
+                    selectedEmotion = if (selectedEmotion == it) null else it
                 }
             )
 
@@ -90,9 +88,14 @@ fun ByeBooBottomSheet(
 
             ByeBooActivationButton(
                 buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
-                buttonText =  buttonText,
+                buttonText = buttonText,
                 buttonDisableTextColor = ByeBooTheme.colors.gray300,
-                onClick = {},
+                onClick = {
+                    selectedEmotion?.let { emotion ->
+                        onEmotionSelected(emotion)
+                        onDismiss()
+                    }
+                },
                 isEnabled = isSelected
             )
         }
@@ -100,20 +103,20 @@ fun ByeBooBottomSheet(
 }
 
 @Composable
-fun EmotionChipList(
+private fun EmotionChipList(
     selectedEmotion: LargeTagType?,
     onEmotionSelected: (LargeTagType) -> Unit,
-    modifier: Modifier = Modifier,
-)  {
+    modifier: Modifier = Modifier
+) {
     Column(modifier = modifier.padding(horizontal = 62.dp)) {
-
-        Row(modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center)
-        {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
             EmotionChip(
                 emotionType = LargeTagType.EMOTION_NEUTRAL,
                 isSelected = selectedEmotion == LargeTagType.EMOTION_NEUTRAL,
-                onChipClick = {onEmotionSelected(LargeTagType.EMOTION_NEUTRAL)}
+                onChipClick = { onEmotionSelected(LargeTagType.EMOTION_NEUTRAL) }
             )
 
             Spacer(modifier = Modifier.width(20.dp))
@@ -126,9 +129,10 @@ fun EmotionChipList(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Row(modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center)
-        {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
             EmotionChip(
                 emotionType = LargeTagType.EMOTION_SADNESS,
                 isSelected = selectedEmotion == LargeTagType.EMOTION_SADNESS,
@@ -140,16 +144,20 @@ fun EmotionChipList(
             EmotionChip(
                 emotionType = LargeTagType.EMOTION_RELIEF,
                 isSelected = selectedEmotion == LargeTagType.EMOTION_RELIEF,
-                onChipClick = { onEmotionSelected(LargeTagType.EMOTION_RELIEF) })
+                onChipClick = { onEmotionSelected(LargeTagType.EMOTION_RELIEF) }
+            )
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true, backgroundColor = 0xFF000000, name = "ByeBooChipBottomSheet Preview")
+@Preview(
+    showBackground = true,
+    backgroundColor = 0xFF000000,
+    name = "ByeBooChipBottomSheet Preview"
+)
 @Composable
 fun ByeBooBottomSheetPreview() {
-
     ByeBooTheme {
         val previewSheetState = rememberModalBottomSheetState(
             skipPartiallyExpanded = true
@@ -159,12 +167,8 @@ fun ByeBooBottomSheetPreview() {
             onDismiss = {},
             sheetState = previewSheetState,
             dragHandle = { ByeBooDragHandle() },
-            isSelected = false,
+            isSelected = false
 
         )
     }
-
-
-
-
 }

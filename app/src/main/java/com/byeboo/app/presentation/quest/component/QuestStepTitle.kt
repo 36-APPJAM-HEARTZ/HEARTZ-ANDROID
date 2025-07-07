@@ -17,12 +17,11 @@ fun QuestStepTitle(
     stepNumber: Int,
     stepTitle: String
 ) {
-
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
         SmallTag(
-            tagText = "STEP ${stepNumber}"
+            tagText = "STEP $stepNumber"
         )
 
         Spacer(modifier = Modifier.width(8.dp))
@@ -32,15 +31,12 @@ fun QuestStepTitle(
             color = ByeBooTheme.colors.gray50,
             style = ByeBooTheme.typography.body2
         )
-
     }
 }
-
 
 @Preview
 @Composable
 private fun QuestStepTitlePreview() {
-
     ByeBooTheme {
         QuestStepTitle(stepNumber = 1, stepTitle = "챕터명을 입력해주세요")
     }
