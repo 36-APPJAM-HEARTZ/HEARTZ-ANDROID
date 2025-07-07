@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.ColorPainter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.tag.LargeTag
@@ -38,7 +39,7 @@ fun EmotionChip(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = ColorPainter(ByeBooTheme.colors.whiteAlpha10),
+            painter = painterResource(emotionType.titleIcon),
             contentDescription = null,
             modifier = Modifier
                 .width(85.dp)
