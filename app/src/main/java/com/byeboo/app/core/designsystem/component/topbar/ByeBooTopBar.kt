@@ -26,10 +26,10 @@ import com.byeboo.app.core.util.noRippleClickable
 
 @Composable
 fun ByeBooTopBar(
+    modifier: Modifier = Modifier,
     title: String? = null,
     onNavigateBack: (() -> Unit)? = null,
-    onCloseClick: (() -> Unit)? = null,
-    modifier: Modifier = Modifier
+    onCloseClick: (() -> Unit)? = null
 ) {
     Box(
         modifier = modifier
