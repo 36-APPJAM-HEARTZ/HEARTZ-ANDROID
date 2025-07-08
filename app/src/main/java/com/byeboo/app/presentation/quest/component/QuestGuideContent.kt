@@ -82,7 +82,7 @@ fun GuideContentPreview() {
     ByeBooTheme {
         GuideContent(
             userName = "하츠핑",
-            guideText = "님의 상황에 꼭 맞춘\n자기 성찰 여정의 퀘스트 30개를 드릴게요.\n\n제가 드리는 퀘스트와 함꼐\n이별을 극복해나가요!"
+            guideText = "님의 상황에 꼭 맞춘\n자기 성찰 여정의 퀘스트 30개를 드릴게요.\n\n제가 드리는 퀘스트와 함께\n이별을 극복해나가요!"
         )
     }
 }

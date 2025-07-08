@@ -23,7 +23,7 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
 fun OnboardingScreen(
-    navigateToHome: () -> Unit,
+    navigateToUserInfo: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: OnboardingViewModel = hiltViewModel()
 ) {
@@ -37,7 +37,7 @@ fun OnboardingScreen(
                 buttonText = "다음으로",
                 buttonDisableTextColor = ByeBooTheme.colors.gray400,
                 onClick = {
-                    viewModel.saveNicknameAndNavigate(navigateToHome)
+                    viewModel.saveNicknameAndNavigate(navigateToUserInfo)
                 },
                 isEnabled = uiState.nickname.isNotBlank()
             )
@@ -64,7 +64,7 @@ fun OnboardingScreen(
             keyboardActions = KeyboardActions(
                 onDone = {
                     if (uiState.nickname.trim().isNotBlank()) {
-                        viewModel.saveNicknameAndNavigate(navigateToHome)
+                        viewModel.saveNicknameAndNavigate(navigateToUserInfo)
                     }
                 }
             )

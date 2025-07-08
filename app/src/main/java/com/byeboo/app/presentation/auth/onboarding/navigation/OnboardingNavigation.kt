@@ -13,12 +13,10 @@ fun NavController.navigateToOnboarding(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.onboardingGraph(
-    navigateToHome: () -> Unit
+    navigateToUserInfo: () -> Unit
 ) {
     composable<Onboarding> {
-        OnboardingScreen(
-            navigateToHome = navigateToHome
-        )
+        OnboardingScreen(navigateToUserInfo = navigateToUserInfo)
     }
 }
 

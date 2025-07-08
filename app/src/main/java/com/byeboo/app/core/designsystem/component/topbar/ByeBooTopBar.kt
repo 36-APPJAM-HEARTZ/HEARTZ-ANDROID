@@ -34,7 +34,7 @@ fun ByeBooTopBar(
         modifier = modifier
             .fillMaxWidth()
             .height(56.dp)
-            .background(ByeBooTheme.colors.black)
+            .background(ByeBooTheme.colors.gray900Alpha80)
     ) {
         Row(
             modifier = Modifier

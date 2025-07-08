@@ -38,7 +38,7 @@ fun ByeBooActivationButton(
             .fillMaxWidth()
             .clip(RoundedCornerShape(12.dp))
             .background(color = buttonBackgroundColor)
-            .noRippleClickable(onClick = { if (isEnabled) onClick })
+            .noRippleClickable(onClick = { if (isEnabled) onClick() })
             .padding(vertical = 16.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
