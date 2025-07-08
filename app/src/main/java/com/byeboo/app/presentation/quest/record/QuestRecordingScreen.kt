@@ -49,92 +49,100 @@ fun QuestRecordingScreen(
         modifier = modifier
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
-            .padding(horizontal = 24.dp)
-            .verticalScroll(scrollState)
             .addFocusCleaner(focusManager)
     ) {
-        ByeBooTopBar(onNavigateBack = onNavigateBack)
+        ByeBooTopBar(
+            modifier = Modifier.background(color = ByeBooTheme.colors.gray900Alpha80),
+            onNavigateBack = onNavigateBack
+        )
 
-        Spacer(modifier = Modifier.height((9.5).dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(scrollState)
+                .padding(horizontal = 24.dp)
         ) {
-            SmallTag(
-                tagText = "STEP ${uiState.stepNumber}",
-                tagColor = ByeBooTheme.colors.gray300,
-            )
+            Spacer(modifier = Modifier.height((9.5).dp))
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                SmallTag(
+                    tagText = "STEP ${uiState.stepNumber}",
+                    tagColor = ByeBooTheme.colors.gray300,
+                )
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                Text(
+                    text = uiState.step,
+                    style = ByeBooTheme.typography.body2,
+                    color = ByeBooTheme.colors.gray500
+                )
+
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = uiState.step,
-                style = ByeBooTheme.typography.body2,
-                color = ByeBooTheme.colors.gray500
+                text = "${uiState.questNumber}번째 퀘스트",
+                color = ByeBooTheme.colors.secondary300,
+                style = ByeBooTheme.typography.body5,
+                modifier = Modifier
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Center
             )
 
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Text(
+                text = uiState.questTitle,
+                color = ByeBooTheme.colors.gray100,
+                style = ByeBooTheme.typography.head1,
+                textAlign = TextAlign.Center
+            )
+
+            Spacer(modifier = Modifier.height(25.dp))
+
+            MiddleTag(
+                middleTagType = MiddleTagType.QUEST_TIP,
+                text = "작성 TIP",
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            QuestTextField(
+                questWritingState = uiState.contentsState,
+                value = uiState.contents,
+                onValueChange = viewModel::updateContent,
+                isEnabled = QuestContentLengthValidator.block(text = uiState.contents),
+                placeholder = "글로 적다 보면, 스스로에게 한 걸음 더 가까워질 수 있어요."
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = "*10글자 이상 입력해주세요.",
+                style = ByeBooTheme.typography.cap2,
+                color = ByeBooTheme.colors.gray400,
+                textAlign = TextAlign.Start
+            )
+
+            Spacer(modifier = Modifier.height(100.dp))
+
+            ByeBooActivationButton(
+                buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
+                buttonText = "완료하기",
+                buttonDisableTextColor = ByeBooTheme.colors.gray300,
+                onClick = onClick,
+                isEnabled = QuestContentLengthValidator.savable(uiState.contents)
+            )
+
+            Spacer(modifier = Modifier.padding(bottom = 56.dp))
         }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Text(
-            text = "${uiState.questNumber}번째 퀘스트",
-            color = ByeBooTheme.colors.secondary300,
-            style = ByeBooTheme.typography.body5,
-            modifier = Modifier
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Text(
-            text = uiState.questTitle,
-            color = ByeBooTheme.colors.gray100,
-            style = ByeBooTheme.typography.head1,
-            textAlign = TextAlign.Center
-        )
-
-        Spacer(modifier = Modifier.height(25.dp))
-
-        MiddleTag(
-            middleTagType = MiddleTagType.QUEST_TIP,
-            text = "작성 TIP",
-            modifier = Modifier.align(Alignment.CenterHorizontally)
-        )
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-        QuestTextField(
-            questWritingState = uiState.contentsState,
-            value = uiState.contents,
-            onValueChange = viewModel::updateContent,
-            isEnabled = QuestContentLengthValidator.block(text = uiState.contents),
-            placeholder = "글로 적다 보면, 스스로에게 한 걸음 더 가까워질 수 있어요."
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(
-            text = "*10글자 이상 입력해주세요.",
-            style = ByeBooTheme.typography.cap2,
-            color = ByeBooTheme.colors.gray400,
-            textAlign = TextAlign.Start
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        ByeBooActivationButton(
-            buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
-            buttonText = "완료하기",
-            buttonDisableTextColor = ByeBooTheme.colors.gray300,
-            onClick = onClick,
-            isEnabled = QuestContentLengthValidator.savable(uiState.contents)
-        )
-
-        Spacer(modifier = Modifier.padding(bottom = 56.dp))
     }
 }
 
