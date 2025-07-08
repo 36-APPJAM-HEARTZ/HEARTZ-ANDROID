@@ -72,7 +72,7 @@ fun QuitModal(
                     buttonText = "머무르기",
                     buttonTextColor = ByeBooTheme.colors.white,
                     buttonBackgroundColor = ByeBooTheme.colors.primary300,
-                    modifier = Modifier.width(100.dp)
+                    modifier = Modifier.weight(1f)
                 )
 
                 Spacer(modifier = Modifier.width(16.dp))
@@ -82,7 +82,7 @@ fun QuitModal(
                     buttonText = "나가기",
                     buttonTextColor = ByeBooTheme.colors.gray200,
                     buttonStrokeColor = ByeBooTheme.colors.gray400,
-                    modifier = Modifier.width(100.dp)
+                    modifier = Modifier.weight(1f)
                 )
             }
         }
