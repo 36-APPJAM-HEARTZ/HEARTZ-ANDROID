@@ -7,19 +7,20 @@ sealed class QuestWritingState {
 }
 
 object QuestContentLengthValidator {
-    fun validate(text: String): QuestWritingState {
+    fun validate(text: String, maxLength: Int = 500): QuestWritingState {
         return when {
             text.isBlank() -> QuestWritingState.BeforeWriting
-            text.length > 500 -> QuestWritingState.OverLimit
+            text.length > maxLength -> QuestWritingState.OverLimit
             else -> QuestWritingState.Writing
         }
     }
 
-    fun savable(text: String): Boolean {
-        return text.length >= 10 && text.length <= 500
+    fun validButton(text: String, maxLength: Int = 500): Boolean {
+        return text.length >= 10 && text.length <= maxLength
     }
 
-    fun block(text: String): Boolean {
-        return text.length <= 500
+    // TODO: 500 이상일 때 기록 막기
+    fun block(text: String, maxLength: Int = 500): Boolean {
+        return text.length <= maxLength
     }
 }
