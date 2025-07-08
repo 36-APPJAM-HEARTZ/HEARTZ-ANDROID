@@ -27,8 +27,6 @@ fun QuestContent(
     titleText: String,
     contentText: String
 ) {
-    val icon = ImageVector.vectorResource(id = titleIcon.iconResId)
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -37,7 +35,7 @@ fun QuestContent(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
-                imageVector = icon,
+                imageVector = ImageVector.vectorResource(id = titleIcon.iconResId),
                 contentDescription = "title icon",
                 tint = Color.Unspecified
             )
