@@ -12,7 +12,6 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,6 +25,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
@@ -47,7 +47,7 @@ fun UserInfoScreen(
 ) {
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 3 })
 
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val coroutineScope = rememberCoroutineScope()
 
@@ -92,6 +92,7 @@ fun UserInfoScreen(
                 .padding(horizontal = 24.dp)
         ) {
             Spacer(modifier = Modifier.padding(top = 72.dp))
+
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
                 contentDescription = "뒤로가기",
@@ -136,7 +137,6 @@ fun UserInfoScreen(
                     )
                 }
             }
-
             Spacer(modifier = Modifier.weight(1f))
 
             ByeBooActivationButton(
@@ -173,7 +173,6 @@ fun UserInfoScreen(
                     }
                 }
             )
-
             Spacer(modifier = Modifier.padding(bottom = 56.dp))
         }
     }
