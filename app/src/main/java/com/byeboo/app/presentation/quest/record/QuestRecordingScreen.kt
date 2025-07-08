@@ -10,11 +10,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -26,7 +29,8 @@ import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.component.topbar.ByeBooTopBar
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.presentation.quest.QuestWritingState
+import com.byeboo.app.core.util.addFocusCleaner
+import com.byeboo.app.domain.model.QuestContentLengthValidator
 import com.byeboo.app.presentation.quest.component.QuestTextField
 
 @Composable
@@ -37,19 +41,17 @@ fun QuestRecordingScreen(
     viewModel: QuestRecordingViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-    val questWritingState by viewModel.writingState.collectAsStateWithLifecycle()
 
-    val isEnabled = when (questWritingState) {
-        QuestWritingState.BeforeWriting -> false
-        QuestWritingState.Writing -> true
-        QuestWritingState.OverLimit -> false
-    }
+    val scrollState = rememberScrollState()
+    val focusManager = LocalFocusManager.current
 
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
             .padding(horizontal = 24.dp)
+            .verticalScroll(scrollState)
+            .addFocusCleaner(focusManager)
     ) {
         ByeBooTopBar(onNavigateBack = onNavigateBack)
 
@@ -106,10 +108,11 @@ fun QuestRecordingScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         QuestTextField(
-            questWritingState = questWritingState,
+            questWritingState = uiState.contentsState,
             value = uiState.contents,
             onValueChange = viewModel::updateContent,
-            placeholder = "내용을 입력해주세요"
+            isEnabled = QuestContentLengthValidator.block(text = uiState.contents),
+            placeholder = "글로 적다 보면, 스스로에게 한 걸음 더 가까워질 수 있어요."
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -128,7 +131,7 @@ fun QuestRecordingScreen(
             buttonText = "완료하기",
             buttonDisableTextColor = ByeBooTheme.colors.gray300,
             onClick = onClick,
-            isEnabled = isEnabled
+            isEnabled = QuestContentLengthValidator.savable(uiState.contents)
         )
 
         Spacer(modifier = Modifier.padding(bottom = 56.dp))
