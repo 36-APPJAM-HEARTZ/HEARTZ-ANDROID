@@ -33,7 +33,7 @@ fun NicknameText(
             style = ByeBooTheme.typography.head1,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = modifier.padding(top = 8.dp))
+        Spacer(modifier = Modifier.padding(top = 8.dp))
         Text(
             text = contentText,
             style = ByeBooTheme.typography.body5,
