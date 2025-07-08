@@ -37,7 +37,7 @@ fun ByeBooTopBar(
             .fillMaxWidth()
             .height(56.dp)
             .background(Color.Transparent)
-            .padding(horizontal = 24.dp)
+            .padding(start = 24.dp, top = 67.dp, end = 24.dp, bottom = 16.dp)
     ) {
         Row(
             modifier = Modifier
