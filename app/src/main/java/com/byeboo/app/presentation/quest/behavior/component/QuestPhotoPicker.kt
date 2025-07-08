@@ -1,0 +1,120 @@
+package com.byeboo.app.presentation.quest.behavior.component
+
+import android.R.attr.contentDescription
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import com.byeboo.app.R
+import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.noRippleClickable
+
+
+
+
+@Composable
+internal fun QuestPhotoPicker(
+    imageUrl: String?,
+    onImageClick: (String?) -> Unit,
+    modifier: Modifier = Modifier
+
+) {
+
+    val context = LocalContext.current
+    var selectedImageUrl by remember { mutableStateOf(imageUrl) }
+    var uploadedImage by remember { mutableStateOf(false) }
+
+    val photoPickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        selectedImageUrl = uri?.toString()
+        uploadedImage = selectedImageUrl != null
+        onImageClick(selectedImageUrl)
+    }
+
+
+    Box(
+        modifier = modifier
+            .width(96.dp)
+            .aspectRatio(1f)
+            .clip(RoundedCornerShape(12.dp))
+            .background(color = ByeBooTheme.colors.whiteAlpha10)
+
+    ) {
+        ImageUploadButton(
+            imageUrl = selectedImageUrl,
+            isUploaded = uploadedImage,
+            onImageClick = { photoPickerLauncher.launch("image/*") },
+        )
+    }
+}
+
+@Composable
+private fun ImageUploadButton(
+    modifier: Modifier = Modifier,
+    imageUrl: String? = null,
+    isUploaded: Boolean,
+    onImageClick: () -> Unit,
+) {
+    Box(
+        modifier = modifier
+            .width(96.dp)
+            .aspectRatio(1f)
+            .clip(RoundedCornerShape(12.dp))
+            .background(color = ByeBooTheme.colors.whiteAlpha10)
+            .noRippleClickable { onImageClick() },
+        contentAlignment = Alignment.Center,
+    ) {
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            AnimatedContent(
+                targetState = isUploaded,) { uploaded ->
+                when (uploaded && imageUrl != null) {
+                    true -> {
+                        AsyncImage(
+                            model = imageUrl,
+                            contentDescription = "selected image",
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clip(RoundedCornerShape(12.dp)),
+                            contentScale = ContentScale.Crop
+                        )
+                    }
+                    false -> Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_plus),
+                        contentDescription = null,
+                        tint = ByeBooTheme.colors.primary300
+                    )
+                }
+            }
+        }
+    }
+}
+
+
