@@ -39,7 +39,6 @@ fun NicknameTextField(
     validationState: UserInfoValidationState,
     modifier: Modifier = Modifier,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
-
 ) {
     val focusState = remember { mutableStateOf(false) }
 
@@ -141,7 +140,7 @@ fun NicknameTextField(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "* 공백 없 영어, 숫자 한글로 구성",
+                        text = "* 공백 없이 영어, 숫자 한글로 구성",
                         style = ByeBooTheme.typography.cap2,
                         color = guideColor,
                         modifier = Modifier.weight(1f)
@@ -156,8 +155,7 @@ fun NicknameTextField(
                 Text(
                     text = "* 2자 이상 5자 이하",
                     style = ByeBooTheme.typography.cap2,
-                    color = guideColor,
-                    modifier = Modifier.padding(top = 2.dp)
+                    color = guideColor
                 )
             }
         }

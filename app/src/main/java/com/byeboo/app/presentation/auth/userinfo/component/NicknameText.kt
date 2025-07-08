@@ -20,7 +20,7 @@ fun NicknameText(
     contentText: String,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.padding(vertical = 20.5.dp)) {
+    Column(modifier = modifier.padding(vertical = 20.dp)) {
         Text(
             buildAnnotatedString {
                 withStyle(style = SpanStyle(color = ByeBooTheme.colors.primary300)) {
