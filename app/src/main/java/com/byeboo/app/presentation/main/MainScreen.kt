@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.presentation.main.component.MainBottomBar
 import kotlinx.collections.immutable.toImmutableList
 
@@ -20,10 +20,9 @@ fun MainScreen(navigator: MainNavigator = rememberMainNavigator()) {
                 onTabSelected = navigator::navigate
             )
         },
-        modifier =
-        Modifier
+        modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(ByeBooTheme.colors.black)
     ) {
         MainNavHost(
             navigator = navigator,

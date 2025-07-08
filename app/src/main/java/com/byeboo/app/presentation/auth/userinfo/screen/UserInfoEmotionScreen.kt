@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
-import com.byeboo.app.presentation.auth.userinfo.component.NicknameText
+import com.byeboo.app.presentation.auth.userinfo.component.UserInfoText
 import com.byeboo.app.presentation.auth.userinfo.component.UserInfoEmotionCard
 import com.byeboo.app.presentation.auth.userinfo.model.EmotionItem
 import kotlinx.collections.immutable.persistentListOf
@@ -35,7 +35,7 @@ fun UserInfoEmotionScreen(
         )
     )
     Column {
-        NicknameText(
+        UserInfoText(
             title = "감정 상태",
             guideText = "를 알려주세요",
             contentText = "이별 후, 어떤 감정으로 하루를 보내고 계신가요?"

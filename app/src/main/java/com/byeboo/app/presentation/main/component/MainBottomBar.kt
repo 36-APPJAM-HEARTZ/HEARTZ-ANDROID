@@ -49,16 +49,14 @@ fun MainBottomBar(
         exit = ExitTransition.None
     ) {
         Column(
-            modifier = Modifier
-                .background(ByeBooTheme.colors.black.copy(alpha = 0.5f))
+            modifier = Modifier.background(ByeBooTheme.colors.blackAlpha50)
         ) {
             HorizontalDivider(
                 thickness = 1.dp,
                 color = ByeBooTheme.colors.gray700
             )
             Row(
-                modifier =
-                Modifier
+                modifier = Modifier
                     .navigationBarsPadding()
                     .fillMaxWidth()
                     .padding(vertical = 10.dp),
@@ -89,8 +87,7 @@ fun RowScope.MainBottomBarItem(
 ) {
     val bottomItemColor = if (selected) primary300 else gray400
     Column(
-        modifier =
-        modifier
+        modifier = modifier
             .noRippleClickable(onClick = onClick)
             .weight(1f),
         horizontalAlignment = Alignment.CenterHorizontally,

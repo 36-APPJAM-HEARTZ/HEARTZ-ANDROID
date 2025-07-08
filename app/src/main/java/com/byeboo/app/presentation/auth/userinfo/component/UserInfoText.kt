@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
-fun NicknameText(
+fun UserInfoText(
     title: String,
     guideText: String,
     contentText: String,
@@ -26,7 +26,7 @@ fun NicknameText(
                 withStyle(style = SpanStyle(color = ByeBooTheme.colors.primary300)) {
                     append(title)
                 }
-                withStyle(style = SpanStyle(color = ByeBooTheme.colors.gray300)) {
+                withStyle(style = SpanStyle(color = ByeBooTheme.colors.gray50)) {
                     append(guideText)
                 }
             },
