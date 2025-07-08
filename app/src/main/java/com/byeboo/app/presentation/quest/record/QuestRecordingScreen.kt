@@ -91,8 +91,7 @@ fun QuestRecordingScreen(
                 text = "${uiState.questNumber}번째 퀘스트",
                 color = ByeBooTheme.colors.secondary300,
                 style = ByeBooTheme.typography.body5,
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
 
@@ -102,6 +101,7 @@ fun QuestRecordingScreen(
                 text = uiState.questTitle,
                 color = ByeBooTheme.colors.gray100,
                 style = ByeBooTheme.typography.head1,
+                modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
             )
 
@@ -131,6 +131,7 @@ fun QuestRecordingScreen(
                 text = "*10글자 이상 입력해주세요.",
                 style = ByeBooTheme.typography.cap2,
                 color = ByeBooTheme.colors.gray400,
+                modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Start
             )
 
