@@ -134,7 +134,7 @@ fun QuestRecordingScreen(
                 textAlign = TextAlign.Start
             )
 
-            Spacer(modifier = Modifier.height(100.dp))
+            Spacer(modifier = Modifier.height(200.dp))
 
             ByeBooActivationButton(
                 buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
