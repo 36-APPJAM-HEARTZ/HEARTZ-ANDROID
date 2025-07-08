@@ -3,7 +3,6 @@ package com.byeboo.app.presentation.quest.component
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,6 +23,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
@@ -33,17 +34,19 @@ fun QuestModal(
     questNumber: String,
     questQuestion: String,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    dialogProperties : DialogProperties = DialogProperties()
 ) {
-    Box(
-        modifier = modifier
-            .width(264.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(color = ByeBooTheme.colors.gray900Alpha80)
-            .padding(24.dp)
+    Dialog(
+        onDismissRequest = onClick,
+        properties = dialogProperties
     ) {
         Column(
-            modifier = Modifier,
+            modifier = modifier
+                .width(264.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(color = ByeBooTheme.colors.gray900Alpha80)
+                .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -95,6 +98,7 @@ fun QuestModal(
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable

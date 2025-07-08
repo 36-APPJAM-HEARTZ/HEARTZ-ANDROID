@@ -2,7 +2,6 @@ package com.byeboo.app.presentation.quest.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -20,6 +19,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.byeboo.app.core.designsystem.component.button.ByeBooButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.designsystem.ui.theme.gray900Alpha80
@@ -28,17 +29,19 @@ import com.byeboo.app.core.designsystem.ui.theme.gray900Alpha80
 fun QuitModal(
     stayButton: () -> Unit,
     quitButton: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    dialogProperties: DialogProperties = DialogProperties()
 ) {
-    Box(
-        modifier = modifier
-            .width(264.dp)
-            .clip(RoundedCornerShape(12.dp))
-            .background(color = gray900Alpha80)
-            .padding(24.dp)
+    Dialog(
+        onDismissRequest = quitButton,
+        properties = dialogProperties
     ) {
         Column(
-            modifier = Modifier,
+            modifier = modifier
+                .width(264.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(color = gray900Alpha80)
+                .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
