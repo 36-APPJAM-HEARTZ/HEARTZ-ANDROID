@@ -141,7 +141,7 @@ fun QuestRecordingScreen(
                 buttonText = "완료하기",
                 buttonDisableTextColor = ByeBooTheme.colors.gray300,
                 onClick = onClick,
-                isEnabled = QuestContentLengthValidator.savable(uiState.contents)
+                isEnabled = QuestContentLengthValidator.validButton(uiState.contents)
             )
 
             Spacer(modifier = Modifier.padding(bottom = 56.dp))
