@@ -10,8 +10,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
-import com.byeboo.app.presentation.auth.userinfo.component.UserInfoText
 import com.byeboo.app.presentation.auth.userinfo.component.UserInfoQuestCard
+import com.byeboo.app.presentation.auth.userinfo.component.UserInfoText
 import com.byeboo.app.presentation.auth.userinfo.model.QuestItem
 import kotlinx.collections.immutable.persistentListOf
 

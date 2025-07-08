@@ -2,8 +2,8 @@ package com.byeboo.app.presentation.auth.userinfo.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
-import com.byeboo.app.presentation.auth.userinfo.component.UserInfoText
 import com.byeboo.app.presentation.auth.userinfo.component.NicknameTextField
+import com.byeboo.app.presentation.auth.userinfo.component.UserInfoText
 import com.byeboo.app.presentation.auth.userinfo.model.UserInfoValidationState
 
 @Composable
