@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,9 +39,10 @@ fun QuestContent(
             Icon(
                 imageVector = icon,
                 contentDescription = "title icon",
-                modifier = Modifier.padding(end = 8.dp),
                 tint = Color.Unspecified
             )
+
+            Spacer(modifier = Modifier.width(8.dp))
 
             Text(
                 text = titleText,
