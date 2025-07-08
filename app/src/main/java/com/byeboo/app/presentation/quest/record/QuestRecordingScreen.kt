@@ -149,15 +149,3 @@ fun QuestRecordingScreen(
         }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-private fun QuestRecordingScreenPreview() {
-    ByeBooTheme {
-        QuestRecordingScreen(
-            onNavigateBack = {},
-            onClick = {},
-            tipClick = {}
-        )
-    }
-}
