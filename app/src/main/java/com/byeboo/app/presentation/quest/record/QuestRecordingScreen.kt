@@ -63,7 +63,7 @@ fun QuestRecordingScreen(
                 .verticalScroll(scrollState)
                 .padding(horizontal = 24.dp)
         ) {
-            Spacer(modifier = Modifier.height((9.5).dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
