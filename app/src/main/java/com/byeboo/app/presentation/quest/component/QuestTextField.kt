@@ -28,13 +28,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.presentation.quest.record.QuestRecordingState
-import com.byeboo.app.presentation.quest.record.QuestRecordingWritingState
+import com.byeboo.app.presentation.quest.QuestWritingState
 
 @Composable
 fun QuestTextField(
-    textFieldBorderColor: Color,
-    textCountColor: Color,
+    questWritingState: QuestWritingState,
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -43,6 +41,20 @@ fun QuestTextField(
 ) {
     val currentCharCount = value.length
     val maxCharCount = if (isQuestion) 500 else 200
+
+    val textFieldBorderColor =
+        when (questWritingState) {
+            QuestWritingState.BeforeWriting -> Color.Unspecified
+            QuestWritingState.Writing -> ByeBooTheme.colors.primary300
+            QuestWritingState.OverLimit -> ByeBooTheme.colors.error300
+        }
+
+    val textCountColor =
+        when (questWritingState) {
+            QuestWritingState.BeforeWriting -> ByeBooTheme.colors.gray300
+            QuestWritingState.Writing -> ByeBooTheme.colors.primary300
+            QuestWritingState.OverLimit -> ByeBooTheme.colors.error300
+        }
 
     val keyboardController = LocalSoftwareKeyboardController.current
     val scrollState = rememberScrollState()
@@ -105,6 +117,43 @@ fun QuestTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(18.dp)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFF000000)
+@Composable
+fun ByeBooQuestTextFieldPreview() {
+    ByeBooTheme {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            QuestTextField(
+                questWritingState = QuestWritingState.BeforeWriting,
+                value = "",
+                onValueChange = {},
+                placeholder = "내용을 입력해주세요."
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            QuestTextField(
+                questWritingState = QuestWritingState.Writing,
+                value = "안녕하세요. 하츠핑입니다.",
+                onValueChange = {},
+                placeholder = "내용을 입력해주세요."
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            QuestTextField(
+                questWritingState = QuestWritingState.OverLimit,
+                value = "",
+                onValueChange = {},
+                placeholder = "내용을 입력해주세요.",
+                isQuestion = false
             )
         }
     }
