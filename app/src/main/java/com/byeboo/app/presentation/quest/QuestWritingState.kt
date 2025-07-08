@@ -5,3 +5,8 @@ sealed class QuestWritingState {
     object Writing : QuestWritingState()
     object OverLimit : QuestWritingState()
 }
+
+data class QuestRecordingState(
+    val contents: String = "",
+    val contentsState: QuestWritingState = QuestWritingState.BeforeWriting
+)
