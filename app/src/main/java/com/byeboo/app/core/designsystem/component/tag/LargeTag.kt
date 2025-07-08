@@ -22,11 +22,11 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 @Composable
 fun LargeTag(
     largeTagType: LargeTagType,
-    modifier: Modifier = Modifier,
-    backgroundColor: Color
-) {
+    backgroundColor: Color,
+    modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
+            //Todo: width 수정
             .width(85.dp)
             .background(
                 color = backgroundColor,
