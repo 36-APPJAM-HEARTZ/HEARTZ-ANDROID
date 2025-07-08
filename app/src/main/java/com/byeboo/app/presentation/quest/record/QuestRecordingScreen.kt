@@ -1,6 +1,7 @@
 package com.byeboo.app.presentation.quest.record
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -37,6 +38,7 @@ import com.byeboo.app.presentation.quest.component.QuestTextField
 fun QuestRecordingScreen(
     onNavigateBack: () -> Unit,
     onClick: () -> Unit,
+    tipClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestRecordingViewModel = hiltViewModel()
 ) {
@@ -109,7 +111,9 @@ fun QuestRecordingScreen(
             MiddleTag(
                 middleTagType = MiddleTagType.QUEST_TIP,
                 text = "작성 TIP",
-                modifier = Modifier.align(Alignment.CenterHorizontally)
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .clickable(onClick = tipClick)
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -153,6 +157,7 @@ private fun QuestRecordingScreenPreview() {
         QuestRecordingScreen(
             onNavigateBack = {},
             onClick = {},
+            tipClick = {}
         )
     }
 }
