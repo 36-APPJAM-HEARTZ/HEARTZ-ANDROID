@@ -43,7 +43,7 @@ fun QuestModal(
     ) {
         Column(
             modifier = modifier
-                .width(264.dp)
+                .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
                 .background(color = ByeBooTheme.colors.gray900Alpha80)
                 .padding(24.dp),

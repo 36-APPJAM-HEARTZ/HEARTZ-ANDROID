@@ -38,7 +38,7 @@ fun QuitModal(
     ) {
         Column(
             modifier = modifier
-                .width(264.dp)
+                .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
                 .background(color = gray900Alpha80)
                 .padding(24.dp),
