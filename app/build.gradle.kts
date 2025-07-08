@@ -101,6 +101,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.lottie.compose)
     debugImplementation(libs.androidx.ui.tooling)
+
+    // BottomSheet
+    implementation(libs.advanced.bottom.sheet)
 }
 
 ktlint {

@@ -55,8 +55,6 @@ kakao = "2.21.4"
 # Third Party
 ksp = "2.0.21-1.0.25"
 
-# Lottie
-lottie = "6.4.0"
 
 
 
@@ -123,8 +121,7 @@ timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "tim
 # Kakao
 kakao-v2-user = { group = "com.kakao.sdk", name = "v2-user", version.ref = "kakao" }
 
-# Lottie
-lottie-compose = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
+
 
 [bundles]
 androidx = [
