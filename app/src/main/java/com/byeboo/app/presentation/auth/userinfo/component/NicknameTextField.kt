@@ -140,7 +140,7 @@ fun NicknameTextField(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "* 공백 없이 영어, 숫자 한글로 구성",
+                        text = "* 공백 없이 영어, 숫자와 한글로 구성",
                         style = ByeBooTheme.typography.cap2,
                         color = guideColor,
                         modifier = Modifier.weight(1f)
