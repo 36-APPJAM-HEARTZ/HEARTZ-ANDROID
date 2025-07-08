@@ -34,6 +34,7 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ByeBooBottomSheet(
+    showBottomSheet: Boolean = false,
     modifier: Modifier = Modifier,
     onDismiss: () -> Unit,
     onEmotionSelected: (LargeTagType) -> Unit = {},
@@ -42,62 +43,64 @@ fun ByeBooBottomSheet(
     dragHandle: @Composable () -> Unit = {},
     isSelected: Boolean = false
 ) {
-    ModalBottomSheet(
-        onDismissRequest = onDismiss,
-        modifier = modifier,
-        sheetState = sheetState,
-        containerColor = ByeBooTheme.colors.gray900Alpha80,
-        scrimColor = if (isBackgroundDimmed) ByeBooTheme.colors.blackAlpha80 else Color.Transparent,
-        dragHandle = dragHandle
-    ) {
-        val density = LocalDensity.current
-        val configuration = LocalConfiguration.current
-        val screenHeight = configuration.screenHeightDp.dp
-        val currentHeight = with(density) {
-            (screenHeight * 0.66375f).toPx()
-        }
-
-        var selectedEmotion by remember { mutableStateOf<LargeTagType?>(null) }
-
-        var buttonText = if (isSelected) "선택 완료" else "완료"
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(with(density) { currentHeight.toDp() })
-                .padding(horizontal = 24.dp, vertical = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+    if(showBottomSheet) {
+        ModalBottomSheet(
+            onDismissRequest = onDismiss,
+            modifier = modifier,
+            sheetState = sheetState,
+            containerColor = ByeBooTheme.colors.gray900Alpha80,
+            scrimColor = if (isBackgroundDimmed) ByeBooTheme.colors.blackAlpha80 else Color.Transparent,
+            dragHandle = dragHandle
         ) {
-            Text(
-                text = "퀘스트를 완료한 후,\n어떤 감정이 느껴지시나요?",
-                color = ByeBooTheme.colors.gray50,
-                textAlign = TextAlign.Center,
-                style = ByeBooTheme.typography.head1
+            val density = LocalDensity.current
+            val configuration = LocalConfiguration.current
+            val screenHeight = configuration.screenHeightDp.dp
+            val currentHeight = with(density) {
+                (screenHeight * 0.66375f).toPx()
+            }
 
-            )
+            var selectedEmotion by remember { mutableStateOf<LargeTagType?>(null) }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            var buttonText = if (isSelected) "선택 완료" else "완료"
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(with(density) { currentHeight.toDp() })
+                    .padding(horizontal = 24.dp, vertical = 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "퀘스트를 완료한 후,\n어떤 감정이 느껴지시나요?",
+                    color = ByeBooTheme.colors.gray50,
+                    textAlign = TextAlign.Center,
+                    style = ByeBooTheme.typography.head1
 
-            EmotionChipList(
-                selectedEmotion = selectedEmotion,
-                onEmotionSelected = {
-                    selectedEmotion = if (selectedEmotion == it) null else it
-                }
-            )
+                )
 
-            Spacer(modifier = Modifier.height(37.dp))
+                Spacer(modifier = Modifier.height(20.dp))
 
-            ByeBooActivationButton(
-                buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
-                buttonText = buttonText,
-                buttonDisableTextColor = ByeBooTheme.colors.gray300,
-                onClick = {
-                    selectedEmotion?.let { emotion ->
-                        onEmotionSelected(emotion)
-                        onDismiss()
+                EmotionChipList(
+                    selectedEmotion = selectedEmotion,
+                    onEmotionSelected = {
+                        selectedEmotion = if (selectedEmotion == it) null else it
                     }
-                },
-                isEnabled = isSelected
-            )
+                )
+
+                Spacer(modifier = Modifier.height(37.dp))
+
+                ByeBooActivationButton(
+                    buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
+                    buttonText = buttonText,
+                    buttonDisableTextColor = ByeBooTheme.colors.gray300,
+                    onClick = {
+                        selectedEmotion?.let { emotion ->
+                            onEmotionSelected(emotion)
+                            onDismiss()
+                        }
+                    },
+                    isEnabled = isSelected
+                )
+            }
         }
     }
 }
