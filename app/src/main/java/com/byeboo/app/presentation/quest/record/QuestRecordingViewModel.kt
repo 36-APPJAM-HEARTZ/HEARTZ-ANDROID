@@ -10,8 +10,7 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class
-QuestRecordingViewModel @Inject constructor() : ViewModel() {
+class QuestRecordingViewModel @Inject constructor() : ViewModel() {
     private val _state: MutableStateFlow<QuestRecordingState> =
         MutableStateFlow(QuestRecordingState())
     val state: StateFlow<QuestRecordingState>
