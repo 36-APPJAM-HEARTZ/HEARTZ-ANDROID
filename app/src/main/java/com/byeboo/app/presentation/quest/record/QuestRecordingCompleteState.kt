@@ -1,5 +1,8 @@
 package com.byeboo.app.presentation.quest.record
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class QuestRecordingCompleteState(
     val stepNumber: Int = 0,
     val questNumber: Int = 0,
@@ -9,3 +12,7 @@ data class QuestRecordingCompleteState(
     val questEmotionState: String = "",
     val emotionDescription: String = ""
 )
+
+sealed interface QuestRecordingCompleteSideEffect{
+    data object NavigateToQuest: QuestRecordingCompleteSideEffect
+}

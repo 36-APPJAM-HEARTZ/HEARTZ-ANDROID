@@ -15,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -54,6 +55,16 @@ fun QuestRecordingCompleteScreen(
         else -> LargeTagType.EMOTION_RELIEF
     }
 
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect { effect ->
+            when (effect) {
+                QuestRecordingCompleteSideEffect.NavigateToQuest -> onCloseClick()
+            }
+        }
+    }
+
+    // TODO: 백핸들러 로직 추가
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -61,7 +72,7 @@ fun QuestRecordingCompleteScreen(
     ) {
         ByeBooTopBar(
             modifier = Modifier.background(color = ByeBooTheme.colors.gray900Alpha80),
-            onCloseClick = onCloseClick
+            onCloseClick = viewModel::onCloseClick
         )
 
         Column(
