@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
-fun DesCriptionText(
+fun DescriptionText(
     nicknameText: String? = null,
     title: String,
     guideText: String,

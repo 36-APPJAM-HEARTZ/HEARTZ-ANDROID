@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.byeboo.app.core.designsystem.component.tag.MiddleTag
-import com.byeboo.app.core.designsystem.component.text.DesCriptionText
+import com.byeboo.app.core.designsystem.component.text.DescriptionText
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.presentation.quest.component.QuestBox
@@ -69,7 +69,7 @@ fun QuestScreen(
                 middleTagType = MiddleTagType.QUEST_START_DAY,
                 text = "3"
             )
-            DesCriptionText(
+            DescriptionText(
                 nicknameText = "하츠핑님, 지금",
                 title = "감정 직면 여정",
                 guideText = "을 진행 중이에요.",
