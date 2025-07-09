@@ -6,6 +6,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.byeboo.app.core.navigation.MainTabRoute
 import com.byeboo.app.presentation.quest.QuestScreen
+import com.byeboo.app.presentation.quest.behavior.QuestBehaviorWritingScreen
 import kotlinx.serialization.Serializable
 
 fun NavController.navigateToQuest(navOptions: NavOptions? = null) {
@@ -14,7 +15,8 @@ fun NavController.navigateToQuest(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.questGraph() {
     composable<Quest> {
-        QuestScreen()
+        //QuestScreen()
+        QuestBehaviorWritingScreen()
     }
 }
 
