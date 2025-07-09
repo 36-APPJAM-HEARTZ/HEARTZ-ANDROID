@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -27,13 +25,14 @@ import com.byeboo.app.core.designsystem.ui.theme.gray900Alpha80
 
 @Composable
 fun QuestQuitModal(
+    onDismissRequest: () -> Unit,
     stayButton: () -> Unit,
     quitButton: () -> Unit,
     modifier: Modifier = Modifier,
     dialogProperties: DialogProperties = DialogProperties()
 ) {
     Dialog(
-        onDismissRequest = quitButton,
+        onDismissRequest = onDismissRequest,
         properties = dialogProperties
     ) {
         Column(
@@ -85,21 +84,6 @@ fun QuestQuitModal(
                     modifier = Modifier.weight(1f)
                 )
             }
-        }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun QuestQuitModalPreview() {
-    ByeBooTheme {
-        Column(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            QuestQuitModal(
-                stayButton = {},
-                quitButton = {}
-            )
         }
     }
 }
