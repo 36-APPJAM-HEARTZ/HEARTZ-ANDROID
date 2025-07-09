@@ -36,8 +36,10 @@ fun OnBoardingScreen(
 ) {
 
     val pageIndex by viewModel.pageIndex
+
     val contents = viewModel.currentContents()
 
+    val pageSpace = if (pageIndex==2) 24.dp else 16.dp
 
     val buttonText = if (pageIndex == 2) "시작하기" else "다음으로"
 
@@ -105,7 +107,7 @@ fun OnBoardingScreen(
                     contentScale = ContentScale.FillWidth,
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(pageSpace))
 
 
                 Text(
@@ -124,7 +126,6 @@ fun OnBoardingScreen(
 
         Spacer(modifier = Modifier.weight(1f))
 
-
         ByeBooButton(
             modifier = Modifier
                     .padding(bottom = 56.dp)
@@ -135,14 +136,7 @@ fun OnBoardingScreen(
                 buttonBackgroundColor = ByeBooTheme.colors.primary300
 
         )
-
-
-
     }
-
-
-
-
 }
 
 
