@@ -40,7 +40,7 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun QuestRecordingCompleteScreen(
-    onNavigateBack: () -> Unit,
+    onCloseClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestRecordingCompleteViewModel = hiltViewModel()
 ) {
@@ -61,7 +61,7 @@ fun QuestRecordingCompleteScreen(
     ) {
         ByeBooTopBar(
             modifier = Modifier.background(color = ByeBooTheme.colors.gray900Alpha80),
-            onNavigateBack = onNavigateBack
+            onCloseClick = onCloseClick
         )
 
         Column(
