@@ -1,49 +1,43 @@
 package com.byeboo.app.presentation.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.airbnb.lottie.RenderMode
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.LottieConstants
+import com.airbnb.lottie.compose.rememberLottieComposition
+import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.state.UiState
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    Column(
+    // TODO: home animation 
+//    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+//    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bori_home_7))
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(ByeBooTheme.colors.black),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .windowInsetsPadding(WindowInsets(0))
+            .background(ByeBooTheme.colors.black)
     ) {
-        when (val state = uiState.user) {
-            is UiState.Loading -> {
-                Text(text = "로딩 중...", color = Color.Gray)
-            }
-
-            is UiState.Success -> {
-                state.data.info.forEachIndexed { index, item ->
-                    Text(text = "Info[$index]: $item")
-                }
-            }
-
-            is UiState.Failure -> {
-                Text(text = "에러: ${state.msg}", color = Color.Red)
-            }
-
-            UiState.Empty -> {
-                Text(text = "데이터가 없습니다.")
-            }
-        }
+        /// TODO: home animation 
+//        LottieAnimation(
+//            composition = composition,
+//            iterations = LottieConstants.IterateForever,
+//            modifier = Modifier.fillMaxSize(),
+//            contentScale = ContentScale.Crop,
+//            renderMode = RenderMode.HARDWARE,
+//            enableMergePaths = true
+//        )
     }
 }
