@@ -2,15 +2,12 @@ package com.byeboo.app.presentation.quest.behavior
 
 import androidx.lifecycle.ViewModel
 import com.byeboo.app.domain.model.ContentLengthValidator
-import com.byeboo.app.presentation.quest.QuestRecordingState
-import com.byeboo.app.presentation.quest.QuestWritingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
-import kotlin.Int
 
 @HiltViewModel
 class QuestBehaviorViewModel @Inject constructor(
@@ -18,10 +15,12 @@ class QuestBehaviorViewModel @Inject constructor(
 ): ViewModel() {
 
 
-    private val _uiState: MutableStateFlow<QuestBehaviorState> = MutableStateFlow(QuestBehaviorState())
+    private val _uiState = MutableStateFlow(QuestBehaviorState())
+    val uiState: StateFlow<QuestBehaviorState> = _uiState.asStateFlow()
 
-    val uiState: StateFlow<QuestBehaviorState>
-        get() = _uiState.asStateFlow()
+
+    private val _showBottomSheet = MutableStateFlow(false)
+    val showBottomSheet: StateFlow<Boolean> = _showBottomSheet.asStateFlow()
 
 
     fun updateContent(text: String) {
@@ -32,6 +31,14 @@ class QuestBehaviorViewModel @Inject constructor(
         )
         }
 
+    }
+
+    fun openBottomSheet() {
+        _showBottomSheet.value = true
+    }
+
+    fun closeBottomSheet() {
+        _showBottomSheet.value = false
     }
 
 
