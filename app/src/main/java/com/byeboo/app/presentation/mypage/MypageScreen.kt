@@ -30,7 +30,7 @@ fun MypageScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(Color.White),
+            .background(ByeBooTheme.colors.black),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

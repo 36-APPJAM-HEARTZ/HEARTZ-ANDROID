@@ -61,7 +61,11 @@ fun MainNavHost(
             }
         )
         homeGraph()
-        questGraph()
+        questGraph(
+            navigateToHome = { navigator.navigateToHome() },
+            navigateToMypage = { navigator.navigateToMypage() },
+            bottomPadding = bottomPadding
+        )
         mypageGraph()
     }
 }

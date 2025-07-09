@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest.navigation
 
+import androidx.compose.ui.unit.Dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -12,9 +13,17 @@ fun NavController.navigateToQuest(navOptions: NavOptions? = null) {
     navigate(Quest, navOptions)
 }
 
-fun NavGraphBuilder.questGraph() {
+fun NavGraphBuilder.questGraph(
+    navigateToHome: () -> Unit,
+    navigateToMypage: () -> Unit,
+    bottomPadding: Dp
+) {
     composable<Quest> {
-        QuestScreen()
+        QuestScreen(
+            navigateToHome = navigateToHome,
+            navigateToMypage = navigateToMypage,
+            bottomPadding = bottomPadding
+        )
     }
 }
 

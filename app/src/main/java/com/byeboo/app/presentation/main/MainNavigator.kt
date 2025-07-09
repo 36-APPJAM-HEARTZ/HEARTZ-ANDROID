@@ -11,8 +11,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.byeboo.app.presentation.auth.loading.navigation.navigateToLoading
 import com.byeboo.app.presentation.auth.onboarding.navigation.navigateToOnboarding
-import com.byeboo.app.presentation.auth.userinfo.navigation.UserInfo
 import com.byeboo.app.presentation.auth.userinfo.navigation.navigateToUserInfo
+import com.byeboo.app.presentation.home.navigation.Home
 import com.byeboo.app.presentation.home.navigation.navigateToHome
 import com.byeboo.app.presentation.mypage.navigation.navigateToMypage
 import com.byeboo.app.presentation.quest.navigation.navigateToQuest
@@ -25,7 +25,7 @@ class MainNavigator(
             navController
                 .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = UserInfo
+    val startDestination = Home
 
     val currentTab: MainNavTab?
         @Composable get() =
@@ -66,8 +66,12 @@ class MainNavigator(
         navController.navigateToUserInfo(navOptions)
     }
 
-    fun navigateToHome(navOptions: NavOptions) {
+    fun navigateToHome(navOptions: NavOptions? = null) {
         navController.navigateToHome(navOptions)
+    }
+
+    fun navigateToMypage(navOptions: NavOptions? = null) {
+        navController.navigateToMypage(navOptions)
     }
 
     fun navigateToLoading(navOptions: NavOptions) {
