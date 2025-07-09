@@ -18,9 +18,4 @@ object QuestContentLengthValidator {
     fun validButton(text: String, maxLength: Int = 500): Boolean {
         return text.length >= 10 && text.length <= maxLength
     }
-
-    // TODO: 500 이상일 때 기록 막기
-    fun block(text: String, maxLength: Int = 500): Boolean {
-        return text.length <= maxLength
-    }
 }

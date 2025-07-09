@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest.record
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +16,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,20 +33,47 @@ import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.addFocusCleaner
 import com.byeboo.app.domain.model.QuestContentLengthValidator
+import com.byeboo.app.presentation.quest.component.QuestQuitModal
 import com.byeboo.app.presentation.quest.component.QuestTextField
 
 @Composable
 fun QuestRecordingScreen(
-    onNavigateBack: () -> Unit,
-    onClick: () -> Unit,
-    tipClick: () -> Unit,
+    navigateToQuest: () -> Unit,
+    navigateToQuestTip: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestRecordingViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
 
     val scrollState = rememberScrollState()
     val focusManager = LocalFocusManager.current
+
+    // TODO: 바텀시트 올라오는 SideEffect / onCompleteClick
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect { effect ->
+            when (effect) {
+                QuestRecordingSideEffect.NavigateToQuest -> navigateToQuest()
+                QuestRecordingSideEffect.NavigateToQuestTip -> navigateToQuestTip()
+                else -> ""
+            }
+        }
+    }
+
+    if (showQuitModal) {
+        QuestQuitModal(
+            onDismissRequest = {viewModel.onDismissModal()},
+            stayButton = {
+                viewModel.onDismissModal()
+            },
+            quitButton = {
+                viewModel.onDismissModal()
+                viewModel.onQuitClick()
+            }
+        )
+    }
+
+    BackHandler { viewModel.onBackClicked() }
 
     Column(
         modifier = modifier
@@ -54,7 +83,7 @@ fun QuestRecordingScreen(
     ) {
         ByeBooTopBar(
             modifier = Modifier.background(color = ByeBooTheme.colors.gray900Alpha80),
-            onNavigateBack = onNavigateBack
+            onNavigateBack = viewModel::onBackClicked
         )
 
         Column(
@@ -82,7 +111,6 @@ fun QuestRecordingScreen(
                     style = ByeBooTheme.typography.body2,
                     color = ByeBooTheme.colors.gray500
                 )
-
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -112,7 +140,7 @@ fun QuestRecordingScreen(
                 text = "작성 TIP",
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .clickable(onClick = tipClick)
+                    .clickable(onClick = viewModel::onTipClick)
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -120,8 +148,11 @@ fun QuestRecordingScreen(
             QuestTextField(
                 questWritingState = uiState.contentsState,
                 value = uiState.contents,
-                onValueChange = viewModel::updateContent,
-                isEnabled = QuestContentLengthValidator.block(text = uiState.contents),
+                onValueChange = {
+                    if (it.length <= 500) {
+                        viewModel.updateContent(it)
+                    }
+                },
                 placeholder = "글로 적다 보면, 스스로에게 한 걸음 더 가까워질 수 있어요."
             )
 
@@ -141,7 +172,7 @@ fun QuestRecordingScreen(
                 buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
                 buttonText = "완료하기",
                 buttonDisableTextColor = ByeBooTheme.colors.gray300,
-                onClick = onClick,
+                onClick = viewModel::onCompleteClick,
                 isEnabled = QuestContentLengthValidator.validButton(uiState.contents)
             )
 
