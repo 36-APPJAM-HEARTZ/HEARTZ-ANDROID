@@ -45,6 +45,7 @@ fun UserInfoScreen(
     modifier: Modifier = Modifier,
     viewModel: UserInfoViewModel = hiltViewModel()
 ) {
+    // TODO: backHandler
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 3 })
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -91,7 +92,7 @@ fun UserInfoScreen(
                 .fillMaxSize()
                 .padding(horizontal = 24.dp)
         ) {
-            Spacer(modifier = Modifier.padding(top = 72.dp))
+            Spacer(modifier = Modifier.padding(top = 67.dp))
 
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
