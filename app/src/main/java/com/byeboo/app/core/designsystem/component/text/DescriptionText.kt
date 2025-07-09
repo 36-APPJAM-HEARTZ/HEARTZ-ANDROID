@@ -1,4 +1,4 @@
-package com.byeboo.app.presentation.auth.userinfo.component
+package com.byeboo.app.core.designsystem.component.text
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -8,13 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
-fun UserInfoText(
+fun DesCriptionText(
+    nicknameText: String? = null,
     title: String,
     guideText: String,
     contentText: String,
@@ -23,6 +23,10 @@ fun UserInfoText(
     Column(modifier = modifier.padding(vertical = 20.dp)) {
         Text(
             buildAnnotatedString {
+                withStyle(style = SpanStyle(color = ByeBooTheme.colors.gray50)) {
+                    append(nicknameText ?: "")
+                }
+                append("\n")
                 withStyle(style = SpanStyle(color = ByeBooTheme.colors.primary300)) {
                     append(title)
                 }
@@ -30,8 +34,7 @@ fun UserInfoText(
                     append(guideText)
                 }
             },
-            style = ByeBooTheme.typography.head1,
-            textAlign = TextAlign.Center
+            style = ByeBooTheme.typography.head1
         )
         Spacer(modifier = Modifier.padding(top = 8.dp))
         Text(
