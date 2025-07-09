@@ -5,16 +5,14 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.lifecycle.ViewModel
 import com.byeboo.app.R
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
-import javax.inject.Inject
 
 @HiltViewModel
 class OnBoardingViewModel @Inject constructor() : ViewModel() {
     private val _pageIndex = mutableIntStateOf(0)
     val pageIndex: State<Int> = _pageIndex
-
-
 
     private val pages: PersistentList<List<OnBoardingState>> = persistentListOf(
         persistentListOf(
@@ -59,12 +57,9 @@ class OnBoardingViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-
     fun skipPage() {
-
     }
 
-
-    fun currentContents() : List<OnBoardingState> = pages[_pageIndex.value]
+    fun currentContents(): List<OnBoardingState> = pages[_pageIndex.value]
     fun showPageNumber(): String = "${_pageIndex.intValue + 1}/${pages.size}"
 }

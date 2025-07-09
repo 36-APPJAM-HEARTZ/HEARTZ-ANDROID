@@ -23,7 +23,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.byeboo.app.R
@@ -35,15 +34,13 @@ fun OnBoardingScreen(
     modifier: Modifier = Modifier,
     viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
-
     val pageIndex by viewModel.pageIndex
 
     val contents = viewModel.currentContents()
 
-    val pageSpace = if (pageIndex==2) 24.dp else 16.dp
+    val pageSpace = if (pageIndex == 2) 24.dp else 16.dp
 
     val buttonText = if (pageIndex == 2) "시작하기" else "다음으로"
-
 
     Column(
         modifier = Modifier
@@ -51,14 +48,12 @@ fun OnBoardingScreen(
             .background(ByeBooTheme.colors.primary900),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         Row(
             modifier = Modifier
                 .padding(start = 24.dp, end = 24.dp, top = 67.dp, bottom = 16.dp),
             verticalAlignment = Alignment.CenterVertically
 
         ) {
-
             Text(
                 text = viewModel.showPageNumber(),
                 color = ByeBooTheme.colors.primary200,
@@ -75,9 +70,10 @@ fun OnBoardingScreen(
                 Text(
                     text = "Skip",
                     color = ByeBooTheme.colors.primary200,
-                    style = ByeBooTheme.typography.body5.copy(textDecoration = TextDecoration.Underline)
+                    style = ByeBooTheme.typography.body5.copy(
+                        textDecoration = TextDecoration.Underline
+                    )
                 )
-
 
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_right),
@@ -94,8 +90,6 @@ fun OnBoardingScreen(
                 .padding(horizontal = 45.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-
             contents.forEach { content ->
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -105,11 +99,10 @@ fun OnBoardingScreen(
                     contentDescription = "OnBoarding image",
                     modifier = Modifier
                         .fillMaxWidth(),
-                    contentScale = ContentScale.FillWidth,
+                    contentScale = ContentScale.FillWidth
                 )
 
                 Spacer(modifier = Modifier.height(pageSpace))
-
 
                 Text(
                     text = content.title,
@@ -119,9 +112,6 @@ fun OnBoardingScreen(
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
-
-
-
             }
         }
 
@@ -129,12 +119,12 @@ fun OnBoardingScreen(
 
         ByeBooButton(
             modifier = Modifier
-                    .padding(bottom = 56.dp)
-                    .padding(horizontal = 24.dp),
-                buttonText = buttonText,
-                onClick = {viewModel.nextPage()},
-                buttonTextColor = ByeBooTheme.colors.white,
-                buttonBackgroundColor = ByeBooTheme.colors.primary300
+                .padding(bottom = 56.dp)
+                .padding(horizontal = 24.dp),
+            buttonText = buttonText,
+            onClick = { viewModel.nextPage() },
+            buttonTextColor = ByeBooTheme.colors.white,
+            buttonBackgroundColor = ByeBooTheme.colors.primary300
 
         )
     }
