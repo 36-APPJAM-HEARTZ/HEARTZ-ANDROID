@@ -1,8 +1,10 @@
 package com.byeboo.app.presentation.quest
 
+import androidx.compose.runtime.Immutable
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 
+@Immutable
 data class QuestTipState(
     val stepNumber: Int = 0,
     val questNumber: Int = 0,
@@ -11,3 +13,7 @@ data class QuestTipState(
     val tipQuestion: ImmutableList<String> = persistentListOf(),
     val tipAnswer: ImmutableList<String> = persistentListOf()
 )
+
+sealed interface QuestTipSideEffect{
+
+}

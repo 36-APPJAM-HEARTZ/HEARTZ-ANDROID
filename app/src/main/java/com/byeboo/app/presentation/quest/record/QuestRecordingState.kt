@@ -1,7 +1,9 @@
 package com.byeboo.app.presentation.quest.record
 
+import androidx.compose.runtime.Immutable
 import com.byeboo.app.domain.model.QuestWritingState
 
+@Immutable
 data class QuestRecordingState(
     val step: String = "감정 쏟아내기",
     val stepNumber: Int = 0,
@@ -10,3 +12,10 @@ data class QuestRecordingState(
     val contents: String = "",
     val contentsState: QuestWritingState = QuestWritingState.BeforeWriting
 )
+
+//TODO: 사이드 이펙트 -> 바텀바
+sealed interface QuestRecordingSideEffect{
+    data object NavigateToQuestComplete: QuestRecordingSideEffect
+
+
+}
