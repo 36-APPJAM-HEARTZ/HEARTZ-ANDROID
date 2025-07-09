@@ -1,4 +1,4 @@
-package com.byeboo.app.core.designsystem.component.contenttext
+package com.byeboo.app.core.designsystem.component.text
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
