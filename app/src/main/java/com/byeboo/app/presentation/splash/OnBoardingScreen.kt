@@ -22,6 +22,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -74,7 +75,7 @@ fun OnBoardingScreen(
                 Text(
                     text = "Skip",
                     color = ByeBooTheme.colors.primary200,
-                    style = ByeBooTheme.typography.body5
+                    style = ByeBooTheme.typography.body5.copy(textDecoration = TextDecoration.Underline)
                 )
 
 
@@ -137,24 +138,4 @@ fun OnBoardingScreen(
 
         )
     }
-}
-
-
-
-
-
-
-
-
-@Composable
-fun ImageContent() {
-
-}
-
-@Preview
-@Composable
-private fun OnBoardingScreenPreview() {
-
-    OnBoardingScreen()
-
 }
