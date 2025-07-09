@@ -15,7 +15,7 @@ fun NavController.navigateToQuestBehaviorWriting(navOptions: NavOptions? = null)
 fun NavGraphBuilder.questBehaviorWritingGraph(
     navigateToQuestComplete: () -> Unit) {
     composable<QuestBehaviorWriting> {
-        QuestBehaviorWritingScreen(navigateToQuestComplete = navigateToQuestComplete)
+        QuestBehaviorWritingScreen()
     }
 }
 
