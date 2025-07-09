@@ -1,6 +1,6 @@
 package com.byeboo.app.presentation.quest.behavior
 
-import com.byeboo.app.presentation.quest.QuestWritingState
+import com.byeboo.app.domain.model.QuestWritingState
 
 data class QuestBehaviorState(
     val stepNumber : Int= 1,
