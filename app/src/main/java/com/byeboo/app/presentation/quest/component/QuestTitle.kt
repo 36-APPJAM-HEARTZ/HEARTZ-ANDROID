@@ -17,8 +17,9 @@ import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
-fun QuestTitle(
+fun  QuestTitle(
     stepNumber: Int,
+    questNumber: Int,
     createdAt: String,
     questQuestion: String
 
@@ -36,7 +37,7 @@ fun QuestTitle(
             Spacer(modifier = Modifier.width(8.dp))
 
             Text(
-                text = "${stepNumber}번째 퀘스트",
+                text = "${questNumber}번째 퀘스트",
                 color = ByeBooTheme.colors.gray400,
                 style = ByeBooTheme.typography.body5
             )
@@ -60,14 +61,4 @@ fun QuestTitle(
     }
 }
 
-@Preview
-@Composable
-private fun QuestTitlePreview() {
-    ByeBooTheme {
-        QuestTitle(
-            stepNumber = 1,
-            createdAt = "2025.07.04",
-            questQuestion = "수박을 어떻게 하면 많이 먹을지 생각해보아요."
-        )
-    }
-}
+
