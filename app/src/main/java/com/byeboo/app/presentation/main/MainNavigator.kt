@@ -19,6 +19,7 @@ import com.byeboo.app.presentation.home.navigation.navigateToHomeOnboarding
 import com.byeboo.app.presentation.mypage.navigation.navigateToMypage
 import com.byeboo.app.presentation.quest.navigation.navigateToQuest
 import com.byeboo.app.presentation.quest.navigation.navigateToQuestComplete
+import com.byeboo.app.presentation.quest.navigation.navigateToQuestReview
 
 class MainNavigator(
     val navController: NavHostController
@@ -82,6 +83,10 @@ class MainNavigator(
 
     fun navigateToHomeOnboarding(navOptions: NavOptions) {
         navController.navigateToHomeOnboarding(navOptions)
+    }
+
+    fun navigateToQuestReview(navOptions: NavOptions) {
+        navController.navigateToQuestReview(navOptions)
     }
 
 

@@ -68,10 +68,14 @@ fun MainNavHost(
             navigateToHome = {
                 navigator.navigateToHome(clearStackNavOptions)
             }
+        )
         questGraph(
             sharedViewModel = sharedViewModel,
             navigateToQuestComplete = {
                 navigator.navigateToQuestComplete(clearStackNavOptions)
+            },
+            navigateToQuestReview = {
+                navigator.navigateToQuestReview(clearStackNavOptions)
             }
         )
         mypageGraph()
