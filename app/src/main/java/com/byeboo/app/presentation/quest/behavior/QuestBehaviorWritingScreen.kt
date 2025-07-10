@@ -1,10 +1,10 @@
 package com.byeboo.app.presentation.quest.behavior
 
-import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,54 +13,62 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
 import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
-import com.byeboo.app.core.designsystem.component.topbar.ByeBooTopBar
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.presentation.quest.behavior.component.QuestPhotoPicker
-import androidx.compose.runtime.getValue
-import com.byeboo.app.domain.model.ContentLengthValidator
 import com.byeboo.app.presentation.quest.component.QuestTextField
+import com.byeboo.app.presentation.quest.component.QuitModal
 import com.byeboo.app.presentation.quest.component.bottomsheet.ByeBooBottomSheet
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
-
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuestBehaviorWritingScreen(
-    //questContent: String ="",
-    //onQuestContentChange: (String?) -> Unit,
-    //navigateToQuestComplete: () -> Unit,
+    navigateToQuestComplete: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: QuestBehaviorViewModel = hiltViewModel()
+    sharedViewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
 
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by sharedViewModel.uiState.collectAsState()
+
+    val showBottomSheet by sharedViewModel.showBottomSheet.collectAsState()
+
+    val isEmotionSelected by sharedViewModel.isEmotionSelected.collectAsState()
+
+    val selectedImageUrl by sharedViewModel.selectedImageUri.collectAsState()
 
 
-    val showBottomSheet by viewModel.showBottomSheet.collectAsState()
+    var showQuitModal by remember { mutableStateOf(false) }
 
-
-    val coroutineScope = rememberCoroutineScope()
-
-
-    Box(modifier = Modifier.fillMaxSize()) {
+    if (showQuitModal) {
+        QuitModal(
+            stayButton = { showQuitModal = false },
+            quitButton = {
+                showQuitModal = false
+                //Todo: navigateToQuest() 이동
+            }
+        )
+    }
 
     LazyColumn(
         modifier = modifier
@@ -70,9 +78,19 @@ fun QuestBehaviorWritingScreen(
     ) {
 
         item {
-            ByeBooTopBar(
-                onNavigateBack = {})
+            Icon(
+                imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
+                contentDescription = "back button",
+                tint = ByeBooTheme.colors.white,
+                modifier = Modifier
+                    .padding(top=67.dp)
+                    .clickable{
+                        showQuitModal = true
+                    }
+            )
+        }
 
+        item {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
@@ -97,7 +115,7 @@ fun QuestBehaviorWritingScreen(
 
         item {
             Text(
-                text = "1번째 퀘스트",
+                text = "${uiState.questNumber}번째 퀘스트",
                 color = ByeBooTheme.colors.secondary300,
                 textAlign = TextAlign.Center,
                 style = ByeBooTheme.typography.body5,
@@ -121,7 +139,8 @@ fun QuestBehaviorWritingScreen(
         item {
 
             Box(
-                modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
             ) {
                 MiddleTag(
                     middleTagType = MiddleTagType.QUEST_TIP, text = "작성 TIP"
@@ -161,8 +180,10 @@ fun QuestBehaviorWritingScreen(
         item {
 
             QuestPhotoPicker(
-                imageUrl = "",
-                onImageClick = {},
+                imageUrl = selectedImageUrl,
+                onImageClick = { url ->
+                    sharedViewModel.updateSelectedImage(url)
+                },
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -192,7 +213,7 @@ fun QuestBehaviorWritingScreen(
             QuestTextField(
                 questWritingState = uiState.contentState,
                 value = uiState.contents,
-                onValueChange = viewModel::updateContent
+                onValueChange = sharedViewModel::updateContent
             )
 
             Spacer(modifier = Modifier.height(21.dp))
@@ -205,8 +226,9 @@ fun QuestBehaviorWritingScreen(
                 buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
                 buttonText = "완료",
                 buttonDisableTextColor = ByeBooTheme.colors.gray300,
-                onClick = { viewModel.openBottomSheet() },
-                //Todo: ContentLengthValidator 에서 호출
+                onClick = { sharedViewModel.openBottomSheet()
+                    sharedViewModel.updateSelectedImage(selectedImageUrl)},
+                // Todo: ContentLengthValidator 에서 호출
                 isEnabled = true
             )
 
@@ -218,15 +240,20 @@ fun QuestBehaviorWritingScreen(
     }
 
         ByeBooBottomSheet(
+            navigateButton = navigateToQuestComplete,
             showBottomSheet = showBottomSheet,
             onDismiss = {
-                viewModel.closeBottomSheet()},
+                sharedViewModel.closeBottomSheet()},
             onEmotionSelected = { selectedEmotion ->
-                //Todo:navigateToQuestComplete
-                viewModel.closeBottomSheet()
+                sharedViewModel.isEmotionSelected(true)
+                sharedViewModel.updateSelectedEmotion(selectedEmotion)
+                sharedViewModel.closeBottomSheet()
 
-            }
+            },
+            onSelectedChanged = { isSelected ->
+                sharedViewModel.isEmotionSelected(isSelected)
+            },
+            isSelected = isEmotionSelected
         )
 
     }
-}
