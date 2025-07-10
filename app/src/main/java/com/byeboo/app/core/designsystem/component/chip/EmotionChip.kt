@@ -25,7 +25,11 @@ fun EmotionChip(
     isSelected: Boolean = false,
     onChipClick: ((LargeTagType) -> Unit)? = null
 ) {
-    val backgroundColor = if (isSelected) ByeBooTheme.colors.primary300 else ByeBooTheme.colors.whiteAlpha10
+    val backgroundColor = if (isSelected) {
+        ByeBooTheme.colors.primary300
+    } else {
+        ByeBooTheme.colors.whiteAlpha10
+    }
 
     Column(
         modifier = modifier

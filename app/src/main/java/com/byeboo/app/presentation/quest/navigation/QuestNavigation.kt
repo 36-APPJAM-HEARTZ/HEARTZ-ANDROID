@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest.navigation
 
+import androidx.compose.ui.unit.Dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -31,7 +32,7 @@ fun NavGraphBuilder.questGraph(
         }
 
         composable<Quest> {
-            QuestScreen()
+//            QuestScreen()
         }
 
         questRecordGraph(
