@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -57,14 +58,14 @@ fun HomeScreen(
                     title = "오늘의 퀘스트 하러가기",
                     subtitle = "퀘스트를 하고나면 한층 더 성장할 거에요."
                 )
-                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 HomeProgressCard(
                     title = displayName + "님의 자기 성찰 여정",
                     currentStep = 15,
                     totalSteps = 30
                 )
-                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
                 HomeTextCard(
                     title = "천천히, 하지만 분명하게. 오늘도 나아가 봐요."
