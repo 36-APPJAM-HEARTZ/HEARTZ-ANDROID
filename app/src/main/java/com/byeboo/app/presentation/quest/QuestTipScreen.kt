@@ -41,7 +41,7 @@ fun QuestTipScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                QuestTipSideEffect.NavigateBack -> navigateBack()
+                is QuestTipSideEffect.NavigateBack -> navigateBack()
             }
         }
     }

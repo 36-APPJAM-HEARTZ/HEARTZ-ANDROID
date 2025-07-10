@@ -58,7 +58,7 @@ fun QuestRecordingCompleteScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                QuestRecordingCompleteSideEffect.NavigateToQuest -> navigateToQuest()
+                is QuestRecordingCompleteSideEffect.NavigateToQuest -> navigateToQuest()
             }
         }
     }

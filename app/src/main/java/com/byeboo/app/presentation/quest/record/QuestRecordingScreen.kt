@@ -35,6 +35,7 @@ import com.byeboo.app.core.util.addFocusCleaner
 import com.byeboo.app.domain.model.QuestContentLengthValidator
 import com.byeboo.app.presentation.quest.component.QuestQuitModal
 import com.byeboo.app.presentation.quest.component.QuestTextField
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun QuestRecordingScreen(
@@ -51,10 +52,10 @@ fun QuestRecordingScreen(
 
     // TODO: 바텀시트 올라오는 SideEffect / onCompleteClick
     LaunchedEffect(Unit) {
-        viewModel.sideEffect.collect { effect ->
+        viewModel.sideEffect.collectLatest { effect ->
             when (effect) {
-                QuestRecordingSideEffect.NavigateToQuest -> navigateToQuest()
-                QuestRecordingSideEffect.NavigateToQuestTip -> navigateToQuestTip()
+                is QuestRecordingSideEffect.NavigateToQuest -> navigateToQuest()
+                is QuestRecordingSideEffect.NavigateToQuestTip -> navigateToQuestTip()
                 else -> ""
             }
         }
@@ -166,6 +167,7 @@ fun QuestRecordingScreen(
                 textAlign = TextAlign.Start
             )
 
+            //TODO: height를 고정 값으로 주지 않고 스크롤 안 시킬 수 있는 방법은...?
             Spacer(modifier = Modifier.height(200.dp))
 
             ByeBooActivationButton(

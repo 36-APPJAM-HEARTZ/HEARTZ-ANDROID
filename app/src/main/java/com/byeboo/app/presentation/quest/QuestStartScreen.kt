@@ -31,7 +31,7 @@ fun QuestStartScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                QuestStartSideEffect.NavigateToQuest -> onNavigateQuest()
+                is QuestStartSideEffect.NavigateToQuest -> onNavigateQuest()
             }
         }
     }
