@@ -16,6 +16,6 @@ data class QuestRecordingState(
 //TODO: 사이드 이펙트 -> 바텀바
 sealed interface QuestRecordingSideEffect{
     data object NavigateToQuestComplete: QuestRecordingSideEffect
-
-
+    data object NavigateToQuest: QuestRecordingSideEffect
+    data object NavigateToQuestTip: QuestRecordingSideEffect
 }

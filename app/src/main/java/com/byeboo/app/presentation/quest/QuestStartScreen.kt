@@ -4,12 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -21,48 +22,53 @@ import com.byeboo.app.presentation.quest.component.GuideContent
 @Composable
 fun QuestStartScreen(
     onNavigateBack: () -> Unit,
-    onStartButtonClick: () -> Unit,
+    onNavigateQuest: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestStartViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
 
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect { effect ->
+            when (effect) {
+                QuestStartSideEffect.NavigateToQuest -> onNavigateQuest()
+            }
+        }
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
-            .padding(horizontal = 24.dp)
     ) {
-        ByeBooTopBar(onNavigateBack = onNavigateBack)
+        ByeBooTopBar(
+            onNavigateBack = onNavigateBack,
+            modifier = Modifier.background(color = ByeBooTheme.colors.gray900Alpha80)
+        )
 
         Spacer(modifier = Modifier.height(11.dp))
 
-        GuideContent(
-            nickname = uiState.nickname,
-            guideText = "님의 상황에 꼭 맞춘\n${uiState.journeyName} 여정의 퀘스트 30개를 드릴게요.\n\n제가 드리는 퀘스트와 함꼐\n이별을 극복해나가요!"
-        )
-
-        Spacer(modifier = Modifier.weight(1f))
-
-        ByeBooButton(
-            onClick = onStartButtonClick,
-            buttonText = "시작하기",
-            buttonTextColor = ByeBooTheme.colors.white,
-            buttonBackgroundColor = ByeBooTheme.colors.primary300,
+        Column(
             modifier = Modifier
-        )
+                .fillMaxWidth()
+                .padding(horizontal = 24.dp)
+        ) {
+            GuideContent(
+                nickname = uiState.nickname,
+                guideText = "님의 상황에 꼭 맞춘\n${uiState.journeyName} 여정의 퀘스트 30개를 드릴게요.\n\n제가 드리는 퀘스트와 함꼐\n이별을 극복해나가요!"
+            )
 
-        Spacer(modifier = Modifier.padding(bottom = 56.dp))
-    }
-}
+            Spacer(modifier = Modifier.weight(1f))
 
-@Preview(showBackground = true)
-@Composable
-fun QuestStartScreenPreview() {
-    ByeBooTheme {
-        QuestStartScreen(
-            onNavigateBack = {},
-            onStartButtonClick = {}
-        )
+            ByeBooButton(
+                onClick = viewModel::onStartClick,
+                buttonText = "시작하기",
+                buttonTextColor = ByeBooTheme.colors.white,
+                buttonBackgroundColor = ByeBooTheme.colors.primary300,
+                modifier = Modifier
+            )
+
+            Spacer(modifier = Modifier.padding(bottom = 56.dp))
+        }
     }
 }
