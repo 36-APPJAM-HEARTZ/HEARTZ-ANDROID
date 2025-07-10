@@ -105,7 +105,7 @@ fun HomeOnboardingScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    Spacer(modifier = Modifier.padding(vertical = 8.dp))
+                    Spacer(modifier = Modifier.height(16.dp))
 
                     Image(
                         imageVector = ImageVector.vectorResource(id = R.drawable.speech_bubble),
@@ -117,7 +117,7 @@ fun HomeOnboardingScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.padding(vertical = 8.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Image(
                 painter = painterResource(id = R.drawable.home_onboarding),

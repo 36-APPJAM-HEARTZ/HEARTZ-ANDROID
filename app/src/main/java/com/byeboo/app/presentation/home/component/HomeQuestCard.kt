@@ -15,6 +15,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,17 +27,16 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 fun HomeQuestCard(
     title: String,
     subtitle: String,
+    backgroundColor: Color = ByeBooTheme.colors.whiteAlpha10,
+    shape: Shape = RoundedCornerShape(12.dp),
     modifier: Modifier = Modifier,
     onClick: () -> Unit = {}
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(
-                ByeBooTheme.colors.whiteAlpha10,
-                RoundedCornerShape(12.dp)
-            )
-            .border(1.dp, ByeBooTheme.colors.primary300, RoundedCornerShape(12.dp))
+            .background(backgroundColor, shape)
+            .border(1.dp, ByeBooTheme.colors.primary300, shape)
             .padding(horizontal = 24.dp, vertical = 16.dp)
     ) {
         Row(
