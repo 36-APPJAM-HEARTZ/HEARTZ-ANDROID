@@ -36,14 +36,5 @@ fun QuestScreen() {
             text = "quest Screen",
             color = Color.Black
         )
-
-        ByeBooBottomSheet(
-            showBottomSheet = showBottomSheet,
-            onDismiss = { showBottomSheet = false },
-            onEmotionSelected = {},
-            sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
-            dragHandle = { ByeBooDragHandle() },
-            isSelected = false
-        )
     }
 }
