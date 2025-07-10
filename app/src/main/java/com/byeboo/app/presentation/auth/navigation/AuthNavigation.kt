@@ -1,5 +1,6 @@
-package com.byeboo.app.presentation.auth.userinfo.navigation
+package com.byeboo.app.presentation.auth.navigation
 
+import androidx.compose.ui.unit.Dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -9,6 +10,10 @@ import com.byeboo.app.presentation.auth.loading.LoadingScreen
 import com.byeboo.app.presentation.auth.onboarding.OnboardingScreen
 import com.byeboo.app.presentation.auth.userinfo.UserInfoScreen
 import kotlinx.serialization.Serializable
+
+fun NavController.navigateToOnboarding(navOptions: NavOptions? = null) {
+    navigate(Onboarding, navOptions)
+}
 
 fun NavController.navigateToUserInfo(navOptions: NavOptions? = null) {
     navigate(UserInfo, navOptions)
@@ -22,22 +27,25 @@ fun NavGraphBuilder.authGraph(
     navigateToUserInfo: () -> Unit,
     navigateToOnboarding: () -> Unit,
     navigateToLoading: () -> Unit,
-    navigateToHomeOnboarding: () -> Unit,
+    navigateToHomeAmulet: () -> Unit,
+    bottomPadding: Dp
 ) {
     composable<Onboarding> {
         OnboardingScreen(
-            navigateToUserInfo = navigateToUserInfo
+            navigateToUserInfo = navigateToUserInfo,
+            padding = bottomPadding
         )
     }
     composable<UserInfo> {
         UserInfoScreen(
             navigateToOnboarding = navigateToOnboarding,
-            navigateToLoading = navigateToLoading
+            navigateToLoading = navigateToLoading,
+            padding = bottomPadding
         )
     }
     composable<Loading> {
         LoadingScreen(
-            navigateToHomeOnboarding = navigateToHomeOnboarding
+            navigateToHomeAmulet = navigateToHomeAmulet
         )
     }
 }
