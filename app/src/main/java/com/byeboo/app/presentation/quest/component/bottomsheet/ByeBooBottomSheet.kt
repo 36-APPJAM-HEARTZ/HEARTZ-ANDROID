@@ -14,6 +14,7 @@ import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,10 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
 import com.byeboo.app.core.designsystem.component.chip.EmotionChip
@@ -34,10 +32,12 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ByeBooBottomSheet(
-    showBottomSheet: Boolean = false,
     modifier: Modifier = Modifier,
+    showBottomSheet: Boolean = false,
+    navigateButton: () -> Unit,
     onDismiss: () -> Unit,
     onEmotionSelected: (LargeTagType) -> Unit = {},
+    onSelectedChanged: (Boolean) -> Unit,
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     isBackgroundDimmed: Boolean = true,
     dragHandle: @Composable () -> Unit = {},
@@ -52,23 +52,26 @@ fun ByeBooBottomSheet(
             scrimColor = if (isBackgroundDimmed) ByeBooTheme.colors.blackAlpha80 else Color.Transparent,
             dragHandle = dragHandle
         ) {
-            val density = LocalDensity.current
-            val configuration = LocalConfiguration.current
-            val screenHeight = configuration.screenHeightDp.dp
-            val currentHeight = with(density) {
-                (screenHeight * 0.66375f).toPx()
-            }
+
 
             var selectedEmotion by remember { mutableStateOf<LargeTagType?>(null) }
 
-            var buttonText = if (isSelected) "선택 완료" else "완료"
+            LaunchedEffect(showBottomSheet) {
+                if (showBottomSheet){
+                    selectedEmotion = null
+                    onSelectedChanged(false)
+                }
+            }
+
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(with(density) { currentHeight.toDp() })
-                    .padding(horizontal = 24.dp, vertical = 16.dp),
+                    .padding(horizontal = 24.dp, vertical = 17.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+
+                ByeBooDragHandle()
+
                 Text(
                     text = "퀘스트를 완료한 후,\n어떤 감정이 느껴지시나요?",
                     color = ByeBooTheme.colors.gray50,
@@ -82,21 +85,27 @@ fun ByeBooBottomSheet(
                 EmotionChipList(
                     selectedEmotion = selectedEmotion,
                     onEmotionSelected = {
-                        selectedEmotion = if (selectedEmotion == it) null else it
-                    }
+                        val newEmotion = if (selectedEmotion == it) null else it
+                        selectedEmotion = newEmotion
+                        onSelectedChanged(newEmotion != null)
+                    },
+
                 )
 
                 Spacer(modifier = Modifier.height(37.dp))
 
                 ByeBooActivationButton(
                     buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
-                    buttonText = buttonText,
+                    buttonText = "완료",
                     buttonDisableTextColor = ByeBooTheme.colors.gray300,
                     onClick = {
                         selectedEmotion?.let { emotion ->
                             onEmotionSelected(emotion)
                             onDismiss()
                         }
+
+                       navigateButton()
+
                     },
                     isEnabled = isSelected
                 )
@@ -153,25 +162,3 @@ private fun EmotionChipList(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(
-    showBackground = true,
-    backgroundColor = 0xFF000000,
-    name = "ByeBooChipBottomSheet Preview"
-)
-@Composable
-fun ByeBooBottomSheetPreview() {
-    ByeBooTheme {
-        val previewSheetState = rememberModalBottomSheetState(
-            skipPartiallyExpanded = true
-        )
-
-        ByeBooBottomSheet(
-            onDismiss = {},
-            sheetState = previewSheetState,
-            dragHandle = { ByeBooDragHandle() },
-            isSelected = false
-
-        )
-    }
-}
