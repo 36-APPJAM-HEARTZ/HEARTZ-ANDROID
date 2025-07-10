@@ -11,22 +11,23 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
-fun QuestTitle(
+fun QuestCompleteTitle(
     stepNumber: Int,
     questNumber: Int,
     createdAt: String,
     questQuestion: String
-
 ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 10.dp)
+            .padding(vertical = 10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -38,7 +39,8 @@ fun QuestTitle(
             Text(
                 text = "${questNumber}번째 퀘스트",
                 color = ByeBooTheme.colors.gray400,
-                style = ByeBooTheme.typography.body5
+                style = ByeBooTheme.typography.body5,
+                textAlign = TextAlign.Center
             )
         }
 
@@ -47,7 +49,8 @@ fun QuestTitle(
         Text(
             text = createdAt,
             color = ByeBooTheme.colors.gray400,
-            style = ByeBooTheme.typography.body5
+            style = ByeBooTheme.typography.body5,
+            textAlign = TextAlign.Center
         )
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -55,7 +58,8 @@ fun QuestTitle(
         Text(
             text = questQuestion,
             color = ByeBooTheme.colors.gray100,
-            style = ByeBooTheme.typography.head1
+            style = ByeBooTheme.typography.head1,
+            textAlign = TextAlign.Center
         )
     }
 }
