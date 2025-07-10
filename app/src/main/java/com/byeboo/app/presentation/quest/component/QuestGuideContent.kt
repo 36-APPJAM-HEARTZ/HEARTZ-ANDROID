@@ -53,6 +53,7 @@ fun GuideContent(
 
         Spacer(modifier = Modifier.height(32.dp))
 
+        // TODO: 사진 고정 크기 ㄱㅊ?
         Image(
             painter = painterResource(id = R.drawable.bori_clover),
             contentDescription = "이미지",
