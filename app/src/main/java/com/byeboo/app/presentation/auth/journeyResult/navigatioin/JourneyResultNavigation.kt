@@ -8,11 +8,11 @@ import com.byeboo.app.core.navigation.Route
 import com.byeboo.app.presentation.auth.journeyResult.JourneyResultScreen
 import kotlinx.serialization.Serializable
 
-fun NavController.navigateToJourneyResult(navOptions: NavOptions? = null){
+fun NavController.navigateToJourneyResult(navOptions: NavOptions? = null) {
     navigate(JourneyResult, navOptions)
 }
 
-fun NavGraphBuilder.journeyResultGraph(){
+fun NavGraphBuilder.journeyResultGraph() {
     composable<JourneyResult> {
         JourneyResultScreen()
     }

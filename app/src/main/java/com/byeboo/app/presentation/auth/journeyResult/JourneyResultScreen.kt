@@ -35,14 +35,15 @@ fun JourneyResultScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-
             }
         }
     }
 
-    Box(modifier = modifier
-        .fillMaxSize()
-        .padding(top = 67.dp)) {
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(top = 67.dp)
+    ) {
         Image(
             painter = painterResource(R.drawable.bg_userinfo),
             contentDescription = null,
@@ -54,7 +55,7 @@ fun JourneyResultScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             Text(
-                text = "지금 ${nickname} 님에게 필요한 건",
+                text = "지금 $nickname 님에게 필요한 건",
                 style = ByeBooTheme.typography.body1,
                 color = ByeBooTheme.colors.white,
                 modifier = Modifier
