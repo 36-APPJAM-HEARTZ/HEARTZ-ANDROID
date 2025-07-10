@@ -4,6 +4,7 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navOptions
 import com.byeboo.app.presentation.auth.loading.navigation.loadingGraph
@@ -18,6 +19,7 @@ import com.byeboo.app.presentation.splash.navigation.splashGraph
 @Composable
 fun MainNavHost(
     navigator: MainNavigator,
+    bottomPadding: Dp,
     modifier: Modifier = Modifier
 ) {
     val clearStackNavOptions = navOptions {
@@ -34,8 +36,8 @@ fun MainNavHost(
         startDestination = navigator.startDestination
     ) {
         splashGraph(
-            navigateToHome = { navigator.navigateToHome(clearStackNavOptions)
-            }, navigateToOnboarding = { navigator.navigateToOnboarding(clearStackNavOptions) }
+            navigateToHome = { navigator.navigateToHome(clearStackNavOptions) },
+            navigateToOnboarding = { navigator.navigateToOnboarding(clearStackNavOptions) }
         )
         onboardingGraph(
             navigateToUserInfo = {
