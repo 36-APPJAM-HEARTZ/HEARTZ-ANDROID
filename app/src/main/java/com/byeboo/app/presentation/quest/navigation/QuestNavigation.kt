@@ -6,26 +6,37 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.byeboo.app.core.navigation.MainTabRoute
-import com.byeboo.app.presentation.quest.QuestScreen
+import com.byeboo.app.core.navigation.Route
+import com.byeboo.app.presentation.quest.behavior.QuestBehaviorCompleteScreen
+import com.byeboo.app.presentation.quest.behavior.QuestBehaviorViewModel
+import com.byeboo.app.presentation.quest.behavior.QuestBehaviorWritingScreen
 import kotlinx.serialization.Serializable
 
 fun NavController.navigateToQuest(navOptions: NavOptions? = null) {
     navigate(Quest, navOptions)
 }
-
+fun NavController.navigateToQuestComplete(navOptions: NavOptions? = null) {
+    navigate(QuestComplete, navOptions)
+}
 fun NavGraphBuilder.questGraph(
-    navigateToHome: () -> Unit,
-    navigateToMypage: () -> Unit,
-    bottomPadding: Dp
+    sharedViewModel: QuestBehaviorViewModel,
+    navigateToQuestComplete: () -> Unit
 ) {
     composable<Quest> {
-        QuestScreen(
-            navigateToHome = navigateToHome,
-            navigateToMypage = navigateToMypage,
-            bottomPadding = bottomPadding
+        QuestBehaviorWritingScreen(
+            sharedViewModel = sharedViewModel,
+            navigateToQuestComplete = navigateToQuestComplete
+        )
+    }
+    composable<QuestComplete> {
+        QuestBehaviorCompleteScreen(
+            sharedViewModel = sharedViewModel
         )
     }
 }
 
 @Serializable
 data object Quest : MainTabRoute
+
+@Serializable
+data object QuestComplete : Route

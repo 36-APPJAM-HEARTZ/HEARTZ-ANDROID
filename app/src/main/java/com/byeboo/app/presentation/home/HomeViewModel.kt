@@ -2,42 +2,23 @@ package com.byeboo.app.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.byeboo.app.core.state.UiState
-import com.byeboo.app.domain.model.Dummy
-import com.byeboo.app.domain.repository.DummyRepository
+import com.byeboo.app.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.SharingStarted
 import javax.inject.Inject
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.stateIn
+
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val dummyRepository: DummyRepository
+    private val userRepository: UserRepository
 ) : ViewModel() {
-    var uiState = MutableStateFlow(HomeState())
-        private set
 
-    fun getDummies(
-        id: Int,
-        email: String
-    ) {
-        viewModelScope.launch {
-            dummyRepository.getDummies(
-                request = Dummy(id = id, email = email)
-            )
-                .onSuccess { response ->
-                    uiState.update {
-                        it.copy(
-                            user = UiState.Success(response)
-                        )
-                    }
-                }
-                .onFailure { e ->
-                    uiState.update {
-                        it.copy(user = UiState.Failure(e.message ?: "오류 발생"))
-                    }
-                }
-        }
-    }
+    val nickname: StateFlow<String?> = userRepository.getNickname()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = null
+        )
 }
