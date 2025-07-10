@@ -38,24 +38,20 @@ import com.byeboo.app.core.util.noRippleClickable
 
 @Composable
 internal fun QuestPhotoPicker(
-    imageUrl: String?,
-    onImageClick: (String?) -> Unit,
+    imageUrl: Uri?,
+    onImageClick: (Uri?) -> Unit,
     modifier: Modifier = Modifier
-
 ) {
-
-    val context = LocalContext.current
     var selectedImageUrl by remember { mutableStateOf(imageUrl) }
     var uploadedImage by remember { mutableStateOf(false) }
 
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
-        selectedImageUrl = uri?.toString()
-        uploadedImage = selectedImageUrl != null
-        onImageClick(selectedImageUrl)
+        selectedImageUrl = uri
+        uploadedImage = uri != null
+        onImageClick(uri)
     }
-
 
     Box(
         modifier = modifier
@@ -63,12 +59,11 @@ internal fun QuestPhotoPicker(
             .aspectRatio(1f)
             .clip(RoundedCornerShape(12.dp))
             .background(color = ByeBooTheme.colors.whiteAlpha10)
-
     ) {
         ImageUploadButton(
             imageUrl = selectedImageUrl,
             isUploaded = uploadedImage,
-            onImageClick = { photoPickerLauncher.launch("image/*") },
+            onImageClick = { photoPickerLauncher.launch("image/*") }
         )
     }
 }
@@ -76,37 +71,27 @@ internal fun QuestPhotoPicker(
 @Composable
 private fun ImageUploadButton(
     modifier: Modifier = Modifier,
-    imageUrl: String? = null,
+    imageUrl: Uri? = null,
     isUploaded: Boolean,
     onImageClick: () -> Unit,
 ) {
     Box(
-        modifier = modifier
-            .width(96.dp)
-            .aspectRatio(1f)
-            .clip(RoundedCornerShape(12.dp))
+        modifier = modifier.width(96.dp).aspectRatio(1f).clip(RoundedCornerShape(12.dp))
             .background(color = ByeBooTheme.colors.whiteAlpha10)
             .noRippleClickable { onImageClick() },
         contentAlignment = Alignment.Center,
     ) {
-
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            AnimatedContent(
-                targetState = isUploaded,) { uploaded ->
-                when (uploaded && imageUrl != null) {
-                    true -> {
-                        AsyncImage(
-                            model = imageUrl,
-                            contentDescription = "selected image",
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .clip(RoundedCornerShape(12.dp)),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-                    false -> Icon(
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            AnimatedContent(targetState = isUploaded) { uploaded ->
+                if (uploaded && imageUrl != null) {
+                    AsyncImage(
+                        model = imageUrl,
+                        contentDescription = "selected image",
+                        modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(12.dp)),
+                        contentScale = ContentScale.Crop
+                    )
+                } else {
+                    Icon(
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_plus),
                         contentDescription = null,
                         tint = ByeBooTheme.colors.primary300
@@ -116,5 +101,7 @@ private fun ImageUploadButton(
         }
     }
 }
+
+
 
 
