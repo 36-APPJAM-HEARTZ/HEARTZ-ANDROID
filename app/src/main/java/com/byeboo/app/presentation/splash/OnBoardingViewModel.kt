@@ -25,7 +25,6 @@ class OnBoardingViewModel @Inject constructor() : ViewModel() {
                 title = "이별 후 걸림돌 같은 감정들을 털어놔주시면\n제 안에서 조약돌이 되어 쌓여요.",
                 imageRes = R.drawable.img_onboarding_2nd
             )
-
         ),
 
         persistentListOf(
@@ -39,7 +38,6 @@ class OnBoardingViewModel @Inject constructor() : ViewModel() {
                 title = "제가 모아둔 조약돌을 디딤돌 삼아\n한 걸음 한 걸음 미래로 나아가 주세요.",
                 imageRes = R.drawable.img_onboarding_4th
             )
-
         ),
 
         persistentListOf(
@@ -48,7 +46,6 @@ class OnBoardingViewModel @Inject constructor() : ViewModel() {
                 imageRes = R.drawable.img_onboarding_5th
             )
         )
-
     )
 
     fun nextPage() {
@@ -58,6 +55,7 @@ class OnBoardingViewModel @Inject constructor() : ViewModel() {
     }
 
     fun skipPage() {
+        //Todo: navigate 연결
     }
 
     fun currentContents(): List<OnBoardingState> = pages[_pageIndex.value]

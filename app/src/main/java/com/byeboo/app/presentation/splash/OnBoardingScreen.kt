@@ -23,15 +23,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.presentation.auth.onboarding.OnboardingScreen
 
 @Composable
 fun OnBoardingScreen(
-    modifier: Modifier = Modifier,
+    bottomPadding: Dp,
     viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     val pageIndex by viewModel.pageIndex
@@ -119,8 +122,7 @@ fun OnBoardingScreen(
 
         ByeBooButton(
             modifier = Modifier
-                .padding(bottom = 56.dp)
-                .padding(horizontal = 24.dp),
+                .padding(bottom = bottomPadding),
             buttonText = buttonText,
             onClick = { viewModel.nextPage() },
             buttonTextColor = ByeBooTheme.colors.white,
