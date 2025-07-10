@@ -50,7 +50,7 @@ fun HomeProgressCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 CustomProgressBar(
-                    progress = currentStep.toFloat() / totalSteps,
+                    progress = if (totalSteps > 0) currentStep.toFloat() / totalSteps else 0f,
                     modifier = Modifier
                         .weight(1f)
                         .height(6.dp)
