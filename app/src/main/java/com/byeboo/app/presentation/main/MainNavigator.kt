@@ -65,8 +65,16 @@ class MainNavigator(
         navController.navigateToOnboarding(navOptions)
     }
 
+    fun navigateToUserInfo(navOptions: NavOptions) {
+        navController.navigateToUserInfo(navOptions)
+    }
+
     fun navigateToHome(navOptions: NavOptions) {
         navController.navigateToHome(navOptions)
+    }
+
+    fun navigateToMypage(navOptions: NavOptions? = null) {
+        navController.navigateToMypage(navOptions)
     }
 
     fun navigateToLoading(navOptions: NavOptions) {
