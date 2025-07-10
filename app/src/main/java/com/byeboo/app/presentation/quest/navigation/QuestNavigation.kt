@@ -51,4 +51,4 @@ data object Quest : MainTabRoute
 data object QuestComplete : Route
 
 @Serializable
-data object QuestReview: Route
+data object QuestReview : Route

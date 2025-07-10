@@ -52,8 +52,7 @@ fun HomeScreen(
                     .fillMaxSize()
                     .padding(horizontal = 24.dp)
                     .padding(top = 67.dp)
-            )
-            {
+            ) {
                 HomeQuestCard(
                     title = "오늘의 퀘스트 하러가기",
                     subtitle = "퀘스트를 하고나면 한층 더 성장할 거에요."

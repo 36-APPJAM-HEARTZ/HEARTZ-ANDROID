@@ -22,7 +22,7 @@ fun NavGraphBuilder.authGraph(
     navigateToUserInfo: () -> Unit,
     navigateToOnboarding: () -> Unit,
     navigateToLoading: () -> Unit,
-    navigateToHomeOnboarding: () -> Unit,
+    navigateToHomeOnboarding: () -> Unit
 ) {
     composable<Onboarding> {
         OnboardingScreen(

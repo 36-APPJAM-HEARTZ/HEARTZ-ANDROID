@@ -34,7 +34,6 @@ fun JourneyResultScreen(
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
-
         }
     }
 
