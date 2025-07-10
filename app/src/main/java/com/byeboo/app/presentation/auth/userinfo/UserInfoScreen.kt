@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.auth.userinfo
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +24,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -43,15 +45,13 @@ fun UserInfoScreen(
     navigateToOnboarding: () -> Unit,
     navigateToLoading: () -> Unit,
     modifier: Modifier = Modifier,
+    padding: Dp,
     viewModel: UserInfoViewModel = hiltViewModel()
 ) {
-    // TODO: backHandler
     val pagerState = rememberPagerState(initialPage = 0, pageCount = { 3 })
-
+    var previousPage by remember { mutableStateOf(0) }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
     val coroutineScope = rememberCoroutineScope()
-
     val isStepValid by remember(
         pagerState.currentPage,
         uiState.nicknameValidation,
@@ -67,8 +67,17 @@ fun UserInfoScreen(
             }
         }
     }
+    if (pagerState.currentPage != 0) {
+        BackHandler {
+            coroutineScope.launch {
+                val targetPage = pagerState.currentPage - 1
+                previousPage = pagerState.currentPage
+                pagerState.scrollToPage(targetPage)
+            }
+        }
+    }
 
-    var previousPage by remember { mutableStateOf(0) }
+
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
@@ -92,26 +101,27 @@ fun UserInfoScreen(
                 .fillMaxSize()
                 .padding(horizontal = 24.dp)
         ) {
-            Spacer(modifier = Modifier.padding(top = 67.dp))
-
-            Icon(
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
-                contentDescription = "뒤로가기",
-                tint = ByeBooTheme.colors.white,
-                modifier = Modifier
-                    .size(24.dp)
-                    .noRippleClickable {
-                        coroutineScope.launch {
-                            if (pagerState.currentPage == 0) {
-                                navigateToOnboarding()
-                            } else {
-                                val targetPage = pagerState.currentPage - 1
-                                previousPage = pagerState.currentPage
-                                pagerState.scrollToPage(targetPage)
+            Spacer(modifier = Modifier.padding(top = padding + 27.dp))
+            if (pagerState.currentPage != 0) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
+                    contentDescription = "뒤로가기",
+                    tint = ByeBooTheme.colors.white,
+                    modifier = Modifier
+                        .size(24.dp)
+                        .noRippleClickable {
+                            coroutineScope.launch {
+                                if (pagerState.currentPage == 0) {
+                                    navigateToOnboarding()
+                                } else {
+                                    val targetPage = pagerState.currentPage - 1
+                                    previousPage = pagerState.currentPage
+                                    pagerState.scrollToPage(targetPage)
+                                }
                             }
                         }
-                    }
-            )
+                )
+            }
             Spacer(modifier = Modifier.padding(top = 16.dp))
 
             StepProgressBar(currentStep = pagerState.currentPage + 1)
@@ -141,6 +151,7 @@ fun UserInfoScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             ByeBooActivationButton(
+                modifier = Modifier.padding(bottom = padding),
                 buttonDisableColor = ByeBooTheme.colors.blackAlpha50,
                 buttonDisableTextColor = ByeBooTheme.colors.gray400,
                 isEnabled = isStepValid,
@@ -174,7 +185,6 @@ fun UserInfoScreen(
                     }
                 }
             )
-            Spacer(modifier = Modifier.padding(bottom = 56.dp))
         }
     }
 }

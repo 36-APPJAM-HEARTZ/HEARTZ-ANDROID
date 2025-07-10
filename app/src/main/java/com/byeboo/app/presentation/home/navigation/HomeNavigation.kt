@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.byeboo.app.core.navigation.MainTabRoute
 import com.byeboo.app.core.navigation.Route
 import com.byeboo.app.presentation.home.HomeScreen
+import com.byeboo.app.presentation.home.homeamulet.HomeAmuletScreen
 import com.byeboo.app.presentation.home.homeonboarding.HomeOnboardingScreen
 import kotlinx.serialization.Serializable
 
@@ -19,17 +20,28 @@ fun NavController.navigateToHomeOnboarding(navOptions: NavOptions? = null) {
     navigate(HomeOnboarding, navOptions)
 }
 
+fun NavController.navigateToHomeAmulet(navOptions: NavOptions? = null) {
+    navigate(HomeAmulet, navOptions)
+}
+
 fun NavGraphBuilder.homeGraph(
-    bottomPadding: Dp,
-    navigateToHome: () -> Unit
+    navigateToHome: () -> Unit,
+    navigateToHomeOnboarding: () -> Unit,
+    bottomPadding: Dp
 ) {
     composable<Home> {
         HomeScreen()
     }
     composable<HomeOnboarding> {
         HomeOnboardingScreen(
-            bottomPadding = bottomPadding,
-            navigateToHome = navigateToHome
+            navigateToHome = navigateToHome,
+            bottomPadding = bottomPadding
+        )
+    }
+    composable<HomeAmulet> {
+        HomeAmuletScreen(
+            navigateToHomeOnboarding = navigateToHomeOnboarding,
+            padding = bottomPadding
         )
     }
 }
@@ -39,3 +51,6 @@ data object Home : MainTabRoute
 
 @Serializable
 data object HomeOnboarding : Route
+
+@Serializable
+data object HomeAmulet : Route

@@ -28,7 +28,7 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
 fun LoadingScreen(
-    navigateToHomeOnboarding: () -> Unit,
+    navigateToHomeAmulet: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LoadingViewModel = hiltViewModel()
 ) {
@@ -37,7 +37,7 @@ fun LoadingScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                LoadingSideEffect.NavigateToHomeOnboarding -> navigateToHomeOnboarding()
+                LoadingSideEffect.NavigateToHomeAmulet -> navigateToHomeAmulet()
             }
         }
     }

@@ -1,5 +1,9 @@
 package com.byeboo.app.presentation.auth.onboarding
 
+import androidx.compose.runtime.Immutable
+
+@Immutable
 data class OnboardingState(
-    val nickname: String = ""
+    val title: String,
+    val imageRes: Int
 )

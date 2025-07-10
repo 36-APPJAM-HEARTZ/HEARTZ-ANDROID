@@ -1,4 +1,4 @@
-package com.byeboo.app.presentation.auth.journeyResult
+package com.byeboo.app.presentation.home.homeamulet
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -18,15 +18,19 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.noRippleClickable
 
 @Composable
-fun JourneyResultScreen(
+fun HomeAmuletScreen(
+    navigateToHomeOnboarding: () -> Unit,
     modifier: Modifier = Modifier,
+    padding: Dp,
     viewModel: JourneyResultViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -37,11 +41,9 @@ fun JourneyResultScreen(
 
         }
     }
-
     Box(
         modifier = modifier
             .fillMaxSize()
-            .padding(top = 67.dp)
     ) {
         Image(
             painter = painterResource(R.drawable.bg_userinfo),
@@ -51,7 +53,9 @@ fun JourneyResultScreen(
         )
 
         Column(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = padding+ 27.dp)
         ) {
             Text(
                 text = "지금 ${nickname ?: ""} 님에게 필요한 건",
@@ -95,8 +99,13 @@ fun JourneyResultScreen(
                 color = ByeBooTheme.colors.secondary300,
                 textDecoration = TextDecoration.Underline,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .noRippleClickable {
+                        navigateToHomeOnboarding()
+                    }
             )
+            Spacer(Modifier.padding(bottom = padding))
         }
     }
 }

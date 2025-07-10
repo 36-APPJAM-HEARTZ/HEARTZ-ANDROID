@@ -1,4 +1,4 @@
-package com.byeboo.app.presentation.auth.journeyResult
+package com.byeboo.app.presentation.home.homeamulet
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -18,8 +18,8 @@ import kotlinx.coroutines.flow.stateIn
 class JourneyResultViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(JourneyResultState())
-    val uiState: StateFlow<JourneyResultState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(HomeAmuletState())
+    val uiState: StateFlow<HomeAmuletState> = _uiState.asStateFlow()
 
     private val _sideEffect = MutableSharedFlow<JourneyResultSideEffect>()
     val sideEffect: SharedFlow<JourneyResultSideEffect> = _sideEffect.asSharedFlow()
