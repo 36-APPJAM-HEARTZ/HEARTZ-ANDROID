@@ -2,12 +2,10 @@ package com.byeboo.app.presentation.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.presentation.main.component.MainBottomBar
 import kotlinx.collections.immutable.toImmutableList
 
@@ -22,15 +20,14 @@ fun MainScreen(navigator: MainNavigator = rememberMainNavigator()) {
                 onTabSelected = navigator::navigate
             )
         },
-        modifier =
-        Modifier
-            .background(Color.White)
-            .systemBarsPadding()
+        modifier = Modifier
             .fillMaxSize()
-    ) { innerPadding ->
+            .background(ByeBooTheme.colors.black)
+    ) {
         MainNavHost(
             navigator = navigator,
-            modifier = Modifier.padding(innerPadding)
+            bottomPadding = it.calculateBottomPadding(),
+            modifier = Modifier
         )
     }
 }

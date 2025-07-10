@@ -24,7 +24,7 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
 fun GuideContent(
-    nickname: String,
+    userName: String,
     guideText: String,
     modifier: Modifier = Modifier
 ) {
@@ -53,7 +53,6 @@ fun GuideContent(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        // TODO: 사진 고정 크기 ㄱㅊ?
         Image(
             painter = painterResource(id = R.drawable.bori_clover),
             contentDescription = "이미지",
@@ -65,7 +64,7 @@ fun GuideContent(
         Text(
             buildAnnotatedString {
                 withStyle(style = SpanStyle(color = ByeBooTheme.colors.primary300)) {
-                    append(nickname)
+                    append(userName)
                 }
                 withStyle(style = SpanStyle(color = ByeBooTheme.colors.gray300)) {
                     append(guideText)
@@ -79,11 +78,11 @@ fun GuideContent(
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-private fun GuideContentPreview() {
+fun GuideContentPreview() {
     ByeBooTheme {
         GuideContent(
-            nickname = "하츠핑",
-            guideText = "님의 상황에 꼭 맞춘\n자기 성찰 여정의 퀘스트 30개를 드릴게요.\n\n제가 드리는 퀘스트와 함꼐\n이별을 극복해나가요!"
+            userName = "하츠핑",
+            guideText = "님의 상황에 꼭 맞춘\n자기 성찰 여정의 퀘스트 30개를 드릴게요.\n\n제가 드리는 퀘스트와 함께\n이별을 극복해나가요!"
         )
     }
 }

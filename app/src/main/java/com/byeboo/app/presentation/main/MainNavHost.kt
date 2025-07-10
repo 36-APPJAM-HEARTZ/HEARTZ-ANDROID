@@ -6,7 +6,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navOptions
+import com.byeboo.app.presentation.auth.loading.navigation.loadingGraph
 import com.byeboo.app.presentation.auth.onboarding.navigation.onboardingGraph
+import com.byeboo.app.presentation.auth.userinfo.navigation.userInfoGraph
 import com.byeboo.app.presentation.home.navigation.homeGraph
 import com.byeboo.app.presentation.mypage.navigation.myPageGraph
 import com.byeboo.app.presentation.quest.navigation.questGraph
@@ -36,7 +38,22 @@ fun MainNavHost(
             }, navigateToOnboarding = { navigator.navigateToOnboarding(clearStackNavOptions) }
         )
         onboardingGraph(
-            navigateToHome = { navigator.navigateToHome(clearStackNavOptions) }
+            navigateToUserInfo = {
+                navigator.navigateToUserInfo(clearStackNavOptions)
+            }
+        )
+        userInfoGraph(
+            navigateToOnboarding = {
+                navigator.navigateToOnboarding(clearStackNavOptions)
+            },
+            navigateToLoading = {
+                navigator.navigateToLoading(clearStackNavOptions)
+            }
+        )
+        loadingGraph(
+            navigateToHome = {
+                navigator.navigateToHome(clearStackNavOptions)
+            }
         )
         homeGraph()
         questGraph(

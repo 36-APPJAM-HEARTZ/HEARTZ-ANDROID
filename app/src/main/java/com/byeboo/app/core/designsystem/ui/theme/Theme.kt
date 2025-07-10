@@ -62,7 +62,6 @@ fun ByeBooTheme(
             WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = true
         }
     }
-
     ProvideByeBooColorsAndTypography(colors, typography) {
         MaterialTheme(
             content = content
