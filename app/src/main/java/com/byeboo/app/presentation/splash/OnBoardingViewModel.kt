@@ -55,7 +55,7 @@ class OnBoardingViewModel @Inject constructor() : ViewModel() {
     }
 
     fun skipPage() {
-        //Todo: navigate 연결
+        // Todo: navigate 연결
     }
 
     fun currentContents(): List<OnBoardingState> = pages[_pageIndex.value]
