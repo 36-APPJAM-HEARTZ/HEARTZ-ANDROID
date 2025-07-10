@@ -9,12 +9,16 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.byeboo.app.presentation.auth.loading.navigation.navigateToLoading
 import com.byeboo.app.presentation.auth.onboarding.navigation.navigateToOnboarding
 import com.byeboo.app.presentation.auth.userinfo.navigation.UserInfo
+import com.byeboo.app.presentation.auth.userinfo.navigation.navigateToUserInfo
+import com.byeboo.app.presentation.home.navigation.Home
 import com.byeboo.app.presentation.home.navigation.navigateToHome
 import com.byeboo.app.presentation.mypage.navigation.navigateToMypage
 import com.byeboo.app.presentation.quest.navigation.Quest
 import com.byeboo.app.presentation.quest.navigation.navigateToQuest
+import com.byeboo.app.presentation.quest.navigation.navigateToQuestComplete
 import com.byeboo.app.presentation.splash.navigation.Splash
 
 class MainNavigator(
@@ -25,7 +29,7 @@ class MainNavigator(
             navController
                 .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = UserInfo
+    val startDestination = Home
 
     val currentTab: MainNavTab?
         @Composable get() =
@@ -66,9 +70,18 @@ class MainNavigator(
         navController.navigateToHome(navOptions)
     }
 
-    fun navigateToQuestComplete(navOptions: NavOptions) {
-        //Todo: QuestComplete Screen 연결
+    fun navigateToLoading(navOptions: NavOptions) {
+        navController.navigateToLoading(navOptions)
     }
+    fun navigateToUserInfo(navOptions: NavOptions) {
+        navController.navigateToUserInfo(navOptions)
+    }
+
+    fun navigateToQuestComplete(navOptions: NavOptions) {
+        navController.navigateToQuestComplete(navOptions)
+
+    }
+
 
     fun navigateUp() {
         navController.navigateUp()
