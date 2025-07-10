@@ -92,7 +92,8 @@ fun QuestBehaviorWritingScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 SmallTag(
-                    tagText = "STEP ${uiState.stepNumber}"
+                    tagText = "STEP ${uiState.stepNumber}",
+                    tagColor = ByeBooTheme.colors.gray300
                 )
 
                 Spacer(modifier = Modifier.width(12.dp))
