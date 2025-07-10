@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -35,13 +33,14 @@ fun ByeBooTopBar(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(56.dp)
             .background(Color.Transparent)
-            .padding(start = 24.dp, top = 67.dp, end = 24.dp, bottom = 16.dp)
+            .padding(horizontal = 24.dp)
+            .padding(top = 67.dp, bottom = 16.dp)
+        //TODO: 깃 pull 한 다음에 상단 꽉 채워서 쓰기
     ) {
         Row(
             modifier = Modifier
-                .fillMaxSize(),
+                .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
