@@ -16,7 +16,7 @@ import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
-fun  QuestTitle(
+fun QuestTitle(
     stepNumber: Int,
     questNumber: Int,
     createdAt: String,
@@ -59,4 +59,3 @@ fun  QuestTitle(
         )
     }
 }
-

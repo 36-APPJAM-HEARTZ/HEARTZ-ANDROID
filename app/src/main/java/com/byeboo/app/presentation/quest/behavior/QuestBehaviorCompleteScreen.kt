@@ -42,7 +42,6 @@ import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
 fun QuestBehaviorCompleteScreen(
     sharedViewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
-
     val uiState by sharedViewModel.uiState.collectAsState()
 
     val selectedImageUri by sharedViewModel.selectedImageUri.collectAsState()
@@ -53,7 +52,6 @@ fun QuestBehaviorCompleteScreen(
             .padding(horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
         item {
             Row(
                 modifier = Modifier
@@ -66,27 +64,25 @@ fun QuestBehaviorCompleteScreen(
                     contentDescription = "back button",
                     tint = ByeBooTheme.colors.white,
                     modifier = Modifier.clickable {
-                            // TODO: QuestToHome navigate
-                        }
+                        // TODO: QuestToHome navigate
+                    }
                 )
             }
         }
 
         item {
-
             QuestCompleteCard()
 
             Spacer(modifier = Modifier.height(32.dp))
         }
         item {
-
             QuestCompleteTitle(
                 stepNumber = uiState.stepNumber,
                 questNumber = uiState.questNumber,
                 createdAt = uiState.createdAt,
-                questQuestion = uiState.questTitle,
+                questQuestion = uiState.questTitle
 
-                )
+            )
         }
 
         item {
@@ -122,11 +118,9 @@ fun QuestBehaviorCompleteScreen(
         }
 
         item {
-
             Column(
                 modifier = Modifier.padding(vertical = 24.dp)
             ) {
-
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
@@ -147,10 +141,10 @@ fun QuestBehaviorCompleteScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 QuestEmotionDescriptionCard(
-                    modifier = Modifier, emotionType = uiState.selectedEmotion
+                    modifier = Modifier,
+                    emotionType = uiState.selectedEmotion
                 )
             }
         }
     }
 }
-

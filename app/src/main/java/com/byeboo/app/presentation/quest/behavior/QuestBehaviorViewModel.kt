@@ -5,29 +5,25 @@ import androidx.lifecycle.ViewModel
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.domain.model.ContentLengthValidator
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import javax.inject.Inject
 
 @HiltViewModel
 class QuestBehaviorViewModel @Inject constructor(
 //    val questBehaviorRepository: QuestBehaviorRepository
-): ViewModel() {
-
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(QuestBehaviorState())
     val uiState: StateFlow<QuestBehaviorState> = _uiState.asStateFlow()
 
-
     private val _showBottomSheet = MutableStateFlow(false)
     val showBottomSheet: StateFlow<Boolean> = _showBottomSheet.asStateFlow()
 
-
     private val _isEmotionSelected = MutableStateFlow(false)
     val isEmotionSelected: StateFlow<Boolean> = _isEmotionSelected.asStateFlow()
-
 
     private val _selectedImageUri = MutableStateFlow<Uri?>(null)
     val selectedImageUri: StateFlow<Uri?> = _selectedImageUri
@@ -43,12 +39,12 @@ class QuestBehaviorViewModel @Inject constructor(
 
     fun updateContent(text: String) {
         val contentState = ContentLengthValidator.validate(text)
-        _uiState.update { it.copy(
-            contents = text,
-            contentState = contentState
+        _uiState.update {
+            it.copy(
+                contents = text,
+                contentState = contentState
             )
         }
-
     }
 
     fun openBottomSheet() {
@@ -73,10 +69,5 @@ class QuestBehaviorViewModel @Inject constructor(
             isContentAvailable = !content.isNullOrBlank()
 
         )
-
     }
-
-
-
-
 }

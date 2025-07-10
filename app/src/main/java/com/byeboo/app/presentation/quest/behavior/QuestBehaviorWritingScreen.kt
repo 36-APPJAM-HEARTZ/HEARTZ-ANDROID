@@ -1,6 +1,5 @@
 package com.byeboo.app.presentation.quest.behavior
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,7 +39,6 @@ import com.byeboo.app.presentation.quest.component.QuestTextField
 import com.byeboo.app.presentation.quest.component.QuitModal
 import com.byeboo.app.presentation.quest.component.bottomsheet.ByeBooBottomSheet
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuestBehaviorWritingScreen(
@@ -48,7 +46,6 @@ fun QuestBehaviorWritingScreen(
     modifier: Modifier = Modifier,
     sharedViewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
-
     val uiState by sharedViewModel.uiState.collectAsState()
 
     val showBottomSheet by sharedViewModel.showBottomSheet.collectAsState()
@@ -57,7 +54,6 @@ fun QuestBehaviorWritingScreen(
 
     val selectedImageUrl by sharedViewModel.selectedImageUri.collectAsState()
 
-
     var showQuitModal by remember { mutableStateOf(false) }
 
     if (showQuitModal) {
@@ -65,7 +61,7 @@ fun QuestBehaviorWritingScreen(
             stayButton = { showQuitModal = false },
             quitButton = {
                 showQuitModal = false
-                //Todo: navigateToQuest() 이동
+                // Todo: navigateToQuest() 이동
             }
         )
     }
@@ -76,15 +72,14 @@ fun QuestBehaviorWritingScreen(
             .background(color = ByeBooTheme.colors.black)
             .padding(horizontal = 24.dp, vertical = 10.dp)
     ) {
-
         item {
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
                 contentDescription = "back button",
                 tint = ByeBooTheme.colors.white,
                 modifier = Modifier
-                    .padding(top=67.dp)
-                    .clickable{
+                    .padding(top = 67.dp)
+                    .clickable {
                         showQuitModal = true
                     }
             )
@@ -107,7 +102,6 @@ fun QuestBehaviorWritingScreen(
                     color = ByeBooTheme.colors.gray500,
                     style = ByeBooTheme.typography.body2
                 )
-
             }
 
             Spacer(modifier = Modifier.height(12.dp))
@@ -137,22 +131,20 @@ fun QuestBehaviorWritingScreen(
         }
 
         item {
-
             Box(
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
                 MiddleTag(
-                    middleTagType = MiddleTagType.QUEST_TIP, text = "작성 TIP"
+                    middleTagType = MiddleTagType.QUEST_TIP,
+                    text = "작성 TIP"
                 )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
-
         }
 
         item {
-
             Row(verticalAlignment = Alignment.CenterVertically) {
                 MiddleTag(middleTagType = MiddleTagType.QUEST_ESSENTIAL, text = "필수")
 
@@ -174,24 +166,20 @@ fun QuestBehaviorWritingScreen(
             }
 
             Spacer(modifier = Modifier.height(8.dp))
-
         }
 
         item {
-
             QuestPhotoPicker(
                 imageUrl = selectedImageUrl,
                 onImageClick = { url ->
                     sharedViewModel.updateSelectedImage(url)
-                },
+                }
             )
 
             Spacer(modifier = Modifier.height(16.dp))
-
         }
 
         item {
-
             Row(verticalAlignment = Alignment.CenterVertically) {
                 MiddleTag(middleTagType = MiddleTagType.QUEST_OPTIONAL, text = "선택")
 
@@ -205,11 +193,9 @@ fun QuestBehaviorWritingScreen(
             }
 
             Spacer(modifier = Modifier.height(8.dp))
-
         }
 
         item {
-
             QuestTextField(
                 questWritingState = uiState.contentState,
                 value = uiState.contents,
@@ -217,43 +203,39 @@ fun QuestBehaviorWritingScreen(
             )
 
             Spacer(modifier = Modifier.height(21.dp))
-
         }
 
         item {
-
             ByeBooActivationButton(
                 buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
                 buttonText = "완료",
                 buttonDisableTextColor = ByeBooTheme.colors.gray300,
-                onClick = { sharedViewModel.openBottomSheet()
-                    sharedViewModel.updateSelectedImage(selectedImageUrl)},
+                onClick = {
+                    sharedViewModel.openBottomSheet()
+                    sharedViewModel.updateSelectedImage(selectedImageUrl)
+                },
                 // Todo: ContentLengthValidator 에서 호출
                 isEnabled = true
             )
 
-
             Spacer(modifier = Modifier.padding(bottom = 56.dp))
-
         }
-
     }
 
-        ByeBooBottomSheet(
-            navigateButton = navigateToQuestComplete,
-            showBottomSheet = showBottomSheet,
-            onDismiss = {
-                sharedViewModel.closeBottomSheet()},
-            onEmotionSelected = { selectedEmotion ->
-                sharedViewModel.isEmotionSelected(true)
-                sharedViewModel.updateSelectedEmotion(selectedEmotion)
-                sharedViewModel.closeBottomSheet()
-
-            },
-            onSelectedChanged = { isSelected ->
-                sharedViewModel.isEmotionSelected(isSelected)
-            },
-            isSelected = isEmotionSelected
-        )
-
-    }
+    ByeBooBottomSheet(
+        navigateButton = navigateToQuestComplete,
+        showBottomSheet = showBottomSheet,
+        onDismiss = {
+            sharedViewModel.closeBottomSheet()
+        },
+        onEmotionSelected = { selectedEmotion ->
+            sharedViewModel.isEmotionSelected(true)
+            sharedViewModel.updateSelectedEmotion(selectedEmotion)
+            sharedViewModel.closeBottomSheet()
+        },
+        onSelectedChanged = { isSelected ->
+            sharedViewModel.isEmotionSelected(isSelected)
+        },
+        isSelected = isEmotionSelected
+    )
+}

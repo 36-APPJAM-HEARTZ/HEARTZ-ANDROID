@@ -23,10 +23,11 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 fun LargeTag(
     largeTagType: LargeTagType,
     backgroundColor: Color,
-    modifier: Modifier = Modifier) {
+    modifier: Modifier = Modifier
+) {
     Box(
         modifier = modifier
-            //Todo: width 수정
+            // Todo: width 수정
             .width(85.dp)
             .background(
                 color = backgroundColor,

@@ -43,7 +43,7 @@ fun ByeBooBottomSheet(
     dragHandle: @Composable () -> Unit = {},
     isSelected: Boolean = false
 ) {
-    if(showBottomSheet) {
+    if (showBottomSheet) {
         ModalBottomSheet(
             onDismissRequest = onDismiss,
             modifier = modifier,
@@ -52,12 +52,10 @@ fun ByeBooBottomSheet(
             scrimColor = if (isBackgroundDimmed) ByeBooTheme.colors.blackAlpha80 else Color.Transparent,
             dragHandle = dragHandle
         ) {
-
-
             var selectedEmotion by remember { mutableStateOf<LargeTagType?>(null) }
 
             LaunchedEffect(showBottomSheet) {
-                if (showBottomSheet){
+                if (showBottomSheet) {
                     selectedEmotion = null
                     onSelectedChanged(false)
                 }
@@ -69,7 +67,6 @@ fun ByeBooBottomSheet(
                     .padding(horizontal = 24.dp, vertical = 17.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-
                 ByeBooDragHandle()
 
                 Text(
@@ -88,7 +85,7 @@ fun ByeBooBottomSheet(
                         val newEmotion = if (selectedEmotion == it) null else it
                         selectedEmotion = newEmotion
                         onSelectedChanged(newEmotion != null)
-                    },
+                    }
 
                 )
 
@@ -104,8 +101,7 @@ fun ByeBooBottomSheet(
                             onDismiss()
                         }
 
-                       navigateButton()
-
+                        navigateButton()
                     },
                     isEnabled = isSelected
                 )
@@ -161,4 +157,3 @@ private fun EmotionChipList(
         }
     }
 }
-

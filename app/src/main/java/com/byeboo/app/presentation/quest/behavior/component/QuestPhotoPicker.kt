@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
@@ -22,19 +21,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleClickable
-
-
-
 
 @Composable
 internal fun QuestPhotoPicker(
@@ -73,13 +67,13 @@ private fun ImageUploadButton(
     modifier: Modifier = Modifier,
     imageUrl: Uri? = null,
     isUploaded: Boolean,
-    onImageClick: () -> Unit,
+    onImageClick: () -> Unit
 ) {
     Box(
         modifier = modifier.width(96.dp).aspectRatio(1f).clip(RoundedCornerShape(12.dp))
             .background(color = ByeBooTheme.colors.whiteAlpha10)
             .noRippleClickable { onImageClick() },
-        contentAlignment = Alignment.Center,
+        contentAlignment = Alignment.Center
     ) {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             AnimatedContent(targetState = isUploaded) { uploaded ->
@@ -101,7 +95,3 @@ private fun ImageUploadButton(
         }
     }
 }
-
-
-
-

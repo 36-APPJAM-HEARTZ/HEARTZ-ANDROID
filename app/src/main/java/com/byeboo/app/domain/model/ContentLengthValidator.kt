@@ -18,5 +18,4 @@ object ContentLengthValidator {
     fun validButton(text: String, maxLength: Int = 500): Boolean {
         return text.length >= 10 && text.length <= maxLength
     }
-
 }

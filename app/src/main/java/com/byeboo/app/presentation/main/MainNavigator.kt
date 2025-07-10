@@ -11,15 +11,12 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.byeboo.app.presentation.auth.loading.navigation.navigateToLoading
 import com.byeboo.app.presentation.auth.onboarding.navigation.navigateToOnboarding
-import com.byeboo.app.presentation.auth.userinfo.navigation.UserInfo
 import com.byeboo.app.presentation.auth.userinfo.navigation.navigateToUserInfo
 import com.byeboo.app.presentation.home.navigation.Home
 import com.byeboo.app.presentation.home.navigation.navigateToHome
 import com.byeboo.app.presentation.mypage.navigation.navigateToMypage
-import com.byeboo.app.presentation.quest.navigation.Quest
 import com.byeboo.app.presentation.quest.navigation.navigateToQuest
 import com.byeboo.app.presentation.quest.navigation.navigateToQuestComplete
-import com.byeboo.app.presentation.splash.navigation.Splash
 
 class MainNavigator(
     val navController: NavHostController
@@ -79,9 +76,7 @@ class MainNavigator(
 
     fun navigateToQuestComplete(navOptions: NavOptions) {
         navController.navigateToQuestComplete(navOptions)
-
     }
-
 
     fun navigateUp() {
         navController.navigateUp()

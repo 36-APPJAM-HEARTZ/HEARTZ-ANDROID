@@ -6,7 +6,6 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.byeboo.app.core.navigation.MainTabRoute
 import com.byeboo.app.core.navigation.Route
-import com.byeboo.app.presentation.auth.userinfo.navigation.UserInfo
 import com.byeboo.app.presentation.quest.behavior.QuestBehaviorCompleteScreen
 import com.byeboo.app.presentation.quest.behavior.QuestBehaviorViewModel
 import com.byeboo.app.presentation.quest.behavior.QuestBehaviorWritingScreen
@@ -20,12 +19,13 @@ fun NavController.navigateToQuestComplete(navOptions: NavOptions? = null) {
 }
 fun NavGraphBuilder.questGraph(
     sharedViewModel: QuestBehaviorViewModel,
-    navigateToQuestComplete:() -> Unit
+    navigateToQuestComplete: () -> Unit
 ) {
     composable<Quest> {
         QuestBehaviorWritingScreen(
             sharedViewModel = sharedViewModel,
-            navigateToQuestComplete = navigateToQuestComplete)
+            navigateToQuestComplete = navigateToQuestComplete
+        )
     }
     composable<QuestComplete> {
         QuestBehaviorCompleteScreen(
