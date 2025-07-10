@@ -21,8 +21,8 @@ class JourneyResultViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(JourneyResultState())
     val uiState: StateFlow<JourneyResultState> = _uiState.asStateFlow()
 
-    private val _sideEffect = MutableSharedFlow<JourneyResultState>()
-    val sideEffect: SharedFlow<JourneyResultState> = _sideEffect.asSharedFlow()
+    private val _sideEffect = MutableSharedFlow<JourneyResultSideEffect>()
+    val sideEffect: SharedFlow<JourneyResultSideEffect> = _sideEffect.asSharedFlow()
 
     val nickname: StateFlow<String?> = userRepository.getNickname()
         .stateIn(
