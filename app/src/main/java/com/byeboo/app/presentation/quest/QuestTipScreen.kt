@@ -15,6 +15,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,12 +31,20 @@ import com.byeboo.app.presentation.quest.component.type.QuestContentType
 
 @Composable
 fun QuestTipScreen(
-    onCloseClick: () -> Unit,
+    navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestTipViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
+
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect { sideEffect ->
+            when (sideEffect) {
+                QuestTipSideEffect.NavigateBack -> navigateBack()
+            }
+        }
+    }
 
     Column(
         modifier = modifier
@@ -44,7 +53,7 @@ fun QuestTipScreen(
     ) {
         ByeBooTopBar(
             title = "퀘스트 작성 TIP",
-            onCloseClick = onCloseClick
+            onCloseClick = viewModel::onCloseClick
         )
 
         Column(
@@ -81,17 +90,23 @@ fun QuestTipScreen(
                 textAlign = TextAlign.Center
             )
 
+            Spacer(modifier = Modifier.height((35.5).dp))
+
             QuestContent(
                 titleIcon = QuestContentType.THINKING,
                 titleText = uiState.tipQuestion[0],
                 contentText = uiState.tipAnswer[0]
             )
 
+            Spacer(modifier = Modifier.height(32.dp))
+
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth(),
                 thickness = 1.dp,
                 color = ByeBooTheme.colors.whiteAlpha10
             )
+
+            Spacer(modifier = Modifier.height(32.dp))
 
             QuestContent(
                 titleIcon = QuestContentType.QUEST_REASON,
@@ -99,11 +114,15 @@ fun QuestTipScreen(
                 contentText = uiState.tipAnswer[1]
             )
 
+            Spacer(modifier = Modifier.height(32.dp))
+
             HorizontalDivider(
                 modifier = Modifier.fillMaxWidth(),
                 thickness = 1.dp,
                 color = ByeBooTheme.colors.whiteAlpha10
             )
+
+            Spacer(modifier = Modifier.height(32.dp))
 
             QuestContent(
                 titleIcon = QuestContentType.FEELING_CHANGE,

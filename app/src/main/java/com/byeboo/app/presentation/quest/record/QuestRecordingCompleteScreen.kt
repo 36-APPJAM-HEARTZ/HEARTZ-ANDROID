@@ -41,7 +41,7 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun QuestRecordingCompleteScreen(
-    onCloseClick: () -> Unit,
+    navigateToQuest: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestRecordingCompleteViewModel = hiltViewModel()
 ) {
@@ -58,7 +58,7 @@ fun QuestRecordingCompleteScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                QuestRecordingCompleteSideEffect.NavigateToQuest -> onCloseClick()
+                QuestRecordingCompleteSideEffect.NavigateToQuest -> navigateToQuest()
             }
         }
     }

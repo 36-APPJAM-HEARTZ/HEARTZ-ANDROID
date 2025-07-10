@@ -11,8 +11,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.byeboo.app.presentation.auth.onboarding.navigation.navigateToOnboarding
 import com.byeboo.app.presentation.home.navigation.navigateToHome
-import com.byeboo.app.presentation.mypage.navigation.navigateToMypage
+import com.byeboo.app.presentation.mypage.navigation.navigateToMyPage
 import com.byeboo.app.presentation.quest.navigation.navigateToQuest
+import com.byeboo.app.presentation.quest.navigation.navigateToQuestStart
+import com.byeboo.app.presentation.quest.navigation.navigateToQuestTip
+import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecord
 import com.byeboo.app.presentation.splash.navigation.Splash
 
 class MainNavigator(
@@ -44,9 +47,9 @@ class MainNavigator(
                 restoreState = true
             }
         when (tab) {
-            MainNavTab.QUEST -> navController.navigateToQuest(navOptions)
+            MainNavTab.QUEST -> navController.navigateToQuestStart(navOptions)
             MainNavTab.HOME -> navController.navigateToHome(navOptions)
-            MainNavTab.MYPAGE -> navController.navigateToMypage(navOptions)
+            MainNavTab.MYPAGE -> navController.navigateToMyPage(navOptions)
         }
     }
 
@@ -66,6 +69,18 @@ class MainNavigator(
 
     fun navigateUp() {
         navController.navigateUp()
+    }
+
+    fun navigateToQuest(navOptions: NavOptions) {
+        navController.navigateToQuest(navOptions)
+    }
+
+    fun navigateToQuestTip(navOptions: NavOptions? = null) {
+        navController.navigateToQuestTip(navOptions)
+    }
+
+    fun navigateToQuestRecord(navOptions: NavOptions? = null) {
+        navController.navigateToQuestRecord(navOptions)
     }
 }
 
