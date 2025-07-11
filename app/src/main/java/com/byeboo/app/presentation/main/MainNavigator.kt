@@ -19,6 +19,7 @@ import com.byeboo.app.presentation.home.navigation.navigateToHomeOnboarding
 import com.byeboo.app.presentation.mypage.navigation.navigateToMypage
 import com.byeboo.app.presentation.quest.navigation.navigateToQuest
 import com.byeboo.app.presentation.quest.navigation.navigateToQuestComplete
+import com.byeboo.app.presentation.splash.navigation.Splash
 
 class MainNavigator(
     val navController: NavHostController
@@ -28,7 +29,7 @@ class MainNavigator(
             navController
                 .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Onboarding
+    val startDestination = Splash
 
     val currentTab: MainNavTab?
         @Composable get() =
