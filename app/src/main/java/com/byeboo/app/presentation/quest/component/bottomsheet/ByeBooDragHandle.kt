@@ -19,7 +19,7 @@ fun ByeBooDragHandle(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(top = 32.dp, bottom = 16.dp)
+            .padding(top = 24.dp, bottom = 33.dp)
     ) {
         Box(
             modifier = Modifier

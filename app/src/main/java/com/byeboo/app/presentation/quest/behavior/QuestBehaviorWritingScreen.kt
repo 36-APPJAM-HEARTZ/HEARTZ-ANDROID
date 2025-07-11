@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -92,7 +93,8 @@ fun QuestBehaviorWritingScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 SmallTag(
-                    tagText = "STEP ${uiState.stepNumber}"
+                    tagText = "STEP ${uiState.stepNumber}",
+                    tagColor = ByeBooTheme.colors.gray300
                 )
 
                 Spacer(modifier = Modifier.width(12.dp))
@@ -199,7 +201,8 @@ fun QuestBehaviorWritingScreen(
             QuestTextField(
                 questWritingState = uiState.contentState,
                 value = uiState.contents,
-                onValueChange = sharedViewModel::updateContent
+                onValueChange = sharedViewModel::updateContent,
+                placeholder = "꼭 적지 않아도 괜찮지만, 글로 정리해보면 스스로에게 한 걸음 더 가까워질 수 있어요."
             )
 
             Spacer(modifier = Modifier.height(21.dp))
@@ -219,6 +222,7 @@ fun QuestBehaviorWritingScreen(
             )
 
             Spacer(modifier = Modifier.padding(bottom = 56.dp))
+
         }
     }
 
@@ -238,4 +242,5 @@ fun QuestBehaviorWritingScreen(
         },
         isSelected = isEmotionSelected
     )
+
 }
