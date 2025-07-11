@@ -2,8 +2,11 @@ package com.byeboo.app.presentation.auth.userinfo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.byeboo.app.domain.model.Feeling
 import com.byeboo.app.domain.model.NicknameValidationResult
 import com.byeboo.app.domain.model.NicknameValidator
+import com.byeboo.app.domain.model.QuestStyle
+import com.byeboo.app.domain.model.UserInfoModel
 import com.byeboo.app.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -41,19 +44,15 @@ class UserInfoViewModel @Inject constructor(
         }
     }
 
-    fun updateEmotion(emotion: String) {
-        if (emotion.isNotBlank()) {
-            _uiState.update {
-                it.copy(selectedEmotion = emotion)
-            }
+    fun updateEmotion(emotion: Feeling) {
+        _uiState.update {
+            it.copy(selectedEmotion = emotion)
         }
     }
 
-    fun updateQuest(quest: String) {
-        if (quest.isNotBlank()) {
-            _uiState.update {
-                it.copy(selectedQuest = quest)
-            }
+    fun updateQuest(quest: QuestStyle) {
+        _uiState.update {
+            it.copy(selectedQuest = quest)
         }
     }
 
@@ -71,12 +70,18 @@ class UserInfoViewModel @Inject constructor(
 
     fun finishUserInfo() {
         viewModelScope.launch {
-            if (_uiState.value.nicknameValidation != NicknameValidationResult.Valid) {
-                return@launch
+            if (_uiState.value.nicknameValidation != NicknameValidationResult.Valid) return@launch
+
+            val userInfo = UserInfoModel(
+                name = _uiState.value.nickname,
+                feeling = _uiState.value.selectedEmotion?.name.orEmpty(),
+                questStyle = _uiState.value.selectedQuest?.name.orEmpty()
+            )
+
+            val result = userRepository.updateUserInfo(userInfo)
+            if (result.isSuccess) {
+                _sideEffect.emit(UserInfoSideEffect.NavigateToLoading)
             }
-            userRepository.saveNickname(_uiState.value.nickname)
-            userRepository.setLoggedIn(true)
-            _sideEffect.emit(UserInfoSideEffect.NavigateToLoading)
         }
     }
 }

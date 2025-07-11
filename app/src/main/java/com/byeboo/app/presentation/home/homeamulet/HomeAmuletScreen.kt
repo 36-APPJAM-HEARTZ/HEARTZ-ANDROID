@@ -38,6 +38,11 @@ fun HomeAmuletScreen(
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
+            when (effect) {
+                is JourneyResultSideEffect.NavigateToHomeOnboarding -> {
+                    navigateToHomeOnboarding()
+                }
+            }
         }
     }
     Box(
@@ -68,15 +73,16 @@ fun HomeAmuletScreen(
 
             Spacer(modifier = Modifier.height(31.dp))
 
-            Image(
-                painter = painterResource(id = uiState.journey.imageRes),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
-                    .padding(horizontal = 48.dp)
-
-            )
+            if (!uiState.isLoading) {
+                Image(
+                    painter = painterResource(id = uiState.journey.imageRes),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .aspectRatio(1f)
+                        .padding(horizontal = 48.dp)
+                )
+            }
 
             Spacer(modifier = Modifier.height(31.dp))
 
@@ -101,7 +107,7 @@ fun HomeAmuletScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .noRippleClickable {
-                        navigateToHomeOnboarding()
+                        viewModel.navigateToHomeOnboarding()
                     }
             )
             Spacer(Modifier.padding(bottom = padding))

@@ -1,7 +1,7 @@
 package com.byeboo.app.data.di
 
 import com.byeboo.app.data.repositoryimpl.DummyRepositoryImpl
-import com.byeboo.app.data.repositoryimpl.UserRepositoryImpl
+import com.byeboo.app.data.repositoryimpl.auth.UserRepositoryImpl
 import com.byeboo.app.domain.repository.DummyRepository
 import com.byeboo.app.domain.repository.UserRepository
 import dagger.Binds
