@@ -11,10 +11,9 @@ import androidx.navigation.navOptions
 import com.byeboo.app.presentation.auth.onboarding.navigation.onboardingGraph
 import com.byeboo.app.presentation.auth.userinfo.navigation.authGraph
 import com.byeboo.app.presentation.home.navigation.homeGraph
-import com.byeboo.app.presentation.mypage.navigation.myPageGraph
+import com.byeboo.app.presentation.mypage.navigation.mypageGraph
 import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.navigation.questGraph
-import com.byeboo.app.presentation.quest.navigation.questTipGraph
 import com.byeboo.app.presentation.splash.navigation.splashGraph
 
 @Composable
@@ -39,16 +38,18 @@ fun MainNavHost(
         startDestination = navigator.startDestination
     ) {
         splashGraph(
-            navigateToHome = { navigator.navigateToHome(clearStackNavOptions) },
-            navigateToOnboarding = { navigator.navigateToOnboarding(clearStackNavOptions) }
+            navigateToHome = {
+                navigator.navigateToHome(clearStackNavOptions)
+            },
+            navigateToOnboarding = {
+                navigator.navigateToOnboarding(clearStackNavOptions)
+            }
         )
-
         onboardingGraph(
             navigateToUserInfo = {
                 navigator.navigateToUserInfo(clearStackNavOptions)
             }
         )
-
         authGraph(
             navigateToUserInfo = {
                 navigator.navigateToUserInfo(clearStackNavOptions)
@@ -59,18 +60,21 @@ fun MainNavHost(
             navigateToLoading = {
                 navigator.navigateToLoading(clearStackNavOptions)
             },
-            navigateToHomeOnboarding = {
-                navigator.navigateToHomeOnboarding(clearStackNavOptions)
-            }
+            navigateToHomeAmulet = {
+                navigator.navigateToHomeAmulet(clearStackNavOptions)
+            },
+            bottomPadding = bottomPadding
         )
-
         homeGraph(
             bottomPadding = bottomPadding,
             navigateToHome = {
                 navigator.navigateToHome(clearStackNavOptions)
-            }
+            },
+            navigateToHomeOnboarding = {
+                navigator.navigateToHomeOnboarding(clearStackNavOptions)
+            },
+            bottomPadding = bottomPadding
         )
-
         questGraph(
             navController = navigator.navController,
             questStartBackButton = { navigator.navigateToHome(clearStackNavOptions) },
@@ -93,9 +97,6 @@ fun MainNavHost(
             bottomPadding = bottomPadding,
             sharedViewModel = sharedViewModel
         )
-
-        questTipGraph(navigateBack = { navigator.navController.popBackStack() })
-
-        myPageGraph()
+        mypageGraph()
     }
 }
