@@ -29,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.byeboo.app.R
@@ -41,7 +42,7 @@ import com.byeboo.app.presentation.quest.component.QuestTitle
 fun QuestBehaviorWritingReviewScreen(
     sharedViewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
-    val uiState by sharedViewModel.uiState.collectAsState()
+    val uiState by sharedViewModel.uiState.collectAsStateWithLifecycle()
 
     val selectedImageUri by sharedViewModel.selectedImageUri.collectAsState()
 
@@ -109,10 +110,11 @@ fun QuestBehaviorWritingReviewScreen(
             ) {
                 selectedImageUri?.let { uri ->
                     AsyncImage(
-                        model = ImageRequest.Builder(LocalContext.current).data(uri)
-                            .crossfade(true).build(),
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(uri)
+                            .crossfade(true)
+                            .build(),
                         contentDescription = "uploaded image",
-                        modifier = Modifier.fillMaxSize(),
                         contentScale = ContentScale.Crop
                     )
                 }
