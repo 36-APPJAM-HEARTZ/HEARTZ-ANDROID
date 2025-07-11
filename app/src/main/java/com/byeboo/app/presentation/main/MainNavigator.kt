@@ -9,16 +9,16 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.byeboo.app.presentation.auth.onboarding.navigation.navigateToOnboarding
-import com.byeboo.app.presentation.auth.userinfo.navigation.navigateToLoading
-import com.byeboo.app.presentation.auth.userinfo.navigation.navigateToUserInfo
-import com.byeboo.app.presentation.home.navigation.Home
+import com.byeboo.app.presentation.auth.navigation.Onboarding
+import com.byeboo.app.presentation.auth.navigation.navigateToLoading
+import com.byeboo.app.presentation.auth.navigation.navigateToOnboarding
+import com.byeboo.app.presentation.auth.navigation.navigateToUserInfo
 import com.byeboo.app.presentation.home.navigation.navigateToHome
+import com.byeboo.app.presentation.home.navigation.navigateToHomeAmulet
 import com.byeboo.app.presentation.home.navigation.navigateToHomeOnboarding
 import com.byeboo.app.presentation.mypage.navigation.navigateToMypage
 import com.byeboo.app.presentation.quest.navigation.navigateToQuest
 import com.byeboo.app.presentation.quest.navigation.navigateToQuestComplete
-import com.byeboo.app.presentation.quest.navigation.navigateToQuestReview
 
 class MainNavigator(
     val navController: NavHostController
@@ -28,7 +28,7 @@ class MainNavigator(
             navController
                 .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Home
+    val startDestination = Onboarding
 
     val currentTab: MainNavTab?
         @Composable get() =
@@ -69,6 +69,10 @@ class MainNavigator(
         navController.navigateToHome(navOptions)
     }
 
+    fun navigateToMypage(navOptions: NavOptions? = null) {
+        navController.navigateToMypage(navOptions)
+    }
+
     fun navigateToLoading(navOptions: NavOptions) {
         navController.navigateToLoading(navOptions)
     }
@@ -84,8 +88,8 @@ class MainNavigator(
         navController.navigateToHomeOnboarding(navOptions)
     }
 
-    fun navigateToQuestReview(navOptions: NavOptions) {
-        navController.navigateToQuestReview(navOptions)
+    fun navigateToHomeAmulet(navOptions: NavOptions) {
+        navController.navigateToHomeAmulet(navOptions)
     }
 
     fun navigateUp() {

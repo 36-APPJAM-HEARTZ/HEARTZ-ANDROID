@@ -8,8 +8,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navOptions
-import com.byeboo.app.presentation.auth.onboarding.navigation.onboardingGraph
-import com.byeboo.app.presentation.auth.userinfo.navigation.authGraph
+import com.byeboo.app.presentation.auth.navigation.authGraph
 import com.byeboo.app.presentation.home.navigation.homeGraph
 import com.byeboo.app.presentation.mypage.navigation.mypageGraph
 import com.byeboo.app.presentation.quest.behavior.QuestBehaviorViewModel
@@ -44,38 +43,31 @@ fun MainNavHost(
                 navigator.navigateToOnboarding(clearStackNavOptions)
             }
         )
-        onboardingGraph(
-            navigateToUserInfo = {
-                navigator.navigateToUserInfo(clearStackNavOptions)
-            }
-        )
         authGraph(
             navigateToUserInfo = {
                 navigator.navigateToUserInfo(clearStackNavOptions)
             },
-            navigateToOnboarding = {
-                navigator.navigateToOnboarding(clearStackNavOptions)
-            },
             navigateToLoading = {
                 navigator.navigateToLoading(clearStackNavOptions)
             },
-            navigateToHomeOnboarding = {
-                navigator.navigateToHomeOnboarding(clearStackNavOptions)
-            }
+            navigateToHomeAmulet = {
+                navigator.navigateToHomeAmulet(clearStackNavOptions)
+            },
+            bottomPadding = bottomPadding
         )
         homeGraph(
-            bottomPadding = bottomPadding,
             navigateToHome = {
                 navigator.navigateToHome(clearStackNavOptions)
-            }
+            },
+            navigateToHomeOnboarding = {
+                navigator.navigateToHomeOnboarding(clearStackNavOptions)
+            },
+            bottomPadding = bottomPadding
         )
         questGraph(
             sharedViewModel = sharedViewModel,
             navigateToQuestComplete = {
                 navigator.navigateToQuestComplete(clearStackNavOptions)
-            },
-            navigateToQuestReview = {
-                navigator.navigateToQuestReview(clearStackNavOptions)
             }
         )
         mypageGraph()

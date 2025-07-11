@@ -24,7 +24,6 @@ fun NavController.navigateToQuestReview(navOptions: NavOptions? = null) {
 fun NavGraphBuilder.questGraph(
     sharedViewModel: QuestBehaviorViewModel,
     navigateToQuestComplete: () -> Unit,
-    navigateToQuestReview: () -> Unit
 ) {
     composable<Quest> {
         QuestBehaviorWritingScreen(

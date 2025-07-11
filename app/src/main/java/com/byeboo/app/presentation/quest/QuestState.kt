@@ -6,3 +6,8 @@ sealed class QuestState {
     data class TimerLocked(val remainTime: String) : QuestState()
     object Locked : QuestState()
 }
+
+sealed interface QuestSideEffect {
+    data object NavigateToHome : QuestSideEffect
+    data object NavigateToMypage : QuestSideEffect
+}
