@@ -42,7 +42,6 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun UserInfoScreen(
-    navigateToOnboarding: () -> Unit,
     navigateToLoading: () -> Unit,
     modifier: Modifier = Modifier,
     padding: Dp,

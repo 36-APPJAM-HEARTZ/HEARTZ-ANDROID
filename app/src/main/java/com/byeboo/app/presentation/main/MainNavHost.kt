@@ -47,9 +47,6 @@ fun MainNavHost(
             navigateToUserInfo = {
                 navigator.navigateToUserInfo(clearStackNavOptions)
             },
-            navigateToOnboarding = {
-                navigator.navigateToOnboarding(clearStackNavOptions)
-            },
             navigateToLoading = {
                 navigator.navigateToLoading(clearStackNavOptions)
             },

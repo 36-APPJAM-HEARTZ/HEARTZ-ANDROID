@@ -25,7 +25,6 @@ fun NavController.navigateToLoading(navOptions: NavOptions? = null) {
 
 fun NavGraphBuilder.authGraph(
     navigateToUserInfo: () -> Unit,
-    navigateToOnboarding: () -> Unit,
     navigateToLoading: () -> Unit,
     navigateToHomeAmulet: () -> Unit,
     bottomPadding: Dp
@@ -38,7 +37,6 @@ fun NavGraphBuilder.authGraph(
     }
     composable<UserInfo> {
         UserInfoScreen(
-            navigateToOnboarding = navigateToOnboarding,
             navigateToLoading = navigateToLoading,
             padding = bottomPadding
         )
