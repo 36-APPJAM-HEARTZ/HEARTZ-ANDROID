@@ -31,7 +31,7 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 @Composable
 fun QuestModal(
     onDismissRequest: () -> Unit,
-    questNumber: Int,
+    questId: Int,
     questQuestion: String,
     navigateToTip: () -> Unit,
     progressButton: () -> Unit,
@@ -62,7 +62,7 @@ fun QuestModal(
             Spacer(modifier = Modifier.height((17.5).dp))
 
             Text(
-                text = "${questNumber.toString()}번째 퀘스트",
+                text = "${questId}번째 퀘스트",
                 style = ByeBooTheme.typography.body2,
                 color = ByeBooTheme.colors.gray400
             )

@@ -76,26 +76,25 @@ class QuestViewModel @Inject constructor(
                 .flatMap { it.quests }
                 .find { it.questId == questId }
 
+
             when (quest?.state) {
                 is QuestState.Available -> {
                     _selectedQuest.value = quest
                     _showQuitModal.value = true
                 }
-
                 is QuestState.Complete -> {
                     // TODO: 작성된 기록 보는 화면으로 이동
-                    //_sideEffect.emit(QuestSideEffect.NavigateToQuestComplete(quest.questId))
+//                    _sideEffect.emit(QuestSideEffect.NavigateToQuestComplete(quest.questId))
                 }
 
                 else -> {
-                    // 잠겨 있어서 터치 아무것도 안 되는 상태
                 }
             }
         }
     }
 
     private fun getDummyQuestGroups(): List<QuestGroup> {
-        val currentStep = 22
+        val currentStep = 28
         val nextAvailable: String? = null
         val isTimerLocked = nextAvailable != null
         val remainTime = "23:45"
@@ -147,17 +146,17 @@ class QuestViewModel @Inject constructor(
 
     fun onTipClick() {
         val quest = _selectedQuest.value ?: return
-        Log.d("QuestDebug", "selectedQuest = $quest")
 
         viewModelScope.launch {
             _sideEffect.emit(QuestSideEffect.NavigateToQuestTip(quest.questId))
-            Log.d("QuestDebug", "selectedQuest = $quest")
         }
     }
 
     fun onQuestStart() {
-        val quest = _selectedQuest.value ?: return
-        Log.d("QuestDebug", "selectedQuest = $quest")
+        val quest = _selectedQuest.value
+        if (quest == null) {
+            return
+        }
 
         viewModelScope.launch {
             _showQuitModal.value = false
@@ -165,10 +164,7 @@ class QuestViewModel @Inject constructor(
             when (quest.type) {
                 QuestType.EMOTION_FACE -> {
                     _sideEffect.emit(QuestSideEffect.NavigateToQuestRecording(quest.questId))
-                    Log.d("QuestDebug", "selectedQuest = $quest")
-
                 }
-
                 QuestType.EMOTION_ORGANIZE -> {
                     _sideEffect.emit(QuestSideEffect.NavigateToQuestBehavior(quest.questId))
                 }

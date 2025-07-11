@@ -4,11 +4,12 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.byeboo.app.core.util.routeNavigation
-import com.byeboo.app.presentation.quest.QuestViewModel
+import com.byeboo.app.presentation.quest.QuestTipScreen
+import com.byeboo.app.presentation.quest.navigation.QuestTip
 import com.byeboo.app.presentation.quest.record.QuestRecordingCompleteScreen
 import com.byeboo.app.presentation.quest.record.QuestRecordingScreen
-import com.byeboo.app.presentation.quest.record.QuestRecordingViewModel
 import com.byeboo.app.presentation.quest.record.navigation.QuestRecord.QuestRecording
 import com.byeboo.app.presentation.quest.record.navigation.QuestRecord.QuestRecordingComplete
 
@@ -21,27 +22,30 @@ fun NavController.navigateToQuestRecordingComplete(questId: Int, navOptions: Nav
 }
 
 fun NavGraphBuilder.questRecordGraph(
-    navController: NavController,
     navigateToQuest: () -> Unit,
     navigateToQuestTip: (Int) -> Unit,
     navigateToQuestRecordingComplete: (Int) -> Unit,
-    sharedViewModel: QuestViewModel
 ) {
     routeNavigation<QuestRecord, QuestRecording> {
-        composable<QuestRecording> {
+        composable<QuestRecording> { backStackEntry ->
+            val questRecording = backStackEntry.toRoute<QuestRecording>()
+            val questId = questRecording.questId
+
             QuestRecordingScreen(
-                navController = navController,
+                questId = questId,
                 navigateToQuest = navigateToQuest,
                 navigateToQuestTip = navigateToQuestTip,
-                navigateToQuestRecordingComplete = navigateToQuestRecordingComplete,
-                sharedViewModel = sharedViewModel
+                navigateToQuestRecordingComplete = navigateToQuestRecordingComplete
             )
         }
 
-        composable<QuestRecordingComplete> {
+        composable<QuestRecordingComplete> { backStackEntry ->
+            val questRecordingComplete = backStackEntry.toRoute<QuestRecordingComplete>()
+            val questId = questRecordingComplete.questId
+
             QuestRecordingCompleteScreen(
-                navigateToQuest = navigateToQuest,
-                sharedViewModel = sharedViewModel
+                questId = questId,
+                navigateToQuest = navigateToQuest
             )
         }
     }

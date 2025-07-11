@@ -42,10 +42,10 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun QuestRecordingCompleteScreen(
+    questId: Int? = 0,
     navigateToQuest: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestRecordingCompleteViewModel = hiltViewModel(),
-    sharedViewModel: QuestViewModel
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
