@@ -29,6 +29,7 @@ fun ByeBooActivationButton(
     modifier: Modifier = Modifier,
     isEnabled: Boolean = false
 ) {
+    // TODO: 색상 remember 처리
     val buttonBackgroundColor = if (isEnabled) ByeBooTheme.colors.primary300 else buttonDisableColor
     val buttonTextStyle = if (isEnabled) ByeBooTheme.typography.body1 else ByeBooTheme.typography.body2
     val buttonTextColor = if (isEnabled) ByeBooTheme.colors.white else buttonDisableTextColor
@@ -53,7 +54,7 @@ fun ByeBooActivationButton(
 
 @Preview(showBackground = true, backgroundColor = 0x1A000000)
 @Composable
-fun ByeBooActivationButtonPreview() {
+private fun ByeBooActivationButtonPreview() {
     ByeBooTheme {
         Column(
             modifier = Modifier

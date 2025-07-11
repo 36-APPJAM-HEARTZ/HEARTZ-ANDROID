@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -17,7 +16,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -30,40 +28,27 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.text.ContentText
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.presentation.quest.QuestViewModel
-import com.byeboo.app.presentation.quest.component.QuestCompleteCard
-import com.byeboo.app.presentation.quest.component.QuestCompleteTitle
 import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
+import com.byeboo.app.presentation.quest.component.QuestTitle
 
 @Composable
-fun QuestBehaviorCompleteScreen(
-    navigateToQuest: () -> Unit,
-    viewModel: QuestBehaviorViewModel = hiltViewModel(),
-    sharedViewModel: QuestViewModel
+fun QuestBehaviorWritingReviewScreen(
+    sharedViewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.state.collectAsState()
+    val uiState by sharedViewModel.uiState.collectAsStateWithLifecycle()
 
-    val selectedImageUri by viewModel.selectedImageUri.collectAsState()
-
-    LaunchedEffect(Unit) {
-        viewModel.sideEffect.collect { effect ->
-            when (effect) {
-                is QuestBehaviorSideEffect.NavigateToQuest -> navigateToQuest()
-                else -> ""
-            }
-        }
-    }
+    val selectedImageUri by sharedViewModel.selectedImageUri.collectAsState()
 
     LazyColumn(
         modifier = Modifier
             .background(ByeBooTheme.colors.black)
-            .padding(horizontal = 24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(horizontal = 24.dp)
     ) {
         item {
             Row(
@@ -76,7 +61,9 @@ fun QuestBehaviorCompleteScreen(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
                     contentDescription = "back button",
                     tint = ByeBooTheme.colors.white,
-                    modifier = Modifier.clickable { viewModel::onCloseClick }
+                    modifier = Modifier.clickable {
+                        // TODO: QuestToHome navigate
+                    }
                 )
             }
 
@@ -84,50 +71,59 @@ fun QuestBehaviorCompleteScreen(
         }
 
         item {
-            QuestCompleteCard()
-
-            Spacer(modifier = Modifier.height(32.dp))
-        }
-        item {
-            QuestCompleteTitle(
+            QuestTitle(
                 stepNumber = uiState.stepNumber,
                 questNumber = uiState.questNumber,
                 createdAt = uiState.createdAt,
                 questQuestion = uiState.questTitle
-
             )
+
+            Spacer(modifier = Modifier.height(24.dp))
         }
 
         item {
-            Column(
-                modifier = Modifier.padding(vertical = 24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+            Row {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_think),
+                    contentDescription = "title icon",
+                    modifier = Modifier.padding(end = 8.dp),
+                    tint = Color.Unspecified
+                )
+
+                Text(
+                    text = "이렇게 완료했어요",
+                    color = ByeBooTheme.colors.gray200,
+                    style = ByeBooTheme.typography.body2
+                )
+            }
+        }
+
+        item {
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(1f)
+                    .clip(RoundedCornerShape(12.dp))
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f)
-                        .clip(RoundedCornerShape(12.dp))
-                ) {
-                    selectedImageUri?.let { uri ->
-                        AsyncImage(
-                            model = ImageRequest.Builder(LocalContext.current).data(uri)
-                                .crossfade(true).build(),
-                            contentDescription = "uploaded image",
-                            modifier = Modifier.fillMaxSize(),
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                if (uiState.contents.isNotBlank()) {
-                    ContentText(uiState.contents)
+                selectedImageUri?.let { uri ->
+                    AsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(uri)
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = "uploaded image",
+                        contentScale = ContentScale.Crop
+                    )
                 }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
+
+            if (uiState.contents.isNotBlank()) {
+                ContentText(uiState.contents)
+            }
         }
 
         item {
@@ -138,7 +134,7 @@ fun QuestBehaviorCompleteScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_think),
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_change),
                         contentDescription = "title icon",
                         modifier = Modifier.padding(end = 8.dp),
                         tint = Color.Unspecified
@@ -154,7 +150,7 @@ fun QuestBehaviorCompleteScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 QuestEmotionDescriptionCard(
-                    questEmotionDescription = uiState.contents,
+                    modifier = Modifier,
                     emotionType = uiState.selectedEmotion
                 )
             }

@@ -16,7 +16,7 @@ import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
-fun InProgressContent(
+fun CompleteContent(
     questNumber: Int,
     imageResId: Int,
     modifier: Modifier = Modifier

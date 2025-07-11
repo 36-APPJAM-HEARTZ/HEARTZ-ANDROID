@@ -16,13 +16,13 @@ import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.presentation.quest.component.type.JourneyType
+import com.byeboo.app.core.model.QuestType
 
 @Composable
 fun QuestJourneyTitle(
     dayCount: Int,
     nickname: String,
-    journeyTitle: JourneyType
+    questTitle: QuestType
 ) {
     Column(
         modifier = Modifier
@@ -41,10 +41,10 @@ fun QuestJourneyTitle(
                 append("${nickname}님, 지금\n")
 
                 withStyle(style = SpanStyle(color = ByeBooTheme.colors.primary300)) {
-                    append(journeyTitle.title)
+                    append(questTitle.questName)
                 }
 
-                append("을 진행 중이에요.")
+                append(" 여정을 진행 중이에요.")
             },
             color = ByeBooTheme.colors.gray50,
             style = ByeBooTheme.typography.head1
@@ -67,7 +67,7 @@ private fun QuestJourneyTitlePreview() {
         QuestJourneyTitle(
             dayCount = 10,
             nickname = "하츠핑",
-            journeyTitle = JourneyType.FACE_EMOTION
+            questTitle = QuestType.EMOTION_FACE
         )
     }
 }

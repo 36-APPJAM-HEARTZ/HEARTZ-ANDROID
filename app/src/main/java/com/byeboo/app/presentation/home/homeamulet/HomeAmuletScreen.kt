@@ -83,7 +83,6 @@ fun HomeAmuletScreen(
                         .padding(horizontal = 48.dp)
                 )
             }
-
             Spacer(modifier = Modifier.height(31.dp))
 
             Text(

@@ -12,13 +12,17 @@ import androidx.navigation.navOptions
 import com.byeboo.app.presentation.auth.navigation.Onboarding
 import com.byeboo.app.presentation.auth.navigation.navigateToLoading
 import com.byeboo.app.presentation.auth.navigation.navigateToOnboarding
-import com.byeboo.app.presentation.auth.navigation.navigateToUserInfo
 import com.byeboo.app.presentation.home.navigation.navigateToHome
 import com.byeboo.app.presentation.home.navigation.navigateToHomeAmulet
 import com.byeboo.app.presentation.home.navigation.navigateToHomeOnboarding
-import com.byeboo.app.presentation.mypage.navigation.navigateToMypage
+import com.byeboo.app.presentation.mypage.navigation.navigateToMyPage
+import com.byeboo.app.presentation.quest.behavior.navigation.navigateToQuestBehavior
+import com.byeboo.app.presentation.quest.behavior.navigation.navigateToQuestBehaviorComplete
 import com.byeboo.app.presentation.quest.navigation.navigateToQuest
-import com.byeboo.app.presentation.quest.navigation.navigateToQuestComplete
+import com.byeboo.app.presentation.quest.navigation.navigateToQuestStart
+import com.byeboo.app.presentation.quest.navigation.navigateToQuestTip
+import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecording
+import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecordingComplete
 
 class MainNavigator(
     val navController: NavHostController
@@ -49,9 +53,9 @@ class MainNavigator(
                 restoreState = true
             }
         when (tab) {
-            MainNavTab.QUEST -> navController.navigateToQuest(navOptions)
+            MainNavTab.QUEST -> navController.navigateToQuestStart(navOptions)
             MainNavTab.HOME -> navController.navigateToHome(navOptions)
-            MainNavTab.MYPAGE -> navController.navigateToMypage(navOptions)
+            MainNavTab.MYPAGE -> navController.navigateToMyPage(navOptions)
         }
     }
 
@@ -69,31 +73,47 @@ class MainNavigator(
         navController.navigateToHome(navOptions)
     }
 
-    fun navigateToMypage(navOptions: NavOptions? = null) {
-        navController.navigateToMypage(navOptions)
+    fun navigateToMyPage(navOptions: NavOptions? = null) {
+        navController.navigateToMyPage(navOptions)
     }
 
     fun navigateToLoading(navOptions: NavOptions) {
         navController.navigateToLoading(navOptions)
-    }
-    fun navigateToUserInfo(navOptions: NavOptions) {
-        navController.navigateToUserInfo(navOptions)
-    }
-
-    fun navigateToQuestComplete(navOptions: NavOptions) {
-        navController.navigateToQuestComplete(navOptions)
     }
 
     fun navigateToHomeOnboarding(navOptions: NavOptions) {
         navController.navigateToHomeOnboarding(navOptions)
     }
 
-    fun navigateToHomeAmulet(navOptions: NavOptions) {
-        navController.navigateToHomeAmulet(navOptions)
-    }
-
     fun navigateUp() {
         navController.navigateUp()
+    }
+
+    fun navigateToQuest(navOptions: NavOptions) {
+        navController.navigateToQuest(navOptions)
+    }
+
+    fun navigateToQuestTip(questId: Int, navOptions: NavOptions? = null) {
+        navController.navigateToQuestTip(questId, navOptions)
+    }
+
+    fun navigateToQuestRecording(questId: Int, navOptions: NavOptions? = null) {
+        navController.navigateToQuestRecording(questId, navOptions)
+    }
+
+    fun navigateToQuestBehavior(questId: Int, navOptions: NavOptions? = null) {
+        navController.navigateToQuestBehavior(questId, navOptions)
+    }
+
+    fun navigateToQuestRecordingComplete(questId: Int, navOptions: NavOptions? = null) {
+        navController.navigateToQuestRecordingComplete(questId, navOptions)
+    }
+
+    fun navigateToQuestBehaviorComplete(questId: Int, navOptions: NavOptions? = null) {
+        navController.navigateToQuestBehaviorComplete(questId, navOptions)
+    }
+    fun navigateToHomeAmulet(navOptions: NavOptions) {
+        navController.navigateToHomeAmulet(navOptions)
     }
 }
 

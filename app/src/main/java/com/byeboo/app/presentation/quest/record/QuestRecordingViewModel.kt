@@ -1,10 +1,11 @@
-package com.byeboo.app.presentation.quest.behavior
+package com.byeboo.app.presentation.quest.record
 
-import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.domain.model.QuestContentLengthValidator
+import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.model.Quest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,14 +18,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class QuestBehaviorViewModel @Inject constructor(
-//    val questBehaviorRepository: QuestBehaviorRepository
+class QuestRecordingViewModel @Inject constructor(
 ) : ViewModel() {
-    private val _state = MutableStateFlow(QuestBehaviorState())
-    val state: StateFlow<QuestBehaviorState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(QuestRecordingState())
+    val state: StateFlow<QuestRecordingState>
+        get() = _state.asStateFlow()
 
-    private val _sideEffect = MutableSharedFlow<QuestBehaviorSideEffect>()
-    val sideEffect: SharedFlow<QuestBehaviorSideEffect> = _sideEffect
+    private val _sideEffect = MutableSharedFlow<QuestRecordingSideEffect>()
+    val sideEffect: SharedFlow<QuestRecordingSideEffect>
+        get() = _sideEffect
 
     private val _showBottomSheet = MutableStateFlow(false)
     val showBottomSheet: StateFlow<Boolean> = _showBottomSheet.asStateFlow()
@@ -32,23 +34,16 @@ class QuestBehaviorViewModel @Inject constructor(
     private val _isEmotionSelected = MutableStateFlow(false)
     val isEmotionSelected: StateFlow<Boolean> = _isEmotionSelected.asStateFlow()
 
-    private val _selectedImageUri = MutableStateFlow<Uri?>(null)
-    val selectedImageUri: StateFlow<Uri?> = _selectedImageUri
-
-    private val _selectedQuest = MutableStateFlow<Quest?>(null)
-    val selectedQuest: StateFlow<Quest?> = _selectedQuest.asStateFlow()
-
     private val _showQuitModal = MutableStateFlow(false)
     val showQuitModal: StateFlow<Boolean>
         get() = _showQuitModal.asStateFlow()
 
-    fun updateSelectedImage(uri: Uri?) {
-        _selectedImageUri.value = uri
-        _state.update {
-            it.copy(
-                imageCount = if (uri != null) 1 else 0
-            )
-        }
+    private val _questId = MutableStateFlow<Int?>(null)
+    val currentQuestId: Int?
+        get() = _questId.value
+
+    fun setQuestId(id: Int) {
+        _questId.value = id
     }
 
     fun updateContent(text: String) {
@@ -56,7 +51,7 @@ class QuestBehaviorViewModel @Inject constructor(
         _state.update {
             it.copy(
                 contents = text,
-                contentState = contentState
+                contentsState = contentState
             )
         }
     }
@@ -70,24 +65,34 @@ class QuestBehaviorViewModel @Inject constructor(
     }
 
     fun onCompleteClick() {
-        val quest = _selectedQuest.value ?: return
+        val questId = currentQuestId ?: return
+        Log.d("QuestDebug", "selectedQuest = $questId")
+
 
         viewModelScope.launch {
-            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(quest.questId))
+            _sideEffect.emit(QuestRecordingSideEffect.NavigateToQuestRecordingComplete(questId))
+            Log.d("QuestDebug", "selectedQuest = $questId")
+
         }
     }
 
     fun onQuitClick() {
         viewModelScope.launch {
-            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuest)
+            _sideEffect.emit(QuestRecordingSideEffect.NavigateToQuest)
         }
     }
 
     fun onTipClick() {
-        val quest = _selectedQuest.value ?: return
+        val questId = currentQuestId
+        Log.d("QuestDebug", "selectedQuest = $questId")
+        if (questId == null) {
+            Log.e("QuestDebug", "selectedQuest가 null입니다. emit하지 않음.")
+            return
+        }
 
         viewModelScope.launch {
-            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestTip(quest.questId))
+            Log.d("QuestDebug", "Emit NavigateToQuestTip(${questId})")
+            _sideEffect.emit(QuestRecordingSideEffect.NavigateToQuestTip(questId))
         }
     }
 
@@ -105,11 +110,5 @@ class QuestBehaviorViewModel @Inject constructor(
 
     fun updateSelectedEmotion(emotion: LargeTagType) {
         _state.value = _state.value.copy(selectedEmotion = emotion)
-    }
-
-    fun onCloseClick() {
-        viewModelScope.launch {
-            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuest)
-        }
     }
 }

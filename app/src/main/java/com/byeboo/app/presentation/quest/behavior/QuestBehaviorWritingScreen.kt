@@ -16,11 +16,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -28,42 +26,59 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
 import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.behavior.component.QuestPhotoPicker
+import com.byeboo.app.presentation.quest.component.QuestQuitModal
 import com.byeboo.app.presentation.quest.component.QuestTextField
-import com.byeboo.app.presentation.quest.component.QuitModal
 import com.byeboo.app.presentation.quest.component.bottomsheet.ByeBooBottomSheet
+import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuestBehaviorWritingScreen(
-    navigateToQuestComplete: () -> Unit,
+    navigateToQuest: () -> Unit,
+    navigateToQuestTip: (Int) -> Unit,
+    navigateToQuestBehaviorComplete: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    sharedViewModel: QuestBehaviorViewModel = hiltViewModel()
+    viewModel: QuestBehaviorViewModel = hiltViewModel(),
+    sharedViewModel: QuestViewModel,
 ) {
-    val uiState by sharedViewModel.uiState.collectAsState()
+    val uiState by viewModel.state.collectAsState()
+    val showBottomSheet by viewModel.showBottomSheet.collectAsState()
+    val isEmotionSelected by viewModel.isEmotionSelected.collectAsState()
+    val selectedImageUrl by viewModel.selectedImageUri.collectAsState()
+    val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
+    val selectedQuest by sharedViewModel.selectedQuest.collectAsStateWithLifecycle()
 
-    val showBottomSheet by sharedViewModel.showBottomSheet.collectAsState()
-
-    val isEmotionSelected by sharedViewModel.isEmotionSelected.collectAsState()
-
-    val selectedImageUrl by sharedViewModel.selectedImageUri.collectAsState()
-
-    var showQuitModal by remember { mutableStateOf(false) }
 
     if (showQuitModal) {
-        QuitModal(
-            stayButton = { showQuitModal = false },
+        QuestQuitModal(
+            onDismissRequest = { viewModel.onDismissModal() },
+            stayButton = {
+                viewModel.onDismissModal()
+            },
             quitButton = {
-                showQuitModal = false
-                // Todo: navigateToQuest() 이동
+                viewModel.onDismissModal()
+                viewModel.onQuitClick()
             }
         )
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collectLatest {
+            when (it) {
+                is QuestBehaviorSideEffect.NavigateToQuest -> navigateToQuest()
+                is QuestBehaviorSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId)
+                is QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete -> navigateToQuestBehaviorComplete(it.questID)
+            }
+        }
     }
 
     LazyColumn(
@@ -79,9 +94,7 @@ fun QuestBehaviorWritingScreen(
                 tint = ByeBooTheme.colors.white,
                 modifier = Modifier
                     .padding(top = 67.dp)
-                    .clickable {
-                        showQuitModal = true
-                    }
+                    .clickable{viewModel.onBackClicked()}
             )
         }
 
@@ -137,7 +150,8 @@ fun QuestBehaviorWritingScreen(
             ) {
                 MiddleTag(
                     middleTagType = MiddleTagType.QUEST_TIP,
-                    text = "작성 TIP"
+                    text = "작성 TIP",
+                    modifier = Modifier.clickable{viewModel.onTipClick()}
                 )
             }
 
@@ -172,7 +186,7 @@ fun QuestBehaviorWritingScreen(
             QuestPhotoPicker(
                 imageUrl = selectedImageUrl,
                 onImageClick = { url ->
-                    sharedViewModel.updateSelectedImage(url)
+                    viewModel.updateSelectedImage(url)
                 }
             )
 
@@ -199,7 +213,7 @@ fun QuestBehaviorWritingScreen(
             QuestTextField(
                 questWritingState = uiState.contentState,
                 value = uiState.contents,
-                onValueChange = sharedViewModel::updateContent
+                onValueChange = viewModel::updateContent
             )
 
             Spacer(modifier = Modifier.height(21.dp))
@@ -211,10 +225,11 @@ fun QuestBehaviorWritingScreen(
                 buttonText = "완료",
                 buttonDisableTextColor = ByeBooTheme.colors.gray300,
                 onClick = {
-                    sharedViewModel.openBottomSheet()
-                    sharedViewModel.updateSelectedImage(selectedImageUrl)
+                    viewModel.openBottomSheet()
+                    viewModel.updateSelectedImage(selectedImageUrl)
                 },
                 // Todo: ContentLengthValidator 에서 호출
+                // 사진이 있어야만 버튼 활성화
                 isEnabled = true
             )
 
@@ -223,18 +238,18 @@ fun QuestBehaviorWritingScreen(
     }
 
     ByeBooBottomSheet(
-        navigateButton = navigateToQuestComplete,
+        navigateButton = viewModel::onCompleteClick,
         showBottomSheet = showBottomSheet,
         onDismiss = {
-            sharedViewModel.closeBottomSheet()
+            viewModel.closeBottomSheet()
         },
         onEmotionSelected = { selectedEmotion ->
-            sharedViewModel.isEmotionSelected(true)
-            sharedViewModel.updateSelectedEmotion(selectedEmotion)
-            sharedViewModel.closeBottomSheet()
+            viewModel.isEmotionSelected(true)
+            viewModel.updateSelectedEmotion(selectedEmotion)
+            viewModel.closeBottomSheet()
         },
         onSelectedChanged = { isSelected ->
-            sharedViewModel.isEmotionSelected(isSelected)
+            viewModel.isEmotionSelected(isSelected)
         },
         isSelected = isEmotionSelected
     )
