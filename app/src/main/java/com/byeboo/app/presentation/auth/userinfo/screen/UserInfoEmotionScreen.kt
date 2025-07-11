@@ -11,29 +11,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.text.DescriptionText
+import com.byeboo.app.domain.model.Feeling
 import com.byeboo.app.presentation.auth.userinfo.component.UserInfoEmotionCard
 import com.byeboo.app.presentation.auth.userinfo.model.EmotionItem
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun UserInfoEmotionScreen(
-    selectedEmotion: String?,
-    onEmotionSelect: (String) -> Unit
+    selectedEmotion: Feeling?,
+    onEmotionSelect: (Feeling) -> Unit
 ) {
     val emotions = persistentListOf(
-        EmotionItem(
-            title = "너무 힘들어요",
-            imageResId = R.drawable.ic_emotion_sad
-        ),
-        EmotionItem(
-            title = "극복 중이에요",
-            imageResId = R.drawable.ic_emotion_soso
-        ),
-        EmotionItem(
-            title = "꽤 극복했어요",
-            imageResId = R.drawable.ic_emotion_good
-        )
+        Feeling.EXHAUSTED,
+        Feeling.RECOVERING,
+        Feeling.OVERCOMING
     )
+
     Column {
         DescriptionText(
             title = "감정 상태",
@@ -46,13 +39,17 @@ fun UserInfoEmotionScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             emotions.forEach { emotion ->
-                val onCardClick = remember(emotion.title) {
-                    { onEmotionSelect(emotion.title) }
+                val onCardClick = remember(emotion) {
+                    { onEmotionSelect(emotion) }
                 }
                 UserInfoEmotionCard(
-                    content = emotion.title,
-                    imageRes = emotion.imageResId,
-                    isSelected = selectedEmotion == emotion.title,
+                    content = emotion.displayText,
+                    imageRes = when (emotion) {
+                        Feeling.EXHAUSTED -> R.drawable.ic_emotion_sad
+                        Feeling.RECOVERING -> R.drawable.ic_emotion_soso
+                        Feeling.OVERCOMING -> R.drawable.ic_emotion_good
+                    },
+                    isSelected = selectedEmotion == emotion,
                     onCardClick = onCardClick,
                     modifier = Modifier.weight(1f)
                 )

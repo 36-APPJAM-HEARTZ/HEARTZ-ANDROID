@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.byeboo.app.core.model.UserEntity
 import com.byeboo.app.data.datasource.local.UserLocalDataSource
@@ -21,11 +22,17 @@ class UserLocalDataSourceImpl @Inject constructor(
             val preferences = dataStore.data.first()
             UserEntity(
                 nickname = preferences[NICKNAME],
+                userId = preferences[USERID],
                 isLoggedIn = preferences[IS_LOGGED_IN] ?: false
             )
         }.getOrElse {
             UserEntity()
         }
+    }
+    override suspend fun getUserId(): Long? {
+        return runCatching {
+            dataStore.data.first()[USERID]
+        }.getOrNull()
     }
 
     override suspend fun isLoggedIn(): Boolean {
@@ -52,6 +59,12 @@ class UserLocalDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun saveId(userId: Long) {
+        dataStore.edit { preferences ->
+            preferences[USERID] = userId
+        }
+    }
+
     override suspend fun clear() {
         runCatching {
             dataStore.edit { preferences ->
@@ -64,5 +77,6 @@ class UserLocalDataSourceImpl @Inject constructor(
     companion object {
         private val IS_LOGGED_IN = booleanPreferencesKey("IS_LOGGED_IN")
         private val NICKNAME = stringPreferencesKey("NICKNAME")
+        private val USERID = longPreferencesKey("USERID")
     }
 }
