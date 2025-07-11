@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,9 +30,11 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.presentation.quest.component.QuestContent
 import com.byeboo.app.presentation.quest.component.type.QuestContentType
 
+
 @Composable
 fun QuestTipScreen(
-    navigateBack: () -> Unit,
+    questId: Int,
+    navigateBack: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestTipViewModel = hiltViewModel(),
     questViewModel: QuestViewModel = hiltViewModel()
@@ -40,14 +43,33 @@ fun QuestTipScreen(
     val scrollState = rememberScrollState()
     val selectedQuest by questViewModel.selectedQuest.collectAsStateWithLifecycle()
 
-    LaunchedEffect(selectedQuest) {
-        selectedQuest?.let { viewModel.loadQuestTip(it) }
+
+    LaunchedEffect(questId) {
+        val questGroups = questViewModel.questGroups.value
+
+        val quest = questGroups
+            .flatMap { it.quests }
+            .find { it.questId == questId }
+
+        if (quest != null) {
+            viewModel.loadQuestTip(quest)
+        }
+    }
+
+    LaunchedEffect(selectedQuest?.questId) {
+        selectedQuest?.let { quest ->
+            if (quest.questId == questId) {
+                viewModel.loadQuestTip(quest)
+            }
+        }
     }
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                is QuestTipSideEffect.NavigateBack -> navigateBack()
+                is QuestTipSideEffect.NavigateBack -> {
+                    navigateBack(questId)
+                }
             }
         }
     }
@@ -59,7 +81,9 @@ fun QuestTipScreen(
     ) {
         ByeBooTopBar(
             title = "퀘스트 작성 TIP",
-            onCloseClick = viewModel::onCloseClick
+            onCloseClick = {
+                viewModel.onCloseClick()
+            }
         )
 
         Column(
@@ -100,8 +124,8 @@ fun QuestTipScreen(
 
             QuestContent(
                 titleIcon = QuestContentType.THINKING,
-                titleText = uiState.tipQuestion[0],
-                contentText = uiState.tipAnswer[0]
+                titleText = if (uiState.tipQuestion.isNotEmpty()) uiState.tipQuestion[0] else "",
+                contentText = if (uiState.tipAnswer.isNotEmpty()) uiState.tipAnswer[0] else ""
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -116,8 +140,8 @@ fun QuestTipScreen(
 
             QuestContent(
                 titleIcon = QuestContentType.QUEST_REASON,
-                titleText = uiState.tipQuestion[1],
-                contentText = uiState.tipAnswer[1]
+                titleText = if (uiState.tipQuestion.size > 1) uiState.tipQuestion[1] else "",
+                contentText = if (uiState.tipAnswer.size > 1) uiState.tipAnswer[1] else ""
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -132,8 +156,8 @@ fun QuestTipScreen(
 
             QuestContent(
                 titleIcon = QuestContentType.FEELING_CHANGE,
-                titleText = uiState.tipQuestion[2],
-                contentText = uiState.tipAnswer[2]
+                titleText = if (uiState.tipQuestion.size > 2) uiState.tipQuestion[2] else "",
+                contentText = if (uiState.tipAnswer.size > 2) uiState.tipAnswer[2] else ""
             )
         }
     }

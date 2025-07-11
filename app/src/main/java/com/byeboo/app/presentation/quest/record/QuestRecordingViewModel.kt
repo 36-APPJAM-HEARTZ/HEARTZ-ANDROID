@@ -46,6 +46,33 @@ class QuestRecordingViewModel @Inject constructor(
         _questId.value = id
     }
 
+    fun updateQuestInfo(quest: Quest) {
+        _state.update {
+            it.copy(
+                questNumber = quest.questNumber,
+                questQuestion = quest.questQuestion,
+                stepNumber = calculateStepNumber(quest.questNumber),
+                step = calculateStepTitle(quest.questNumber)
+            )
+        }
+    }
+
+    private fun calculateStepNumber(questNumber: Int): Int {
+        return ((questNumber - 1) / 6) + 1
+    }
+
+    private fun calculateStepTitle(questNumber: Int): String {
+        val stepTitles = listOf(
+            "감정 쓸어내기",
+            "상황 정리하기",
+            "내 역할 돌아보기",
+            "새로운 관점 찾기",
+            "앞으로 나아가기"
+        )
+        val stepIndex = ((questNumber - 1) / 6).coerceIn(0, stepTitles.size - 1)
+        return stepTitles[stepIndex]
+    }
+
     fun updateContent(text: String) {
         val contentState = QuestContentLengthValidator.validate(text)
         _state.update {
@@ -66,13 +93,8 @@ class QuestRecordingViewModel @Inject constructor(
 
     fun onCompleteClick() {
         val questId = currentQuestId ?: return
-        Log.d("QuestDebug", "selectedQuest = $questId")
-
-
         viewModelScope.launch {
             _sideEffect.emit(QuestRecordingSideEffect.NavigateToQuestRecordingComplete(questId))
-            Log.d("QuestDebug", "selectedQuest = $questId")
-
         }
     }
 
@@ -84,14 +106,11 @@ class QuestRecordingViewModel @Inject constructor(
 
     fun onTipClick() {
         val questId = currentQuestId
-        Log.d("QuestDebug", "selectedQuest = $questId")
         if (questId == null) {
-            Log.e("QuestDebug", "selectedQuest가 null입니다. emit하지 않음.")
             return
         }
 
         viewModelScope.launch {
-            Log.d("QuestDebug", "Emit NavigateToQuestTip(${questId})")
             _sideEffect.emit(QuestRecordingSideEffect.NavigateToQuestTip(questId))
         }
     }

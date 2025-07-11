@@ -51,7 +51,7 @@ import kotlinx.coroutines.flow.collectLatest
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuestRecordingScreen(
-    navController: NavController,
+    questId: Int,
     navigateToQuest: () -> Unit,
     navigateToQuestTip: (Int) -> Unit,
     navigateToQuestRecordingComplete: (Int) -> Unit,
@@ -68,11 +68,25 @@ fun QuestRecordingScreen(
 
     val selectedQuest by sharedViewModel.selectedQuest.collectAsStateWithLifecycle()
 
-    Log.d("QuestDebug", "selectedQuest = $selectedQuest")
+    LaunchedEffect(questId) {
+        viewModel.setQuestId(questId)
+
+        val questGroups = sharedViewModel.questGroups.value
+
+        val quest = questGroups
+            .flatMap { it.quests }
+            .find { it.questId == questId }
+
+        if (quest != null) {
+            viewModel.updateQuestInfo(quest)
+        }
+    }
 
     LaunchedEffect(selectedQuest?.questId) {
         selectedQuest?.let { quest ->
-            viewModel.setQuestId(quest.questId)
+            if (quest.questId == questId) {
+                viewModel.updateQuestInfo(quest)
+            }
         }
     }
 
@@ -80,7 +94,10 @@ fun QuestRecordingScreen(
         viewModel.sideEffect.collectLatest {
             when (it) {
                 is QuestRecordingSideEffect.NavigateToQuest -> navigateToQuest()
-                is QuestRecordingSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId)
+                is QuestRecordingSideEffect.NavigateToQuestTip -> {
+                    Log.d("QuestFlow", "18. NavigateToQuestTip with questId: ${it.questId}")
+                    navigateToQuestTip(it.questId)
+                }
                 is QuestRecordingSideEffect.NavigateToQuestRecordingComplete -> navigateToQuestRecordingComplete(it.questId)
             }
         }
@@ -170,7 +187,9 @@ fun QuestRecordingScreen(
                 text = "작성 TIP",
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .clickable{viewModel.onTipClick()}
+                    .clickable{
+                        viewModel.onTipClick()
+                    }
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -196,7 +215,6 @@ fun QuestRecordingScreen(
                 textAlign = TextAlign.Start
             )
 
-            //TODO: height를 고정 값으로 주지 않고 스크롤 안 시킬 수 있는 방법은...?
             Spacer(modifier = Modifier.height(200.dp))
 
             ByeBooActivationButton(
@@ -207,7 +225,8 @@ fun QuestRecordingScreen(
                 isEnabled = QuestContentLengthValidator.validButton(uiState.contents)
             )
 
-            Spacer(modifier = Modifier.height(56.dp))        }
+            Spacer(modifier = Modifier.height(56.dp))
+        }
     }
 
     ByeBooBottomSheet(

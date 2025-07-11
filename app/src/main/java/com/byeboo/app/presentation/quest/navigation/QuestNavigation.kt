@@ -5,9 +5,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.byeboo.app.core.util.routeNavigation
 import com.byeboo.app.presentation.quest.QuestScreen
 import com.byeboo.app.presentation.quest.QuestStartScreen
+import com.byeboo.app.presentation.quest.QuestTipScreen
 import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.behavior.navigation.questBehaviorGraph
 import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecordingComplete
@@ -21,6 +23,10 @@ fun NavController.navigateToQuest(navOptions: NavOptions? = null) {
     navigate(Quest, navOptions)
 }
 
+fun NavController.navigateToQuestTip(questId: Int, navOptions: NavOptions? = null) {
+    navigate(QuestTip(questId), navOptions)
+}
+
 fun NavGraphBuilder.questGraph(
     navController: NavController,
     questStartBackButton: () -> Unit,
@@ -32,7 +38,7 @@ fun NavGraphBuilder.questGraph(
     navigateToQuestBehaviorComplete: (Int) -> Unit,
     bottomPadding: Dp,
     sharedViewModel: QuestViewModel,
-    ) {
+) {
     routeNavigation<Quest, QuestStart> {
         composable<QuestStart> {
             QuestStartScreen(
@@ -50,19 +56,28 @@ fun NavGraphBuilder.questGraph(
             )
         }
 
+        composable<QuestTip> { backStackEntry ->
+            val questTip = backStackEntry.toRoute<QuestTip>()
+            val questId = questTip.questId
+
+            QuestTipScreen(
+                questId = questId,
+                navigateBack = navigateToQuestRecording
+            )
+        }
+
         questRecordGraph(
-            sharedViewModel = sharedViewModel,
-            navController = navController,
             navigateToQuest = navigateToQuest,
             navigateToQuestTip = navigateToQuestTip,
-            navigateToQuestRecordingComplete = navigateToQuestRecordingComplete
+            navigateToQuestRecordingComplete = navigateToQuestRecordingComplete,
         )
 
         questBehaviorGraph(
             sharedViewModel = sharedViewModel,
             navigateToQuest = navigateToQuest,
             navigateToQuestTip = navigateToQuestTip,
-            navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete
+            navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete,
         )
+
     }
 }
