@@ -31,14 +31,13 @@ fun HomeAmuletScreen(
     navigateToHomeOnboarding: () -> Unit,
     modifier: Modifier = Modifier,
     padding: Dp,
-    viewModel: JourneyResultViewModel = hiltViewModel()
+    viewModel: HomeAmuletViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val nickname by viewModel.nickname.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
-
         }
     }
     Box(
@@ -55,7 +54,7 @@ fun HomeAmuletScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = padding+ 27.dp)
+                .padding(top = padding + 27.dp)
         ) {
             Text(
                 text = "지금 ${nickname ?: ""} 님에게 필요한 건",

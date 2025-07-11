@@ -10,11 +10,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.byeboo.app.presentation.auth.navigation.Onboarding
-import com.byeboo.app.presentation.auth.navigation.UserInfo
 import com.byeboo.app.presentation.auth.navigation.navigateToLoading
 import com.byeboo.app.presentation.auth.navigation.navigateToOnboarding
 import com.byeboo.app.presentation.auth.navigation.navigateToUserInfo
-import com.byeboo.app.presentation.home.navigation.Home
 import com.byeboo.app.presentation.home.navigation.navigateToHome
 import com.byeboo.app.presentation.home.navigation.navigateToHomeAmulet
 import com.byeboo.app.presentation.home.navigation.navigateToHomeOnboarding
@@ -93,7 +91,6 @@ class MainNavigator(
     fun navigateToHomeAmulet(navOptions: NavOptions) {
         navController.navigateToHomeAmulet(navOptions)
     }
-
 
     fun navigateUp() {
         navController.navigateUp()

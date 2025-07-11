@@ -77,8 +77,6 @@ fun UserInfoScreen(
         }
     }
 
-
-
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
@@ -111,13 +109,9 @@ fun UserInfoScreen(
                         .size(24.dp)
                         .noRippleClickable {
                             coroutineScope.launch {
-                                if (pagerState.currentPage == 0) {
-                                    navigateToOnboarding()
-                                } else {
-                                    val targetPage = pagerState.currentPage - 1
-                                    previousPage = pagerState.currentPage
-                                    pagerState.scrollToPage(targetPage)
-                                }
+                                val targetPage = pagerState.currentPage - 1
+                                previousPage = pagerState.currentPage
+                                pagerState.scrollToPage(targetPage)
                             }
                         }
                 )

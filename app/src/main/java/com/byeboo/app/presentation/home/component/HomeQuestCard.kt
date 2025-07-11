@@ -59,12 +59,11 @@ fun HomeQuestCard(
             Icon(
                 painter = painterResource(id = R.drawable.ic_right),
                 contentDescription = null,
-                tint = ByeBooTheme.colors.gray50,
+                tint = ByeBooTheme.colors.gray50
             )
         }
     }
 }
-
 
 @Preview()
 @Composable

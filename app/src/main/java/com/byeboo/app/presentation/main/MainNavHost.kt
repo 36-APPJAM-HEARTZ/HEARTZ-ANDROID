@@ -56,7 +56,7 @@ fun MainNavHost(
             navigateToHomeAmulet = {
                 navigator.navigateToHomeAmulet(clearStackNavOptions)
             },
-            bottomPadding = bottomPadding,
+            bottomPadding = bottomPadding
         )
         homeGraph(
             navigateToHome = {

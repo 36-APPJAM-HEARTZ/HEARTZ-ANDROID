@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
-class JourneyResultViewModel @Inject constructor(
+class HomeAmuletViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeAmuletState())
