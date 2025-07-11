@@ -69,7 +69,7 @@ fun HomeAmuletScreen(
             Spacer(modifier = Modifier.height(31.dp))
 
             Image(
-                painter = painterResource(id = uiState.journey.imageRes),
+                painter = painterResource(id = uiState.quest.imageRes),
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()

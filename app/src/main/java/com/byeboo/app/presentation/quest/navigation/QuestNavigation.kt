@@ -1,53 +1,68 @@
 package com.byeboo.app.presentation.quest.navigation
 
+import androidx.compose.ui.unit.Dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.byeboo.app.core.navigation.MainTabRoute
-import com.byeboo.app.core.navigation.Route
-import com.byeboo.app.presentation.quest.behavior.QuestBehaviorCompleteScreen
-import com.byeboo.app.presentation.quest.behavior.QuestBehaviorViewModel
-import com.byeboo.app.presentation.quest.behavior.QuestBehaviorWritingReviewScreen
-import com.byeboo.app.presentation.quest.behavior.QuestBehaviorWritingScreen
-import kotlinx.serialization.Serializable
+import com.byeboo.app.core.util.routeNavigation
+import com.byeboo.app.presentation.quest.QuestScreen
+import com.byeboo.app.presentation.quest.QuestStartScreen
+import com.byeboo.app.presentation.quest.QuestViewModel
+import com.byeboo.app.presentation.quest.behavior.navigation.questBehaviorGraph
+import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecordingComplete
+import com.byeboo.app.presentation.quest.record.navigation.questRecordGraph
+
+fun NavController.navigateToQuestStart(navOptions: NavOptions? = null) {
+    navigate(QuestStart, navOptions)
+}
 
 fun NavController.navigateToQuest(navOptions: NavOptions? = null) {
     navigate(Quest, navOptions)
 }
-fun NavController.navigateToQuestComplete(navOptions: NavOptions? = null) {
-    navigate(QuestComplete, navOptions)
-}
-fun NavController.navigateToQuestReview(navOptions: NavOptions? = null) {
-    navigate(QuestReview, navOptions)
-}
+
 fun NavGraphBuilder.questGraph(
-    sharedViewModel: QuestBehaviorViewModel,
-    navigateToQuestComplete: () -> Unit,
-) {
-    composable<Quest> {
-        QuestBehaviorWritingScreen(
+    navController: NavController,
+    questStartBackButton: () -> Unit,
+    navigateToQuest: () -> Unit,
+    navigateToQuestRecording: (Int) -> Unit,
+    navigateToQuestBehavior: (Int) -> Unit,
+    navigateToQuestRecordingComplete: (Int) -> Unit,
+    navigateToQuestTip: (Int) -> Unit,
+    navigateToQuestBehaviorComplete: (Int) -> Unit,
+    bottomPadding: Dp,
+    sharedViewModel: QuestViewModel,
+    ) {
+    routeNavigation<Quest, QuestStart> {
+        composable<QuestStart> {
+            QuestStartScreen(
+                navigateBack = questStartBackButton,
+                navigateQuest = navigateToQuest
+            )
+        }
+
+        composable<Quest> {
+            QuestScreen(
+                navigateToQuestTip = navigateToQuestTip,
+                navigateToQuestRecording = navigateToQuestRecording,
+                navigateToQuestBehavior = navigateToQuestBehavior,
+                bottomPadding = bottomPadding
+            )
+        }
+
+        questRecordGraph(
             sharedViewModel = sharedViewModel,
-            navigateToQuestComplete = navigateToQuestComplete
+            navController = navController,
+            navigateToQuest = navigateToQuest,
+            navigateToQuestTip = navigateToQuestTip,
+            navigateToQuestRecordingComplete = navigateToQuestRecordingComplete
         )
-    }
-    composable<QuestComplete> {
-        QuestBehaviorCompleteScreen(
-            sharedViewModel = sharedViewModel
-        )
-    }
-    composable<QuestReview> {
-        QuestBehaviorWritingReviewScreen(
-            sharedViewModel = sharedViewModel
+
+        questBehaviorGraph(
+            sharedViewModel = sharedViewModel,
+            navigateToQuest = navigateToQuest,
+            navigateToQuestTip = navigateToQuestTip,
+            navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete
         )
     }
 }
-
-@Serializable
-data object Quest : MainTabRoute
-
-@Serializable
-data object QuestComplete : Route
-
-@Serializable
-data object QuestReview : Route

@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class MypageViewModel @Inject constructor(
+class MyPageViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 

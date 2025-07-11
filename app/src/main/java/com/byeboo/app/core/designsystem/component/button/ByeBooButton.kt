@@ -52,7 +52,7 @@ fun ByeBooButton(
 
 @Preview(showBackground = true)
 @Composable
-fun ByeBooButtonPreview2() {
+private fun ByeBooButtonPreview2() {
     ByeBooTheme {
         Column(
             modifier = Modifier

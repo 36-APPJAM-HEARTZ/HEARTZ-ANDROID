@@ -12,7 +12,7 @@ import com.byeboo.app.R.string.ic_quest_desc
 import com.byeboo.app.core.navigation.MainTabRoute
 import com.byeboo.app.core.navigation.Route
 import com.byeboo.app.presentation.home.navigation.Home
-import com.byeboo.app.presentation.mypage.navigation.Mypage
+import com.byeboo.app.presentation.mypage.navigation.MyPage
 import com.byeboo.app.presentation.quest.navigation.Quest
 
 enum class MainNavTab(
@@ -33,7 +33,7 @@ enum class MainNavTab(
     MYPAGE(
         icon = ic_user,
         contentDescription = ic_mypage_desc,
-        route = Mypage
+        route = MyPage
     );
 
     companion object {
