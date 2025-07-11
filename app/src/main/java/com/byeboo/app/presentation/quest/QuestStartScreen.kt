@@ -21,17 +21,17 @@ import com.byeboo.app.presentation.quest.component.GuideContent
 
 @Composable
 fun QuestStartScreen(
-    onNavigateBack: () -> Unit,
-    onNavigateQuest: () -> Unit,
+    navigateBack: () -> Unit,
+    navigateQuest: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: QuestStartViewModel = hiltViewModel()
-) {
+    viewModel: QuestStartViewModel = hiltViewModel(),
+    ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is QuestStartSideEffect.NavigateToQuest -> onNavigateQuest()
+                is QuestStartSideEffect.NavigateToQuest -> navigateQuest()
             }
         }
     }
@@ -42,7 +42,7 @@ fun QuestStartScreen(
             .background(color = ByeBooTheme.colors.black)
     ) {
         ByeBooTopBar(
-            onNavigateBack = onNavigateBack,
+            onNavigateBack = navigateBack,
             modifier = Modifier.background(color = ByeBooTheme.colors.gray900Alpha80)
         )
 
@@ -54,7 +54,7 @@ fun QuestStartScreen(
                 .padding(horizontal = 24.dp)
         ) {
             GuideContent(
-                nickname = uiState.nickname,
+                userName = uiState.nickname,
                 guideText = "님의 상황에 꼭 맞춘\n${uiState.journeyName} 여정의 퀘스트 30개를 드릴게요.\n\n제가 드리는 퀘스트와 함꼐\n이별을 극복해나가요!"
             )
 

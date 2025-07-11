@@ -8,6 +8,9 @@ import androidx.navigation.compose.composable
 import com.byeboo.app.core.util.routeNavigation
 import com.byeboo.app.presentation.quest.QuestScreen
 import com.byeboo.app.presentation.quest.QuestStartScreen
+import com.byeboo.app.presentation.quest.QuestViewModel
+import com.byeboo.app.presentation.quest.behavior.navigation.questBehaviorGraph
+import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecordingComplete
 import com.byeboo.app.presentation.quest.record.navigation.questRecordGraph
 
 fun NavController.navigateToQuestStart(navOptions: NavOptions? = null) {
@@ -19,27 +22,47 @@ fun NavController.navigateToQuest(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.questGraph(
+    navController: NavController,
     questStartBackButton: () -> Unit,
     navigateToQuest: () -> Unit,
-    navigateToQuestTip: () -> Unit
-) {
+    navigateToQuestRecording: (Int) -> Unit,
+    navigateToQuestBehavior: (Int) -> Unit,
+    navigateToQuestRecordingComplete: (Int) -> Unit,
+    navigateToQuestTip: (Int) -> Unit,
+    navigateToQuestBehaviorComplete: (Int) -> Unit,
+    bottomPadding: Dp,
+    sharedViewModel: QuestViewModel,
+    ) {
     routeNavigation<Quest, QuestStart> {
         composable<QuestStart> {
             QuestStartScreen(
-                onNavigateBack = questStartBackButton,
-                onNavigateQuest = navigateToQuest
+                navigateBack = questStartBackButton,
+                navigateQuest = navigateToQuest
             )
         }
 
         composable<Quest> {
-//            QuestScreen()
+            QuestScreen(
+                navigateToQuestTip = navigateToQuestTip,
+                navigateToQuestRecording = navigateToQuestRecording,
+                navigateToQuestBehavior = navigateToQuestBehavior,
+                bottomPadding = bottomPadding
+            )
         }
 
         questRecordGraph(
+            sharedViewModel = sharedViewModel,
+            navController = navController,
             navigateToQuest = navigateToQuest,
-            navigateToQuestTip = navigateToQuestTip
+            navigateToQuestTip = navigateToQuestTip,
+            navigateToQuestRecordingComplete = navigateToQuestRecordingComplete
         )
 
-        //TODO: questBehaviorGraph 넣어주기
+        questBehaviorGraph(
+            sharedViewModel = sharedViewModel,
+            navigateToQuest = navigateToQuest,
+            navigateToQuestTip = navigateToQuestTip,
+            navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete
+        )
     }
 }

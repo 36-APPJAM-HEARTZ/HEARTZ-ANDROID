@@ -26,25 +26,30 @@ import com.byeboo.app.core.designsystem.component.text.DescriptionText
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.presentation.quest.component.QuestBox
+import com.byeboo.app.presentation.quest.component.QuestModal
 import com.byeboo.app.presentation.quest.component.QuestStepTitle
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun QuestScreen(
-    navigateToHome: () -> Unit,
-    navigateToMypage: () -> Unit,
+    navigateToQuestTip: (Int) -> Unit,
+    navigateToQuestRecording: (Int) -> Unit,
+    navigateToQuestBehavior: (Int) -> Unit,
     bottomPadding: Dp,
     viewModel: QuestViewModel = hiltViewModel()
 ) {
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
     val questGroups by viewModel.questGroups.collectAsStateWithLifecycle()
     val currentStepIndex by viewModel.currentStepIndex.collectAsStateWithLifecycle()
+    val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
     val gridState = rememberLazyGridState()
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collectLatest {
             when (it) {
-                is QuestSideEffect.NavigateToHome -> navigateToHome()
-                is QuestSideEffect.NavigateToMypage -> navigateToMypage()
+                is QuestSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId)
+                is QuestSideEffect.NavigateToQuestRecording -> navigateToQuestRecording(it.questId)
+                is QuestSideEffect.NavigateToQuestBehavior -> navigateToQuestBehavior(it.questId)
             }
         }
     }
@@ -54,6 +59,16 @@ fun QuestScreen(
             .sumOf { it.quests.size + 1 }
 
         gridState.animateScrollToItem(index = scrollIndex)
+    }
+
+    if (showQuitModal) {
+        QuestModal(
+            onDismissRequest = {viewModel.onDismissModal()},
+            questNumber = uiState.questNumber,
+            questQuestion = uiState.questQuestion,
+            navigateToTip = viewModel::onTipClick,
+            progressButton = viewModel::onQuestStart
+        )
     }
     Column(
         modifier = Modifier

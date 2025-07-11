@@ -32,6 +32,7 @@ import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.component.topbar.ByeBooTopBar
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.component.QuestCompleteCard
 import com.byeboo.app.presentation.quest.component.QuestContent
 import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
@@ -43,17 +44,11 @@ import java.time.format.DateTimeFormatter
 fun QuestRecordingCompleteScreen(
     navigateToQuest: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: QuestRecordingCompleteViewModel = hiltViewModel()
+    viewModel: QuestRecordingCompleteViewModel = hiltViewModel(),
+    sharedViewModel: QuestViewModel
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
-
-    val emotionType = when (uiState.questEmotionState) {
-        "자기이해" -> LargeTagType.EMOTION_SELF_AWARE
-        "그저그런" -> LargeTagType.EMOTION_RELIEF
-        "슬픔" -> LargeTagType.EMOTION_SADNESS
-        else -> LargeTagType.EMOTION_RELIEF
-    }
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
@@ -128,7 +123,7 @@ fun QuestRecordingCompleteScreen(
 
                 QuestEmotionDescriptionContent(
                     questEmotionDescription = uiState.emotionDescription,
-                    emotionType = emotionType
+                    emotionType = uiState.selectedEmotion
                 )
             }
         }

@@ -17,6 +17,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -32,19 +33,31 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.byeboo.app.R
-import com.byeboo.app.core.designsystem.component.contenttext.ContentText
+import com.byeboo.app.core.designsystem.component.text.ContentText
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.component.QuestCompleteCard
 import com.byeboo.app.presentation.quest.component.QuestCompleteTitle
 import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
 
 @Composable
 fun QuestBehaviorCompleteScreen(
-    sharedViewModel: QuestBehaviorViewModel = hiltViewModel()
+    navigateToQuest: () -> Unit,
+    viewModel: QuestBehaviorViewModel = hiltViewModel(),
+    sharedViewModel: QuestViewModel
 ) {
-    val uiState by sharedViewModel.uiState.collectAsState()
+    val uiState by viewModel.state.collectAsState()
 
-    val selectedImageUri by sharedViewModel.selectedImageUri.collectAsState()
+    val selectedImageUri by viewModel.selectedImageUri.collectAsState()
+
+    LaunchedEffect(Unit) {
+        viewModel.sideEffect.collect { effect ->
+            when (effect) {
+                is QuestBehaviorSideEffect.NavigateToQuest -> navigateToQuest()
+                else -> ""
+            }
+        }
+    }
 
     LazyColumn(
         modifier = Modifier
@@ -63,9 +76,7 @@ fun QuestBehaviorCompleteScreen(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
                     contentDescription = "back button",
                     tint = ByeBooTheme.colors.white,
-                    modifier = Modifier.clickable {
-                        // TODO: QuestToHome navigate
-                    }
+                    modifier = Modifier.clickable { viewModel::onCloseClick }
                 )
             }
         }
@@ -141,7 +152,7 @@ fun QuestBehaviorCompleteScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 QuestEmotionDescriptionCard(
-                    modifier = Modifier,
+                    questEmotionDescription = uiState.contents,
                     emotionType = uiState.selectedEmotion
                 )
             }

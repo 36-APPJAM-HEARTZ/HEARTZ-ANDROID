@@ -5,10 +5,12 @@ import com.byeboo.app.core.navigation.Route
 import kotlinx.serialization.Serializable
 
 @Serializable
-data object Quest: MainTabRoute
+data object Quest: MainTabRoute{
+    const val ROUTE = "quest"
+}
 
 @Serializable
 data object QuestStart: Route
 
 @Serializable
-data object QuestTip: Route
+data class QuestTip(val questId: Int): Route

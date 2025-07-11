@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest.record
 
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,49 +15,73 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
 import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
-import com.byeboo.app.core.designsystem.component.topbar.ByeBooTopBar
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.QuestFromParent
 import com.byeboo.app.core.util.addFocusCleaner
 import com.byeboo.app.domain.model.QuestContentLengthValidator
+import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.component.QuestQuitModal
 import com.byeboo.app.presentation.quest.component.QuestTextField
+import com.byeboo.app.presentation.quest.component.bottomsheet.ByeBooBottomSheet
+import com.byeboo.app.presentation.quest.navigation.rememberQuestViewModel
 import kotlinx.coroutines.flow.collectLatest
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuestRecordingScreen(
+    navController: NavController,
     navigateToQuest: () -> Unit,
-    navigateToQuestTip: () -> Unit,
+    navigateToQuestTip: (Int) -> Unit,
+    navigateToQuestRecordingComplete: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: QuestRecordingViewModel = hiltViewModel()
+    viewModel: QuestRecordingViewModel = hiltViewModel(),
+    sharedViewModel: QuestViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
-
+    val showBottomSheet by viewModel.showBottomSheet.collectAsState()
+    val isEmotionSelected by viewModel.isEmotionSelected.collectAsState()
     val scrollState = rememberScrollState()
     val focusManager = LocalFocusManager.current
 
-    // TODO: 바텀시트 올라오는 SideEffect / onCompleteClick
+    val selectedQuest by sharedViewModel.selectedQuest.collectAsStateWithLifecycle()
+
+    Log.d("QuestDebug", "selectedQuest = $selectedQuest")
+
+    LaunchedEffect(selectedQuest?.questId) {
+        selectedQuest?.let { quest ->
+            viewModel.setQuestId(quest.questId)
+        }
+    }
+
     LaunchedEffect(Unit) {
-        viewModel.sideEffect.collectLatest { effect ->
-            when (effect) {
+        viewModel.sideEffect.collectLatest {
+            when (it) {
                 is QuestRecordingSideEffect.NavigateToQuest -> navigateToQuest()
-                is QuestRecordingSideEffect.NavigateToQuestTip -> navigateToQuestTip()
-                else -> ""
+                is QuestRecordingSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId)
+                is QuestRecordingSideEffect.NavigateToQuestRecordingComplete -> navigateToQuestRecordingComplete(it.questId)
             }
         }
     }
@@ -82,9 +107,13 @@ fun QuestRecordingScreen(
             .background(color = ByeBooTheme.colors.black)
             .addFocusCleaner(focusManager)
     ) {
-        ByeBooTopBar(
-            modifier = Modifier.background(color = ByeBooTheme.colors.gray900Alpha80),
-            onNavigateBack = viewModel::onBackClicked
+        Icon(
+            imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
+            contentDescription = "back button",
+            tint = ByeBooTheme.colors.white,
+            modifier = Modifier
+                .padding(top = 67.dp)
+                .clickable{viewModel.onBackClicked()}
         )
 
         Column(
@@ -127,7 +156,7 @@ fun QuestRecordingScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = uiState.questTitle,
+                text = uiState.questQuestion,
                 color = ByeBooTheme.colors.gray100,
                 style = ByeBooTheme.typography.head1,
                 modifier = Modifier.fillMaxWidth(),
@@ -141,7 +170,7 @@ fun QuestRecordingScreen(
                 text = "작성 TIP",
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .clickable(onClick = viewModel::onTipClick)
+                    .clickable{viewModel.onTipClick()}
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -174,11 +203,27 @@ fun QuestRecordingScreen(
                 buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
                 buttonText = "완료하기",
                 buttonDisableTextColor = ByeBooTheme.colors.gray300,
-                onClick = viewModel::onCompleteClick,
+                onClick = viewModel::openBottomSheet,
                 isEnabled = QuestContentLengthValidator.validButton(uiState.contents)
             )
 
-            Spacer(modifier = Modifier.padding(bottom = 56.dp))
-        }
+            Spacer(modifier = Modifier.height(56.dp))        }
     }
+
+    ByeBooBottomSheet(
+        navigateButton = viewModel::onCompleteClick,
+        showBottomSheet = showBottomSheet,
+        onDismiss = {
+            viewModel.closeBottomSheet()
+        },
+        onEmotionSelected = { selectedEmotion ->
+            viewModel.isEmotionSelected(true)
+            viewModel.updateSelectedEmotion(selectedEmotion)
+            viewModel.closeBottomSheet()
+        },
+        onSelectedChanged = { isSelected ->
+            viewModel.isEmotionSelected(isSelected)
+        },
+        isSelected = isEmotionSelected
+    )
 }

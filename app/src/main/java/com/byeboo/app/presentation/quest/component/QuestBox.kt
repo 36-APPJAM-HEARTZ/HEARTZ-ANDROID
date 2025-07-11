@@ -14,7 +14,7 @@ fun QuestBox(
     onQuestClick: (Int) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
-    val isClickable = state is QuestState.Available || state is QuestState.InProgress
+    val isClickable = state is QuestState.Available || state is QuestState.Complete
 
     val clickableModifier = if (isClickable) {
         modifier.noRippleClickable { onQuestClick(questId) }
@@ -23,10 +23,10 @@ fun QuestBox(
     }
 
     when (state) {
-        is QuestState.InProgress -> {
-            InProgressContent(
+        is QuestState.Complete -> {
+            CompleteContent(
                 questNumber = questNumber,
-                imageResId = R.drawable.quest_inprogress,
+                imageResId = R.drawable.quest_complete,
                 modifier = clickableModifier
             )
         }

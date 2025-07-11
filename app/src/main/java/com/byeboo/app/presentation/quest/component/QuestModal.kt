@@ -2,6 +2,7 @@ package com.byeboo.app.presentation.quest.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -20,7 +21,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -30,14 +30,16 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
 fun QuestModal(
-    questNumber: String,
+    onDismissRequest: () -> Unit,
+    questNumber: Int,
     questQuestion: String,
-    onClick: () -> Unit,
+    navigateToTip: () -> Unit,
+    progressButton: () -> Unit,
     modifier: Modifier = Modifier,
     dialogProperties: DialogProperties = DialogProperties()
 ) {
     Dialog(
-        onDismissRequest = onClick,
+        onDismissRequest = onDismissRequest,
         properties = dialogProperties
     ) {
         Column(
@@ -60,7 +62,7 @@ fun QuestModal(
             Spacer(modifier = Modifier.height((17.5).dp))
 
             Text(
-                text = questNumber,
+                text = "${questNumber.toString()}번째 퀘스트",
                 style = ByeBooTheme.typography.body2,
                 color = ByeBooTheme.colors.gray400
             )
@@ -83,29 +85,18 @@ fun QuestModal(
                     }
                 },
                 style = ByeBooTheme.typography.body4,
-                color = ByeBooTheme.colors.gray300
+                color = ByeBooTheme.colors.gray300,
+                modifier = Modifier.clickable { navigateToTip() }
             )
 
             Spacer(modifier = Modifier.height((17.5).dp))
 
             ByeBooButton(
-                onClick = onClick,
+                onClick = progressButton,
                 buttonText = "진행하기",
                 buttonTextColor = ByeBooTheme.colors.white,
                 buttonBackgroundColor = ByeBooTheme.colors.primary300
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun QuestModalPreview() {
-    ByeBooTheme {
-        QuestModal(
-            questNumber = "열 번째 퀘스트",
-            questQuestion = "연애에서 반복됐던 문제 패턴\n3가지를 생각해보아요.",
-            onClick = {}
-        )
     }
 }

@@ -33,10 +33,16 @@ import com.byeboo.app.presentation.quest.component.type.QuestContentType
 fun QuestTipScreen(
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: QuestTipViewModel = hiltViewModel()
+    viewModel: QuestTipViewModel = hiltViewModel(),
+    questViewModel: QuestViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
+    val selectedQuest by questViewModel.selectedQuest.collectAsStateWithLifecycle()
+
+    LaunchedEffect(selectedQuest) {
+        selectedQuest?.let { viewModel.loadQuestTip(it) }
+    }
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->

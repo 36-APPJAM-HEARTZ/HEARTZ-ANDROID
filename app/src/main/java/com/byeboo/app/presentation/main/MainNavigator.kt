@@ -16,10 +16,13 @@ import com.byeboo.app.presentation.home.navigation.Home
 import com.byeboo.app.presentation.home.navigation.navigateToHome
 import com.byeboo.app.presentation.home.navigation.navigateToHomeOnboarding
 import com.byeboo.app.presentation.mypage.navigation.navigateToMyPage
+import com.byeboo.app.presentation.quest.behavior.navigation.navigateToQuestBehavior
+import com.byeboo.app.presentation.quest.behavior.navigation.navigateToQuestBehaviorComplete
 import com.byeboo.app.presentation.quest.navigation.navigateToQuest
 import com.byeboo.app.presentation.quest.navigation.navigateToQuestStart
 import com.byeboo.app.presentation.quest.navigation.navigateToQuestTip
-import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecord
+import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecording
+import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecordingComplete
 
 class MainNavigator(
     val navController: NavHostController
@@ -86,11 +89,6 @@ class MainNavigator(
         navController.navigateToHomeOnboarding(navOptions)
     }
 
-//    fun navigateToQuestComplete(navOptions: NavOptions) {
-//        navController.navigateToQuestComplete(navOptions)
-//    }
-
-
     fun navigateUp() {
         navController.navigateUp()
     }
@@ -99,12 +97,24 @@ class MainNavigator(
         navController.navigateToQuest(navOptions)
     }
 
-    fun navigateToQuestTip(navOptions: NavOptions? = null) {
-        navController.navigateToQuestTip(navOptions)
+    fun navigateToQuestTip(questId: Int, navOptions: NavOptions? = null) {
+        navController.navigateToQuestTip(questId, navOptions)
     }
 
-    fun navigateToQuestRecord(navOptions: NavOptions? = null) {
-        navController.navigateToQuestRecord(navOptions)
+    fun navigateToQuestRecording(questId: Int, navOptions: NavOptions? = null) {
+        navController.navigateToQuestRecording(questId, navOptions)
+    }
+
+    fun navigateToQuestBehavior(questId: Int, navOptions: NavOptions? = null) {
+        navController.navigateToQuestBehavior(questId, navOptions)
+    }
+
+    fun navigateToQuestRecordingComplete(questId: Int, navOptions: NavOptions? = null) {
+        navController.navigateToQuestRecordingComplete(questId, navOptions)
+    }
+
+    fun navigateToQuestBehaviorComplete(questId: Int, navOptions: NavOptions? = null) {
+        navController.navigateToQuestBehaviorComplete(questId, navOptions)
     }
 }
 
