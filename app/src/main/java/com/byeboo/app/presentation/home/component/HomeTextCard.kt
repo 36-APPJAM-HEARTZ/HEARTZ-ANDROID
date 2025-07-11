@@ -44,10 +44,8 @@ private fun HomeProgressCardPreview() {
     ByeBooTheme {
         Column(modifier = Modifier.padding(16.dp)) {
             HomeTextCard(
-                title = "제가 하츠핑님의 이별 극복을 도와드릴게요.",
-                )
+                title = "제가 하츠핑님의 이별 극복을 도와드릴게요."
+            )
         }
     }
 }
-
-

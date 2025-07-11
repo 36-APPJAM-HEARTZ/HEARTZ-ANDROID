@@ -49,7 +49,11 @@ fun ByeBooBottomSheet(
             modifier = modifier,
             sheetState = sheetState,
             containerColor = ByeBooTheme.colors.gray900Alpha80,
-            scrimColor = if (isBackgroundDimmed) ByeBooTheme.colors.blackAlpha80 else Color.Transparent,
+            scrimColor = if (isBackgroundDimmed) {
+                ByeBooTheme.colors.blackAlpha80
+            } else {
+                Color.Transparent
+            },
             dragHandle = dragHandle
         ) {
             var selectedEmotion by remember { mutableStateOf<LargeTagType?>(null) }

@@ -9,12 +9,12 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.byeboo.app.presentation.auth.onboarding.navigation.navigateToOnboarding
-import com.byeboo.app.presentation.auth.userinfo.navigation.UserInfo
-import com.byeboo.app.presentation.auth.userinfo.navigation.navigateToLoading
-import com.byeboo.app.presentation.auth.userinfo.navigation.navigateToUserInfo
-import com.byeboo.app.presentation.home.navigation.Home
+import com.byeboo.app.presentation.auth.navigation.Onboarding
+import com.byeboo.app.presentation.auth.navigation.navigateToLoading
+import com.byeboo.app.presentation.auth.navigation.navigateToOnboarding
+import com.byeboo.app.presentation.auth.navigation.navigateToUserInfo
 import com.byeboo.app.presentation.home.navigation.navigateToHome
+import com.byeboo.app.presentation.home.navigation.navigateToHomeAmulet
 import com.byeboo.app.presentation.home.navigation.navigateToHomeOnboarding
 import com.byeboo.app.presentation.mypage.navigation.navigateToMypage
 import com.byeboo.app.presentation.quest.navigation.navigateToQuest
@@ -28,7 +28,7 @@ class MainNavigator(
             navController
                 .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Home
+    val startDestination = Onboarding
 
     val currentTab: MainNavTab?
         @Composable get() =
@@ -65,10 +65,6 @@ class MainNavigator(
         navController.navigateToOnboarding(navOptions)
     }
 
-    fun navigateToUserInfo(navOptions: NavOptions) {
-        navController.navigateToUserInfo(navOptions)
-    }
-
     fun navigateToHome(navOptions: NavOptions) {
         navController.navigateToHome(navOptions)
     }
@@ -92,6 +88,9 @@ class MainNavigator(
         navController.navigateToHomeOnboarding(navOptions)
     }
 
+    fun navigateToHomeAmulet(navOptions: NavOptions) {
+        navController.navigateToHomeAmulet(navOptions)
+    }
 
     fun navigateUp() {
         navController.navigateUp()
