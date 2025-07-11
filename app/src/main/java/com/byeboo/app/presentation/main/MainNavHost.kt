@@ -8,10 +8,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navOptions
-import com.byeboo.app.presentation.auth.onboarding.navigation.onboardingGraph
-import com.byeboo.app.presentation.auth.userinfo.navigation.authGraph
+import com.byeboo.app.presentation.auth.navigation.authGraph
 import com.byeboo.app.presentation.home.navigation.homeGraph
-import com.byeboo.app.presentation.mypage.navigation.mypageGraph
+import com.byeboo.app.presentation.mypage.navigation.myPageGraph
 import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.navigation.questGraph
 import com.byeboo.app.presentation.splash.navigation.splashGraph
@@ -45,17 +44,9 @@ fun MainNavHost(
                 navigator.navigateToOnboarding(clearStackNavOptions)
             }
         )
-        onboardingGraph(
-            navigateToUserInfo = {
-                navigator.navigateToUserInfo(clearStackNavOptions)
-            }
-        )
         authGraph(
             navigateToUserInfo = {
                 navigator.navigateToUserInfo(clearStackNavOptions)
-            },
-            navigateToOnboarding = {
-                navigator.navigateToOnboarding(clearStackNavOptions)
             },
             navigateToLoading = {
                 navigator.navigateToLoading(clearStackNavOptions)
@@ -73,7 +64,7 @@ fun MainNavHost(
             navigateToHomeOnboarding = {
                 navigator.navigateToHomeOnboarding(clearStackNavOptions)
             },
-            bottomPadding = bottomPadding
+
         )
         questGraph(
             navController = navigator.navController,
@@ -97,6 +88,6 @@ fun MainNavHost(
             bottomPadding = bottomPadding,
             sharedViewModel = sharedViewModel
         )
-        mypageGraph()
+        myPageGraph()
     }
 }

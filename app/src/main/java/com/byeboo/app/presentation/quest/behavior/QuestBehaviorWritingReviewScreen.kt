@@ -41,7 +41,7 @@ import com.byeboo.app.presentation.quest.component.QuestTitle
 fun QuestBehaviorWritingReviewScreen(
     sharedViewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
-    val uiState by sharedViewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by sharedViewModel.state.collectAsStateWithLifecycle()
 
     val selectedImageUri by sharedViewModel.selectedImageUri.collectAsState()
 
@@ -151,7 +151,8 @@ fun QuestBehaviorWritingReviewScreen(
 
                 QuestEmotionDescriptionCard(
                     modifier = Modifier,
-                    emotionType = uiState.selectedEmotion
+                    emotionType = uiState.selectedEmotion,
+                    questEmotionDescription = "마음이 가벼워졌다면 다행이에요. 당신은 지금 아주 건강하게 감정을 정리하고 있어요."
                 )
             }
         }
