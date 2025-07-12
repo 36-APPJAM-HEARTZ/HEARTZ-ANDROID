@@ -43,7 +43,7 @@ fun QuestStartScreen(
     ) {
         ByeBooTopBar(
             onNavigateBack = navigateBack,
-            modifier = Modifier.background(color = ByeBooTheme.colors.gray900Alpha80)
+            modifier = Modifier.background(color = ByeBooTheme.colors.black)
         )
 
         Spacer(modifier = Modifier.height(11.dp))
