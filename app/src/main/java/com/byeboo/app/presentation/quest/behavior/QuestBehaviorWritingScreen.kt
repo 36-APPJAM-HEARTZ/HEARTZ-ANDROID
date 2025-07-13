@@ -32,6 +32,7 @@ import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.domain.model.QuestValidator
 import com.byeboo.app.presentation.quest.behavior.component.QuestPhotoPicker
 import com.byeboo.app.presentation.quest.component.QuestQuitModal
 import com.byeboo.app.presentation.quest.component.QuestTextField
@@ -76,7 +77,9 @@ fun QuestBehaviorWritingScreen(
             when (it) {
                 is QuestBehaviorSideEffect.NavigateToQuest -> navigateToQuest()
                 is QuestBehaviorSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId)
-                is QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete -> navigateToQuestBehaviorComplete(it.questID)
+                is QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete -> navigateToQuestBehaviorComplete(
+                    it.questID
+                )
             }
         }
     }
@@ -94,7 +97,7 @@ fun QuestBehaviorWritingScreen(
                 tint = ByeBooTheme.colors.white,
                 modifier = Modifier
                     .padding(top = 67.dp)
-                    .clickable{viewModel.onBackClicked()}
+                    .clickable { viewModel.onBackClicked() }
             )
         }
 
@@ -151,7 +154,7 @@ fun QuestBehaviorWritingScreen(
                 MiddleTag(
                     middleTagType = MiddleTagType.QUEST_TIP,
                     text = "작성 TIP",
-                    modifier = Modifier.clickable{viewModel.onTipClick()}
+                    modifier = Modifier.clickable { viewModel.onTipClick() }
                 )
             }
 
@@ -228,9 +231,7 @@ fun QuestBehaviorWritingScreen(
                     viewModel.openBottomSheet()
                     viewModel.updateSelectedImage(selectedImageUrl)
                 },
-                // Todo: ContentLengthValidator 에서 호출
-                // 사진이 있어야만 버튼 활성화
-                isEnabled = true
+                isEnabled = QuestValidator.validButton(uiState.imageCount)
             )
 
             Spacer(modifier = Modifier.padding(bottom = 56.dp))
