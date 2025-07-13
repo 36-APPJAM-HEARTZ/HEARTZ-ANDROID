@@ -82,7 +82,8 @@ fun NavGraphBuilder.questGraph(
 
             QuestReviewScreen(
                 questId = questId,
-                navigateToQuest = navigateToQuest
+                navigateToQuest = navigateToQuest,
+                bottomPadding = bottomPadding
             )
         }
 
