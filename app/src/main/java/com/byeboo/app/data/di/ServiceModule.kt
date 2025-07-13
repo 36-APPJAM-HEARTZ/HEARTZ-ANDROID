@@ -1,6 +1,7 @@
 package com.byeboo.app.data.di
 
 import com.byeboo.app.data.service.DummyService
+import com.byeboo.app.data.service.QuestService
 import com.byeboo.app.data.service.auth.UserService
 import com.byeboo.app.data.service.quest.QuestDetailService
 import com.kakao.sdk.user.model.User
@@ -32,4 +33,10 @@ object ServiceModule {
         QuestDetailService::class.java
     )
 
+
+    @Provides
+    @Singleton
+    fun providesQuestService(retrofit: Retrofit): QuestService = retrofit.create(
+        QuestService::class.java
+    )
 }

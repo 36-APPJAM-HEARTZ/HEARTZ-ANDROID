@@ -63,7 +63,7 @@ class QuestViewModel @Inject constructor(
         return questGroups.indexOfFirst { group ->
             group.quests.any {
                 it.state is QuestState.Available ||
-                        it.state is QuestState.TimerLocked
+                    it.state is QuestState.TimerLocked
             }
         }.coerceAtLeast(0)
     }

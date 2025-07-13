@@ -28,8 +28,7 @@ class UserRepositoryImpl @Inject constructor(
     }
     override suspend fun getUserJourney(): Result<UserJourney> {
         return runCatching {
-            val userId = userLocalDataSource.getUserId()
-            val response = userRemoteDataSource.getUserJourney(userId!!)
+            val response = userRemoteDataSource.getUserJourney()
             response.data.toDomain()
         }
     }

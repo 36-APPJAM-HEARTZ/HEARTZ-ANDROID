@@ -1,6 +1,7 @@
 package com.byeboo.app.presentation.home.homeamulet
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -39,7 +40,7 @@ fun HomeAmuletScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is JourneyResultSideEffect.NavigateToHomeOnboarding -> {
+                is HomeAmuletSideEffect.NavigateToHomeOnboarding -> {
                     navigateToHomeOnboarding()
                 }
             }
@@ -55,12 +56,19 @@ fun HomeAmuletScreen(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(ByeBooTheme.colors.blackAlpha50)
+        )
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = padding + 27.dp)
+                .padding(top = padding)
         ) {
+            Spacer(modifier = Modifier.weight(1f))
+
             Text(
                 text = "지금 ${nickname ?: ""} 님에게 필요한 건",
                 style = ByeBooTheme.typography.body1,
@@ -109,6 +117,8 @@ fun HomeAmuletScreen(
                         viewModel.navigateToHomeOnboarding()
                     }
             )
+            Spacer(modifier = Modifier.weight(1f))
+
             Spacer(Modifier.padding(bottom = padding))
         }
     }

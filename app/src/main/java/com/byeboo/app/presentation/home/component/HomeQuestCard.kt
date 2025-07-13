@@ -18,25 +18,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.noRippleClickable
 
 @Composable
 fun HomeQuestCard(
     title: String,
     subtitle: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     backgroundColor: Color = ByeBooTheme.colors.whiteAlpha10,
     shape: Shape = RoundedCornerShape(12.dp),
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {}
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .background(backgroundColor, shape)
             .border(1.dp, ByeBooTheme.colors.primary300, shape)
+            .noRippleClickable { onClick() }
             .padding(horizontal = 24.dp, vertical = 16.dp)
     ) {
         Row(
@@ -60,19 +61,6 @@ fun HomeQuestCard(
                 painter = painterResource(id = R.drawable.ic_right),
                 contentDescription = null,
                 tint = ByeBooTheme.colors.gray50
-            )
-        }
-    }
-}
-
-@Preview()
-@Composable
-private fun ContentTextPreview() {
-    ByeBooTheme {
-        Column {
-            HomeQuestCard(
-                title = "오늘의 퀘스트 하러가기",
-                subtitle = "퀘스트를 하고나면 한층 더 성장할 거에요."
             )
         }
     }
