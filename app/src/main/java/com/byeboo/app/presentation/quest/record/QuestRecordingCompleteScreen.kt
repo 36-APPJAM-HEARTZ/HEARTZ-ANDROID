@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest.record
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -32,7 +33,6 @@ import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.component.topbar.ByeBooTopBar
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.component.QuestCompleteCard
 import com.byeboo.app.presentation.quest.component.QuestContent
 import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
@@ -42,13 +42,17 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun QuestRecordingCompleteScreen(
-    questId: Int? = 0,
+    questId: Int = 0,
     navigateToQuest: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestRecordingCompleteViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
+
+    LaunchedEffect(questId) {
+        viewModel.setQuestId(questId)
+    }
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
@@ -58,15 +62,15 @@ fun QuestRecordingCompleteScreen(
         }
     }
 
-    // TODO: 백핸들러 로직 추가
+    BackHandler { viewModel.onCloseClick() }
 
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = ByeBooTheme.colors.gray900Alpha80)
+            .background(color = ByeBooTheme.colors.black)
     ) {
         ByeBooTopBar(
-            modifier = Modifier.background(color = ByeBooTheme.colors.gray900Alpha80),
+            modifier = Modifier.background(color = ByeBooTheme.colors.black),
             onCloseClick = viewModel::onCloseClick
         )
 
@@ -82,14 +86,14 @@ fun QuestRecordingCompleteScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            Row(
+            Column (
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
                 SmallTag(tagText = "STEP ${uiState.stepNumber}")
 
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
                     text = "${uiState.questNumber}번째 퀘스트",
@@ -104,7 +108,7 @@ fun QuestRecordingCompleteScreen(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = uiState.questTitle,
+                    text = uiState.questQuestion,
                     style = ByeBooTheme.typography.head1,
                     color = ByeBooTheme.colors.gray100,
                     modifier = Modifier.fillMaxWidth(),
