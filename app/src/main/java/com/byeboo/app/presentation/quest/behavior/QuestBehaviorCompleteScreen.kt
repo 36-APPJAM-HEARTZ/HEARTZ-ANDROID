@@ -1,9 +1,9 @@
 package com.byeboo.app.presentation.quest.behavior
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,27 +28,33 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.text.ContentText
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.component.QuestCompleteCard
 import com.byeboo.app.presentation.quest.component.QuestCompleteTitle
 import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
 
 @Composable
 fun QuestBehaviorCompleteScreen(
+    questId: Long,
     navigateToQuest: () -> Unit,
-    viewModel: QuestBehaviorViewModel = hiltViewModel(),
-    sharedViewModel: QuestViewModel
+    bottomPadding: Dp,
+    viewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
 
-    val selectedImageUri by viewModel.selectedImageUri.collectAsState()
+    val selectedImageUri by viewModel.selectedImageUri.collectAsStateWithLifecycle()
+
+    LaunchedEffect(questId) {
+        viewModel.setQuestId(questId)
+    }
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
@@ -59,104 +65,108 @@ fun QuestBehaviorCompleteScreen(
         }
     }
 
-    LazyColumn(
+    BackHandler { viewModel.onCloseClick() }
+
+    Column(
         modifier = Modifier
+            .fillMaxSize()
             .background(ByeBooTheme.colors.black)
-            .padding(horizontal = 24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(horizontal = 24.dp)
+            .padding(bottom = bottomPadding),
     ) {
-        item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 67.dp),
-                horizontalArrangement = Arrangement.End
-            ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
-                    contentDescription = "back button",
-                    tint = ByeBooTheme.colors.white,
-                    modifier = Modifier.clickable { viewModel::onCloseClick }
+        Spacer(modifier = Modifier.height(67.dp))
+
+        Icon(
+            imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
+            contentDescription = "back button",
+            tint = ByeBooTheme.colors.white,
+            modifier = Modifier
+                .align(Alignment.End)
+                .clickable { viewModel.onCloseClick() }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+
+                QuestCompleteCard()
+
+                Spacer(modifier = Modifier.height(32.dp))
+            }
+            item {
+                QuestCompleteTitle(
+                    stepNumber = uiState.stepNumber,
+                    questNumber = uiState.questNumber,
+                    createdAt = uiState.createdAt,
+                    questQuestion = uiState.questTitle
+
                 )
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
-        }
-
-        item {
-            QuestCompleteCard()
-
-            Spacer(modifier = Modifier.height(32.dp))
-        }
-        item {
-            QuestCompleteTitle(
-                stepNumber = uiState.stepNumber,
-                questNumber = uiState.questNumber,
-                createdAt = uiState.createdAt,
-                questQuestion = uiState.questTitle
-
-            )
-        }
-
-        item {
-            Column(
-                modifier = Modifier.padding(vertical = 24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f)
-                        .clip(RoundedCornerShape(12.dp))
+            item {
+                Column(
+                    modifier = Modifier.padding(vertical = 24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    selectedImageUri?.let { uri ->
-                        AsyncImage(
-                            model = ImageRequest.Builder(LocalContext.current).data(uri)
-                                .crossfade(true).build(),
-                            contentDescription = "uploaded image",
-                            modifier = Modifier.fillMaxSize(),
-                            contentScale = ContentScale.Crop
-                        )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(360 / 312f)
+                            .clip(RoundedCornerShape(12.dp))
+                    ) {
+                        selectedImageUri?.let { uri ->
+                            AsyncImage(
+                                model = ImageRequest.Builder(LocalContext.current).data(uri)
+                                    .crossfade(true).build(),
+                                contentDescription = "uploaded image",
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    if (uiState.contents.isNotBlank()) {
+                        ContentText(uiState.contents)
                     }
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
-
-                if (uiState.contents.isNotBlank()) {
-                    ContentText(uiState.contents)
-                }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-
-        item {
-            Column(
-                modifier = Modifier.padding(vertical = 24.dp)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
+            item {
+                Column(
+                    modifier = Modifier.padding(vertical = 24.dp)
                 ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_think),
-                        contentDescription = "title icon",
-                        modifier = Modifier.padding(end = 8.dp),
-                        tint = Color.Unspecified
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.ic_think),
+                            contentDescription = "title icon",
+                            modifier = Modifier.padding(end = 8.dp),
+                            tint = Color.Unspecified
+                        )
 
-                    Text(
-                        text = "퀘스트 완료 후, 이런 감정을 느꼈어요",
-                        color = ByeBooTheme.colors.gray200,
-                        style = ByeBooTheme.typography.body2
+                        Text(
+                            text = "퀘스트 완료 후, 이런 감정을 느꼈어요",
+                            color = ByeBooTheme.colors.gray200,
+                            style = ByeBooTheme.typography.body2
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    QuestEmotionDescriptionCard(
+                        questEmotionDescription = uiState.contents,
+                        emotionType = uiState.selectedEmotion
                     )
                 }
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                QuestEmotionDescriptionCard(
-                    questEmotionDescription = uiState.contents,
-                    emotionType = uiState.selectedEmotion
-                )
             }
         }
     }

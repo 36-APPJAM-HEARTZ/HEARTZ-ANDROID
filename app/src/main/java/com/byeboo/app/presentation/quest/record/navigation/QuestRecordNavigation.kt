@@ -1,30 +1,30 @@
 package com.byeboo.app.presentation.quest.record.navigation
 
+import androidx.compose.ui.unit.Dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.byeboo.app.core.util.routeNavigation
-import com.byeboo.app.presentation.quest.QuestTipScreen
-import com.byeboo.app.presentation.quest.navigation.QuestTip
 import com.byeboo.app.presentation.quest.record.QuestRecordingCompleteScreen
 import com.byeboo.app.presentation.quest.record.QuestRecordingScreen
 import com.byeboo.app.presentation.quest.record.navigation.QuestRecord.QuestRecording
 import com.byeboo.app.presentation.quest.record.navigation.QuestRecord.QuestRecordingComplete
 
-fun NavController.navigateToQuestRecording(questId: Int, navOptions: NavOptions? = null) {
+fun NavController.navigateToQuestRecording(questId: Long, navOptions: NavOptions? = null) {
     navigate(QuestRecording(questId), navOptions)
 }
 
-fun NavController.navigateToQuestRecordingComplete(questId: Int, navOptions: NavOptions? = null) {
+fun NavController.navigateToQuestRecordingComplete(questId: Long, navOptions: NavOptions? = null) {
     navigate(QuestRecordingComplete(questId), navOptions)
 }
 
 fun NavGraphBuilder.questRecordGraph(
     navigateToQuest: () -> Unit,
-    navigateToQuestTip: (Int) -> Unit,
-    navigateToQuestRecordingComplete: (Int) -> Unit,
+    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestRecordingComplete: (Long) -> Unit,
+    bottomPadding: Dp
 ) {
     routeNavigation<QuestRecord, QuestRecording> {
         composable<QuestRecording> { backStackEntry ->
@@ -35,7 +35,8 @@ fun NavGraphBuilder.questRecordGraph(
                 questId = questId,
                 navigateToQuest = navigateToQuest,
                 navigateToQuestTip = navigateToQuestTip,
-                navigateToQuestRecordingComplete = navigateToQuestRecordingComplete
+                navigateToQuestRecordingComplete = navigateToQuestRecordingComplete,
+                bottomPadding = bottomPadding
             )
         }
 
@@ -45,7 +46,8 @@ fun NavGraphBuilder.questRecordGraph(
 
             QuestRecordingCompleteScreen(
                 questId = questId,
-                navigateToQuest = navigateToQuest
+                navigateToQuest = navigateToQuest,
+                bottomPadding = bottomPadding
             )
         }
     }

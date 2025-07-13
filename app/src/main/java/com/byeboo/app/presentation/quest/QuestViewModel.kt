@@ -1,19 +1,18 @@
 package com.byeboo.app.presentation.quest
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.presentation.quest.model.Quest
 import com.byeboo.app.presentation.quest.model.QuestGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class QuestViewModel @Inject constructor(
@@ -22,7 +21,6 @@ class QuestViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(Quest())
     val state: StateFlow<Quest>
         get() = _uiState.asStateFlow()
-
 
     private val _sideEffect = MutableSharedFlow<QuestSideEffect>()
     val sideEffect = _sideEffect.asSharedFlow()
@@ -70,21 +68,25 @@ class QuestViewModel @Inject constructor(
         }.coerceAtLeast(0)
     }
 
-    fun onQuestClick(questId: Int) {
+    fun onQuestClick(questId: Long) {
         viewModelScope.launch {
             val quest = questGroups.value
                 .flatMap { it.quests }
                 .find { it.questId == questId }
-
 
             when (quest?.state) {
                 is QuestState.Available -> {
                     _selectedQuest.value = quest
                     _showQuitModal.value = true
                 }
+
                 is QuestState.Complete -> {
-                    // TODO: 작성된 기록 보는 화면으로 이동
-//                    _sideEffect.emit(QuestSideEffect.NavigateToQuestComplete(quest.questId))
+                    _sideEffect.emit(
+                        QuestSideEffect.NavigateToQuestReview(
+                            questId = quest.questId,
+                            questType = quest.type
+                        )
+                    )
                 }
 
                 else -> {
@@ -94,7 +96,7 @@ class QuestViewModel @Inject constructor(
     }
 
     private fun getDummyQuestGroups(): List<QuestGroup> {
-        val currentStep = 28
+        val currentStep = 29
         val nextAvailable: String? = null
         val isTimerLocked = nextAvailable != null
         val remainTime = "23:45"
@@ -129,8 +131,9 @@ class QuestViewModel @Inject constructor(
                     }
                     Quest(
                         // 임시
-                        questId = questNumber,
-                        questNumber = questNumber,
+                        //TODO:
+                        questId = questNumber.toLong(),
+                        questNumber = questNumber.toLong(),
                         state = state,
                         questQuestion = "연애에서 반복됐던 문제 패턴 3가지를 생각해보아요.",
                         type = if (questNumber % 2 == 0) QuestType.EMOTION_FACE else QuestType.EMOTION_ORGANIZE
@@ -165,10 +168,17 @@ class QuestViewModel @Inject constructor(
                 QuestType.EMOTION_FACE -> {
                     _sideEffect.emit(QuestSideEffect.NavigateToQuestRecording(quest.questId))
                 }
+
                 QuestType.EMOTION_ORGANIZE -> {
                     _sideEffect.emit(QuestSideEffect.NavigateToQuestBehavior(quest.questId))
                 }
             }
+        }
+    }
+
+    fun onBackClick() {
+        viewModelScope.launch {
+            _sideEffect.emit(QuestSideEffect.NavigateToHome)
         }
     }
 }
