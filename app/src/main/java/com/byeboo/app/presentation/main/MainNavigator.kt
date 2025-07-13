@@ -9,7 +9,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.byeboo.app.presentation.auth.navigation.Onboarding
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.presentation.auth.navigation.navigateToLoading
 import com.byeboo.app.presentation.auth.navigation.navigateToOnboarding
 import com.byeboo.app.presentation.auth.navigation.navigateToUserInfo
@@ -21,6 +21,7 @@ import com.byeboo.app.presentation.mypage.navigation.navigateToMyPage
 import com.byeboo.app.presentation.quest.behavior.navigation.navigateToQuestBehavior
 import com.byeboo.app.presentation.quest.behavior.navigation.navigateToQuestBehaviorComplete
 import com.byeboo.app.presentation.quest.navigation.navigateToQuest
+import com.byeboo.app.presentation.quest.navigation.navigateToQuestReview
 import com.byeboo.app.presentation.quest.navigation.navigateToQuestStart
 import com.byeboo.app.presentation.quest.navigation.navigateToQuestTip
 import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecording
@@ -35,6 +36,7 @@ class MainNavigator(
                 .currentBackStackEntryAsState().value?.destination
 
     val startDestination = Home
+
 
     val currentTab: MainNavTab?
         @Composable get() =
@@ -99,25 +101,30 @@ class MainNavigator(
         navController.navigateToQuest(navOptions)
     }
 
-    fun navigateToQuestTip(questId: Int, navOptions: NavOptions? = null) {
+    fun navigateToQuestTip(questId: Long, navOptions: NavOptions? = null) {
         navController.navigateToQuestTip(questId, navOptions)
     }
 
-    fun navigateToQuestRecording(questId: Int, navOptions: NavOptions? = null) {
+    fun navigateToQuestRecording(questId: Long, navOptions: NavOptions? = null) {
         navController.navigateToQuestRecording(questId, navOptions)
     }
 
-    fun navigateToQuestBehavior(questId: Int, navOptions: NavOptions? = null) {
+    fun navigateToQuestBehavior(questId: Long, navOptions: NavOptions? = null) {
         navController.navigateToQuestBehavior(questId, navOptions)
     }
 
-    fun navigateToQuestRecordingComplete(questId: Int, navOptions: NavOptions? = null) {
+    fun navigateToQuestRecordingComplete(questId: Long, navOptions: NavOptions? = null) {
         navController.navigateToQuestRecordingComplete(questId, navOptions)
     }
 
-    fun navigateToQuestBehaviorComplete(questId: Int, navOptions: NavOptions? = null) {
+    fun navigateToQuestBehaviorComplete(questId: Long, navOptions: NavOptions? = null) {
         navController.navigateToQuestBehaviorComplete(questId, navOptions)
     }
+
+    fun navigateToQuestReview(questId: Long, questType: QuestType, navOptions: NavOptions? = null) {
+        navController.navigateToQuestReview(questId, questType, navOptions)
+    }
+
     fun navigateToHomeAmulet(navOptions: NavOptions) {
         navController.navigateToHomeAmulet(navOptions)
     }

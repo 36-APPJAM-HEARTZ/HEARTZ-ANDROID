@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.text.DescriptionText
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.presentation.quest.component.QuestBox
 import com.byeboo.app.presentation.quest.component.QuestModal
 import com.byeboo.app.presentation.quest.component.QuestStepTitle
@@ -32,9 +34,11 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun QuestScreen(
-    navigateToQuestTip: (Int) -> Unit,
-    navigateToQuestRecording: (Int) -> Unit,
-    navigateToQuestBehavior: (Int) -> Unit,
+    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestRecording: (Long) -> Unit,
+    navigateToQuestBehavior: (Long) -> Unit,
+    navigateToQuestReview: (Long, QuestType) -> Unit,
+    navigateToHome: () -> Unit,
     bottomPadding: Dp,
     viewModel: QuestViewModel = hiltViewModel()
 ) {
@@ -50,6 +54,12 @@ fun QuestScreen(
                 is QuestSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId)
                 is QuestSideEffect.NavigateToQuestRecording -> navigateToQuestRecording(it.questId)
                 is QuestSideEffect.NavigateToQuestBehavior -> navigateToQuestBehavior(it.questId)
+                is QuestSideEffect.NavigateToQuestReview -> navigateToQuestReview(
+                    it.questId,
+                    it.questType
+                )
+
+                is QuestSideEffect.NavigateToHome -> navigateToHome()
             }
         }
     }
@@ -61,9 +71,11 @@ fun QuestScreen(
         gridState.animateScrollToItem(index = scrollIndex)
     }
 
+    BackHandler { viewModel.onBackClick() }
+
     if (showQuitModal) {
         QuestModal(
-            onDismissRequest = {viewModel.onDismissModal()},
+            onDismissRequest = { viewModel.onDismissModal() },
             questId = uiState.questId,
             questQuestion = uiState.questQuestion,
             navigateToTip = viewModel::onTipClick,
@@ -114,7 +126,7 @@ fun QuestScreen(
                         )
                         Spacer(modifier = Modifier.padding(top = 24.dp))
                         QuestStepTitle(
-                            stepNumber = stepIndex + 1,
+                            stepNumber = (stepIndex + 1).toLong(),
                             stepTitle = group.stepTitle
                         )
                         Spacer(modifier = Modifier.padding(top = 8.dp))

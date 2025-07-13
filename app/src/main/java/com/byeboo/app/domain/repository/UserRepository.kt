@@ -13,4 +13,3 @@ interface UserRepository {
     suspend fun getUserId(): Long?
     suspend fun clear()
 }
-

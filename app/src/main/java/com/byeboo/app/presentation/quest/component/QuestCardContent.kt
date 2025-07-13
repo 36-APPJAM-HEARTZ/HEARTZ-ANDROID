@@ -17,7 +17,7 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
 fun CompleteContent(
-    questNumber: Int,
+    questNumber: Long,
     imageResId: Int,
     modifier: Modifier = Modifier
 ) {
@@ -37,7 +37,7 @@ fun CompleteContent(
 
 @Composable
 fun AvailableContent(
-    questNumber: Int,
+    questNumber: Long,
     imageResId: Int,
     modifier: Modifier = Modifier
 ) {
@@ -57,7 +57,7 @@ fun AvailableContent(
 
 @Composable
 fun TimerLockedContent(
-    questNumber: Int,
+    questNumber: Long,
     remainingTime: String,
     modifier: Modifier = Modifier
 ) {
@@ -98,7 +98,7 @@ fun TimerLockedContent(
 
 @Composable
 fun LockedContent(
-    questNumber: Int,
+    questNumber: Long,
     modifier: Modifier = Modifier
 ) {
     QuestCardContainer(
