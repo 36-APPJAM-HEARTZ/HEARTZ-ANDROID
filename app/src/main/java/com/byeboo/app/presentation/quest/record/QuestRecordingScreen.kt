@@ -31,21 +31,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
 import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.util.QuestFromParent
 import com.byeboo.app.core.util.addFocusCleaner
 import com.byeboo.app.domain.model.QuestContentLengthValidator
 import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.component.QuestQuitModal
 import com.byeboo.app.presentation.quest.component.QuestTextField
 import com.byeboo.app.presentation.quest.component.bottomsheet.ByeBooBottomSheet
-import com.byeboo.app.presentation.quest.navigation.rememberQuestViewModel
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -98,14 +95,16 @@ fun QuestRecordingScreen(
                     Log.d("QuestFlow", "18. NavigateToQuestTip with questId: ${it.questId}")
                     navigateToQuestTip(it.questId)
                 }
-                is QuestRecordingSideEffect.NavigateToQuestRecordingComplete -> navigateToQuestRecordingComplete(it.questId)
+                is QuestRecordingSideEffect.NavigateToQuestRecordingComplete -> navigateToQuestRecordingComplete(
+                    it.questId
+                )
             }
         }
     }
 
     if (showQuitModal) {
         QuestQuitModal(
-            onDismissRequest = {viewModel.onDismissModal()},
+            onDismissRequest = { viewModel.onDismissModal() },
             stayButton = {
                 viewModel.onDismissModal()
             },
@@ -130,7 +129,7 @@ fun QuestRecordingScreen(
             tint = ByeBooTheme.colors.white,
             modifier = Modifier
                 .padding(top = 67.dp)
-                .clickable{viewModel.onBackClicked()}
+                .clickable { viewModel.onBackClicked() }
         )
 
         Column(
@@ -148,7 +147,7 @@ fun QuestRecordingScreen(
             ) {
                 SmallTag(
                     tagText = "STEP ${uiState.stepNumber}",
-                    tagColor = ByeBooTheme.colors.gray300,
+                    tagColor = ByeBooTheme.colors.gray300
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))
@@ -187,7 +186,7 @@ fun QuestRecordingScreen(
                 text = "작성 TIP",
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
-                    .clickable{
+                    .clickable {
                         viewModel.onTipClick()
                     }
             )

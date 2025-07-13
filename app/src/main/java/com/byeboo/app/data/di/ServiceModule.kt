@@ -30,5 +30,4 @@ object ServiceModule {
     fun providesQuestService(retrofit: Retrofit): QuestService = retrofit.create(
         QuestService::class.java
     )
-
 }

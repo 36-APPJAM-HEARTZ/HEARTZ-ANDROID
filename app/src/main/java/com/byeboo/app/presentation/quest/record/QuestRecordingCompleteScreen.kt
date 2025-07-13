@@ -32,7 +32,6 @@ import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.component.topbar.ByeBooTopBar
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.component.QuestCompleteCard
 import com.byeboo.app.presentation.quest.component.QuestContent
 import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
@@ -45,7 +44,7 @@ fun QuestRecordingCompleteScreen(
     questId: Int? = 0,
     navigateToQuest: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: QuestRecordingCompleteViewModel = hiltViewModel(),
+    viewModel: QuestRecordingCompleteViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
@@ -147,7 +146,7 @@ private fun CreatedText(createdAt: String) {
 private fun QuestEmotionDescriptionContent(
     questEmotionDescription: String,
     emotionType: LargeTagType,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
@@ -174,7 +173,7 @@ private fun QuestEmotionDescriptionContent(
 
         QuestEmotionDescriptionCard(
             questEmotionDescription = questEmotionDescription,
-            emotionType = emotionType,
+            emotionType = emotionType
         )
     }
 }

@@ -28,4 +28,3 @@ fun QuestStyle.toJourneyText(): String {
         QuestStyle.ACTIVE -> "감정 정리"
     }
 }
-

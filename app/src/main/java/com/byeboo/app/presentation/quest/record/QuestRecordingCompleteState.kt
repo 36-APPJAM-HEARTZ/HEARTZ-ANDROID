@@ -15,6 +15,6 @@ data class QuestRecordingCompleteState(
     val selectedEmotion: LargeTagType = LargeTagType.EMOTION_NEUTRAL
 )
 
-sealed interface QuestRecordingCompleteSideEffect{
-    data object NavigateToQuest: QuestRecordingCompleteSideEffect
+sealed interface QuestRecordingCompleteSideEffect {
+    data object NavigateToQuest : QuestRecordingCompleteSideEffect
 }

@@ -84,7 +84,6 @@ class UserLocalDataSourceImpl @Inject constructor(
         return dataStore.data.first()[JOURNEY]
     }
 
-
     override suspend fun clear() {
         runCatching {
             dataStore.edit { preferences ->

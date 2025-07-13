@@ -47,7 +47,7 @@ fun MainScreen(
                             navigator.navigate(selectedTab)
                         }
                     }
-                },
+                }
             )
         },
         modifier = Modifier

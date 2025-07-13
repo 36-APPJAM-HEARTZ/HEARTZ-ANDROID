@@ -63,7 +63,7 @@ fun QuestScreen(
 
     if (showQuitModal) {
         QuestModal(
-            onDismissRequest = {viewModel.onDismissModal()},
+            onDismissRequest = { viewModel.onDismissModal() },
             questId = uiState.questId,
             questQuestion = uiState.questQuestion,
             navigateToTip = viewModel::onTipClick,

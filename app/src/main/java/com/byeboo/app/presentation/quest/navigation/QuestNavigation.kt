@@ -37,7 +37,7 @@ fun NavGraphBuilder.questGraph(
     navigateToQuestTip: (Int) -> Unit,
     navigateToQuestBehaviorComplete: (Int) -> Unit,
     bottomPadding: Dp,
-    sharedViewModel: QuestViewModel,
+    sharedViewModel: QuestViewModel
 ) {
     routeNavigation<Quest, QuestStart> {
         composable<QuestStart> {
@@ -69,15 +69,14 @@ fun NavGraphBuilder.questGraph(
         questRecordGraph(
             navigateToQuest = navigateToQuest,
             navigateToQuestTip = navigateToQuestTip,
-            navigateToQuestRecordingComplete = navigateToQuestRecordingComplete,
+            navigateToQuestRecordingComplete = navigateToQuestRecordingComplete
         )
 
         questBehaviorGraph(
             sharedViewModel = sharedViewModel,
             navigateToQuest = navigateToQuest,
             navigateToQuestTip = navigateToQuestTip,
-            navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete,
+            navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete
         )
-
     }
 }

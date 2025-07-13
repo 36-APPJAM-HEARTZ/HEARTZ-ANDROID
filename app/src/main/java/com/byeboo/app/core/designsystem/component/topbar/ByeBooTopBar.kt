@@ -36,7 +36,7 @@ fun ByeBooTopBar(
             .background(Color.Transparent)
             .padding(horizontal = 24.dp)
             .padding(top = 67.dp, bottom = 16.dp)
-        //TODO: 깃 pull 한 다음에 상단 꽉 채워서 쓰기
+        // TODO: 깃 pull 한 다음에 상단 꽉 채워서 쓰기
     ) {
         Row(
             modifier = Modifier

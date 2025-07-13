@@ -1,8 +1,8 @@
 package com.byeboo.app.core.network
 
 import com.byeboo.app.domain.repository.TokenRepository
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -24,4 +24,3 @@ class AuthInterceptor @Inject constructor(
         const val USER_ID_HEADER_KEY = "userId"
     }
 }
-

@@ -15,6 +15,5 @@ interface UserService {
     ): BaseResponse<UserInfoResponseDto>
 
     @GET("/api/v1/users/journey")
-    suspend fun getJourney(
-    ): BaseResponse<UserJourneyResponseDto>
+    suspend fun getJourney(): BaseResponse<UserJourneyResponseDto>
 }

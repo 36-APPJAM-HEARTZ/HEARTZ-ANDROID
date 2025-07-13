@@ -11,4 +11,3 @@ sealed class QuestRecord : Route {
     @Serializable
     data class QuestRecordingComplete(val questId: Int) : QuestRecord()
 }
-

@@ -25,4 +25,3 @@ fun UserJourneyResponseDto.toDomain(): UserJourney {
         description = this.description
     )
 }
-

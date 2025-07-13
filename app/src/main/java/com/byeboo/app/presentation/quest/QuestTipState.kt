@@ -22,6 +22,6 @@ data class QuestTipState(
     )
 )
 
-sealed interface QuestTipSideEffect{
-    data object NavigateBack: QuestTipSideEffect
+sealed interface QuestTipSideEffect {
+    data object NavigateBack : QuestTipSideEffect
 }

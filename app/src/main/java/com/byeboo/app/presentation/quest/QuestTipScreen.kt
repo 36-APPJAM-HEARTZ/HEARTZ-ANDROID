@@ -29,7 +29,6 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.presentation.quest.component.QuestContent
 import com.byeboo.app.presentation.quest.component.type.QuestContentType
 
-
 @Composable
 fun QuestTipScreen(
     questId: Int,
@@ -41,7 +40,6 @@ fun QuestTipScreen(
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
     val selectedQuest by questViewModel.selectedQuest.collectAsStateWithLifecycle()
-
 
     LaunchedEffect(questId) {
         val questGroups = questViewModel.questGroups.value

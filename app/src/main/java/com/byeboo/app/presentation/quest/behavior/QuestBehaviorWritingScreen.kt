@@ -48,7 +48,7 @@ fun QuestBehaviorWritingScreen(
     navigateToQuestBehaviorComplete: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestBehaviorViewModel = hiltViewModel(),
-    sharedViewModel: QuestViewModel,
+    sharedViewModel: QuestViewModel
 ) {
     val uiState by viewModel.state.collectAsState()
     val showBottomSheet by viewModel.showBottomSheet.collectAsState()
@@ -56,7 +56,6 @@ fun QuestBehaviorWritingScreen(
     val selectedImageUrl by viewModel.selectedImageUri.collectAsState()
     val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
     val selectedQuest by sharedViewModel.selectedQuest.collectAsStateWithLifecycle()
-
 
     if (showQuitModal) {
         QuestQuitModal(
@@ -76,7 +75,9 @@ fun QuestBehaviorWritingScreen(
             when (it) {
                 is QuestBehaviorSideEffect.NavigateToQuest -> navigateToQuest()
                 is QuestBehaviorSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId)
-                is QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete -> navigateToQuestBehaviorComplete(it.questID)
+                is QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete -> navigateToQuestBehaviorComplete(
+                    it.questID
+                )
             }
         }
     }
@@ -94,7 +95,7 @@ fun QuestBehaviorWritingScreen(
                 tint = ByeBooTheme.colors.white,
                 modifier = Modifier
                     .padding(top = 67.dp)
-                    .clickable{viewModel.onBackClicked()}
+                    .clickable { viewModel.onBackClicked() }
             )
         }
 
@@ -151,7 +152,7 @@ fun QuestBehaviorWritingScreen(
                 MiddleTag(
                     middleTagType = MiddleTagType.QUEST_TIP,
                     text = "작성 TIP",
-                    modifier = Modifier.clickable{viewModel.onTipClick()}
+                    modifier = Modifier.clickable { viewModel.onTipClick() }
                 )
             }
 

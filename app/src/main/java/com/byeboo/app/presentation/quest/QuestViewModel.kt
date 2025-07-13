@@ -1,19 +1,18 @@
 package com.byeboo.app.presentation.quest
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.presentation.quest.model.Quest
 import com.byeboo.app.presentation.quest.model.QuestGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class QuestViewModel @Inject constructor(
@@ -22,7 +21,6 @@ class QuestViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(Quest())
     val state: StateFlow<Quest>
         get() = _uiState.asStateFlow()
-
 
     private val _sideEffect = MutableSharedFlow<QuestSideEffect>()
     val sideEffect = _sideEffect.asSharedFlow()
@@ -65,7 +63,7 @@ class QuestViewModel @Inject constructor(
         return questGroups.indexOfFirst { group ->
             group.quests.any {
                 it.state is QuestState.Available ||
-                        it.state is QuestState.TimerLocked
+                    it.state is QuestState.TimerLocked
             }
         }.coerceAtLeast(0)
     }
@@ -75,7 +73,6 @@ class QuestViewModel @Inject constructor(
             val quest = questGroups.value
                 .flatMap { it.quests }
                 .find { it.questId == questId }
-
 
             when (quest?.state) {
                 is QuestState.Available -> {
