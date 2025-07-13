@@ -1,22 +1,29 @@
 package com.byeboo.app.presentation.quest
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.presentation.quest.model.Quest
 import com.byeboo.app.presentation.quest.model.QuestGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class QuestViewModel @Inject constructor(
     // private val questRepository: QuestRepository
 ) : ViewModel() {
+    private val _uiState = MutableStateFlow(Quest())
+    val state: StateFlow<Quest>
+        get() = _uiState.asStateFlow()
+
+
     private val _sideEffect = MutableSharedFlow<QuestSideEffect>()
     val sideEffect = _sideEffect.asSharedFlow()
 
@@ -28,6 +35,13 @@ class QuestViewModel @Inject constructor(
 
     private val _currentStepIndex = MutableStateFlow(0)
     val currentStepIndex: StateFlow<Int> = _currentStepIndex.asStateFlow()
+
+    private val _selectedQuest = MutableStateFlow<Quest?>(null)
+    val selectedQuest: StateFlow<Quest?> = _selectedQuest.asStateFlow()
+
+    private val _showQuitModal = MutableStateFlow(false)
+    val showQuitModal: StateFlow<Boolean>
+        get() = _showQuitModal.asStateFlow()
 
     init {
         loadQuests()
@@ -51,7 +65,7 @@ class QuestViewModel @Inject constructor(
         return questGroups.indexOfFirst { group ->
             group.quests.any {
                 it.state is QuestState.Available ||
-                    it.state is QuestState.TimerLocked
+                        it.state is QuestState.TimerLocked
             }
         }.coerceAtLeast(0)
     }
@@ -62,24 +76,25 @@ class QuestViewModel @Inject constructor(
                 .flatMap { it.quests }
                 .find { it.questId == questId }
 
-            when (quest?.state) {
-                is QuestState.InProgress -> {
-                    _sideEffect.emit(QuestSideEffect.NavigateToHome)
-                }
 
+            when (quest?.state) {
                 is QuestState.Available -> {
-                    _sideEffect.emit(QuestSideEffect.NavigateToMypage)
+                    _selectedQuest.value = quest
+                    _showQuitModal.value = true
+                }
+                is QuestState.Complete -> {
+                    // TODO: 작성된 기록 보는 화면으로 이동
+//                    _sideEffect.emit(QuestSideEffect.NavigateToQuestComplete(quest.questId))
                 }
 
                 else -> {
-                    // todo : block
                 }
             }
         }
     }
 
     private fun getDummyQuestGroups(): List<QuestGroup> {
-        val currentStep = 22
+        val currentStep = 28
         val nextAvailable: String? = null
         val isTimerLocked = nextAvailable != null
         val remainTime = "23:45"
@@ -97,10 +112,11 @@ class QuestViewModel @Inject constructor(
             val endQuestNumber = (stepIndex + 1) * 6
 
             QuestGroup(
+                questNumber = 1,
                 stepTitle = stepTitle,
                 quests = (startQuestNumber..endQuestNumber).map { questNumber ->
                     val state = when {
-                        questNumber < currentStep -> QuestState.InProgress
+                        questNumber < currentStep -> QuestState.Complete
                         questNumber == currentStep -> {
                             if (isTimerLocked) {
                                 QuestState.TimerLocked(remainTime)
@@ -115,10 +131,44 @@ class QuestViewModel @Inject constructor(
                         // 임시
                         questId = questNumber,
                         questNumber = questNumber,
-                        state = state
+                        state = state,
+                        questQuestion = "연애에서 반복됐던 문제 패턴 3가지를 생각해보아요.",
+                        type = if (questNumber % 2 == 0) QuestType.EMOTION_FACE else QuestType.EMOTION_ORGANIZE
                     )
                 }
             )
+        }
+    }
+
+    fun onDismissModal() {
+        _showQuitModal.value = false
+    }
+
+    fun onTipClick() {
+        val quest = _selectedQuest.value ?: return
+
+        viewModelScope.launch {
+            _sideEffect.emit(QuestSideEffect.NavigateToQuestTip(quest.questId))
+        }
+    }
+
+    fun onQuestStart() {
+        val quest = _selectedQuest.value
+        if (quest == null) {
+            return
+        }
+
+        viewModelScope.launch {
+            _showQuitModal.value = false
+
+            when (quest.type) {
+                QuestType.EMOTION_FACE -> {
+                    _sideEffect.emit(QuestSideEffect.NavigateToQuestRecording(quest.questId))
+                }
+                QuestType.EMOTION_ORGANIZE -> {
+                    _sideEffect.emit(QuestSideEffect.NavigateToQuestBehavior(quest.questId))
+                }
+            }
         }
     }
 }

@@ -2,22 +2,29 @@ package com.byeboo.app.presentation.quest.behavior
 
 import android.net.Uri
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.designsystem.type.LargeTagType
-import com.byeboo.app.domain.model.ContentLengthValidator
+import com.byeboo.app.domain.model.QuestContentLengthValidator
+import com.byeboo.app.presentation.quest.model.Quest
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class QuestBehaviorViewModel @Inject constructor(
 //    val questBehaviorRepository: QuestBehaviorRepository
 ) : ViewModel() {
+    private val _state = MutableStateFlow(QuestBehaviorState())
+    val state: StateFlow<QuestBehaviorState> = _state.asStateFlow()
 
-    private val _uiState = MutableStateFlow(QuestBehaviorState())
-    val uiState: StateFlow<QuestBehaviorState> = _uiState.asStateFlow()
+    private val _sideEffect = MutableSharedFlow<QuestBehaviorSideEffect>()
+    val sideEffect: SharedFlow<QuestBehaviorSideEffect> = _sideEffect
 
     private val _showBottomSheet = MutableStateFlow(false)
     val showBottomSheet: StateFlow<Boolean> = _showBottomSheet.asStateFlow()
@@ -28,9 +35,16 @@ class QuestBehaviorViewModel @Inject constructor(
     private val _selectedImageUri = MutableStateFlow<Uri?>(null)
     val selectedImageUri: StateFlow<Uri?> = _selectedImageUri
 
+    private val _selectedQuest = MutableStateFlow<Quest?>(null)
+    val selectedQuest: StateFlow<Quest?> = _selectedQuest.asStateFlow()
+
+    private val _showQuitModal = MutableStateFlow(false)
+    val showQuitModal: StateFlow<Boolean>
+        get() = _showQuitModal.asStateFlow()
+
     fun updateSelectedImage(uri: Uri?) {
         _selectedImageUri.value = uri
-        _uiState.update {
+        _state.update {
             it.copy(
                 imageCount = if (uri != null) 1 else 0
             )
@@ -38,12 +52,42 @@ class QuestBehaviorViewModel @Inject constructor(
     }
 
     fun updateContent(text: String) {
-        val contentState = ContentLengthValidator.validate(text)
-        _uiState.update {
+        val contentState = QuestContentLengthValidator.validate(text)
+        _state.update {
             it.copy(
                 contents = text,
                 contentState = contentState
             )
+        }
+    }
+
+    fun onBackClicked() {
+        _showQuitModal.value = true
+    }
+
+    fun onDismissModal() {
+        _showQuitModal.value = false
+    }
+
+    fun onCompleteClick() {
+        val quest = _selectedQuest.value ?: return
+
+        viewModelScope.launch {
+            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(quest.questId))
+        }
+    }
+
+    fun onQuitClick() {
+        viewModelScope.launch {
+            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuest)
+        }
+    }
+
+    fun onTipClick() {
+        val quest = _selectedQuest.value ?: return
+
+        viewModelScope.launch {
+            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestTip(quest.questId))
         }
     }
 
@@ -60,14 +104,12 @@ class QuestBehaviorViewModel @Inject constructor(
     }
 
     fun updateSelectedEmotion(emotion: LargeTagType) {
-        _uiState.value = _uiState.value.copy(selectedEmotion = emotion)
+        _state.value = _state.value.copy(selectedEmotion = emotion)
     }
 
-    fun updateContents(content: String?) {
-        _uiState.value = _uiState.value.copy(
-            contents = content.toString(),
-            isContentAvailable = !content.isNullOrBlank()
-
-        )
+    fun onCloseClick() {
+        viewModelScope.launch {
+            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuest)
+        }
     }
 }

@@ -11,27 +11,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.text.DescriptionText
+import com.byeboo.app.domain.model.QuestStyle
 import com.byeboo.app.presentation.auth.userinfo.component.UserInfoQuestCard
 import com.byeboo.app.presentation.auth.userinfo.model.QuestItem
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun UserInfoQuestScreen(
-    selectedQuest: String?,
-    onQuestSelect: (String) -> Unit
+    selectedQuest: QuestStyle?,
+    onQuestSelect: (QuestStyle) -> Unit
 ) {
     val quests = persistentListOf(
-        QuestItem(
-            title = "질문에 답하기",
-            description = "질문을 통해\n상황과 감정을\n정리해요",
-            imageResId = R.drawable.ic_book
-        ),
-        QuestItem(
-            title = "활동 인증하기",
-            description = "작은 미션을 통해\n몸과 마음을\n가볍게 해요",
-            imageResId = R.drawable.ic_shoes
-        )
+        QuestStyle.RECORDING,
+        QuestStyle.ACTIVE
     )
+
     Column {
         DescriptionText(
             title = "퀘스트 방식",
@@ -44,15 +38,21 @@ fun UserInfoQuestScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             quests.forEach { quest ->
-                val onCardClick = remember(quest.title) {
-                    { onQuestSelect(quest.title) }
+                val onCardClick = remember(quest) {
+                    { onQuestSelect(quest) }
                 }
 
                 UserInfoQuestCard(
-                    title = quest.title,
-                    content = quest.description,
-                    imageRes = quest.imageResId,
-                    isSelected = selectedQuest == quest.title,
+                    title = quest.displayText,
+                    content = when (quest) {
+                        QuestStyle.RECORDING -> "질문을 통해\n상황과 감정을\n정리해요"
+                        QuestStyle.ACTIVE -> "작은 미션을 통해\n몸과 마음을\n가볍게 해요"
+                    },
+                    imageRes = when (quest) {
+                        QuestStyle.RECORDING -> R.drawable.ic_book
+                        QuestStyle.ACTIVE -> R.drawable.ic_shoes
+                    },
+                    isSelected = selectedQuest == quest,
                     onCardClick = onCardClick,
                     modifier = Modifier.weight(1f)
                 )

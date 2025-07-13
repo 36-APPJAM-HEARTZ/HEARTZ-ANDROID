@@ -20,8 +20,9 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
 fun QuestEmotionDescriptionCard(
-    modifier: Modifier,
-    emotionType: LargeTagType
+    questEmotionDescription: String,
+    emotionType: LargeTagType,
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
@@ -32,15 +33,13 @@ fun QuestEmotionDescriptionCard(
             )
             .padding(horizontal = 24.dp, vertical = 18.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
             EmotionChip(emotionType = emotionType, isSelected = true)
 
             Spacer(modifier = modifier.width(24.dp))
 
             Text(
-                text = getEmotionComment(emotionType),
+                text = questEmotionDescription,
                 style = ByeBooTheme.typography.body5,
                 color = ByeBooTheme.colors.gray300
             )
@@ -48,19 +47,13 @@ fun QuestEmotionDescriptionCard(
     }
 }
 
-private fun getEmotionComment(emotionType: LargeTagType): String {
-    return when (emotionType) {
-        LargeTagType.EMOTION_NEUTRAL -> "마음이 가벼워졌다면 다행이에요. 당신은 지금 아주 건강하게 감정을 정리하고 있어요."
-        LargeTagType.EMOTION_SELF_AWARE -> "마음이 가벼워졌다면"
-        LargeTagType.EMOTION_SADNESS -> "마음"
-        LargeTagType.EMOTION_RELIEF -> "당신은 지금 아주 건강하게 감정을 정리하고 있어요."
-    }
-}
-
 @Preview
 @Composable
 private fun EmotionDescriptionCardPreview() {
     ByeBooTheme {
-        QuestEmotionDescriptionCard(modifier = Modifier, emotionType = LargeTagType.EMOTION_NEUTRAL)
+        QuestEmotionDescriptionCard(
+            questEmotionDescription = "마음이 가벼워졌다면 다행이에요. 당신은 지금 아주 건강하게 감정을 정리하고 있어요.",
+            emotionType = LargeTagType.EMOTION_NEUTRAL
+        )
     }
 }

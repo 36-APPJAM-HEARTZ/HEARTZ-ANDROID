@@ -10,8 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.navOptions
 import com.byeboo.app.presentation.auth.navigation.authGraph
 import com.byeboo.app.presentation.home.navigation.homeGraph
-import com.byeboo.app.presentation.mypage.navigation.mypageGraph
-import com.byeboo.app.presentation.quest.behavior.QuestBehaviorViewModel
+import com.byeboo.app.presentation.mypage.navigation.myPageGraph
+import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.navigation.questGraph
 import com.byeboo.app.presentation.splash.navigation.splashGraph
 
@@ -25,7 +25,8 @@ fun MainNavHost(
         popUpTo(0) { inclusive = true }
         launchSingleTop = true
     }
-    val sharedViewModel: QuestBehaviorViewModel = hiltViewModel()
+    val sharedViewModel: QuestViewModel = hiltViewModel()
+
     NavHost(
         modifier = modifier,
         enterTransition = { EnterTransition.None },
@@ -56,20 +57,37 @@ fun MainNavHost(
             bottomPadding = bottomPadding
         )
         homeGraph(
+            bottomPadding = bottomPadding,
             navigateToHome = {
                 navigator.navigateToHome(clearStackNavOptions)
             },
             navigateToHomeOnboarding = {
                 navigator.navigateToHomeOnboarding(clearStackNavOptions)
             },
-            bottomPadding = bottomPadding
+
         )
         questGraph(
-            sharedViewModel = sharedViewModel,
-            navigateToQuestComplete = {
-                navigator.navigateToQuestComplete(clearStackNavOptions)
-            }
+            navController = navigator.navController,
+            questStartBackButton = { navigator.navigateToHome(clearStackNavOptions) },
+            navigateToQuest = { navigator.navigateToQuest(clearStackNavOptions) },
+            navigateToQuestRecording = { questId -> navigator.navigateToQuestRecording(questId) },
+            navigateToQuestBehavior = { questId -> navigator.navigateToQuestBehavior(questId) },
+            navigateToQuestRecordingComplete = { questId ->
+                navigator.navigateToQuestRecordingComplete(
+                    questId,
+                    clearStackNavOptions
+                )
+            },
+            navigateToQuestTip = { questId -> navigator.navigateToQuestTip(questId) },
+            navigateToQuestBehaviorComplete = { questId ->
+                navigator.navigateToQuestBehaviorComplete(
+                    questId,
+                    clearStackNavOptions
+                )
+            },
+            bottomPadding = bottomPadding,
+            sharedViewModel = sharedViewModel
         )
-        mypageGraph()
+        myPageGraph()
     }
 }
