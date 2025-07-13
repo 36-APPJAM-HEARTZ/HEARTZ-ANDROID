@@ -64,7 +64,7 @@ fun BackgroundImageLayer(imageResId: Int) {
 
 @Composable
 fun QuestNumberLabel(
-    questNumber: Int,
+    questNumber: Long,
     color: Color,
     modifier: Modifier = Modifier
 ) {

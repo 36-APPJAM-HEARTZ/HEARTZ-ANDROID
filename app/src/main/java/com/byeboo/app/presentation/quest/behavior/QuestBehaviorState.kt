@@ -4,10 +4,10 @@ import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.domain.model.QuestWritingState
 
 data class QuestBehaviorState(
-    val stepNumber: Int = 1,
+    val stepNumber: Long = 1,
     val stepMissionTitle: String? = null,
     val questId: Long = 1,
-    val questNumber: Int = 1,
+    val questNumber: Long = 1,
     val questTitle: String = "",
     val imageCount: Int = 0,
     val createdAt: String = "",

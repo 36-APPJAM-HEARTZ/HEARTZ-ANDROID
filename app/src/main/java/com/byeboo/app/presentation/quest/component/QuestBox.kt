@@ -9,7 +9,7 @@ import com.byeboo.app.presentation.quest.QuestState
 @Composable
 fun QuestBox(
     questId: Long,
-    questNumber: Int,
+    questNumber: Long,
     state: QuestState,
     onQuestClick: (Long) -> Unit = {},
     modifier: Modifier = Modifier
