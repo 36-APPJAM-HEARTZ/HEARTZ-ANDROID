@@ -1,6 +1,5 @@
 package com.byeboo.app.presentation.quest.record
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -62,8 +61,6 @@ fun QuestRecordingScreen(
     val focusManager = LocalFocusManager.current
 
     LaunchedEffect(questId) {
-        Log.d("QuestRecordingScreen", "넘어온 questId: $questId")
-
         viewModel.setQuestId(questId)
     }
 
