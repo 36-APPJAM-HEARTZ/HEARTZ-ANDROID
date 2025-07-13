@@ -25,7 +25,6 @@ fun MainNavHost(
         popUpTo(0) { inclusive = true }
         launchSingleTop = true
     }
-    val sharedViewModel: QuestViewModel = hiltViewModel()
 
     NavHost(
         modifier = modifier,
@@ -71,6 +70,7 @@ fun MainNavHost(
             navigateToQuest = { navigator.navigateToQuest(clearStackNavOptions) },
             navigateToQuestRecording = { questId -> navigator.navigateToQuestRecording(questId) },
             navigateToQuestBehavior = { questId -> navigator.navigateToQuestBehavior(questId) },
+            navigateToQuestReview = {questId, questType -> navigator.navigateToQuestReview(questId, questType)},
             navigateToQuestRecordingComplete = { questId ->
                 navigator.navigateToQuestRecordingComplete(
                     questId,

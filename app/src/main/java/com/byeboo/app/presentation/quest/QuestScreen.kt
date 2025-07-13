@@ -25,6 +25,7 @@ import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.text.DescriptionText
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.presentation.quest.component.QuestBox
 import com.byeboo.app.presentation.quest.component.QuestModal
 import com.byeboo.app.presentation.quest.component.QuestStepTitle
@@ -35,6 +36,7 @@ fun QuestScreen(
     navigateToQuestTip: (Int) -> Unit,
     navigateToQuestRecording: (Int) -> Unit,
     navigateToQuestBehavior: (Int) -> Unit,
+    navigateToQuestReview: (Int, QuestType) -> Unit,
     bottomPadding: Dp,
     viewModel: QuestViewModel = hiltViewModel()
 ) {
@@ -50,6 +52,10 @@ fun QuestScreen(
                 is QuestSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId)
                 is QuestSideEffect.NavigateToQuestRecording -> navigateToQuestRecording(it.questId)
                 is QuestSideEffect.NavigateToQuestBehavior -> navigateToQuestBehavior(it.questId)
+                is QuestSideEffect.NavigateToQuestReview -> navigateToQuestReview(
+                    it.questId,
+                    it.questType
+                )
             }
         }
     }
@@ -63,7 +69,7 @@ fun QuestScreen(
 
     if (showQuitModal) {
         QuestModal(
-            onDismissRequest = {viewModel.onDismissModal()},
+            onDismissRequest = { viewModel.onDismissModal() },
             questId = uiState.questId,
             questQuestion = uiState.questQuestion,
             navigateToTip = viewModel::onTipClick,

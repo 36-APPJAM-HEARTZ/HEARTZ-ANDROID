@@ -82,8 +82,7 @@ class QuestViewModel @Inject constructor(
                     _showQuitModal.value = true
                 }
                 is QuestState.Complete -> {
-                    // TODO: 작성된 기록 보는 화면으로 이동
-//                    _sideEffect.emit(QuestSideEffect.NavigateToQuestComplete(quest.questId))
+                    _sideEffect.emit(QuestSideEffect.NavigateToQuestReview(questId = quest.questId, questType = quest.type))
                 }
 
                 else -> {
@@ -93,7 +92,7 @@ class QuestViewModel @Inject constructor(
     }
 
     private fun getDummyQuestGroups(): List<QuestGroup> {
-        val currentStep = 28
+        val currentStep = 29
         val nextAvailable: String? = null
         val isTimerLocked = nextAvailable != null
         val remainTime = "23:45"

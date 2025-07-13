@@ -9,6 +9,7 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.presentation.auth.navigation.Onboarding
 import com.byeboo.app.presentation.auth.navigation.navigateToLoading
 import com.byeboo.app.presentation.auth.navigation.navigateToOnboarding
@@ -21,6 +22,7 @@ import com.byeboo.app.presentation.mypage.navigation.navigateToMyPage
 import com.byeboo.app.presentation.quest.behavior.navigation.navigateToQuestBehavior
 import com.byeboo.app.presentation.quest.behavior.navigation.navigateToQuestBehaviorComplete
 import com.byeboo.app.presentation.quest.navigation.navigateToQuest
+import com.byeboo.app.presentation.quest.navigation.navigateToQuestReview
 import com.byeboo.app.presentation.quest.navigation.navigateToQuestStart
 import com.byeboo.app.presentation.quest.navigation.navigateToQuestTip
 import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecording
@@ -118,6 +120,11 @@ class MainNavigator(
     fun navigateToQuestBehaviorComplete(questId: Int, navOptions: NavOptions? = null) {
         navController.navigateToQuestBehaviorComplete(questId, navOptions)
     }
+
+    fun navigateToQuestReview(questId: Int, questType: QuestType, navOptions: NavOptions? = null) {
+        navController.navigateToQuestReview(questId, questType, navOptions)
+    }
+
     fun navigateToHomeAmulet(navOptions: NavOptions) {
         navController.navigateToHomeAmulet(navOptions)
     }
