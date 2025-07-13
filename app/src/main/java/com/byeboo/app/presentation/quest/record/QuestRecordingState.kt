@@ -11,7 +11,7 @@ data class QuestRecordingState(
     val stepNumber: Int = 0,
     val questNumber: Int = 0,
     val questQuestion: String = "연애에서 반복됐던 문제 패턴 3가지를 생각해보아요.",
-    val contents: String = "",
+    val questAnswer: String = "",
     val contentsState: QuestWritingState = QuestWritingState.BeforeWriting,
     val selectedEmotion: LargeTagType = LargeTagType.EMOTION_NEUTRAL
 )

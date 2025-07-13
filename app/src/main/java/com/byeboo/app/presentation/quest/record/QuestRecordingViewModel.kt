@@ -41,11 +41,11 @@ class QuestRecordingViewModel @Inject constructor(
         }
     }
 
-    fun updateContent(text: String) {
-        val contentState = QuestContentLengthValidator.validate(text)
+    fun updateContent(questAnswer: String) {
+        val contentState = QuestContentLengthValidator.validate(questAnswer)
         _state.update {
             it.copy(
-                contents = text,
+                questAnswer = questAnswer,
                 contentsState = contentState
             )
         }

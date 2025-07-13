@@ -172,7 +172,7 @@ fun QuestRecordingScreen(
 
             QuestTextField(
                 questWritingState = uiState.contentsState,
-                value = uiState.contents,
+                value = uiState.questAnswer,
                 onValueChange = {
                     if (it.length <= 500) {
                         viewModel.updateContent(it)
@@ -198,7 +198,7 @@ fun QuestRecordingScreen(
                 buttonText = "완료하기",
                 buttonDisableTextColor = ByeBooTheme.colors.gray300,
                 onClick = viewModel::openBottomSheet,
-                isEnabled = QuestContentLengthValidator.validButton(uiState.contents)
+                isEnabled = QuestContentLengthValidator.validButton(uiState.questAnswer)
             )
 
             Spacer(modifier = Modifier.height(56.dp))
