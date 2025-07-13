@@ -126,7 +126,7 @@ fun QuestScreen(
                         )
                         Spacer(modifier = Modifier.padding(top = 24.dp))
                         QuestStepTitle(
-                            stepNumber = stepIndex + 1,
+                            stepNumber = (stepIndex + 1).toLong(),
                             stepTitle = group.stepTitle
                         )
                         Spacer(modifier = Modifier.padding(top = 8.dp))

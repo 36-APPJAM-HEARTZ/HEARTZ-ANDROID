@@ -100,27 +100,27 @@ class MainNavigator(
         navController.navigateToQuest(navOptions)
     }
 
-    fun navigateToQuestTip(questId: Int, navOptions: NavOptions? = null) {
+    fun navigateToQuestTip(questId: Long, navOptions: NavOptions? = null) {
         navController.navigateToQuestTip(questId, navOptions)
     }
 
-    fun navigateToQuestRecording(questId: Int, navOptions: NavOptions? = null) {
+    fun navigateToQuestRecording(questId: Long, navOptions: NavOptions? = null) {
         navController.navigateToQuestRecording(questId, navOptions)
     }
 
-    fun navigateToQuestBehavior(questId: Int, navOptions: NavOptions? = null) {
+    fun navigateToQuestBehavior(questId: Long, navOptions: NavOptions? = null) {
         navController.navigateToQuestBehavior(questId, navOptions)
     }
 
-    fun navigateToQuestRecordingComplete(questId: Int, navOptions: NavOptions? = null) {
+    fun navigateToQuestRecordingComplete(questId: Long, navOptions: NavOptions? = null) {
         navController.navigateToQuestRecordingComplete(questId, navOptions)
     }
 
-    fun navigateToQuestBehaviorComplete(questId: Int, navOptions: NavOptions? = null) {
+    fun navigateToQuestBehaviorComplete(questId: Long, navOptions: NavOptions? = null) {
         navController.navigateToQuestBehaviorComplete(questId, navOptions)
     }
 
-    fun navigateToQuestReview(questId: Int, questType: QuestType, navOptions: NavOptions? = null) {
+    fun navigateToQuestReview(questId: Long, questType: QuestType, navOptions: NavOptions? = null) {
         navController.navigateToQuestReview(questId, questType, navOptions)
     }
 
