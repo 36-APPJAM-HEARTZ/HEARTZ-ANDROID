@@ -8,9 +8,9 @@ data class QuestDetailResponseDto(
     @SerialName("step")
     val step: String,
     @SerialName("stepNumber")
-    val stepNumber: Int,
+    val stepNumber: Long,
     @SerialName("questNumber")
-    val questNumber: Int,
+    val questNumber: Long,
     @SerialName("questStyle")
     val questStyle: String,
     @SerialName("question")
