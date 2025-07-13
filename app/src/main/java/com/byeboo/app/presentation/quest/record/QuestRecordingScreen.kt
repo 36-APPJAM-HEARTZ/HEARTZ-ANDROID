@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -19,7 +20,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -57,7 +57,6 @@ fun QuestRecordingScreen(
     val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
     val showBottomSheet by viewModel.showBottomSheet.collectAsStateWithLifecycle()
     val isEmotionSelected by viewModel.isEmotionSelected.collectAsStateWithLifecycle()
-    val scrollState = rememberScrollState()
     val focusManager = LocalFocusManager.current
 
     LaunchedEffect(questId) {
@@ -109,99 +108,112 @@ fun QuestRecordingScreen(
                 .clickable { viewModel.onBackClicked() }
         )
 
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .verticalScroll(scrollState)
                 .padding(horizontal = 24.dp)
         ) {
-            Spacer(modifier = Modifier.height(10.dp))
+            item {
+                Spacer(modifier = Modifier.height(10.dp))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                SmallTag(
-                    tagText = "STEP ${uiState.stepNumber}",
-                    tagColor = ByeBooTheme.colors.gray300,
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    SmallTag(
+                        tagText = "STEP ${uiState.stepNumber}",
+                        tagColor = ByeBooTheme.colors.gray300,
+                    )
 
-                Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Text(
+                        text = uiState.step,
+                        style = ByeBooTheme.typography.body2,
+                        color = ByeBooTheme.colors.gray500
+                    )
+                }
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = uiState.step,
-                    style = ByeBooTheme.typography.body2,
-                    color = ByeBooTheme.colors.gray500
+                    text = "${uiState.questNumber}번째 퀘스트",
+                    color = ByeBooTheme.colors.secondary300,
+                    style = ByeBooTheme.typography.body5,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
                 )
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            item {
+                Spacer(modifier = Modifier.height(12.dp))
 
-            Text(
-                text = "${uiState.questNumber}번째 퀘스트",
-                color = ByeBooTheme.colors.secondary300,
-                style = ByeBooTheme.typography.body5,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
+                Text(
+                    text = uiState.questQuestion,
+                    color = ByeBooTheme.colors.gray100,
+                    style = ByeBooTheme.typography.head1,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+            }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            item {
+                Spacer(modifier = Modifier.height(25.dp))
 
-            Text(
-                text = uiState.questQuestion,
-                color = ByeBooTheme.colors.gray100,
-                style = ByeBooTheme.typography.head1,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
+                MiddleTag(
+                    middleTagType = MiddleTagType.QUEST_TIP,
+                    text = "작성 TIP",
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .clickable {
+                            viewModel.onTipClick()
+                        }
+                )
+            }
 
-            Spacer(modifier = Modifier.height(25.dp))
+            item {
+                Spacer(modifier = Modifier.height(24.dp))
 
-            MiddleTag(
-                middleTagType = MiddleTagType.QUEST_TIP,
-                text = "작성 TIP",
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .clickable {
-                        viewModel.onTipClick()
-                    }
-            )
+                QuestTextField(
+                    questWritingState = uiState.contentsState,
+                    value = uiState.questAnswer,
+                    onValueChange = {
+                        if (it.length <= 500) {
+                            viewModel.updateContent(it)
+                        }
+                    },
+                    placeholder = "글로 적다 보면, 스스로에게 한 걸음 더 가까워질 수 있어요."
+                )
+            }
 
-            Spacer(modifier = Modifier.height(24.dp))
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
 
-            QuestTextField(
-                questWritingState = uiState.contentsState,
-                value = uiState.questAnswer,
-                onValueChange = {
-                    if (it.length <= 500) {
-                        viewModel.updateContent(it)
-                    }
-                },
-                placeholder = "글로 적다 보면, 스스로에게 한 걸음 더 가까워질 수 있어요."
-            )
+                Text(
+                    text = "*10글자 이상 입력해주세요.",
+                    style = ByeBooTheme.typography.cap2,
+                    color = ByeBooTheme.colors.gray400,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Start
+                )
+            }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            item {
+                Spacer(modifier = Modifier.height(200.dp))
 
-            Text(
-                text = "*10글자 이상 입력해주세요.",
-                style = ByeBooTheme.typography.cap2,
-                color = ByeBooTheme.colors.gray400,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Start
-            )
+                ByeBooActivationButton(
+                    buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
+                    buttonText = "완료하기",
+                    buttonDisableTextColor = ByeBooTheme.colors.gray300,
+                    onClick = viewModel::openBottomSheet,
+                    isEnabled = QuestContentLengthValidator.validButton(uiState.questAnswer)
+                )
 
-            Spacer(modifier = Modifier.height(200.dp))
-
-            ByeBooActivationButton(
-                buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
-                buttonText = "완료하기",
-                buttonDisableTextColor = ByeBooTheme.colors.gray300,
-                onClick = viewModel::openBottomSheet,
-                isEnabled = QuestContentLengthValidator.validButton(uiState.questAnswer)
-            )
-
-            Spacer(modifier = Modifier.height(56.dp))
+                Spacer(modifier = Modifier.height(56.dp))
+            }
         }
     }
 
