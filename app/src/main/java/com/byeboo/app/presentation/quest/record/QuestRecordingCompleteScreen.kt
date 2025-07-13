@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
@@ -48,7 +49,6 @@ fun QuestRecordingCompleteScreen(
     viewModel: QuestRecordingCompleteViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-    val scrollState = rememberScrollState()
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
@@ -74,61 +74,64 @@ fun QuestRecordingCompleteScreen(
             onCloseClick = viewModel::onCloseClick
         )
 
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 24.dp)
-                .verticalScroll(scrollState)
         ) {
-            Spacer(modifier = Modifier.height(8.dp))
-
-            QuestCompleteCard()
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            Column (
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                SmallTag(tagText = "STEP ${uiState.stepNumber}")
-
+            item {
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Text(
-                    text = "${uiState.questNumber}번째 퀘스트",
-                    style = ByeBooTheme.typography.body2,
-                    color = ByeBooTheme.colors.gray500
-                )
+                QuestCompleteCard()
+            }
 
-                Spacer(modifier = Modifier.height(12.dp))
+            item {
+                Spacer(modifier = Modifier.height(32.dp))
 
-                CreatedText(uiState.createdAt)
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Text(
-                    text = uiState.questQuestion,
-                    style = ByeBooTheme.typography.head1,
-                    color = ByeBooTheme.colors.gray100,
+                Column(
                     modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
-                )
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    SmallTag(tagText = "STEP ${uiState.stepNumber}")
 
-                Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
 
-                QuestContent(
-                    titleIcon = QuestContentType.THINKING,
-                    titleText = "이렇게 생각했어요",
-                    contentText = uiState.questAnswer
-                )
+                    Text(
+                        text = "${uiState.questNumber}번째 퀘스트",
+                        style = ByeBooTheme.typography.body2,
+                        color = ByeBooTheme.colors.gray500
+                    )
 
-                Spacer(modifier = Modifier.height(48.dp))
+                    Spacer(modifier = Modifier.height(12.dp))
 
-                QuestEmotionDescriptionContent(
-                    questEmotionDescription = uiState.emotionDescription,
-                    emotionType = uiState.selectedEmotion
-                )
+                    CreatedText(uiState.createdAt)
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Text(
+                        text = uiState.questQuestion,
+                        style = ByeBooTheme.typography.head1,
+                        color = ByeBooTheme.colors.gray100,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center
+                    )
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    QuestContent(
+                        titleIcon = QuestContentType.THINKING,
+                        titleText = "이렇게 생각했어요",
+                        contentText = uiState.questAnswer
+                    )
+
+                    Spacer(modifier = Modifier.height(48.dp))
+
+                    QuestEmotionDescriptionContent(
+                        questEmotionDescription = uiState.emotionDescription,
+                        emotionType = uiState.selectedEmotion
+                    )
+                }
             }
         }
     }

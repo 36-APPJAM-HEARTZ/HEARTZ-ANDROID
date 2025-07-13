@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
@@ -39,7 +40,6 @@ fun QuestTipScreen(
     questViewModel: QuestViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-    val scrollState = rememberScrollState()
     val selectedQuest by questViewModel.selectedQuest.collectAsStateWithLifecycle()
 
 
@@ -85,79 +85,92 @@ fun QuestTipScreen(
             }
         )
 
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .verticalScroll(scrollState)
                 .padding(horizontal = 24.dp)
         ) {
-            Spacer(modifier = Modifier.height(10.dp))
+            item {
+                Spacer(modifier = Modifier.height(10.dp))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                SmallTag(tagText = "STEP ${uiState.stepNumber}")
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    SmallTag(tagText = "STEP ${uiState.stepNumber}")
 
-                Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Text(
+                        text = "${uiState.questNumber}번째 퀘스트",
+                        style = ByeBooTheme.typography.body2,
+                        color = ByeBooTheme.colors.gray500
+                    )
+                }
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(12.dp))
 
                 Text(
-                    text = "${uiState.questNumber}번째 퀘스트",
-                    style = ByeBooTheme.typography.body2,
-                    color = ByeBooTheme.colors.gray500
+                    text = uiState.question,
+                    style = ByeBooTheme.typography.head1,
+                    color = ByeBooTheme.colors.gray100,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
                 )
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            item {
+                Spacer(modifier = Modifier.height((35.5).dp))
 
-            Text(
-                text = uiState.question,
-                style = ByeBooTheme.typography.head1,
-                color = ByeBooTheme.colors.gray100,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
+                QuestContent(
+                    titleIcon = QuestContentType.THINKING,
+                    titleText = if (uiState.tipQuestion.isNotEmpty()) uiState.tipQuestion[0] else "",
+                    contentText = if (uiState.tipAnswer.isNotEmpty()) uiState.tipAnswer[0] else ""
+                )
+            }
 
-            Spacer(modifier = Modifier.height((35.5).dp))
+            item {
+                Spacer(modifier = Modifier.height(32.dp))
 
-            QuestContent(
-                titleIcon = QuestContentType.THINKING,
-                titleText = if (uiState.tipQuestion.isNotEmpty()) uiState.tipQuestion[0] else "",
-                contentText = if (uiState.tipAnswer.isNotEmpty()) uiState.tipAnswer[0] else ""
-            )
+                HorizontalDivider(
+                    modifier = Modifier.fillMaxWidth(),
+                    thickness = 1.dp,
+                    color = ByeBooTheme.colors.whiteAlpha10
+                )
+            }
 
-            Spacer(modifier = Modifier.height(32.dp))
+            item {
+                Spacer(modifier = Modifier.height(32.dp))
 
-            HorizontalDivider(
-                modifier = Modifier.fillMaxWidth(),
-                thickness = 1.dp,
-                color = ByeBooTheme.colors.whiteAlpha10
-            )
+                QuestContent(
+                    titleIcon = QuestContentType.QUEST_REASON,
+                    titleText = if (uiState.tipQuestion.size > 1) uiState.tipQuestion[1] else "",
+                    contentText = if (uiState.tipAnswer.size > 1) uiState.tipAnswer[1] else ""
+                )
+            }
 
-            Spacer(modifier = Modifier.height(32.dp))
+            item {
+                Spacer(modifier = Modifier.height(32.dp))
 
-            QuestContent(
-                titleIcon = QuestContentType.QUEST_REASON,
-                titleText = if (uiState.tipQuestion.size > 1) uiState.tipQuestion[1] else "",
-                contentText = if (uiState.tipAnswer.size > 1) uiState.tipAnswer[1] else ""
-            )
+                HorizontalDivider(
+                    modifier = Modifier.fillMaxWidth(),
+                    thickness = 1.dp,
+                    color = ByeBooTheme.colors.whiteAlpha10
+                )
+            }
 
-            Spacer(modifier = Modifier.height(32.dp))
+            item {
+                Spacer(modifier = Modifier.height(32.dp))
 
-            HorizontalDivider(
-                modifier = Modifier.fillMaxWidth(),
-                thickness = 1.dp,
-                color = ByeBooTheme.colors.whiteAlpha10
-            )
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            QuestContent(
-                titleIcon = QuestContentType.FEELING_CHANGE,
-                titleText = if (uiState.tipQuestion.size > 2) uiState.tipQuestion[2] else "",
-                contentText = if (uiState.tipAnswer.size > 2) uiState.tipAnswer[2] else ""
-            )
+                QuestContent(
+                    titleIcon = QuestContentType.FEELING_CHANGE,
+                    titleText = if (uiState.tipQuestion.size > 2) uiState.tipQuestion[2] else "",
+                    contentText = if (uiState.tipAnswer.size > 2) uiState.tipAnswer[2] else ""
+                )
+            }
         }
     }
 }
