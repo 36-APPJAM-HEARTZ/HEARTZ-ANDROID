@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             val isStarted = questStateRepository.isQuestStarted()
-            val journey = questStateRepository.getUserJourney() ?: "감정 여정"
+            val journey = questStateRepository.getUserJourney() ?: "감정 직면"
 
             val dialogueResult = questStateRepository.getQuestDialogue()
             val dialogue = dialogueResult.getOrNull()?.dialogue
