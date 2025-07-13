@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -21,8 +22,8 @@ import com.byeboo.app.presentation.quest.component.GuideContent
 
 @Composable
 fun QuestStartScreen(
-    navigateBack: () -> Unit,
-    navigateQuest: () -> Unit,
+    navigateToQuest: () -> Unit,
+    navigateToHome: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestStartViewModel = hiltViewModel()
 ) {
@@ -31,10 +32,13 @@ fun QuestStartScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is QuestStartSideEffect.NavigateToQuest -> navigateQuest()
+                is QuestStartSideEffect.NavigateToQuest -> navigateToQuest()
+                is QuestStartSideEffect.NavigateToHome -> navigateToHome()
             }
         }
     }
+
+    BackHandler { viewModel.onBackClick() }
 
     Column(
         modifier = modifier
@@ -42,7 +46,7 @@ fun QuestStartScreen(
             .background(color = ByeBooTheme.colors.black)
     ) {
         ByeBooTopBar(
-            onNavigateBack = navigateBack,
+            onNavigateBack = viewModel::onBackClick,
             modifier = Modifier.background(color = ByeBooTheme.colors.black)
         )
 

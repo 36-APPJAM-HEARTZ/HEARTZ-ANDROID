@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -65,6 +66,10 @@ fun QuestScreen(
             .sumOf { it.quests.size + 1 }
 
         gridState.animateScrollToItem(index = scrollIndex)
+    }
+
+    BackHandler {
+
     }
 
     if (showQuitModal) {

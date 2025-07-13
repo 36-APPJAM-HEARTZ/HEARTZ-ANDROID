@@ -36,8 +36,8 @@ fun NavController.navigateToQuestReview(
 }
 
 fun NavGraphBuilder.questGraph(
-    questStartBackButton: () -> Unit,
     navigateToQuest: () -> Unit,
+    navigateToHome: () -> Unit,
     navigateToQuestRecording: (Int) -> Unit,
     navigateToQuestBehavior: (Int) -> Unit,
     navigateToQuestReview: (Int, QuestType) -> Unit,
@@ -49,8 +49,8 @@ fun NavGraphBuilder.questGraph(
     routeNavigation<Quest, QuestStart> {
         composable<QuestStart> {
             QuestStartScreen(
-                navigateBack = questStartBackButton,
-                navigateQuest = navigateToQuest
+                navigateToQuest = navigateToQuest,
+                navigateToHome = navigateToHome
             )
         }
 

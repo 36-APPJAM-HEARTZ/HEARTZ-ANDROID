@@ -24,4 +24,10 @@ class QuestStartViewModel @Inject constructor() : ViewModel() {
             _sideEffect.emit(QuestStartSideEffect.NavigateToQuest)
         }
     }
+
+    fun onBackClick(){
+        viewModelScope.launch {
+            _sideEffect.emit(QuestStartSideEffect.NavigateToHome)
+        }
+    }
 }
