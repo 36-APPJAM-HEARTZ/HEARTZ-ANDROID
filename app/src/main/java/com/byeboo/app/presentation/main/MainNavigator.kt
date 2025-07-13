@@ -36,6 +36,7 @@ class MainNavigator(
 
     val startDestination = Home
 
+
     val currentTab: MainNavTab?
         @Composable get() =
             MainNavTab.find { tab ->
