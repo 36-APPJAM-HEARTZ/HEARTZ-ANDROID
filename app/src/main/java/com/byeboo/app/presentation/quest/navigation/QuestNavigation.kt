@@ -50,7 +50,8 @@ fun NavGraphBuilder.questGraph(
         composable<QuestStart> {
             QuestStartScreen(
                 navigateToQuest = navigateToQuest,
-                navigateToHome = navigateToHome
+                navigateToHome = navigateToHome,
+                padding = bottomPadding
             )
         }
 

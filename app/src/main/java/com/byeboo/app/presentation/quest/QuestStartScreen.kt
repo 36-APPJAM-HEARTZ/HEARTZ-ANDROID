@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -32,6 +33,7 @@ import com.byeboo.app.presentation.quest.component.GuideContent
 fun QuestStartScreen(
     navigateToQuest: () -> Unit,
     navigateToHome: () -> Unit,
+    padding: Dp,
     modifier: Modifier = Modifier,
     viewModel: QuestStartViewModel = hiltViewModel()
 ) {
@@ -94,7 +96,9 @@ fun QuestStartScreen(
             buttonText = "시작하기",
             buttonTextColor = ByeBooTheme.colors.white,
             buttonBackgroundColor = ByeBooTheme.colors.primary300,
-            modifier = Modifier.padding(horizontal = 24.dp)
+            modifier = Modifier
+                .padding(horizontal = 24.dp)
+                .padding(bottom = padding)
         )
 
         Spacer(modifier = Modifier.height(8.dp))
