@@ -172,4 +172,10 @@ class QuestViewModel @Inject constructor(
             }
         }
     }
+
+    fun onBackClick() {
+        viewModelScope.launch {
+            _sideEffect.emit(QuestSideEffect.NavigateToHome)
+        }
+    }
 }

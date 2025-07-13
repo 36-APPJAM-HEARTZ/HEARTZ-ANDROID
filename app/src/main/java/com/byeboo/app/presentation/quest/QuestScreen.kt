@@ -38,6 +38,7 @@ fun QuestScreen(
     navigateToQuestRecording: (Int) -> Unit,
     navigateToQuestBehavior: (Int) -> Unit,
     navigateToQuestReview: (Int, QuestType) -> Unit,
+    navigateToHome: () -> Unit,
     bottomPadding: Dp,
     viewModel: QuestViewModel = hiltViewModel()
 ) {
@@ -57,6 +58,8 @@ fun QuestScreen(
                     it.questId,
                     it.questType
                 )
+
+                is QuestSideEffect.NavigateToHome -> navigateToHome()
             }
         }
     }
@@ -68,9 +71,7 @@ fun QuestScreen(
         gridState.animateScrollToItem(index = scrollIndex)
     }
 
-    BackHandler {
-
-    }
+    BackHandler { viewModel.onBackClick() }
 
     if (showQuitModal) {
         QuestModal(

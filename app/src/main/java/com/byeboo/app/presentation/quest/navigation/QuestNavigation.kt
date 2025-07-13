@@ -60,6 +60,7 @@ fun NavGraphBuilder.questGraph(
                 navigateToQuestRecording = navigateToQuestRecording,
                 navigateToQuestBehavior = navigateToQuestBehavior,
                 navigateToQuestReview = navigateToQuestReview,
+                navigateToHome = navigateToHome,
                 bottomPadding = bottomPadding
             )
         }

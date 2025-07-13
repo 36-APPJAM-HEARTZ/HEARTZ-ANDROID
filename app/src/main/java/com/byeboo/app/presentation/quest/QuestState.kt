@@ -14,4 +14,5 @@ sealed interface QuestSideEffect {
     data class NavigateToQuestRecording(val questId: Int) : QuestSideEffect
     data class NavigateToQuestBehavior(val questId: Int) : QuestSideEffect
     data class NavigateToQuestReview(val questId: Int, val questType: QuestType) : QuestSideEffect
+    data object NavigateToHome : QuestSideEffect
 }
