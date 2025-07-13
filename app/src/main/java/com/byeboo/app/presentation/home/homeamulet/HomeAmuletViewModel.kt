@@ -23,8 +23,8 @@ class HomeAmuletViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(HomeAmuletState())
     val uiState: StateFlow<HomeAmuletState> = _uiState.asStateFlow()
 
-    private val _sideEffect = MutableSharedFlow<JourneyResultSideEffect>()
-    val sideEffect: SharedFlow<JourneyResultSideEffect> = _sideEffect.asSharedFlow()
+    private val _sideEffect = MutableSharedFlow<HomeAmuletSideEffect>()
+    val sideEffect: SharedFlow<HomeAmuletSideEffect> = _sideEffect.asSharedFlow()
 
     val nickname: StateFlow<String?> = userRepository.getNickname()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
@@ -48,7 +48,7 @@ class HomeAmuletViewModel @Inject constructor(
     }
     fun navigateToHomeOnboarding() {
         viewModelScope.launch {
-            _sideEffect.emit(JourneyResultSideEffect.NavigateToHomeOnboarding)
+            _sideEffect.emit(HomeAmuletSideEffect.NavigateToHomeOnboarding)
         }
     }
 }

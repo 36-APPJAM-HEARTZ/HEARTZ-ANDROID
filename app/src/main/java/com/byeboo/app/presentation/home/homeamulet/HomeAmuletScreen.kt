@@ -39,7 +39,7 @@ fun HomeAmuletScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
             when (effect) {
-                is JourneyResultSideEffect.NavigateToHomeOnboarding -> {
+                is HomeAmuletSideEffect.NavigateToHomeOnboarding -> {
                     navigateToHomeOnboarding()
                 }
             }
