@@ -7,6 +7,8 @@ import com.byeboo.app.domain.model.NicknameValidationResult
 import com.byeboo.app.domain.model.NicknameValidator
 import com.byeboo.app.domain.model.QuestStyle
 import com.byeboo.app.domain.model.UserInfoModel
+import com.byeboo.app.domain.model.toJourneyText
+import com.byeboo.app.domain.repository.QuestStateRepository
 import com.byeboo.app.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -21,7 +23,8 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class UserInfoViewModel @Inject constructor(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val questStateRepository: QuestStateRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UserInfoState())
     val uiState: StateFlow<UserInfoState> = _uiState.asStateFlow()
@@ -69,6 +72,7 @@ class UserInfoViewModel @Inject constructor(
     }
 
     fun finishUserInfo() {
+
         viewModelScope.launch {
             if (_uiState.value.nicknameValidation != NicknameValidationResult.Valid) return@launch
 
@@ -79,7 +83,11 @@ class UserInfoViewModel @Inject constructor(
             )
 
             val result = userRepository.updateUserInfo(userInfo)
+
             if (result.isSuccess) {
+                _uiState.value.selectedQuest?.let {
+                    questStateRepository.updateUserJourney(it.toJourneyText())
+                }
                 _sideEffect.emit(UserInfoSideEffect.NavigateToLoading)
             }
         }
