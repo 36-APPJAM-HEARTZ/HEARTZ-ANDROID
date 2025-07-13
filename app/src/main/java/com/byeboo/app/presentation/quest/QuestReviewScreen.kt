@@ -94,7 +94,7 @@ fun QuestReviewScreen(
         item {
             QuestTitle(
                 stepNumber = uiState.stepNumber,
-                questNumber = uiState.stepNumber,
+                questNumber = uiState.questNumber,
                 createdAt = uiState.createdAt,
                 questQuestion = uiState.questQuestion
             )
