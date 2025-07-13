@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -87,157 +88,159 @@ fun QuestBehaviorWritingScreen(
 
     BackHandler { viewModel.onBackClicked() }
 
-    LazyColumn(
+    Column(
         modifier = modifier
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
             .padding(horizontal = 24.dp, vertical = 10.dp)
     ) {
-        item {
-            Icon(
-                imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
-                contentDescription = "back button",
-                tint = ByeBooTheme.colors.white,
-                modifier = Modifier
-                    .padding(top = 67.dp)
-                    .clickable { viewModel.onBackClicked() }
-            )
-        }
+        Icon(
+            imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
+            contentDescription = "back button",
+            tint = ByeBooTheme.colors.white,
+            modifier = Modifier
+                .padding(top = 67.dp, bottom = 16.dp)
+                .clickable { viewModel.onBackClicked() }
+        )
 
-        item {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                SmallTag(
-                    tagText = "STEP ${uiState.stepNumber}"
-                )
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    SmallTag(
+                        tagText = "STEP ${uiState.stepNumber}"
+                    )
 
-                Spacer(modifier = Modifier.width(12.dp))
+                    Spacer(modifier = Modifier.width(12.dp))
 
-                Text(
-                    text = "${uiState.stepMissionTitle}",
-                    color = ByeBooTheme.colors.gray500,
-                    style = ByeBooTheme.typography.body2
-                )
-            }
-
-            Spacer(modifier = Modifier.height(12.dp))
-        }
-
-        item {
-            Text(
-                text = "${uiState.questNumber}번째 퀘스트",
-                color = ByeBooTheme.colors.secondary300,
-                textAlign = TextAlign.Center,
-                style = ByeBooTheme.typography.body5,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(modifier = Modifier.height(12.dp))
-        }
-
-        item {
-            Text(
-                text = uiState.questTitle,
-                color = ByeBooTheme.colors.gray100,
-                textAlign = TextAlign.Center,
-                style = ByeBooTheme.typography.head1
-            )
-
-            Spacer(modifier = Modifier.height(25.dp))
-        }
-
-        item {
-            Box(
-                modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.Center
-            ) {
-                MiddleTag(
-                    middleTagType = MiddleTagType.QUEST_TIP,
-                    text = "작성 TIP",
-                    modifier = Modifier.clickable { viewModel.onTipClick() }
-                )
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-
-        item {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                MiddleTag(middleTagType = MiddleTagType.QUEST_ESSENTIAL, text = "필수")
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Text(
-                    text = "사진 첨부",
-                    color = ByeBooTheme.colors.gray50,
-                    style = ByeBooTheme.typography.body2
-                )
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Text(
-                    text = "(${uiState.imageCount}/1)",
-                    color = ByeBooTheme.colors.gray400,
-                    style = ByeBooTheme.typography.body5
-                )
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-
-        item {
-            QuestPhotoPicker(
-                imageUrl = selectedImageUrl,
-                onImageClick = { url ->
-                    viewModel.updateSelectedImage(url)
+                    Text(
+                        text = "${uiState.stepMissionTitle}",
+                        color = ByeBooTheme.colors.gray500,
+                        style = ByeBooTheme.typography.body2
+                    )
                 }
-            )
 
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-
-        item {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                MiddleTag(middleTagType = MiddleTagType.QUEST_OPTIONAL, text = "선택")
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Text(
-                    text = "생각 적기",
-                    color = ByeBooTheme.colors.gray50,
-                    style = ByeBooTheme.typography.body2
-                )
+                Spacer(modifier = Modifier.height(12.dp))
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
-        }
+            item {
+                Text(
+                    text = "${uiState.questNumber}번째 퀘스트",
+                    color = ByeBooTheme.colors.secondary300,
+                    textAlign = TextAlign.Center,
+                    style = ByeBooTheme.typography.body5,
+                    modifier = Modifier.fillMaxWidth()
+                )
 
-        item {
-            QuestTextField(
-                questWritingState = uiState.contentState,
-                value = uiState.contents,
-                onValueChange = viewModel::updateContent
-            )
+                Spacer(modifier = Modifier.height(12.dp))
+            }
 
-            Spacer(modifier = Modifier.height(21.dp))
-        }
+            item {
+                Text(
+                    text = uiState.questTitle,
+                    color = ByeBooTheme.colors.gray100,
+                    textAlign = TextAlign.Center,
+                    style = ByeBooTheme.typography.head1
+                )
 
-        item {
-            ByeBooActivationButton(
-                buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
-                buttonText = "완료",
-                buttonDisableTextColor = ByeBooTheme.colors.gray300,
-                onClick = {
-                    viewModel.openBottomSheet()
-                    viewModel.updateSelectedImage(selectedImageUrl)
-                },
-                isEnabled = QuestValidator.validButton(uiState.imageCount)
-            )
+                Spacer(modifier = Modifier.height(25.dp))
+            }
 
-            Spacer(modifier = Modifier.padding(bottom = 56.dp))
+            item {
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MiddleTag(
+                        middleTagType = MiddleTagType.QUEST_TIP,
+                        text = "작성 TIP",
+                        modifier = Modifier.clickable { viewModel.onTipClick() }
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            item {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    MiddleTag(middleTagType = MiddleTagType.QUEST_ESSENTIAL, text = "필수")
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Text(
+                        text = "사진 첨부",
+                        color = ByeBooTheme.colors.gray50,
+                        style = ByeBooTheme.typography.body2
+                    )
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Text(
+                        text = "(${uiState.imageCount}/1)",
+                        color = ByeBooTheme.colors.gray400,
+                        style = ByeBooTheme.typography.body5
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            item {
+                QuestPhotoPicker(
+                    imageUrl = selectedImageUrl,
+                    onImageClick = { url ->
+                        viewModel.updateSelectedImage(url)
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            item {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    MiddleTag(middleTagType = MiddleTagType.QUEST_OPTIONAL, text = "선택")
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Text(
+                        text = "생각 적기",
+                        color = ByeBooTheme.colors.gray50,
+                        style = ByeBooTheme.typography.body2
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            item {
+                QuestTextField(
+                    questWritingState = uiState.contentState,
+                    value = uiState.contents,
+                    onValueChange = viewModel::updateContent
+                )
+
+                Spacer(modifier = Modifier.height(21.dp))
+            }
+
+            item {
+                ByeBooActivationButton(
+                    buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
+                    buttonText = "완료",
+                    buttonDisableTextColor = ByeBooTheme.colors.gray300,
+                    onClick = {
+                        viewModel.openBottomSheet()
+                        viewModel.updateSelectedImage(selectedImageUrl)
+                    },
+                    isEnabled = QuestValidator.validButton(uiState.imageCount)
+                )
+
+                Spacer(modifier = Modifier.padding(bottom = 56.dp))
+            }
         }
     }
 

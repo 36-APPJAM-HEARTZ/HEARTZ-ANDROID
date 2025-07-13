@@ -65,104 +65,104 @@ fun QuestBehaviorCompleteScreen(
 
     BackHandler { viewModel.onCloseClick() }
 
-    LazyColumn(
+    Column(
         modifier = Modifier
+            .fillMaxSize()
             .background(ByeBooTheme.colors.black)
             .padding(horizontal = 24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 67.dp),
-                horizontalArrangement = Arrangement.End
-            ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
-                    contentDescription = "back button",
-                    tint = ByeBooTheme.colors.white,
-                    modifier = Modifier.clickable { viewModel::onCloseClick }
+        Spacer(modifier = Modifier.height(67.dp))
+
+        Icon(
+            imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
+            contentDescription = "back button",
+            tint = ByeBooTheme.colors.white,
+            modifier = Modifier
+                .clickable { viewModel.onCloseClick() }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+
+                QuestCompleteCard()
+
+                Spacer(modifier = Modifier.height(32.dp))
+            }
+            item {
+                QuestCompleteTitle(
+                    stepNumber = uiState.stepNumber,
+                    questNumber = uiState.questNumber,
+                    createdAt = uiState.createdAt,
+                    questQuestion = uiState.questTitle
+
                 )
             }
 
-            Spacer(modifier = Modifier.height(24.dp))
-        }
-
-        item {
-            QuestCompleteCard()
-
-            Spacer(modifier = Modifier.height(32.dp))
-        }
-        item {
-            QuestCompleteTitle(
-                stepNumber = uiState.stepNumber,
-                questNumber = uiState.questNumber,
-                createdAt = uiState.createdAt,
-                questQuestion = uiState.questTitle
-
-            )
-        }
-
-        item {
-            Column(
-                modifier = Modifier.padding(vertical = 24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+            item {
                 Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(360 / 312f)
-                        .clip(RoundedCornerShape(12.dp))
+                    modifier = Modifier.padding(vertical = 24.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    selectedImageUri?.let { uri ->
-                        AsyncImage(
-                            model = ImageRequest.Builder(LocalContext.current).data(uri)
-                                .crossfade(true).build(),
-                            contentDescription = "uploaded image",
-                            modifier = Modifier.fillMaxSize(),
-                            contentScale = ContentScale.Crop
-                        )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(360 / 312f)
+                            .clip(RoundedCornerShape(12.dp))
+                    ) {
+                        selectedImageUri?.let { uri ->
+                            AsyncImage(
+                                model = ImageRequest.Builder(LocalContext.current).data(uri)
+                                    .crossfade(true).build(),
+                                contentDescription = "uploaded image",
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    if (uiState.contents.isNotBlank()) {
+                        ContentText(uiState.contents)
                     }
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
-
-                if (uiState.contents.isNotBlank()) {
-                    ContentText(uiState.contents)
-                }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-
-        item {
-            Column(
-                modifier = Modifier.padding(vertical = 24.dp)
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
+            item {
+                Column(
+                    modifier = Modifier.padding(vertical = 24.dp)
                 ) {
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_think),
-                        contentDescription = "title icon",
-                        modifier = Modifier.padding(end = 8.dp),
-                        tint = Color.Unspecified
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.ic_think),
+                            contentDescription = "title icon",
+                            modifier = Modifier.padding(end = 8.dp),
+                            tint = Color.Unspecified
+                        )
 
-                    Text(
-                        text = "퀘스트 완료 후, 이런 감정을 느꼈어요",
-                        color = ByeBooTheme.colors.gray200,
-                        style = ByeBooTheme.typography.body2
+                        Text(
+                            text = "퀘스트 완료 후, 이런 감정을 느꼈어요",
+                            color = ByeBooTheme.colors.gray200,
+                            style = ByeBooTheme.typography.body2
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    QuestEmotionDescriptionCard(
+                        questEmotionDescription = uiState.contents,
+                        emotionType = uiState.selectedEmotion
                     )
                 }
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                QuestEmotionDescriptionCard(
-                    questEmotionDescription = uiState.contents,
-                    emotionType = uiState.selectedEmotion
-                )
             }
         }
     }
