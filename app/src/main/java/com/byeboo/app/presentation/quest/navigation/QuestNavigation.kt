@@ -23,12 +23,12 @@ fun NavController.navigateToQuest(navOptions: NavOptions? = null) {
     navigate(Quest, navOptions)
 }
 
-fun NavController.navigateToQuestTip(questId: Int, navOptions: NavOptions? = null) {
+fun NavController.navigateToQuestTip(questId: Long, navOptions: NavOptions? = null) {
     navigate(QuestTip(questId), navOptions)
 }
 
 fun NavController.navigateToQuestReview(
-    questId: Int,
+    questId: Long,
     questType: QuestType,
     navOptions: NavOptions? = null
 ) {
@@ -38,12 +38,12 @@ fun NavController.navigateToQuestReview(
 fun NavGraphBuilder.questGraph(
     navigateToQuest: () -> Unit,
     navigateToHome: () -> Unit,
-    navigateToQuestRecording: (Int) -> Unit,
-    navigateToQuestBehavior: (Int) -> Unit,
-    navigateToQuestReview: (Int, QuestType) -> Unit,
-    navigateToQuestRecordingComplete: (Int) -> Unit,
-    navigateToQuestTip: (Int) -> Unit,
-    navigateToQuestBehaviorComplete: (Int) -> Unit,
+    navigateToQuestRecording: (Long) -> Unit,
+    navigateToQuestBehavior: (Long) -> Unit,
+    navigateToQuestReview: (Long, QuestType) -> Unit,
+    navigateToQuestRecordingComplete: (Long) -> Unit,
+    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestBehaviorComplete: (Long) -> Unit,
     bottomPadding: Dp
 ) {
     routeNavigation<Quest, QuestStart> {

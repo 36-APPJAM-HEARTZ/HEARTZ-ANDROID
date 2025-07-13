@@ -4,7 +4,7 @@ import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.model.QuestType
 
 data class QuestReviewState(
-    val questId: Int = 0,
+    val questId: Long = 0,
     val stepNumber: Int = 0,
     val createdAt: String = "2025.06.01.",
     val questQuestion: String = "그 사람이 싫어하기에 내가 포기해야만 했던 일은 무엇일까?",

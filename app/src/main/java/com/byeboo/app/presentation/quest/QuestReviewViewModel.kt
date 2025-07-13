@@ -26,7 +26,7 @@ class QuestReviewViewModel @Inject constructor() : ViewModel() {
     private val _selectedImageUri = MutableStateFlow<Uri?>(null)
     val selectedImageUri: StateFlow<Uri?> = _selectedImageUri
 
-    fun setQuestId(questId: Int) {
+    fun setQuestId(questId: Long) {
         _uiState.update {
             it.copy(questId = questId)
         }

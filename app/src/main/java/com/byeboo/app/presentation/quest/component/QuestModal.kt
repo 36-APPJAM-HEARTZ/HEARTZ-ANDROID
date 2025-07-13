@@ -31,7 +31,7 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 @Composable
 fun QuestModal(
     onDismissRequest: () -> Unit,
-    questId: Int,
+    questId: Long,
     questQuestion: String,
     navigateToTip: () -> Unit,
     progressButton: () -> Unit,

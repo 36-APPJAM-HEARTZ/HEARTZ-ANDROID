@@ -5,7 +5,7 @@ import com.byeboo.app.core.designsystem.type.LargeTagType
 
 @Immutable
 data class QuestRecordingCompleteState(
-    val questId: Int = 0,
+    val questId: Long = 0,
     val stepNumber: Int = 0,
     val questNumber: Int = 0,
     val createdAt: String = java.time.LocalDate.now().toString(),

@@ -44,10 +44,10 @@ import kotlinx.coroutines.flow.collectLatest
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuestRecordingScreen(
-    questId: Int,
+    questId: Long,
     navigateToQuest: () -> Unit,
-    navigateToQuestTip: (Int) -> Unit,
-    navigateToQuestRecordingComplete: (Int) -> Unit,
+    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestRecordingComplete: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestRecordingViewModel = hiltViewModel()
 ) {

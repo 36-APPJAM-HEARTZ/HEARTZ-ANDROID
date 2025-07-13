@@ -42,7 +42,7 @@ import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
 
 @Composable
 fun QuestBehaviorCompleteScreen(
-    questId: Int,
+    questId: Long,
     navigateToQuest: () -> Unit,
     viewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {

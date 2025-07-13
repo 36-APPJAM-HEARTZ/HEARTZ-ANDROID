@@ -12,18 +12,18 @@ import com.byeboo.app.presentation.quest.behavior.navigation.QuestBehavior.Quest
 import com.byeboo.app.presentation.quest.behavior.navigation.QuestBehavior.QuestBehaviorWriting
 import com.byeboo.app.presentation.quest.record.navigation.QuestRecord
 
-fun NavController.navigateToQuestBehavior(questId: Int, navOptions: NavOptions? = null) {
+fun NavController.navigateToQuestBehavior(questId: Long, navOptions: NavOptions? = null) {
     navigate(QuestBehaviorWriting(questId), navOptions)
 }
 
-fun NavController.navigateToQuestBehaviorComplete(questId: Int, navOptions: NavOptions? = null) {
+fun NavController.navigateToQuestBehaviorComplete(questId: Long, navOptions: NavOptions? = null) {
     navigate(QuestBehaviorComplete(questId), navOptions)
 }
 
 fun NavGraphBuilder.questBehaviorGraph(
     navigateToQuest: () -> Unit,
-    navigateToQuestTip: (Int) -> Unit,
-    navigateToQuestBehaviorComplete: (Int) -> Unit
+    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestBehaviorComplete: (Long) -> Unit
 ) {
     routeNavigation<QuestBehavior, QuestBehaviorWriting> {
         composable<QuestBehaviorWriting> { backStackEntry ->

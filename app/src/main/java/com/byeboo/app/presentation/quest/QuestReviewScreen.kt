@@ -46,7 +46,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun QuestReviewScreen(
-    questId: Int,
+    questId: Long,
     navigateToQuest: () -> Unit,
     viewModel: QuestReviewViewModel = hiltViewModel()
 ) {

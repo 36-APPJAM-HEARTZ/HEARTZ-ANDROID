@@ -31,8 +31,8 @@ import com.byeboo.app.presentation.quest.component.type.QuestContentType
 
 @Composable
 fun QuestTipScreen(
-    questId: Int,
-    navigateBack: (Int) -> Unit,
+    questId: Long,
+    navigateBack: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestTipViewModel = hiltViewModel(),
     questViewModel: QuestViewModel = hiltViewModel()

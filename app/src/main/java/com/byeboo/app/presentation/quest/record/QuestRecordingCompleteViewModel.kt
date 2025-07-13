@@ -27,7 +27,7 @@ class QuestRecordingCompleteViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun setQuestId(questId: Int) {
+    fun setQuestId(questId: Long) {
         _state.update {
             it.copy(questId = questId)
         }

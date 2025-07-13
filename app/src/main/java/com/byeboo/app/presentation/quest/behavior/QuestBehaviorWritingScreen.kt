@@ -43,10 +43,10 @@ import kotlinx.coroutines.flow.collectLatest
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuestBehaviorWritingScreen(
-    questId: Int,
+    questId: Long,
     navigateToQuest: () -> Unit,
-    navigateToQuestTip: (Int) -> Unit,
-    navigateToQuestBehaviorComplete: (Int) -> Unit,
+    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestBehaviorComplete: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {

@@ -41,7 +41,7 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun QuestRecordingCompleteScreen(
-    questId: Int = 0,
+    questId: Long,
     navigateToQuest: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QuestRecordingCompleteViewModel = hiltViewModel()

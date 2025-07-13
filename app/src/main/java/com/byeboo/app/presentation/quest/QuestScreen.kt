@@ -34,10 +34,10 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun QuestScreen(
-    navigateToQuestTip: (Int) -> Unit,
-    navigateToQuestRecording: (Int) -> Unit,
-    navigateToQuestBehavior: (Int) -> Unit,
-    navigateToQuestReview: (Int, QuestType) -> Unit,
+    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestRecording: (Long) -> Unit,
+    navigateToQuestBehavior: (Long) -> Unit,
+    navigateToQuestReview: (Long, QuestType) -> Unit,
     navigateToHome: () -> Unit,
     bottomPadding: Dp,
     viewModel: QuestViewModel = hiltViewModel()

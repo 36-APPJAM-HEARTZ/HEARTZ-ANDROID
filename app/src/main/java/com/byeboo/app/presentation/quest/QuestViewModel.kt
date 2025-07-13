@@ -63,12 +63,12 @@ class QuestViewModel @Inject constructor(
         return questGroups.indexOfFirst { group ->
             group.quests.any {
                 it.state is QuestState.Available ||
-                    it.state is QuestState.TimerLocked
+                        it.state is QuestState.TimerLocked
             }
         }.coerceAtLeast(0)
     }
 
-    fun onQuestClick(questId: Int) {
+    fun onQuestClick(questId: Long) {
         viewModelScope.launch {
             val quest = questGroups.value
                 .flatMap { it.quests }
@@ -79,6 +79,7 @@ class QuestViewModel @Inject constructor(
                     _selectedQuest.value = quest
                     _showQuitModal.value = true
                 }
+
                 is QuestState.Complete -> {
                     _sideEffect.emit(
                         QuestSideEffect.NavigateToQuestReview(
@@ -130,7 +131,7 @@ class QuestViewModel @Inject constructor(
                     }
                     Quest(
                         // 임시
-                        questId = questNumber,
+                        questId = questNumber.toLong(),
                         questNumber = questNumber,
                         state = state,
                         questQuestion = "연애에서 반복됐던 문제 패턴 3가지를 생각해보아요.",
@@ -166,6 +167,7 @@ class QuestViewModel @Inject constructor(
                 QuestType.EMOTION_FACE -> {
                     _sideEffect.emit(QuestSideEffect.NavigateToQuestRecording(quest.questId))
                 }
+
                 QuestType.EMOTION_ORGANIZE -> {
                     _sideEffect.emit(QuestSideEffect.NavigateToQuestBehavior(quest.questId))
                 }

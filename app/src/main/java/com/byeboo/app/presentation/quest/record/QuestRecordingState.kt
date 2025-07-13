@@ -6,7 +6,7 @@ import com.byeboo.app.domain.model.QuestWritingState
 
 @Immutable
 data class QuestRecordingState(
-    val questId: Int = 0,
+    val questId: Long = 0,
     val step: String = "감정 쏟아내기",
     val stepNumber: Int = 0,
     val questNumber: Int = 0,
@@ -18,6 +18,6 @@ data class QuestRecordingState(
 
 sealed interface QuestRecordingSideEffect {
     data object NavigateToQuest : QuestRecordingSideEffect
-    data class NavigateToQuestTip(val questId: Int) : QuestRecordingSideEffect
-    data class NavigateToQuestRecordingComplete(val questId: Int) : QuestRecordingSideEffect
+    data class NavigateToQuestTip(val questId: Long) : QuestRecordingSideEffect
+    data class NavigateToQuestRecordingComplete(val questId: Long) : QuestRecordingSideEffect
 }

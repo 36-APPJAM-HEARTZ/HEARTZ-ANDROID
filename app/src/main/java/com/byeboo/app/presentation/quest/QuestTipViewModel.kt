@@ -32,7 +32,7 @@ class QuestTipViewModel @Inject constructor() : ViewModel() {
         viewModelScope.launch {
             _state.value = QuestTipState(
                 stepNumber = 1,
-                questNumber = quest.questId,
+                questNumber = quest.questNumber,
                 question = "이 퀘스트는 어떤 내용인가요?",
                 tipQuestion = persistentListOf(
                     "어떤 상황이었나요?",

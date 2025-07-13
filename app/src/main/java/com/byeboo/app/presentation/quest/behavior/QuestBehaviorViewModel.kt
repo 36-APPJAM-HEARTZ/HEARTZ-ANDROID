@@ -38,7 +38,7 @@ class QuestBehaviorViewModel @Inject constructor(
     val showQuitModal: StateFlow<Boolean>
         get() = _showQuitModal.asStateFlow()
 
-    fun setQuestId(questId: Int) {
+    fun setQuestId(questId: Long) {
         _state.update {
             it.copy(questId = questId)
         }
