@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -44,6 +45,7 @@ import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
 fun QuestBehaviorCompleteScreen(
     questId: Long,
     navigateToQuest: () -> Unit,
+    bottomPadding: Dp,
     viewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
@@ -69,7 +71,8 @@ fun QuestBehaviorCompleteScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(ByeBooTheme.colors.black)
-            .padding(horizontal = 24.dp),
+            .padding(horizontal = 24.dp)
+            .padding(bottom = bottomPadding),
     ) {
         Spacer(modifier = Modifier.height(67.dp))
 
@@ -78,6 +81,7 @@ fun QuestBehaviorCompleteScreen(
             contentDescription = "back button",
             tint = ByeBooTheme.colors.white,
             modifier = Modifier
+                .align(Alignment.End)
                 .clickable { viewModel.onCloseClick() }
         )
 

@@ -2,7 +2,6 @@ package com.byeboo.app.presentation.quest
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -67,111 +66,111 @@ fun QuestReviewScreen(
         }
     }
 
-    LazyColumn(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
             .padding(horizontal = 24.dp)
             .padding(bottom = bottomPadding)
     ) {
-        item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 67.dp, bottom = 16.dp),
-                horizontalArrangement = Arrangement.End
-            ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
-                    contentDescription = "back button",
-                    tint = ByeBooTheme.colors.white,
-                    modifier = Modifier.clickable {
-                        viewModel.onCloseClick()
-                    }
+        Spacer(modifier = Modifier.height(67.dp))
+
+        Icon(
+            imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
+            contentDescription = "back button",
+            tint = ByeBooTheme.colors.white,
+            modifier = Modifier
+                .align(Alignment.End)
+                .clickable { viewModel.onCloseClick()
+           }
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            item {
+                Spacer(modifier = Modifier.height(10.dp))
+
+                QuestTitle(
+                    stepNumber = uiState.stepNumber,
+                    questNumber = uiState.questNumber,
+                    createdAt = uiState.createdAt,
+                    questQuestion = uiState.questQuestion
                 )
+
+                Spacer(modifier = Modifier.height(24.dp))
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
-        }
-
-        item {
-            QuestTitle(
-                stepNumber = uiState.stepNumber,
-                questNumber = uiState.questNumber,
-                createdAt = uiState.createdAt,
-                questQuestion = uiState.questQuestion
-            )
-
-            Spacer(modifier = Modifier.height(24.dp))
-        }
-
-        item {
-            when (uiState.type) {
-                QuestType.EMOTION_FACE ->
-                    QuestContent(
-                        titleIcon = QuestContentType.THINKING,
-                        titleText = "이렇게 생각했어요",
-                        contentText = uiState.questAnswer
-                    )
-
-                QuestType.EMOTION_ORGANIZE -> {
-                    Row(
-                        modifier = Modifier.fillMaxWidth()
-                    ) {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_think),
-                            contentDescription = "title icon",
-                            modifier = Modifier.padding(end = 8.dp),
-
-                            tint = Color.Unspecified
+            item {
+                when (uiState.type) {
+                    QuestType.EMOTION_FACE ->
+                        QuestContent(
+                            titleIcon = QuestContentType.THINKING,
+                            titleText = "이렇게 생각했어요",
+                            contentText = uiState.questAnswer
                         )
 
-                        Text(
-                            text = "이렇게 완료했어요",
-                            color = ByeBooTheme.colors.gray200,
-                            style = ByeBooTheme.typography.body2
-                        )
-                    }
+                    QuestType.EMOTION_ORGANIZE -> {
+                        Row(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Icon(
+                                imageVector = ImageVector.vectorResource(R.drawable.ic_think),
+                                contentDescription = "title icon",
+                                modifier = Modifier.padding(end = 8.dp),
 
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(360 / 312f)
-                            .clip(RoundedCornerShape(12.dp))
-                    ) {
-                        selectedImageUri?.let { uri ->
-                            AsyncImage(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .aspectRatio(1f),
-                                model = ImageRequest.Builder(LocalContext.current)
-                                    .data(uri)
-                                    .crossfade(true)
-                                    .build(),
-                                contentDescription = "uploaded image",
-                                contentScale = ContentScale.Crop
+                                tint = Color.Unspecified
+                            )
+
+                            Text(
+                                text = "이렇게 완료했어요",
+                                color = ByeBooTheme.colors.gray200,
+                                style = ByeBooTheme.typography.body2
                             )
                         }
-                    }
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .aspectRatio(360 / 312f)
+                                .clip(RoundedCornerShape(12.dp))
+                        ) {
+                            selectedImageUri?.let { uri ->
+                                AsyncImage(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .aspectRatio(1f),
+                                    model = ImageRequest.Builder(LocalContext.current)
+                                        .data(uri)
+                                        .crossfade(true)
+                                        .build(),
+                                    contentDescription = "uploaded image",
+                                    contentScale = ContentScale.Crop
+                                )
+                            }
+                        }
 
-                    if (uiState.questAnswer.isNotBlank()) {
-                        ContentText(uiState.questAnswer)
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        if (uiState.questAnswer.isNotBlank()) {
+                            ContentText(uiState.questAnswer)
+                        }
                     }
                 }
             }
-        }
 
-        item {
-            Spacer(modifier = Modifier.height(48.dp))
+            item {
+                Spacer(modifier = Modifier.height(48.dp))
 
-            QuestEmotionDescriptionContent(
-                questEmotionDescription = uiState.emotionDescription,
-                emotionType = uiState.emotion
-            )
+                QuestEmotionDescriptionContent(
+                    questEmotionDescription = uiState.emotionDescription,
+                    emotionType = uiState.emotion
+                )
 
-            Spacer(modifier = Modifier.height(28.dp))
+                Spacer(modifier = Modifier.height(28.dp))
+            }
         }
     }
 }

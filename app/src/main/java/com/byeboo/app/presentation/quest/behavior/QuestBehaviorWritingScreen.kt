@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -48,6 +49,7 @@ fun QuestBehaviorWritingScreen(
     navigateToQuest: () -> Unit,
     navigateToQuestTip: (Long) -> Unit,
     navigateToQuestBehaviorComplete: (Long) -> Unit,
+    bottomPadding: Dp,
     modifier: Modifier = Modifier,
     viewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
@@ -92,7 +94,8 @@ fun QuestBehaviorWritingScreen(
         modifier = modifier
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
-            .padding(horizontal = 24.dp, vertical = 10.dp)
+            .padding(horizontal = 24.dp, vertical = 8.dp)
+            .padding(bottom = bottomPadding)
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
@@ -100,6 +103,7 @@ fun QuestBehaviorWritingScreen(
             tint = ByeBooTheme.colors.white,
             modifier = Modifier
                 .padding(top = 67.dp, bottom = 16.dp)
+                .align(Alignment.Start)
                 .clickable { viewModel.onBackClicked() }
         )
 
@@ -224,7 +228,7 @@ fun QuestBehaviorWritingScreen(
                     onValueChange = viewModel::updateContent
                 )
 
-                Spacer(modifier = Modifier.height(21.dp))
+                Spacer(modifier = Modifier.height(24.dp))
             }
 
             item {
@@ -238,8 +242,6 @@ fun QuestBehaviorWritingScreen(
                     },
                     isEnabled = QuestValidator.validButton(uiState.imageCount)
                 )
-
-                Spacer(modifier = Modifier.padding(bottom = 56.dp))
             }
         }
     }

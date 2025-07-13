@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -48,6 +49,7 @@ fun QuestRecordingScreen(
     navigateToQuest: () -> Unit,
     navigateToQuestTip: (Long) -> Unit,
     navigateToQuestRecordingComplete: (Long) -> Unit,
+    bottomPadding: Dp,
     modifier: Modifier = Modifier,
     viewModel: QuestRecordingViewModel = hiltViewModel()
 ) {
@@ -97,15 +99,20 @@ fun QuestRecordingScreen(
             .background(color = ByeBooTheme.colors.black)
             .addFocusCleaner(focusManager)
             .padding(horizontal = 24.dp)
+            .padding(bottom = bottomPadding)
     ) {
+        Spacer(modifier = Modifier.height(67.dp))
+
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
             contentDescription = "back button",
             tint = ByeBooTheme.colors.white,
             modifier = Modifier
-                .padding(top = 67.dp)
+                .align(Alignment.Start)
                 .clickable { viewModel.onBackClick() }
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         LazyColumn(
             modifier = Modifier
@@ -200,7 +207,7 @@ fun QuestRecordingScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(200.dp))
+                Spacer(modifier = Modifier.height(54.dp))
 
                 ByeBooActivationButton(
                     buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
@@ -209,8 +216,6 @@ fun QuestRecordingScreen(
                     onClick = viewModel::openBottomSheet,
                     isEnabled = QuestContentLengthValidator.validButton(uiState.questAnswer)
                 )
-
-                Spacer(modifier = Modifier.height(56.dp))
             }
         }
     }

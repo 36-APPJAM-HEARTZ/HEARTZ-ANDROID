@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest.behavior.navigation
 
+import androidx.compose.ui.unit.Dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -23,7 +24,8 @@ fun NavController.navigateToQuestBehaviorComplete(questId: Long, navOptions: Nav
 fun NavGraphBuilder.questBehaviorGraph(
     navigateToQuest: () -> Unit,
     navigateToQuestTip: (Long) -> Unit,
-    navigateToQuestBehaviorComplete: (Long) -> Unit
+    navigateToQuestBehaviorComplete: (Long) -> Unit,
+    bottomPadding: Dp
 ) {
     routeNavigation<QuestBehavior, QuestBehaviorWriting> {
         composable<QuestBehaviorWriting> { backStackEntry ->
@@ -34,7 +36,8 @@ fun NavGraphBuilder.questBehaviorGraph(
                 questId = questId,
                 navigateToQuest = navigateToQuest,
                 navigateToQuestTip = navigateToQuestTip,
-                navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete
+                navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete,
+                bottomPadding = bottomPadding
             )
         }
 
@@ -44,7 +47,8 @@ fun NavGraphBuilder.questBehaviorGraph(
 
             QuestBehaviorCompleteScreen(
                 questId = questId,
-                navigateToQuest = navigateToQuest
+                navigateToQuest = navigateToQuest,
+                bottomPadding = bottomPadding
             )
         }
     }
