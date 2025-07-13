@@ -41,15 +41,19 @@ fun MyPageScreen(
         modifier = modifier
             .fillMaxSize()
             .background(ByeBooTheme.colors.black)
-            .padding(horizontal = 24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(horizontal = 24.dp)
+            .padding(top = 67.dp),
     ) {
         Text(
             text = "마이페이지",
             style = ByeBooTheme.typography.sub1,
             color = ByeBooTheme.colors.white,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -63,6 +67,8 @@ fun MyPageScreen(
                 color = ByeBooTheme.colors.gray300
             )
         }
+
+        Spacer(modifier = Modifier.height(8.dp))
 
         HorizontalDivider(
             modifier = Modifier
