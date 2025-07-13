@@ -131,8 +131,9 @@ class QuestViewModel @Inject constructor(
                     }
                     Quest(
                         // 임시
+                        //TODO:
                         questId = questNumber.toLong(),
-                        questNumber = questNumber,
+                        questNumber = questNumber.toLong(),
                         state = state,
                         questQuestion = "연애에서 반복됐던 문제 패턴 3가지를 생각해보아요.",
                         type = if (questNumber % 2 == 0) QuestType.EMOTION_FACE else QuestType.EMOTION_ORGANIZE
