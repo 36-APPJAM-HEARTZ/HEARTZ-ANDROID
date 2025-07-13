@@ -85,10 +85,16 @@ fun MainNavHost(
         )
         questGraph(
             navController = navigator.navController,
-            questStartBackButton = { navigator.navigateToHome(clearStackNavOptions) },
             navigateToQuest = { navigator.navigateToQuest(clearStackNavOptions) },
+            navigateToHome = { navigator.navigateToHome(clearStackNavOptions) },
             navigateToQuestRecording = { questId -> navigator.navigateToQuestRecording(questId) },
             navigateToQuestBehavior = { questId -> navigator.navigateToQuestBehavior(questId) },
+            navigateToQuestReview = { questId, questType ->
+                navigator.navigateToQuestReview(
+                    questId,
+                    questType
+                )
+            },
             navigateToQuestRecordingComplete = { questId ->
                 navigator.navigateToQuestRecordingComplete(
                     questId,
@@ -102,8 +108,7 @@ fun MainNavHost(
                     clearStackNavOptions
                 )
             },
-            bottomPadding = bottomPadding,
-            sharedViewModel = sharedViewModel
+            bottomPadding = bottomPadding
         )
         myPageGraph()
     }

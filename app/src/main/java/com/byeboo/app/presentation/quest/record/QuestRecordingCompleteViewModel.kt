@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -23,6 +24,12 @@ class QuestRecordingCompleteViewModel @Inject constructor() : ViewModel() {
     fun onCloseClick() {
         viewModelScope.launch {
             _sideEffect.emit(QuestRecordingCompleteSideEffect.NavigateToQuest)
+        }
+    }
+
+    fun setQuestId(questId: Long) {
+        _state.update {
+            it.copy(questId = questId)
         }
     }
 }

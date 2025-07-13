@@ -10,4 +10,5 @@ data class QuestStartState(
 
 sealed interface QuestStartSideEffect {
     data object NavigateToQuest : QuestStartSideEffect
+    data object NavigateToHome : QuestStartSideEffect
 }

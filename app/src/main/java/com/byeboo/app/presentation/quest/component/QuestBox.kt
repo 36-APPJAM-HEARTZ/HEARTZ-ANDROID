@@ -8,10 +8,10 @@ import com.byeboo.app.presentation.quest.QuestState
 
 @Composable
 fun QuestBox(
-    questId: Int,
-    questNumber: Int,
+    questId: Long,
+    questNumber: Long,
     state: QuestState,
-    onQuestClick: (Int) -> Unit = {},
+    onQuestClick: (Long) -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     val isClickable = state is QuestState.Available || state is QuestState.Complete

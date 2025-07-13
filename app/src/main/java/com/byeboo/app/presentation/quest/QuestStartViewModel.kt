@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class QuestStartViewModel @Inject constructor(
     private val questStateRepository: QuestStateRepository
-
 ) : ViewModel() {
     private val _state = MutableStateFlow(QuestStartState())
     val state: StateFlow<QuestStartState> = _state.asStateFlow()
@@ -25,9 +24,13 @@ class QuestStartViewModel @Inject constructor(
 
     fun onStartClick() {
         viewModelScope.launch {
-            questStateRepository.updateQuestState()
-            questStateRepository.setQuestStarted(true)
             _sideEffect.emit(QuestStartSideEffect.NavigateToQuest)
+        }
+    }
+
+    fun onBackClick() {
+        viewModelScope.launch {
+            _sideEffect.emit(QuestStartSideEffect.NavigateToHome)
         }
     }
 }
