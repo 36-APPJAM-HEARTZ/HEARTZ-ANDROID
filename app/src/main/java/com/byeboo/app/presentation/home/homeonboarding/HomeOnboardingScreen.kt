@@ -77,9 +77,8 @@ fun HomeOnboardingScreen(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(ByeBooTheme.colors.black.copy(alpha = 0.8f))
+                .background(ByeBooTheme.colors.blackAlpha80)
         )
-
         Column(
             modifier = modifier
                 .fillMaxSize()

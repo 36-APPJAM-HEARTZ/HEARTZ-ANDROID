@@ -11,5 +11,9 @@ interface UserLocalDataSource {
     suspend fun saveNickname(nickname: String)
     suspend fun setLoggedIn(loggedIn: Boolean)
     suspend fun isLoggedIn(): Boolean
+    suspend fun setQuestStarted(started: Boolean)
+    suspend fun isQuestStarted(): Boolean
+    suspend fun saveJourney(journey: String)
+    suspend fun getJourney(): String?
     suspend fun clear()
 }

@@ -10,6 +10,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.byeboo.app.core.model.QuestType
+import com.byeboo.app.presentation.auth.navigation.Onboarding
 import com.byeboo.app.presentation.auth.navigation.navigateToLoading
 import com.byeboo.app.presentation.auth.navigation.navigateToOnboarding
 import com.byeboo.app.presentation.auth.navigation.navigateToUserInfo
@@ -35,7 +36,7 @@ class MainNavigator(
             navController
                 .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Home
+    val startDestination = Onboarding
 
 
     val currentTab: MainNavTab?
@@ -57,7 +58,7 @@ class MainNavigator(
                 restoreState = true
             }
         when (tab) {
-            MainNavTab.QUEST -> navController.navigateToQuestStart(navOptions)
+            MainNavTab.QUEST -> navController.navigateToQuest(navOptions)
             MainNavTab.HOME -> navController.navigateToHome(navOptions)
             MainNavTab.MYPAGE -> navController.navigateToMyPage(navOptions)
         }
@@ -95,6 +96,10 @@ class MainNavigator(
 
     fun navigateUp() {
         navController.navigateUp()
+    }
+
+    fun navigateToQuestStart(navOptions: NavOptions) {
+        navController.navigateToQuestStart(navOptions)
     }
 
     fun navigateToQuest(navOptions: NavOptions) {

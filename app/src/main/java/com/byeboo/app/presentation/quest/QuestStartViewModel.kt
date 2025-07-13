@@ -2,6 +2,7 @@ package com.byeboo.app.presentation.quest
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.byeboo.app.domain.repository.QuestStateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -12,7 +13,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class QuestStartViewModel @Inject constructor() : ViewModel() {
+class QuestStartViewModel @Inject constructor(
+    private val questStateRepository: QuestStateRepository
+) : ViewModel() {
     private val _state = MutableStateFlow(QuestStartState())
     val state: StateFlow<QuestStartState> = _state.asStateFlow()
 
@@ -21,6 +24,8 @@ class QuestStartViewModel @Inject constructor() : ViewModel() {
 
     fun onStartClick() {
         viewModelScope.launch {
+            questStateRepository.updateQuestState()
+            questStateRepository.setQuestStarted(true)
             _sideEffect.emit(QuestStartSideEffect.NavigateToQuest)
         }
     }

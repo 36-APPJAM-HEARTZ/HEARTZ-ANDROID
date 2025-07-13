@@ -17,6 +17,6 @@ enum class AmuletType(val journeyName: String, val imageRes: Int) {
             entries.find { it.journeyName == journeyName } ?: EMOTION_FACE
     }
 }
-sealed interface JourneyResultSideEffect {
-    data object NavigateToHomeOnboarding : JourneyResultSideEffect
+sealed interface HomeAmuletSideEffect {
+    data object NavigateToHomeOnboarding : HomeAmuletSideEffect
 }
