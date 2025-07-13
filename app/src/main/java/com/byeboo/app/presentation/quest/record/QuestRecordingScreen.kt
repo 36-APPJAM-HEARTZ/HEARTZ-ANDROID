@@ -89,13 +89,14 @@ fun QuestRecordingScreen(
         )
     }
 
-    BackHandler { viewModel.onBackClicked() }
+    BackHandler { viewModel.onBackClicke() }
 
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
             .addFocusCleaner(focusManager)
+            .padding(horizontal = 24.dp)
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
@@ -103,13 +104,12 @@ fun QuestRecordingScreen(
             tint = ByeBooTheme.colors.white,
             modifier = Modifier
                 .padding(top = 67.dp)
-                .clickable { viewModel.onBackClicked() }
+                .clickable { viewModel.onBackClicke() }
         )
 
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp)
         ) {
             item {
                 Spacer(modifier = Modifier.height(10.dp))
