@@ -110,7 +110,7 @@ fun QuestBehaviorCompleteScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .aspectRatio(1f)
+                        .aspectRatio(360 / 312f)
                         .clip(RoundedCornerShape(12.dp))
                 ) {
                     selectedImageUri?.let { uri ->
