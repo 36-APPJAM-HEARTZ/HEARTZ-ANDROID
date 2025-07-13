@@ -30,25 +30,29 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.text.ContentText
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.component.QuestCompleteCard
 import com.byeboo.app.presentation.quest.component.QuestCompleteTitle
 import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
 
 @Composable
 fun QuestBehaviorCompleteScreen(
+    questId: Int,
     navigateToQuest: () -> Unit,
-    viewModel: QuestBehaviorViewModel = hiltViewModel(),
-    sharedViewModel: QuestViewModel
+    viewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
 
-    val selectedImageUri by viewModel.selectedImageUri.collectAsState()
+    val selectedImageUri by viewModel.selectedImageUri.collectAsStateWithLifecycle()
+
+    LaunchedEffect(questId) {
+        viewModel.setQuestId(questId)
+    }
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->

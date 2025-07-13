@@ -35,12 +35,15 @@ class QuestBehaviorViewModel @Inject constructor(
     private val _selectedImageUri = MutableStateFlow<Uri?>(null)
     val selectedImageUri: StateFlow<Uri?> = _selectedImageUri
 
-    private val _selectedQuest = MutableStateFlow<Quest?>(null)
-    val selectedQuest: StateFlow<Quest?> = _selectedQuest.asStateFlow()
-
     private val _showQuitModal = MutableStateFlow(false)
     val showQuitModal: StateFlow<Boolean>
         get() = _showQuitModal.asStateFlow()
+
+    fun setQuestId(questId: Int) {
+        _state.update {
+            it.copy(questId = questId)
+        }
+    }
 
     fun updateSelectedImage(uri: Uri?) {
         _selectedImageUri.value = uri
@@ -70,10 +73,10 @@ class QuestBehaviorViewModel @Inject constructor(
     }
 
     fun onCompleteClick() {
-        val quest = _selectedQuest.value ?: return
+        val questId = state.value.questId
 
         viewModelScope.launch {
-            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(quest.questId))
+            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
         }
     }
 
@@ -84,10 +87,10 @@ class QuestBehaviorViewModel @Inject constructor(
     }
 
     fun onTipClick() {
-        val quest = _selectedQuest.value ?: return
+        val questId = state.value.questId
 
         viewModelScope.launch {
-            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestTip(quest.questId))
+            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestTip(questId))
         }
     }
 

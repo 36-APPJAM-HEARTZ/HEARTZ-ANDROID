@@ -33,7 +33,6 @@ import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.behavior.component.QuestPhotoPicker
 import com.byeboo.app.presentation.quest.component.QuestQuitModal
 import com.byeboo.app.presentation.quest.component.QuestTextField
@@ -43,20 +42,22 @@ import kotlinx.coroutines.flow.collectLatest
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuestBehaviorWritingScreen(
+    questId: Int,
     navigateToQuest: () -> Unit,
     navigateToQuestTip: (Int) -> Unit,
     navigateToQuestBehaviorComplete: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: QuestBehaviorViewModel = hiltViewModel(),
-    sharedViewModel: QuestViewModel,
+    viewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.state.collectAsState()
-    val showBottomSheet by viewModel.showBottomSheet.collectAsState()
-    val isEmotionSelected by viewModel.isEmotionSelected.collectAsState()
-    val selectedImageUrl by viewModel.selectedImageUri.collectAsState()
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val showBottomSheet by viewModel.showBottomSheet.collectAsStateWithLifecycle()
+    val isEmotionSelected by viewModel.isEmotionSelected.collectAsStateWithLifecycle()
+    val selectedImageUrl by viewModel.selectedImageUri.collectAsStateWithLifecycle()
     val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
-    val selectedQuest by sharedViewModel.selectedQuest.collectAsStateWithLifecycle()
 
+    LaunchedEffect(questId) {
+        viewModel.setQuestId(questId)
+    }
 
     if (showQuitModal) {
         QuestQuitModal(

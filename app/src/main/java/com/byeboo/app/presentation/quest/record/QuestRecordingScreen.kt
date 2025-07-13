@@ -55,8 +55,8 @@ fun QuestRecordingScreen(
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
     val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
-    val showBottomSheet by viewModel.showBottomSheet.collectAsState()
-    val isEmotionSelected by viewModel.isEmotionSelected.collectAsState()
+    val showBottomSheet by viewModel.showBottomSheet.collectAsStateWithLifecycle()
+    val isEmotionSelected by viewModel.isEmotionSelected.collectAsStateWithLifecycle()
     val scrollState = rememberScrollState()
     val focusManager = LocalFocusManager.current
 
