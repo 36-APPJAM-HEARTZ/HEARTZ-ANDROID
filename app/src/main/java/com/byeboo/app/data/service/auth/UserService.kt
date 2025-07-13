@@ -6,7 +6,6 @@ import com.byeboo.app.data.dto.response.UserInfoResponseDto
 import com.byeboo.app.data.dto.response.UserJourneyResponseDto
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface UserService {
@@ -16,7 +15,5 @@ interface UserService {
     ): BaseResponse<UserInfoResponseDto>
 
     @GET("/api/v1/users/journey")
-    suspend fun getJourney(
-        @Header("userId") userId: Long
-    ): BaseResponse<UserJourneyResponseDto>
+    suspend fun getJourney(): BaseResponse<UserJourneyResponseDto>
 }
