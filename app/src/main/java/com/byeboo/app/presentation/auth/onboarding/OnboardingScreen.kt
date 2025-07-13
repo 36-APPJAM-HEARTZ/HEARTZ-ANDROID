@@ -53,16 +53,12 @@ fun OnboardingScreen(
             modifier = Modifier.fillMaxSize()
         )
         Column(
+            modifier = Modifier.padding(top = padding + 27.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
-                modifier = Modifier.padding(
-                    start = 24.dp,
-                    end = 24.dp,
-                    top = padding,
-                    bottom = 16.dp
-                ), verticalAlignment = Alignment.CenterVertically
-
+                modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = viewModel.showPageNumber(),
@@ -93,6 +89,8 @@ fun OnboardingScreen(
                     )
                 }
             }
+
+            Spacer(modifier = Modifier.weight(1f))
 
             Column(
                 modifier = Modifier
@@ -127,11 +125,7 @@ fun OnboardingScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             ByeBooButton(
-                modifier = Modifier.padding(
-                    start = 24.dp,
-                    end = 24.dp,
-                    bottom = padding
-                ),
+                modifier = Modifier.padding(horizontal = 24.dp),
                 buttonText = buttonText,
                 onClick = {
                     if (pageIndex == 2) {
@@ -142,8 +136,9 @@ fun OnboardingScreen(
                 },
                 buttonTextColor = ByeBooTheme.colors.white,
                 buttonBackgroundColor = ByeBooTheme.colors.primary300
-
             )
+
+            Spacer(modifier = Modifier.height(8.dp + padding))
         }
     }
 }
