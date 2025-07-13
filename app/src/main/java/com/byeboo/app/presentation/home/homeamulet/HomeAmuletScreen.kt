@@ -1,6 +1,7 @@
 package com.byeboo.app.presentation.home.homeamulet
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -55,6 +56,10 @@ fun HomeAmuletScreen(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(ByeBooTheme.colors.blackAlpha50))
 
         Column(
             modifier = Modifier
