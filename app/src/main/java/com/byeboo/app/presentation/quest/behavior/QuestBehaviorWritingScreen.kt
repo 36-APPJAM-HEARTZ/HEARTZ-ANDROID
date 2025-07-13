@@ -45,7 +45,7 @@ import kotlinx.coroutines.flow.collectLatest
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QuestBehaviorWritingScreen(
-    questId: Long,
+    questId: Long = 1,
     navigateToQuest: () -> Unit,
     navigateToQuestTip: (Long) -> Unit,
     navigateToQuestBehaviorComplete: (Long) -> Unit,
@@ -74,6 +74,7 @@ fun QuestBehaviorWritingScreen(
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
+        viewModel.getQuestDetailInfo(questId)
     }
 
     LaunchedEffect(Unit) {
@@ -82,7 +83,7 @@ fun QuestBehaviorWritingScreen(
                 is QuestBehaviorSideEffect.NavigateToQuest -> navigateToQuest()
                 is QuestBehaviorSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId)
                 is QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete -> navigateToQuestBehaviorComplete(
-                    it.questID
+                    it.questId
                 )
             }
         }

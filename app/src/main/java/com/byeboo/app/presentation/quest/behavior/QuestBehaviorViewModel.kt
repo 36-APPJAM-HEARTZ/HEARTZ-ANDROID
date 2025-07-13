@@ -3,6 +3,7 @@ package com.byeboo.app.presentation.quest.behavior
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import coil.util.CoilUtils.result
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.domain.model.QuestContentLengthValidator
 import com.byeboo.app.domain.model.QuestDetailModel
@@ -45,46 +46,28 @@ class QuestBehaviorViewModel @Inject constructor(
     val showQuitModal: StateFlow<Boolean>
         get() = _showQuitModal.asStateFlow()
 
-//    fun getQuestDetailInfo(questId: Long) {
-//        viewModelScope.launch {
-//
-//            val result = questDetailBehaviorRepository.getQuestBehaviorDetail(questId)
-//
-//            if (result.isSuccess) {
-//                _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuest)
-//            }
-//
-//            val questDetail = QuestDetailModel(
-//                step = _state.value.stepMissionTitle,
-//                stepNumber = _state.value.stepNumber,
-//                questNumber = _state.value.questNumber,
-//                questStyle = QuestStyle.ACTIVE,
-//                question = _state.value.questTitle
-//            )
-//        }
-//    }
 
 
-
-    private fun calculateStepNumber(questNumber: Int): Int {
-        return ((questNumber - 1) / 6) + 1
-    }
-
-    private fun calculateStepTitle(questNumber: Int): String {
-        val stepTitles = listOf(
-            "감정 쓸어내기",
-            "상황 정리하기",
-            "내 역할 돌아보기",
-            "새로운 관점 찾기",
-            "앞으로 나아가기"
-        )
-        val stepIndex = ((questNumber - 1) / 6).coerceIn(0, stepTitles.size - 1)
-        return stepTitles[stepIndex]
-    }
 
     fun setQuestId(questId: Long) {
         _state.update {
             it.copy(questId = questId)
+        }
+    }
+
+    fun getQuestDetailInfo(questId: Long) {
+        viewModelScope.launch {
+            val result = questDetailBehaviorRepository.getQuestBehaviorDetail(questId)
+            result.onSuccess { detail ->
+                _state.update {
+                    it.copy(
+                        stepMissionTitle = detail.step,
+                        stepNumber = detail.stepNumber,
+                        questNumber = detail.questNumber,
+                        questTitle = detail.question
+                    )
+                }
+            }
         }
     }
 
