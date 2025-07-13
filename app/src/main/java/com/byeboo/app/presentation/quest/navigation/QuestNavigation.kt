@@ -36,6 +36,7 @@ fun NavController.navigateToQuestReview(
 }
 
 fun NavGraphBuilder.questGraph(
+    navController: NavController,
     navigateToQuest: () -> Unit,
     navigateToHome: () -> Unit,
     navigateToQuestRecording: (Long) -> Unit,
@@ -72,7 +73,8 @@ fun NavGraphBuilder.questGraph(
 
             QuestTipScreen(
                 questId = questId,
-                navigateBack = navigateToQuestRecording
+                navigateToBack = { navController.popBackStack() },
+                bottomPadding = bottomPadding
             )
         }
 
@@ -90,13 +92,15 @@ fun NavGraphBuilder.questGraph(
         questRecordGraph(
             navigateToQuest = navigateToQuest,
             navigateToQuestTip = navigateToQuestTip,
-            navigateToQuestRecordingComplete = navigateToQuestRecordingComplete
+            navigateToQuestRecordingComplete = navigateToQuestRecordingComplete,
+            bottomPadding = bottomPadding
         )
 
         questBehaviorGraph(
             navigateToQuest = navigateToQuest,
             navigateToQuestTip = navigateToQuestTip,
-            navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete
+            navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete,
+            bottomPadding = bottomPadding
         )
     }
 }

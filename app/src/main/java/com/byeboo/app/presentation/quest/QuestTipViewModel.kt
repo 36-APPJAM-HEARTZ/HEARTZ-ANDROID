@@ -24,7 +24,7 @@ class QuestTipViewModel @Inject constructor() : ViewModel() {
 
     fun onCloseClick() {
         viewModelScope.launch {
-            _sideEffect.emit(QuestTipSideEffect.NavigateBack)
+            _sideEffect.emit(QuestTipSideEffect.NavigateToBack)
         }
     }
 
