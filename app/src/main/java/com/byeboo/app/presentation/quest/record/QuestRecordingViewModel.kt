@@ -50,7 +50,7 @@ class QuestRecordingViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun onBackClicke() {
+    fun onBackClick() {
         _showQuitModal.value = true
     }
 

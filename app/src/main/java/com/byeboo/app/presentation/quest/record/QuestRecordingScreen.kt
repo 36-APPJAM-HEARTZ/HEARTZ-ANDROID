@@ -89,7 +89,7 @@ fun QuestRecordingScreen(
         )
     }
 
-    BackHandler { viewModel.onBackClicke() }
+    BackHandler { viewModel.onBackClick() }
 
     Column(
         modifier = modifier
@@ -104,7 +104,7 @@ fun QuestRecordingScreen(
             tint = ByeBooTheme.colors.white,
             modifier = Modifier
                 .padding(top = 67.dp)
-                .clickable { viewModel.onBackClicke() }
+                .clickable { viewModel.onBackClick() }
         )
 
         LazyColumn(
