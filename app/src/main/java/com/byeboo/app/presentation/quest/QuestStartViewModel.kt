@@ -24,6 +24,8 @@ class QuestStartViewModel @Inject constructor(
 
     fun onStartClick() {
         viewModelScope.launch {
+            questStateRepository.updateQuestState()
+            questStateRepository.setQuestStarted(true)
             _sideEffect.emit(QuestStartSideEffect.NavigateToQuest)
         }
     }
