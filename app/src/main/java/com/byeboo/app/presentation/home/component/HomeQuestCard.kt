@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.noRippleClickable
 
 @Composable
 fun HomeQuestCard(
@@ -37,6 +38,7 @@ fun HomeQuestCard(
             .fillMaxWidth()
             .background(backgroundColor, shape)
             .border(1.dp, ByeBooTheme.colors.primary300, shape)
+            .noRippleClickable { onClick() }
             .padding(horizontal = 24.dp, vertical = 16.dp)
     ) {
         Row(
