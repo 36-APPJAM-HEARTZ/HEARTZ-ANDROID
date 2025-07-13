@@ -2,6 +2,7 @@ package com.byeboo.app.presentation.quest.record
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,7 +30,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
-import com.byeboo.app.core.designsystem.component.topbar.ByeBooTopBar
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.presentation.quest.component.QuestCompleteCard
@@ -66,16 +66,25 @@ fun QuestRecordingCompleteScreen(
         modifier = modifier
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
+            .padding(horizontal = 24.dp),
     ) {
-        ByeBooTopBar(
-            modifier = Modifier.background(color = ByeBooTheme.colors.black),
-            onCloseClick = viewModel::onCloseClick
+        Spacer(modifier = Modifier.height(67.dp))
+
+        Icon(
+            imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
+            contentDescription = "back button",
+            tint = ByeBooTheme.colors.white,
+            modifier = Modifier
+                .clickable { viewModel.onCloseClick() }
+                .align(alignment = Alignment.End)
+
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp)
         ) {
             item {
                 Spacer(modifier = Modifier.height(8.dp))
