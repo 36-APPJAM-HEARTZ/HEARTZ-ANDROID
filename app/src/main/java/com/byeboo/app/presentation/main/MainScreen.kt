@@ -4,7 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.navOptions
@@ -20,6 +24,8 @@ fun MainScreen(
     viewModel: MainViewModel = hiltViewModel()
 ) {
     val scope = rememberCoroutineScope()
+    var isNavigating by remember { mutableStateOf(false) }
+
     Scaffold(
         bottomBar = {
             MainBottomBar(
@@ -27,24 +33,33 @@ fun MainScreen(
                 tabs = MainNavTab.entries.toImmutableList(),
                 currentTab = navigator.currentTab,
                 onTabSelected = { selectedTab ->
+                    if (isNavigating) return@MainBottomBar
+
                     scope.launch {
-                        val navOptions = navOptions {
-                            popUpTo(Home) {
-                                saveState = true
-                                inclusive = false
+                        isNavigating = true
+
+                        try {
+                            val navOptions = navOptions {
+                                popUpTo(Home) {
+                                    saveState = true
+                                    inclusive = false
+                                }
+                                launchSingleTop = true
+                                restoreState = true
                             }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                        if (selectedTab == MainNavTab.QUEST) {
-                            val isStarted = viewModel.isQuestStarted()
-                            if (isStarted) {
-                                navigator.navigateToQuest(navOptions)
+
+                            if (selectedTab == MainNavTab.QUEST) {
+                                val isStarted = viewModel.isQuestStarted()
+                                if (isStarted) {
+                                    navigator.navigateToQuest(navOptions)
+                                } else {
+                                    navigator.navigateToQuestStart(navOptions)
+                                }
                             } else {
-                                navigator.navigateToQuestStart(navOptions)
+                                navigator.navigate(selectedTab)
                             }
-                        } else {
-                            navigator.navigate(selectedTab)
+                        } finally {
+                            isNavigating = false
                         }
                     }
                 }
