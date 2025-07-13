@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -68,6 +69,8 @@ fun QuestTipScreen(
             }
         }
     }
+
+    BackHandler { viewModel.onCloseClick() }
 
     Column(
         modifier = modifier
