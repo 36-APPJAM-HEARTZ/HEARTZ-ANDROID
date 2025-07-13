@@ -1,6 +1,5 @@
 package com.byeboo.app.presentation.quest
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.model.QuestType

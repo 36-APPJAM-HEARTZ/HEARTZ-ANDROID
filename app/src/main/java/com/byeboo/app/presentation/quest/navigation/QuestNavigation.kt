@@ -12,7 +12,6 @@ import com.byeboo.app.presentation.quest.QuestStartScreen
 import com.byeboo.app.presentation.quest.QuestTipScreen
 import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.behavior.navigation.questBehaviorGraph
-import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecordingComplete
 import com.byeboo.app.presentation.quest.record.navigation.questRecordGraph
 
 fun NavController.navigateToQuestStart(navOptions: NavOptions? = null) {
@@ -28,7 +27,6 @@ fun NavController.navigateToQuestTip(questId: Int, navOptions: NavOptions? = nul
 }
 
 fun NavGraphBuilder.questGraph(
-    navController: NavController,
     questStartBackButton: () -> Unit,
     navigateToQuest: () -> Unit,
     navigateToQuestRecording: (Int) -> Unit,
@@ -36,8 +34,7 @@ fun NavGraphBuilder.questGraph(
     navigateToQuestRecordingComplete: (Int) -> Unit,
     navigateToQuestTip: (Int) -> Unit,
     navigateToQuestBehaviorComplete: (Int) -> Unit,
-    bottomPadding: Dp,
-    sharedViewModel: QuestViewModel,
+    bottomPadding: Dp
 ) {
     routeNavigation<Quest, QuestStart> {
         composable<QuestStart> {
@@ -73,11 +70,9 @@ fun NavGraphBuilder.questGraph(
         )
 
         questBehaviorGraph(
-            sharedViewModel = sharedViewModel,
             navigateToQuest = navigateToQuest,
             navigateToQuestTip = navigateToQuestTip,
             navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete,
         )
-
     }
 }
