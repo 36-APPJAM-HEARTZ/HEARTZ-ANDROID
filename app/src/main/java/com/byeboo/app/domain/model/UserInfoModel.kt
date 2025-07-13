@@ -21,3 +21,11 @@ enum class QuestStyle(val displayText: String) {
     RECORDING("질문에 답하기"),
     ACTIVE("활동 인증하기")
 }
+
+fun QuestStyle.toJourneyText(): String {
+    return when (this) {
+        QuestStyle.RECORDING -> "감정 직면"
+        QuestStyle.ACTIVE -> "감정 정리"
+    }
+}
+
