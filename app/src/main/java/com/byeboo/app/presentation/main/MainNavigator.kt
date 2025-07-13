@@ -9,10 +9,10 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
-import com.byeboo.app.presentation.auth.navigation.Onboarding
 import com.byeboo.app.presentation.auth.navigation.navigateToLoading
 import com.byeboo.app.presentation.auth.navigation.navigateToOnboarding
 import com.byeboo.app.presentation.auth.navigation.navigateToUserInfo
+import com.byeboo.app.presentation.home.navigation.Home
 import com.byeboo.app.presentation.home.navigation.navigateToHome
 import com.byeboo.app.presentation.home.navigation.navigateToHomeAmulet
 import com.byeboo.app.presentation.home.navigation.navigateToHomeOnboarding
@@ -33,7 +33,7 @@ class MainNavigator(
             navController
                 .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Onboarding
+    val startDestination = Home
 
     val currentTab: MainNavTab?
         @Composable get() =
@@ -73,6 +73,7 @@ class MainNavigator(
     fun navigateToHome(navOptions: NavOptions) {
         navController.navigateToHome(navOptions)
     }
+
 
     fun navigateToMyPage(navOptions: NavOptions? = null) {
         navController.navigateToMyPage(navOptions)

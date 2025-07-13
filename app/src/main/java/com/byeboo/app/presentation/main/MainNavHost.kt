@@ -9,6 +9,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navOptions
 import com.byeboo.app.presentation.auth.navigation.authGraph
+import com.byeboo.app.presentation.home.navigation.Home
 import com.byeboo.app.presentation.home.navigation.homeGraph
 import com.byeboo.app.presentation.mypage.navigation.myPageGraph
 import com.byeboo.app.presentation.quest.QuestViewModel
@@ -24,7 +25,17 @@ fun MainNavHost(
     val clearStackNavOptions = navOptions {
         popUpTo(0) { inclusive = true }
         launchSingleTop = true
+        restoreState = true
     }
+    val questNavOptions = navOptions {
+        popUpTo(Home) {
+            saveState = true
+            inclusive = false
+        }
+        launchSingleTop = true
+        restoreState = true
+    }
+
     val sharedViewModel: QuestViewModel = hiltViewModel()
 
     NavHost(
@@ -65,10 +76,10 @@ fun MainNavHost(
                 navigator.navigateToHomeOnboarding(clearStackNavOptions)
             },
             navigateToQuest = {
-                navigator.navigateToQuest(clearStackNavOptions)
+                navigator.navigateToQuest(questNavOptions)
             },
             navigateToQuestStart = {
-                navigator.navigateToQuestStart(clearStackNavOptions)
+                navigator.navigateToQuestStart(questNavOptions)
             }
 
         )
