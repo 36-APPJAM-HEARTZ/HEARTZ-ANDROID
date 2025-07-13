@@ -107,7 +107,7 @@ fun QuestBehaviorCompleteScreen(
                 modifier = Modifier.padding(vertical = 24.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Box(
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
                         .aspectRatio(1f)
