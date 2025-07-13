@@ -27,12 +27,16 @@ import com.byeboo.app.presentation.home.component.HomeTextCard
 
 @Composable
 fun HomeScreen(
+    navigateToQuest: () -> Unit,
+    navigateToQuestStart: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val nickname by viewModel.nickname.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bori_home))
     val displayName = nickname ?: "하츠핑"
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -46,6 +50,7 @@ fun HomeScreen(
             renderMode = RenderMode.AUTOMATIC,
             enableMergePaths = true
         )
+
         if (composition != null) {
             Column(
                 modifier = modifier
@@ -53,21 +58,30 @@ fun HomeScreen(
                     .padding(horizontal = 24.dp)
                     .padding(top = 67.dp)
             ) {
-                HomeQuestCard(
-                    title = "오늘의 퀘스트 하러가기",
-                    subtitle = "퀘스트를 하고나면 한층 더 성장할 거에요."
-                )
-                Spacer(modifier = Modifier.height(16.dp))
+                if (uiState.isQuestStarted == true) {
+                    HomeQuestCard(
+                        title = "오늘의 퀘스트 하러가기",
+                        subtitle = "퀘스트를 하고나면 한층 더 성장할 거에요.",
+                        onClick = { navigateToQuest() }
+                    )
+                    Spacer(modifier = Modifier.height(16.dp))
+                    HomeProgressCard(
+                        title = "${displayName}님의 자기 성찰 여정",
+                        currentStep = uiState.currentStep,
+                        totalSteps = uiState.totalSteps
+                    )
+                } else {
+                    HomeQuestCard(
+                        title = "${uiState.journey} 여정 시작하기",
+                        subtitle = "제가 옆에서 함께할게요!",
+                        onClick = { navigateToQuestStart() }
+                    )
+                }
 
-                HomeProgressCard(
-                    title = displayName + "님의 자기 성찰 여정",
-                    currentStep = 15,
-                    totalSteps = 30
-                )
                 Spacer(modifier = Modifier.height(16.dp))
 
                 HomeTextCard(
-                    title = "천천히, 하지만 분명하게. 오늘도 나아가 봐요."
+                    title = uiState.dialogue
                 )
             }
         }

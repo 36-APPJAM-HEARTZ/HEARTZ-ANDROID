@@ -27,10 +27,15 @@ fun NavController.navigateToHomeAmulet(navOptions: NavOptions? = null) {
 fun NavGraphBuilder.homeGraph(
     navigateToHome: () -> Unit,
     navigateToHomeOnboarding: () -> Unit,
+    navigateToQuest: () -> Unit,
+    navigateToQuestStart: () -> Unit,
     bottomPadding: Dp
 ) {
     composable<Home> {
-        HomeScreen()
+        HomeScreen(
+            navigateToQuest = navigateToQuest,
+            navigateToQuestStart = navigateToQuestStart
+        )
     }
     composable<HomeOnboarding> {
         HomeOnboardingScreen(
