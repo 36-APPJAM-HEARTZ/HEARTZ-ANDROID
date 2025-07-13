@@ -64,6 +64,12 @@ fun MainNavHost(
             navigateToHomeOnboarding = {
                 navigator.navigateToHomeOnboarding(clearStackNavOptions)
             },
+            navigateToQuest = {
+                navigator.navigateToQuest(clearStackNavOptions)
+            },
+            navigateToQuestStart = {
+                navigator.navigateToQuestStart(clearStackNavOptions)
+            }
 
         )
         questGraph(
