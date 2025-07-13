@@ -3,8 +3,12 @@ package com.byeboo.app.presentation.quest.behavior
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import coil.util.CoilUtils.result
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.domain.model.QuestContentLengthValidator
+import com.byeboo.app.domain.model.QuestDetailModel
+import com.byeboo.app.domain.model.QuestStyle
+import com.byeboo.app.domain.repository.quest.QuestDetailBehaviorRepository
 import com.byeboo.app.presentation.quest.model.Quest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -18,7 +22,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuestBehaviorViewModel @Inject constructor(
-//    val questBehaviorRepository: QuestBehaviorRepository
+    val questDetailBehaviorRepository: QuestDetailBehaviorRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(QuestBehaviorState())
     val state: StateFlow<QuestBehaviorState> = _state.asStateFlow()
@@ -41,6 +45,43 @@ class QuestBehaviorViewModel @Inject constructor(
     private val _showQuitModal = MutableStateFlow(false)
     val showQuitModal: StateFlow<Boolean>
         get() = _showQuitModal.asStateFlow()
+
+//    fun getQuestDetailInfo(questId: Long) {
+//        viewModelScope.launch {
+//
+//            val result = questDetailBehaviorRepository.getQuestBehaviorDetail(questId)
+//
+//            if (result.isSuccess) {
+//                _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuest)
+//            }
+//
+//            val questDetail = QuestDetailModel(
+//                step = _state.value.stepMissionTitle,
+//                stepNumber = _state.value.stepNumber,
+//                questNumber = _state.value.questNumber,
+//                questStyle = QuestStyle.ACTIVE,
+//                question = _state.value.questTitle
+//            )
+//        }
+//    }
+
+
+
+    private fun calculateStepNumber(questNumber: Int): Int {
+        return ((questNumber - 1) / 6) + 1
+    }
+
+    private fun calculateStepTitle(questNumber: Int): String {
+        val stepTitles = listOf(
+            "감정 쓸어내기",
+            "상황 정리하기",
+            "내 역할 돌아보기",
+            "새로운 관점 찾기",
+            "앞으로 나아가기"
+        )
+        val stepIndex = ((questNumber - 1) / 6).coerceIn(0, stepTitles.size - 1)
+        return stepTitles[stepIndex]
+    }
 
     fun updateSelectedImage(uri: Uri?) {
         _selectedImageUri.value = uri

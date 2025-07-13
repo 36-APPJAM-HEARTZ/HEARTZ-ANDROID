@@ -5,8 +5,8 @@ import com.byeboo.app.domain.model.QuestWritingState
 
 data class QuestBehaviorState(
     val stepNumber: Int = 1,
-    val stepMissionTitle: String? = null,
-    val questId: Int = 1,
+    val stepMissionTitle: String = "",
+    val questId: Long = 1,
     val questNumber: Int = 1,
     val questTitle: String = "",
     val imageCount: Int = 0,
