@@ -29,6 +29,7 @@ class UserLocalDataSourceImpl @Inject constructor(
             UserEntity()
         }
     }
+
     override suspend fun getUserId(): Long? {
         return runCatching {
             dataStore.data.first()[USERID]
@@ -65,6 +66,25 @@ class UserLocalDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun setQuestStarted(started: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[IS_QUEST_STARTED] = started
+        }
+    }
+
+    override suspend fun isQuestStarted(): Boolean {
+        return dataStore.data.first()[IS_QUEST_STARTED] ?: false
+    }
+
+    override suspend fun saveJourney(journey: String) {
+        dataStore.edit { it[JOURNEY] = journey }
+    }
+
+    override suspend fun getJourney(): String? {
+        return dataStore.data.first()[JOURNEY]
+    }
+
+
     override suspend fun clear() {
         runCatching {
             dataStore.edit { preferences ->
@@ -78,5 +98,7 @@ class UserLocalDataSourceImpl @Inject constructor(
         private val IS_LOGGED_IN = booleanPreferencesKey("IS_LOGGED_IN")
         private val NICKNAME = stringPreferencesKey("NICKNAME")
         private val USERID = longPreferencesKey("USERID")
+        private val IS_QUEST_STARTED = booleanPreferencesKey("IS_QUEST_STARTED")
+        private val JOURNEY = stringPreferencesKey("JOURNEY")
     }
 }

@@ -7,5 +7,5 @@ import com.byeboo.app.data.dto.response.UserJourneyResponseDto
 
 interface UserRemoteDataSource {
     suspend fun updateUserInfo(request: UserInfoRequestDto): BaseResponse<UserInfoResponseDto>
-    suspend fun getUserJourney(userId: Long): BaseResponse<UserJourneyResponseDto>
+    suspend fun getUserJourney(): BaseResponse<UserJourneyResponseDto>
 }
