@@ -3,7 +3,6 @@ package com.byeboo.app.presentation.quest.behavior
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import coil.util.CoilUtils.result
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.domain.model.QuestContentLengthValidator
 import com.byeboo.app.domain.model.QuestDetailModel
@@ -83,6 +82,12 @@ class QuestBehaviorViewModel @Inject constructor(
         return stepTitles[stepIndex]
     }
 
+    fun setQuestId(questId: Long) {
+        _state.update {
+            it.copy(questId = questId)
+        }
+    }
+
     fun updateSelectedImage(uri: Uri?) {
         _selectedImageUri.value = uri
         _state.update {
@@ -111,10 +116,10 @@ class QuestBehaviorViewModel @Inject constructor(
     }
 
     fun onCompleteClick() {
-        val quest = _selectedQuest.value ?: return
+        val questId = state.value.questId
 
         viewModelScope.launch {
-            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(quest.questId))
+            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
         }
     }
 
@@ -125,10 +130,10 @@ class QuestBehaviorViewModel @Inject constructor(
     }
 
     fun onTipClick() {
-        val quest = _selectedQuest.value ?: return
+        val questId = state.value.questId
 
         viewModelScope.launch {
-            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestTip(quest.questId))
+            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestTip(questId))
         }
     }
 

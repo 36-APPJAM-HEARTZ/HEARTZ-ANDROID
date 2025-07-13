@@ -1,13 +1,11 @@
 package com.byeboo.app.presentation.quest.record
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.domain.model.QuestContentLengthValidator
-import com.byeboo.app.presentation.quest.QuestViewModel
-import com.byeboo.app.presentation.quest.model.Quest
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -15,11 +13,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
-class QuestRecordingViewModel @Inject constructor(
-) : ViewModel() {
+class QuestRecordingViewModel @Inject constructor() : ViewModel() {
     private val _state = MutableStateFlow(QuestRecordingState())
     val state: StateFlow<QuestRecordingState>
         get() = _state.asStateFlow()
@@ -38,52 +34,23 @@ class QuestRecordingViewModel @Inject constructor(
     val showQuitModal: StateFlow<Boolean>
         get() = _showQuitModal.asStateFlow()
 
-    private val _questId = MutableStateFlow<Int?>(null)
-    val currentQuestId: Int?
-        get() = _questId.value
-
-    fun setQuestId(id: Int) {
-        _questId.value = id
-    }
-
-    fun updateQuestInfo(quest: Quest) {
+    fun setQuestId(questId: Long) {
         _state.update {
-            it.copy(
-                questNumber = quest.questNumber,
-                questQuestion = quest.questQuestion,
-                stepNumber = calculateStepNumber(quest.questNumber),
-                step = calculateStepTitle(quest.questNumber)
-            )
+            it.copy(questId = questId)
         }
     }
 
-    private fun calculateStepNumber(questNumber: Int): Int {
-        return ((questNumber - 1) / 6) + 1
-    }
-
-    private fun calculateStepTitle(questNumber: Int): String {
-        val stepTitles = listOf(
-            "감정 쓸어내기",
-            "상황 정리하기",
-            "내 역할 돌아보기",
-            "새로운 관점 찾기",
-            "앞으로 나아가기"
-        )
-        val stepIndex = ((questNumber - 1) / 6).coerceIn(0, stepTitles.size - 1)
-        return stepTitles[stepIndex]
-    }
-
-    fun updateContent(text: String) {
-        val contentState = QuestContentLengthValidator.validate(text)
+    fun updateContent(questAnswer: String) {
+        val contentState = QuestContentLengthValidator.validate(questAnswer)
         _state.update {
             it.copy(
-                contents = text,
+                questAnswer = questAnswer,
                 contentsState = contentState
             )
         }
     }
 
-    fun onBackClicked() {
+    fun onBackClick() {
         _showQuitModal.value = true
     }
 
@@ -92,7 +59,7 @@ class QuestRecordingViewModel @Inject constructor(
     }
 
     fun onCompleteClick() {
-        val questId = currentQuestId ?: return
+        val questId = state.value.questId
         viewModelScope.launch {
             _sideEffect.emit(QuestRecordingSideEffect.NavigateToQuestRecordingComplete(questId))
         }
@@ -105,11 +72,7 @@ class QuestRecordingViewModel @Inject constructor(
     }
 
     fun onTipClick() {
-        val questId = currentQuestId
-        if (questId == null) {
-            return
-        }
-
+        val questId = state.value.questId
         viewModelScope.launch {
             _sideEffect.emit(QuestRecordingSideEffect.NavigateToQuestTip(questId))
         }

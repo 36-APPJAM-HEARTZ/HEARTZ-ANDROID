@@ -17,8 +17,8 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 
 @Composable
 fun QuestTitle(
-    stepNumber: Int,
-    questNumber: Int,
+    stepNumber: Long,
+    questNumber: Long,
     createdAt: String,
     questQuestion: String
 

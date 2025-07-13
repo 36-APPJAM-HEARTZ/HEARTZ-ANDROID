@@ -1,7 +1,6 @@
 package com.byeboo.app.core.designsystem.component.tag
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,7 +23,7 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 fun MiddleTag(
     middleTagType: MiddleTagType,
     text: String,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val tagText = if (middleTagType.dynamicContent) {
         stringResource(middleTagType.titleResId, text)

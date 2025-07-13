@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.presentation.quest.model.Quest
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,8 +12,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import okhttp3.internal.immutableListOf
-import javax.inject.Inject
 
 @HiltViewModel
 class QuestTipViewModel @Inject constructor() : ViewModel() {
@@ -23,17 +22,17 @@ class QuestTipViewModel @Inject constructor() : ViewModel() {
     private val _sideEffect = MutableSharedFlow<QuestTipSideEffect>()
     val sideEffect: SharedFlow<QuestTipSideEffect> = _sideEffect
 
-    fun onCloseClick(){
+    fun onCloseClick() {
         viewModelScope.launch {
-            _sideEffect.emit(QuestTipSideEffect.NavigateBack)
+            _sideEffect.emit(QuestTipSideEffect.NavigateToBack)
         }
     }
 
-    fun loadQuestTip(quest: Quest){
+    fun loadQuestTip(quest: Quest) {
         viewModelScope.launch {
             _state.value = QuestTipState(
                 stepNumber = 1,
-                questNumber = quest.questId,
+                questNumber = quest.questNumber,
                 question = "이 퀘스트는 어떤 내용인가요?",
                 tipQuestion = persistentListOf(
                     "어떤 상황이었나요?",

@@ -82,7 +82,7 @@ fun QuestTextField(
                     .fillMaxWidth()
                     .height(240.dp)
                     .verticalScroll(scrollState)
-                    .onFocusChanged{ focusState.value = it.isFocused},
+                    .onFocusChanged { focusState.value = it.isFocused },
                 enabled = isEnabled,
                 textStyle = ByeBooTheme.typography.body3.copy(
                     color = ByeBooTheme.colors.white
