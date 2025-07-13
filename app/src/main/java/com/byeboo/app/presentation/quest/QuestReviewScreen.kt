@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -48,6 +49,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun QuestReviewScreen(
     questId: Long,
     navigateToQuest: () -> Unit,
+    bottomPadding: Dp,
     viewModel: QuestReviewViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -70,6 +72,7 @@ fun QuestReviewScreen(
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
             .padding(horizontal = 24.dp)
+            .padding(bottom = bottomPadding)
     ) {
         item {
             Row(
