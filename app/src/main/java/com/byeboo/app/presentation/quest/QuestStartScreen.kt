@@ -24,8 +24,8 @@ fun QuestStartScreen(
     navigateBack: () -> Unit,
     navigateQuest: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: QuestStartViewModel = hiltViewModel(),
-    ) {
+    viewModel: QuestStartViewModel = hiltViewModel()
+) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {

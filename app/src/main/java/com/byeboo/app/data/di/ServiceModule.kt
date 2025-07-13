@@ -2,7 +2,6 @@ package com.byeboo.app.data.di
 
 import com.byeboo.app.data.service.DummyService
 import com.byeboo.app.data.service.auth.UserService
-import com.kakao.sdk.user.model.User
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,5 +23,4 @@ object ServiceModule {
     fun providesUserService(retrofit: Retrofit): UserService = retrofit.create(
         UserService::class.java
     )
-
 }

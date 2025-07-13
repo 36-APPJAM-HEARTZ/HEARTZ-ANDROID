@@ -1,7 +1,6 @@
 package com.byeboo.app.presentation.mypage
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -42,7 +41,7 @@ fun MyPageScreen(
         modifier = modifier
             .fillMaxSize()
             .background(ByeBooTheme.colors.black),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         ByeBooTopBar(
             modifier = Modifier
@@ -55,7 +54,6 @@ fun MyPageScreen(
                 .fillMaxWidth()
                 .padding(24.dp)
         ) {
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -80,8 +78,7 @@ fun MyPageScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Row(
-            ) {
+            Row() {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_tip_write),
                     contentDescription = null,
@@ -105,7 +102,7 @@ fun MyPageScreen(
                 buttonText = "완료한 여정 돌아보기",
                 buttonTextColor = ByeBooTheme.colors.gray50,
                 buttonBackgroundColor = ByeBooTheme.colors.whiteAlpha10,
-                buttonStrokeColor = ByeBooTheme.colors.primary300,
+                buttonStrokeColor = ByeBooTheme.colors.primary300
             )
         }
     }

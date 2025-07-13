@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -11,7 +12,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class QuestReviewViewModel @Inject constructor() : ViewModel() {
@@ -32,7 +32,7 @@ class QuestReviewViewModel @Inject constructor() : ViewModel() {
         }
     }
 
-    fun onCloseClick(){
+    fun onCloseClick() {
         viewModelScope.launch {
             _sideEffect.emit(QuestReviewSideEffect.NavigateToQuest)
         }

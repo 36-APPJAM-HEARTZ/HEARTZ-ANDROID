@@ -14,6 +14,6 @@ data class QuestReviewState(
     val type: QuestType = QuestType.EMOTION_ORGANIZE
 )
 
-sealed interface QuestReviewSideEffect{
-    data object NavigateToQuest: QuestReviewSideEffect
+sealed interface QuestReviewSideEffect {
+    data object NavigateToQuest : QuestReviewSideEffect
 }

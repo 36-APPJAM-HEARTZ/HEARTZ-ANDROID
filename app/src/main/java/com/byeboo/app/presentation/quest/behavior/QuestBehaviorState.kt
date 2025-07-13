@@ -17,8 +17,8 @@ data class QuestBehaviorState(
     val selectedEmotion: LargeTagType = LargeTagType.EMOTION_NEUTRAL
 )
 
-sealed interface QuestBehaviorSideEffect{
-    data object NavigateToQuest: QuestBehaviorSideEffect
-    data class NavigateToQuestTip(val questId: Int): QuestBehaviorSideEffect
-    data class NavigateToQuestBehaviorComplete(val questID: Int): QuestBehaviorSideEffect
+sealed interface QuestBehaviorSideEffect {
+    data object NavigateToQuest : QuestBehaviorSideEffect
+    data class NavigateToQuestTip(val questId: Int) : QuestBehaviorSideEffect
+    data class NavigateToQuestBehaviorComplete(val questID: Int) : QuestBehaviorSideEffect
 }

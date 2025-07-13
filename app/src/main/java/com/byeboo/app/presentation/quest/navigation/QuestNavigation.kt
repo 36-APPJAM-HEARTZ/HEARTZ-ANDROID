@@ -27,7 +27,11 @@ fun NavController.navigateToQuestTip(questId: Int, navOptions: NavOptions? = nul
     navigate(QuestTip(questId), navOptions)
 }
 
-fun NavController.navigateToQuestReview(questId: Int, questType: QuestType, navOptions: NavOptions? = null){
+fun NavController.navigateToQuestReview(
+    questId: Int,
+    questType: QuestType,
+    navOptions: NavOptions? = null
+) {
     navigate(QuestReview(questId, questType), navOptions)
 }
 
@@ -76,19 +80,20 @@ fun NavGraphBuilder.questGraph(
 
             QuestReviewScreen(
                 questId = questId,
-                navigateToQuest = navigateToQuest)
+                navigateToQuest = navigateToQuest
+            )
         }
 
         questRecordGraph(
             navigateToQuest = navigateToQuest,
             navigateToQuestTip = navigateToQuestTip,
-            navigateToQuestRecordingComplete = navigateToQuestRecordingComplete,
+            navigateToQuestRecordingComplete = navigateToQuestRecordingComplete
         )
 
         questBehaviorGraph(
             navigateToQuest = navigateToQuest,
             navigateToQuestTip = navigateToQuestTip,
-            navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete,
+            navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete
         )
     }
 }

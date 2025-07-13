@@ -177,7 +177,7 @@ fun QuestReviewScreen(
 private fun QuestEmotionDescriptionContent(
     questEmotionDescription: String,
     emotionType: LargeTagType,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier.fillMaxWidth()
@@ -204,7 +204,7 @@ private fun QuestEmotionDescriptionContent(
 
         QuestEmotionDescriptionCard(
             questEmotionDescription = questEmotionDescription,
-            emotionType = emotionType,
+            emotionType = emotionType
         )
 
         Spacer(modifier = Modifier.height(24.dp))

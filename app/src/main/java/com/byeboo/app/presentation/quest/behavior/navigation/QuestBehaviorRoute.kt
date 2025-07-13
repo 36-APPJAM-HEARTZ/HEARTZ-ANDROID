@@ -9,5 +9,5 @@ sealed class QuestBehavior : Route {
     data class QuestBehaviorWriting(val questId: Int) : QuestBehavior()
 
     @Serializable
-    data class QuestBehaviorComplete(val questId: Int): QuestBehavior()
+    data class QuestBehaviorComplete(val questId: Int) : QuestBehavior()
 }

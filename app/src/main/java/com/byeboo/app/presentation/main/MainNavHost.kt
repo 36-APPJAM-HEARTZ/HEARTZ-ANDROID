@@ -5,13 +5,11 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navOptions
 import com.byeboo.app.presentation.auth.navigation.authGraph
 import com.byeboo.app.presentation.home.navigation.homeGraph
 import com.byeboo.app.presentation.mypage.navigation.myPageGraph
-import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.navigation.questGraph
 import com.byeboo.app.presentation.splash.navigation.splashGraph
 
@@ -62,7 +60,7 @@ fun MainNavHost(
             },
             navigateToHomeOnboarding = {
                 navigator.navigateToHomeOnboarding(clearStackNavOptions)
-            },
+            }
 
         )
         questGraph(
@@ -70,7 +68,12 @@ fun MainNavHost(
             navigateToQuest = { navigator.navigateToQuest(clearStackNavOptions) },
             navigateToQuestRecording = { questId -> navigator.navigateToQuestRecording(questId) },
             navigateToQuestBehavior = { questId -> navigator.navigateToQuestBehavior(questId) },
-            navigateToQuestReview = {questId, questType -> navigator.navigateToQuestReview(questId, questType)},
+            navigateToQuestReview = { questId, questType ->
+                navigator.navigateToQuestReview(
+                    questId,
+                    questType
+                )
+            },
             navigateToQuestRecordingComplete = { questId ->
                 navigator.navigateToQuestRecordingComplete(
                     questId,

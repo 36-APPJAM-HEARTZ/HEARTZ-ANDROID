@@ -22,7 +22,7 @@ fun NavController.navigateToQuestRecordingComplete(questId: Int, navOptions: Nav
 fun NavGraphBuilder.questRecordGraph(
     navigateToQuest: () -> Unit,
     navigateToQuestTip: (Int) -> Unit,
-    navigateToQuestRecordingComplete: (Int) -> Unit,
+    navigateToQuestRecordingComplete: (Int) -> Unit
 ) {
     routeNavigation<QuestRecord, QuestRecording> {
         composable<QuestRecording> { backStackEntry ->
