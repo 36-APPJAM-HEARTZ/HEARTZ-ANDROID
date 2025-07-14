@@ -25,7 +25,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
@@ -50,6 +52,7 @@ fun HomeOnboardingScreen(
     var isTransitioning by remember { mutableStateOf(false) }
 
     val scope = rememberCoroutineScope()
+    val haptic = LocalHapticFeedback.current
 
     val transitionAlpha by animateFloatAsState(
         targetValue = if (isTransitioning) 0.85f else 0f,
@@ -139,6 +142,7 @@ fun HomeOnboardingScreen(
                     .padding(bottom = bottomPadding + 89.dp)
                     .noRippleCombineClickable(
                         onLongClick = {
+                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                             isTransitioning = true
                             scope.launch {
                                 delay(500)
