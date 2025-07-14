@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -58,6 +59,7 @@ fun QuestBehaviorWritingScreen(
     val isEmotionSelected by viewModel.isEmotionSelected.collectAsStateWithLifecycle()
     val selectedImageUrl by viewModel.selectedImageUri.collectAsStateWithLifecycle()
     val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     if (showQuitModal) {
         QuestQuitModal(
@@ -200,6 +202,7 @@ fun QuestBehaviorWritingScreen(
                     imageUrl = selectedImageUrl,
                     onImageClick = { url ->
                         viewModel.updateSelectedImage(url)
+                        viewModel.uploadImage(context)
                     }
                 )
 

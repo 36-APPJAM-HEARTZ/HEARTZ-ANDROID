@@ -1,12 +1,16 @@
 package com.byeboo.app.presentation.quest.behavior
 
+import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import coil.util.CoilUtils.result
 import com.byeboo.app.core.designsystem.type.LargeTagType
+import com.byeboo.app.data.dto.request.QuestBehaviorAnswerRequestDto
+import com.byeboo.app.data.dto.request.QuestSignedUrlRequestDto
 import com.byeboo.app.domain.model.QuestContentLengthValidator
 import com.byeboo.app.domain.model.QuestStyle
+import com.byeboo.app.domain.repository.QuestBehaviorAnswerRepository
 import com.byeboo.app.domain.repository.quest.QuestDetailBehaviorRepository
 import com.byeboo.app.presentation.quest.model.Quest
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,11 +21,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.util.UUID
 import javax.inject.Inject
 
 @HiltViewModel
 class QuestBehaviorViewModel @Inject constructor(
-    val questDetailBehaviorRepository: QuestDetailBehaviorRepository
+    val questDetailBehaviorRepository: QuestDetailBehaviorRepository,
+    val questBehaviorAnswerRepository: QuestBehaviorAnswerRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(QuestBehaviorState())
     val state: StateFlow<QuestBehaviorState> = _state.asStateFlow()
@@ -45,7 +51,40 @@ class QuestBehaviorViewModel @Inject constructor(
     val showQuitModal: StateFlow<Boolean>
         get() = _showQuitModal.asStateFlow()
 
+    fun uploadImage(context: Context) {
+        viewModelScope.launch {
+            val imageUri = _selectedImageUri.value ?: return@launch
+            val questId = _state.value.questId
 
+            runCatching {
+                val inputStream = context.contentResolver.openInputStream(imageUri)
+                val imageBytes = inputStream?.readBytes() ?: error("이미지 파일을 읽을 수 없습니다.")
+                val contentType = context.contentResolver.getType(imageUri) ?: "image/jpeg"
+                val imageKey = UUID.randomUUID().toString()
+
+                val signedUrl = questBehaviorAnswerRepository.postQuestSignedUrl(
+                    QuestSignedUrlRequestDto(contentType = contentType, imageKey = imageKey)
+                )
+
+                questBehaviorAnswerRepository.putImageToSignedUrl(
+                    signUrl = signedUrl,
+                    imageBytes = imageBytes,
+                    contentType = contentType
+                )
+
+                val request = QuestBehaviorAnswerRequestDto(
+                    answer = _state.value.contents,
+                    questionEmotionState = _state.value.selectedEmotion.toString(),
+                    imageKey = imageKey
+                )
+
+                questBehaviorAnswerRepository.postQuestBehaviorAnswer(questId, request)
+
+
+            }.onSuccess { _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
+            }.onFailure { e-> e.printStackTrace() }
+        }
+    }
 
 
     fun setQuestId(questId: Long) {
