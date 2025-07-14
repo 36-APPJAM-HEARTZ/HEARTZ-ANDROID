@@ -224,7 +224,7 @@ fun QuestRecordingScreen(
     }
 
     ByeBooBottomSheet(
-        navigateButton = viewModel::onCompleteClick,
+        navigateButton = viewModel::postQuestRecording,
         showBottomSheet = showBottomSheet,
         onDismiss = {
             viewModel.closeBottomSheet()

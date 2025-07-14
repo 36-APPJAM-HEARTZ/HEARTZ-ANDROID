@@ -5,6 +5,7 @@ import com.byeboo.app.data.service.quest.QuestService
 import com.byeboo.app.data.service.auth.UserService
 import kotlin.jvm.java
 import com.byeboo.app.data.service.quest.QuestDetailService
+import com.byeboo.app.data.service.quest.QuestRecordingService
 import com.byeboo.app.data.service.quest.QuestTipService
 import dagger.Module
 import dagger.Provides
@@ -43,7 +44,13 @@ object ServiceModule {
 
     @Provides
     @Singleton
-    fun provideQuestTipService(retrofit: Retrofit): QuestTipService = retrofit.create(
+    fun providesQuestTipService(retrofit: Retrofit): QuestTipService = retrofit.create(
         QuestTipService::class.java
+    )
+
+    @Provides
+    @Singleton
+    fun providesQuestRecordingService(retrofit: Retrofit): QuestRecordingService = retrofit.create(
+        QuestRecordingService::class.java
     )
 }
