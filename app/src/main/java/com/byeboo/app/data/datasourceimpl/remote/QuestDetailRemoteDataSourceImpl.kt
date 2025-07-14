@@ -1,6 +1,6 @@
 package com.byeboo.app.data.datasourceimpl.remote
 
-import com.byeboo.app.data.datasource.remote.QuestDetailRemoteDataSource
+import com.byeboo.app.data.datasource.remote.quest.QuestDetailRemoteDataSource
 import com.byeboo.app.data.dto.base.BaseResponse
 import com.byeboo.app.data.dto.response.QuestDetailResponseDto
 import com.byeboo.app.data.service.quest.QuestDetailService
