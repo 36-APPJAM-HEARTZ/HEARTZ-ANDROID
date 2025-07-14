@@ -47,12 +47,13 @@ fun QuestBehaviorCompleteScreen(
     bottomPadding: Dp,
     viewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.state.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
 
     val selectedImageUri by viewModel.selectedImageUri.collectAsStateWithLifecycle()
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
+        viewModel.getQuestRecordedDetail(questId)
     }
 
     LaunchedEffect(Unit) {
@@ -103,7 +104,7 @@ fun QuestBehaviorCompleteScreen(
                     stepNumber = uiState.stepNumber,
                     questNumber = uiState.questNumber,
                     createdAt = uiState.createdAt,
-                    questQuestion = uiState.questTitle,
+                    questQuestion = uiState.question,
                 )
             }
 
@@ -131,8 +132,8 @@ fun QuestBehaviorCompleteScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    if (uiState.contents.isNotBlank()) {
-                        ContentText(uiState.contents)
+                    if (uiState.answer.isNotBlank()) {
+                        ContentText(uiState.answer)
                     }
                 }
 
@@ -163,7 +164,7 @@ fun QuestBehaviorCompleteScreen(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     QuestEmotionDescriptionCard(
-                        questEmotionDescription = uiState.contents,
+                        questEmotionDescription = uiState.questEmotionState,
                         emotionType = uiState.selectedEmotion
                     )
                 }
