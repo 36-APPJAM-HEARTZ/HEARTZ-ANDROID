@@ -6,15 +6,7 @@ import com.byeboo.app.data.datasource.remote.quest.QuestDetailRemoteDataSource
 import com.byeboo.app.data.datasource.remote.quest.QuestRecordingDataSource
 import com.byeboo.app.data.datasource.remote.quest.QuestStateDataSource
 import com.byeboo.app.data.datasource.remote.quest.QuestTipDataSource
-<<<<<<< HEAD
-import com.byeboo.app.data.datasourceimpl.local.DummyLocalDataSourceImpl
-import com.byeboo.app.data.datasourceimpl.remote.DummyRemoteDataSourceImpl
-=======
-import com.byeboo.app.data.datasourceimpl.remote.QuestDetailRemoteDataSourceImpl
 import com.byeboo.app.data.datasourceimpl.remote.QuestInProgressDataSourceImpl
-import com.byeboo.app.data.datasourceimpl.remote.QuestStateDataSourceImpl
-import com.byeboo.app.data.datasourceimpl.remote.QuestTipDataSourceImpl
->>>>>>> 5de135355b8ede2e16c18e3822fb8df2e16d7875
 import com.byeboo.app.data.datasourceimpl.remote.UserRemoteDataSourceImpl
 import com.byeboo.app.data.datasourceimpl.remote.quest.QuestDetailRemoteDataSourceImpl
 import com.byeboo.app.data.datasourceimpl.remote.quest.QuestRecordingDataSourceImpl
