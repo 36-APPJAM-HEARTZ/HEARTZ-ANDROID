@@ -202,7 +202,6 @@ fun QuestBehaviorWritingScreen(
                     imageUrl = selectedImageUrl,
                     onImageClick = { url ->
                         viewModel.updateSelectedImage(url)
-                        viewModel.uploadImage(context)
                     }
                 )
 
@@ -229,7 +228,8 @@ fun QuestBehaviorWritingScreen(
                 QuestTextField(
                     questWritingState = uiState.contentState,
                     value = uiState.contents,
-                    onValueChange = viewModel::updateContent
+                    onValueChange = viewModel::updateContent,
+                    placeholder = "꼭 적지 않아도 괜찮지만, 글로 정리해보면 스스로에게 한 걸음 더 가까워질 수 있어요."
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -251,7 +251,7 @@ fun QuestBehaviorWritingScreen(
     }
 
     ByeBooBottomSheet(
-        navigateButton = viewModel::onCompleteClick,
+        navigateButton = {viewModel.uploadImage(context)},
         showBottomSheet = showBottomSheet,
         onDismiss = {
             viewModel.closeBottomSheet()

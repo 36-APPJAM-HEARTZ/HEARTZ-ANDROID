@@ -4,14 +4,13 @@ import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import coil.util.CoilUtils.result
 import com.byeboo.app.core.designsystem.type.LargeTagType
-import com.byeboo.app.data.dto.request.QuestBehaviorAnswerRequestDto
-import com.byeboo.app.data.dto.request.QuestSignedUrlRequestDto
+
+
+import com.byeboo.app.data.mapper.todata.toData
 import com.byeboo.app.domain.model.QuestContentLengthValidator
-import com.byeboo.app.domain.model.QuestStyle
-import com.byeboo.app.domain.repository.QuestBehaviorAnswerRepository
 import com.byeboo.app.domain.repository.quest.QuestDetailBehaviorRepository
+import com.byeboo.app.domain.usecase.UploadImageUseCase
 import com.byeboo.app.presentation.quest.model.Quest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -26,8 +25,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuestBehaviorViewModel @Inject constructor(
-    val questDetailBehaviorRepository: QuestDetailBehaviorRepository,
-    val questBehaviorAnswerRepository: QuestBehaviorAnswerRepository
+    private val questDetailBehaviorRepository: QuestDetailBehaviorRepository,
+    private val uploadImageUseCase: UploadImageUseCase
 ) : ViewModel() {
     private val _state = MutableStateFlow(QuestBehaviorState())
     val state: StateFlow<QuestBehaviorState> = _state.asStateFlow()
@@ -51,47 +50,37 @@ class QuestBehaviorViewModel @Inject constructor(
     val showQuitModal: StateFlow<Boolean>
         get() = _showQuitModal.asStateFlow()
 
-    fun uploadImage(context: Context) {
-        viewModelScope.launch {
-            val imageUri = _selectedImageUri.value ?: return@launch
-            val questId = _state.value.questId
-
-            runCatching {
-                val inputStream = context.contentResolver.openInputStream(imageUri)
-                val imageBytes = inputStream?.readBytes() ?: error("이미지 파일을 읽을 수 없습니다.")
-                val contentType = context.contentResolver.getType(imageUri) ?: "image/jpeg"
-                val imageKey = UUID.randomUUID().toString()
-
-                val signedUrl = questBehaviorAnswerRepository.postQuestSignedUrl(
-                    QuestSignedUrlRequestDto(contentType = contentType, imageKey = imageKey)
-                )
-
-                questBehaviorAnswerRepository.putImageToSignedUrl(
-                    signUrl = signedUrl,
-                    imageBytes = imageBytes,
-                    contentType = contentType
-                )
-
-                val request = QuestBehaviorAnswerRequestDto(
-                    answer = _state.value.contents,
-                    questionEmotionState = _state.value.selectedEmotion.toString(),
-                    imageKey = imageKey
-                )
-
-                questBehaviorAnswerRepository.postQuestBehaviorAnswer(questId, request)
-
-
-            }.onSuccess { _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
-            }.onFailure { e-> e.printStackTrace() }
-        }
-    }
-
-
     fun setQuestId(questId: Long) {
         _state.update {
             it.copy(questId = questId)
         }
     }
+
+    fun uploadImage(context: Context) {
+        viewModelScope.launch {
+            val imageUrl = _selectedImageUri.value ?: return@launch
+            val questId = _state.value.questId
+
+            runCatching {
+                val inputStream = context.contentResolver.openInputStream(imageUrl)
+                val imageBytes = inputStream?.readBytes() ?: error("이미지 파일을 읽을 수 없습니다.")
+                val contentType = context.contentResolver.getType(imageUrl) ?: "image/jpeg"
+                val imageKey = UUID.randomUUID().toString()
+
+                uploadImageUseCase(
+                    imageBytes = imageBytes,
+                    contentType = contentType,
+                    imageKey = imageKey,
+                    questId = questId,
+                    answer = _state.value.contents,
+                    emotion = _state.value.selectedEmotion.toData()
+                ).getOrThrow()
+            }.onSuccess {
+                _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
+            }
+        }
+    }
+
 
     fun getQuestDetailInfo(questId: Long) {
         viewModelScope.launch {
@@ -134,14 +123,6 @@ class QuestBehaviorViewModel @Inject constructor(
 
     fun onDismissModal() {
         _showQuitModal.value = false
-    }
-
-    fun onCompleteClick() {
-        val questId = state.value.questId
-
-        viewModelScope.launch {
-            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
-        }
     }
 
     fun onQuitClick() {
