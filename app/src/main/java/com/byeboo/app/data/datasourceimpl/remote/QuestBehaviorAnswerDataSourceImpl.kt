@@ -7,6 +7,8 @@ import com.byeboo.app.data.dto.request.QuestBehaviorAnswerRequestDto
 import com.byeboo.app.data.dto.request.QuestSignedUrlRequestDto
 import com.byeboo.app.data.dto.response.QuestSingedUrlResponseDto
 import com.byeboo.app.data.service.QuestBehaviorService
+import okhttp3.RequestBody
+import retrofit2.Response
 import javax.inject.Inject
 
 class QuestBehaviorAnswerDataSourceImpl @Inject constructor(
@@ -15,6 +17,10 @@ class QuestBehaviorAnswerDataSourceImpl @Inject constructor(
 
     override suspend fun postQuestSignedUrl(request: QuestSignedUrlRequestDto): BaseResponse<QuestSingedUrlResponseDto> {
         return questBehaviorService.postQuestSignedUrl(request = request)
+    }
+
+    override suspend fun putImageToSignedUrl(signedUrl: String, requestBody: RequestBody): Response<Unit> {
+        return questBehaviorService.putImageToUrl(signedUrl, requestBody)
     }
 
     override suspend fun postQuestBehaviorAnswer(
