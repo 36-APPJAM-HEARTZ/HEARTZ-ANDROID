@@ -20,5 +20,5 @@ data class QuestBehaviorState(
 sealed interface QuestBehaviorSideEffect {
     data object NavigateToQuest : QuestBehaviorSideEffect
     data class NavigateToQuestTip(val questId: Long) : QuestBehaviorSideEffect
-    data class NavigateToQuestBehaviorComplete(val questID: Long) : QuestBehaviorSideEffect
+    data class NavigateToQuestBehaviorComplete(val questId: Long) : QuestBehaviorSideEffect
 }

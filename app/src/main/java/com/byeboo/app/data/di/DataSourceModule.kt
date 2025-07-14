@@ -3,12 +3,16 @@ package com.byeboo.app.data.di
 import com.byeboo.app.data.datasource.local.DummyLocalDataSource
 import com.byeboo.app.data.datasource.remote.DummyRemoteDataSource
 import com.byeboo.app.data.datasource.remote.QuestBehaviorAnswerDataSource
-import com.byeboo.app.data.datasource.remote.QuestStateDataSource
 import com.byeboo.app.data.datasource.remote.UserRemoteDataSource
+import com.byeboo.app.data.datasource.remote.quest.QuestDetailRemoteDataSource
+import com.byeboo.app.data.datasource.remote.quest.QuestStateDataSource
+import com.byeboo.app.data.datasource.remote.quest.QuestTipDataSource
 import com.byeboo.app.data.datasourceimpl.local.DummyLocalDataSourceImpl
 import com.byeboo.app.data.datasourceimpl.remote.DummyRemoteDataSourceImpl
 import com.byeboo.app.data.datasourceimpl.remote.QuestBehaviorAnswerDataSourceImpl
+import com.byeboo.app.data.datasourceimpl.remote.QuestDetailRemoteDataSourceImpl
 import com.byeboo.app.data.datasourceimpl.remote.QuestStateDataSourceImpl
+import com.byeboo.app.data.datasourceimpl.remote.QuestTipDataSourceImpl
 import com.byeboo.app.data.datasourceimpl.remote.UserRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
@@ -34,6 +38,14 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsQuestStateDataSource(impl: QuestStateDataSourceImpl): QuestStateDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindQuestDetailRemoteDataSource(impl: QuestDetailRemoteDataSourceImpl) : QuestDetailRemoteDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsQuestTipDataSource(impl: QuestTipDataSourceImpl): QuestTipDataSource
 
     @Binds
     @Singleton
