@@ -30,7 +30,7 @@ class LoadingViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            delay(3000)
+            delay(2000)
             _sideEffect.emit(LoadingSideEffect.NavigateToHomeAmulet)
         }
     }

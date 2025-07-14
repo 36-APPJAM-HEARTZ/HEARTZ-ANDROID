@@ -80,19 +80,21 @@ fun QuestRecordingCompleteScreen(
             modifier = Modifier
                 .clickable { viewModel.onCloseClick() }
                 .align(alignment = Alignment.Start)
-
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         LazyColumn(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             item {
                 Spacer(modifier = Modifier.height(8.dp))
 
-                QuestCompleteCard()
+                QuestCompleteCard(
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
 
             item {
@@ -154,7 +156,7 @@ private fun CreatedText(createdAt: String) {
     }
 
     Text(
-        text = "{$date}.",
+        text = "$date.",
         style = ByeBooTheme.typography.body5,
         color = ByeBooTheme.colors.gray400
     )

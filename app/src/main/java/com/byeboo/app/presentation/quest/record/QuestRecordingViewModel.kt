@@ -1,10 +1,14 @@
 package com.byeboo.app.presentation.quest.record
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.domain.model.QuestContentLengthValidator
+import com.byeboo.app.domain.model.quest.QuestRecording
 import com.byeboo.app.domain.repository.quest.QuestDetailRecordingRepository
+import com.byeboo.app.domain.repository.quest.QuestRecordingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,11 +17,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class QuestRecordingViewModel @Inject constructor(
-    val questDetailRecordingRepository: QuestDetailRecordingRepository
+    val questDetailRecordingRepository: QuestDetailRecordingRepository,
+    val questRecordingRepository: QuestRecordingRepository
 ) : ViewModel() {
     private val _state = MutableStateFlow(QuestRecordingState())
     val state: StateFlow<QuestRecordingState>
@@ -55,6 +61,27 @@ class QuestRecordingViewModel @Inject constructor(
                         questQuestion = detail.question
                     )
                 }
+            }
+        }
+    }
+
+    fun postQuestRecording() {
+        val questId = state.value.questId
+        val answer = state.value.questAnswer
+        val emotion = state.value.selectedEmotion.title
+
+        viewModelScope.launch {
+            Log.d("questrecording","postQuestRecording() called with questId=$questId, answer=$answer, emotion=$emotion")
+
+            val request = QuestRecording(
+                answer = answer,
+                questEmotionState = emotion
+            )
+            val result = questRecordingRepository.postRecording(questId, request)
+
+            if (result.success) {
+                _sideEffect.emit(QuestRecordingSideEffect.NavigateToQuestRecordingComplete(questId))
+                Log.d("questrecording", "postQuestRecording() success: Navigate to complete")
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.byeboo.app.data.mapper
+package com.byeboo.app.data.mapper.quest
 
 import com.byeboo.app.data.dto.response.QuestCountResponseDto
 import com.byeboo.app.data.dto.response.QuestDialogueResponseDto

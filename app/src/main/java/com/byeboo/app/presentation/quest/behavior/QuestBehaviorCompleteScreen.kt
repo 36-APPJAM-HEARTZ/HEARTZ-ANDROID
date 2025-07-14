@@ -92,7 +92,9 @@ fun QuestBehaviorCompleteScreen(
             item {
                 Spacer(modifier = Modifier.height(8.dp))
 
-                QuestCompleteCard()
+                QuestCompleteCard(
+                    modifier = Modifier.fillMaxWidth()
+                )
 
                 Spacer(modifier = Modifier.height(32.dp))
             }
@@ -101,8 +103,7 @@ fun QuestBehaviorCompleteScreen(
                     stepNumber = uiState.stepNumber,
                     questNumber = uiState.questNumber,
                     createdAt = uiState.createdAt,
-                    questQuestion = uiState.questTitle
-
+                    questQuestion = uiState.questTitle,
                 )
             }
 

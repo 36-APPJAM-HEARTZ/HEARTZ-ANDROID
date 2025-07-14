@@ -1,4 +1,4 @@
-package com.byeboo.app.data.datasourceimpl.remote
+package com.byeboo.app.data.datasourceimpl.remote.quest
 
 import com.byeboo.app.data.datasource.remote.quest.QuestStateDataSource
 import com.byeboo.app.data.dto.base.BaseResponse
