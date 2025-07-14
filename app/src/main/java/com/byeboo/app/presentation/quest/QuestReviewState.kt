@@ -12,7 +12,7 @@ data class QuestReviewState(
     val questAnswer: String = "내 X는 질투가 너무 많았다.\n그래서 동아리를 할 수가 없었다...\n특히 솝트처럼 합숙하는 동아린\n완전 금지였다ㅠㅠ",
     val emotion: LargeTagType = LargeTagType.EMOTION_NEUTRAL,
     val emotionDescription: String = "",
-    val type: QuestType = QuestType.EMOTION_ORGANIZE
+    val type: QuestType = QuestType.ACTIVE
 )
 
 sealed interface QuestReviewSideEffect {

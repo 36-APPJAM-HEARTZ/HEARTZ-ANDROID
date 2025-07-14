@@ -42,11 +42,16 @@ fun QuestScreen(
     bottomPadding: Dp,
     viewModel: QuestViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
-    val questGroups by viewModel.questGroups.collectAsStateWithLifecycle()
-    val currentStepIndex by viewModel.currentStepIndex.collectAsStateWithLifecycle()
-    val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val gridState = rememberLazyGridState()
+
+    LaunchedEffect(uiState.currentStepIndex, uiState.questGroups) {
+        val scrollIndex = uiState.questGroups
+            .take(uiState.currentStepIndex)
+            .sumOf { it.quests.size + 1 }
+
+        gridState.animateScrollToItem(index = scrollIndex)
+    }
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collectLatest {
@@ -56,32 +61,26 @@ fun QuestScreen(
                 is QuestSideEffect.NavigateToQuestBehavior -> navigateToQuestBehavior(it.questId)
                 is QuestSideEffect.NavigateToQuestReview -> navigateToQuestReview(
                     it.questId,
-                    it.questType
+                    it.type
                 )
 
                 is QuestSideEffect.NavigateToHome -> navigateToHome()
             }
         }
     }
-    LaunchedEffect(currentStepIndex, questGroups) {
-        val scrollIndex = questGroups
-            .take(currentStepIndex)
-            .sumOf { it.quests.size + 1 }
-
-        gridState.animateScrollToItem(index = scrollIndex)
-    }
 
     BackHandler { viewModel.onBackClick() }
 
-    if (showQuitModal) {
+    if (uiState.showQuitModal) {
         QuestModal(
             onDismissRequest = { viewModel.onDismissModal() },
-            questId = uiState.questId,
-            questQuestion = uiState.questQuestion,
+            questNumber = uiState.selectedQuest?.questNumber ?: 0L,
+            questQuestion = uiState.selectedQuest?.questQuestion ?: "",
             navigateToTip = viewModel::onTipClick,
             progressButton = viewModel::onQuestStart
         )
     }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -89,20 +88,19 @@ fun QuestScreen(
             .padding(horizontal = 24.dp)
             .padding(top = 67.dp)
     ) {
-        Column(
-            modifier = Modifier.fillMaxWidth()
-        ) {
+        Column(modifier = Modifier.fillMaxWidth()) {
             MiddleTag(
                 middleTagType = MiddleTagType.QUEST_START_DAY,
-                text = "3"
+                text = uiState.progressPeriod.toString()
             )
             DescriptionText(
                 nicknameText = "하츠핑님, 지금",
-                title = "감정 직면 여정",
+                title = uiState.journeyTitle,
                 guideText = "을 진행 중이에요.",
                 contentText = "오늘도 한 걸음 나아가볼까요?"
             )
         }
+
         LazyVerticalGrid(
             state = gridState,
             columns = GridCells.Fixed(3),
@@ -113,11 +111,8 @@ fun QuestScreen(
             verticalArrangement = Arrangement.spacedBy(20.dp),
             contentPadding = PaddingValues(bottom = bottomPadding + 37.dp)
         ) {
-            questGroups.forEachIndexed { stepIndex, group ->
-                item(
-                    span = { GridItemSpan(3) },
-                    key = group.stepTitle
-                ) {
+            uiState.questGroups.forEachIndexed { stepIndex, group ->
+                item(span = { GridItemSpan(3) }, key = group.stepTitle) {
                     Column {
                         HorizontalDivider(
                             thickness = 1.dp,
@@ -133,9 +128,7 @@ fun QuestScreen(
                     }
                 }
                 group.quests.forEach { quest ->
-                    item(
-                        key = quest.questNumber
-                    ) {
+                    item(key = quest.questNumber) {
                         QuestBox(
                             questId = quest.questId,
                             questNumber = quest.questNumber,

@@ -2,7 +2,7 @@ package com.byeboo.app.data.repositoryimpl.quest
 
 import com.byeboo.app.data.datasource.local.UserLocalDataSource
 import com.byeboo.app.data.datasource.remote.quest.QuestStateDataSource
-import com.byeboo.app.data.mapper.toDomain
+import com.byeboo.app.data.mapper.quest.toDomain
 import com.byeboo.app.domain.model.quest.QuestDialogue
 import com.byeboo.app.domain.model.quest.QuestStateModel
 import com.byeboo.app.domain.repository.quest.QuestStateRepository

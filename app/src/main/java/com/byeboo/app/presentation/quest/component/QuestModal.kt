@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,7 +32,7 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 @Composable
 fun QuestModal(
     onDismissRequest: () -> Unit,
-    questId: Long,
+    questNumber: Long,
     questQuestion: String,
     navigateToTip: () -> Unit,
     progressButton: () -> Unit,
@@ -42,61 +43,67 @@ fun QuestModal(
         onDismissRequest = onDismissRequest,
         properties = dialogProperties
     ) {
-        Column(
-            modifier = modifier
+        Box(
+            modifier = Modifier
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(12.dp))
-                .background(color = ByeBooTheme.colors.gray900Alpha80)
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .background(ByeBooTheme.colors.blackAlpha80)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.bori_quest_banner),
-                contentDescription = "이미지",
-                Modifier
+            Column(
+                modifier = modifier
                     .fillMaxWidth()
-                    .height(58.dp)
-            )
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(color = ByeBooTheme.colors.gray900Alpha80)
+                    .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.bori_quest_banner),
+                    contentDescription = "이미지",
+                    Modifier
+                        .fillMaxWidth()
+                        .height(58.dp)
+                )
 
-            Spacer(modifier = Modifier.height((17.5).dp))
+                Spacer(modifier = Modifier.height((17.5).dp))
 
-            Text(
-                text = "${questId}번째 퀘스트",
-                style = ByeBooTheme.typography.body2,
-                color = ByeBooTheme.colors.gray400
-            )
+                Text(
+                    text = "${questNumber}번째 퀘스트",
+                    style = ByeBooTheme.typography.body2,
+                    color = ByeBooTheme.colors.gray400
+                )
 
-            Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = questQuestion,
-                style = ByeBooTheme.typography.sub2,
-                color = ByeBooTheme.colors.gray50,
-                textAlign = TextAlign.Center
-            )
+                Text(
+                    text = questQuestion,
+                    style = ByeBooTheme.typography.sub2,
+                    color = ByeBooTheme.colors.gray50,
+                    textAlign = TextAlign.Center
+                )
 
-            Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = buildAnnotatedString {
-                    withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline)) {
-                        append(text = "작성 TIP")
-                    }
-                },
-                style = ByeBooTheme.typography.body4,
-                color = ByeBooTheme.colors.gray300,
-                modifier = Modifier.clickable { navigateToTip() }
-            )
+                Text(
+                    text = buildAnnotatedString {
+                        withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline)) {
+                            append(text = "작성 TIP")
+                        }
+                    },
+                    style = ByeBooTheme.typography.body4,
+                    color = ByeBooTheme.colors.gray300,
+                    modifier = Modifier.clickable { navigateToTip() }
+                )
 
-            Spacer(modifier = Modifier.height((17.5).dp))
+                Spacer(modifier = Modifier.height((17.5).dp))
 
-            ByeBooButton(
-                onClick = progressButton,
-                buttonText = "진행하기",
-                buttonTextColor = ByeBooTheme.colors.white,
-                buttonBackgroundColor = ByeBooTheme.colors.primary300
-            )
+                ByeBooButton(
+                    onClick = progressButton,
+                    buttonText = "진행하기",
+                    buttonTextColor = ByeBooTheme.colors.white,
+                    buttonBackgroundColor = ByeBooTheme.colors.primary300
+                )
+            }
         }
     }
 }
