@@ -103,7 +103,7 @@ class QuestViewModel @Inject constructor(
     }
 
     private fun getDummyQuestGroups(): List<QuestGroup> {
-        val currentStep = 25
+        val currentStep = 24
         val nextAvailable: String? = null
         val isTimerLocked = nextAvailable != null
         val remainTime = "23:45"
