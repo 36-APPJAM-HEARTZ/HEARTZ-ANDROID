@@ -1,6 +1,6 @@
 package com.byeboo.app.data.repositoryimpl.quest.recording
 
-import com.byeboo.app.data.datasource.remote.QuestDetailRemoteDataSource
+import com.byeboo.app.data.datasource.remote.quest.QuestDetailRemoteDataSource
 import com.byeboo.app.data.mapper.todomain.toDomain
 import com.byeboo.app.domain.model.quest.QuestDetailModel
 import com.byeboo.app.domain.repository.quest.QuestDetailRecordingRepository

@@ -2,9 +2,9 @@ package com.byeboo.app.data.di
 
 import com.byeboo.app.data.datasource.local.DummyLocalDataSource
 import com.byeboo.app.data.datasource.remote.DummyRemoteDataSource
-import com.byeboo.app.data.datasource.remote.QuestDetailRemoteDataSource
 import com.byeboo.app.data.datasource.remote.quest.QuestStateDataSource
 import com.byeboo.app.data.datasource.remote.UserRemoteDataSource
+import com.byeboo.app.data.datasource.remote.quest.QuestDetailRemoteDataSource
 import com.byeboo.app.data.datasource.remote.quest.QuestTipDataSource
 import com.byeboo.app.data.datasourceimpl.local.DummyLocalDataSourceImpl
 import com.byeboo.app.data.datasourceimpl.remote.DummyRemoteDataSourceImpl
