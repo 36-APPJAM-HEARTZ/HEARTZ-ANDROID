@@ -1,6 +1,5 @@
 package com.byeboo.app.presentation.quest
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.model.QuestType
@@ -38,12 +37,6 @@ class QuestTipViewModel @Inject constructor(
         viewModelScope.launch {
             val result = questTipRepository.getQuestTip(quest.questId)
             result.onSuccess { tip ->
-                val questType = QuestType.from(tip.step)
-
-                if (questType == QuestType.RECORDING && tip.step != "감정 직면") {
-                    Log.w("QuestTipViewModel", "Unknown step: ${tip.step}, fallback to 감정 직면")
-                }
-
                 _uiState.update {
                     it.copy(
                         step = QuestType.from(tip.step),
