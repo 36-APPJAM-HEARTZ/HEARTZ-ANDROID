@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -43,6 +44,12 @@ class QuestViewModel @Inject constructor(
 
     init {
         loadQuests()
+    }
+
+    fun setQuestId(questId: Long) {
+        _uiState.update {
+            it.copy(questId = questId)
+        }
     }
 
     private fun loadQuests() {
@@ -96,7 +103,7 @@ class QuestViewModel @Inject constructor(
     }
 
     private fun getDummyQuestGroups(): List<QuestGroup> {
-        val currentStep = 29
+        val currentStep = 24
         val nextAvailable: String? = null
         val isTimerLocked = nextAvailable != null
         val remainTime = "23:45"
@@ -130,8 +137,6 @@ class QuestViewModel @Inject constructor(
                         else -> QuestState.Locked
                     }
                     Quest(
-                        // 임시
-                        //TODO:
                         questId = questNumber.toLong(),
                         questNumber = questNumber.toLong(),
                         state = state,

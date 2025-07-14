@@ -4,6 +4,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -61,6 +62,7 @@ fun QuestRecordingScreen(
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
+        viewModel.getQuestDetailInfo(questId)
     }
 
     LaunchedEffect(Unit) {
@@ -168,15 +170,16 @@ fun QuestRecordingScreen(
             item {
                 Spacer(modifier = Modifier.height(25.dp))
 
-                MiddleTag(
-                    middleTagType = MiddleTagType.QUEST_TIP,
-                    text = "작성 TIP",
-                    modifier = Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .clickable {
-                            viewModel.onTipClick()
-                        }
-                )
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    MiddleTag(
+                        middleTagType = MiddleTagType.QUEST_TIP,
+                        text = "작성 TIP",
+                        modifier = Modifier.clickable { viewModel.onTipClick() }
+                    )
+                }
             }
 
             item {
