@@ -19,7 +19,7 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun updateUserInfo(userInfo: UserInfoModel): Result<UserEntity> {
         return runCatching {
             val response = userRemoteDataSource.updateUserInfo(userInfo.toData())
-            val userEntity = UserEntity(userId = response.data!!.id, nickname = response.data.name)
+            val userEntity = UserEntity(userId = response.data.id, nickname = response.data.name)
             userLocalDataSource.saveId(userEntity.userId!!)
             userLocalDataSource.saveNickname(userEntity.nickname!!)
             userLocalDataSource.setLoggedIn(true)
@@ -29,7 +29,7 @@ class UserRepositoryImpl @Inject constructor(
     override suspend fun getUserJourney(): Result<UserJourney> {
         return runCatching {
             val response = userRemoteDataSource.getUserJourney()
-            response.data!!.toDomain()
+            response.data.toDomain()
         }
     }
     override suspend fun getUserEntity(): UserEntity {
