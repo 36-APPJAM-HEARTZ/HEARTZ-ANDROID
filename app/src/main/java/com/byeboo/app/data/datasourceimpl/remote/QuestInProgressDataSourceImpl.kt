@@ -3,7 +3,7 @@ package com.byeboo.app.data.datasourceimpl.remote
 import com.byeboo.app.data.datasource.remote.QuestInProgressDataSource
 import com.byeboo.app.data.dto.base.BaseResponse
 import com.byeboo.app.data.dto.response.QuestInProgressResponseDto
-import com.byeboo.app.data.service.QuestService
+import com.byeboo.app.data.service.quest.QuestService
 import javax.inject.Inject
 
 class QuestInProgressDataSourceImpl @Inject constructor(

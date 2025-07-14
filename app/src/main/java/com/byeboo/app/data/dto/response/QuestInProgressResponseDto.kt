@@ -33,6 +33,9 @@ data class QuestInProgressQuestResponseDto(
     @SerialName("question")
     val question: String,
 
+    @SerialName("questStyle")
+    val questStyle: String,
+
     @SerialName("questNumber")
     val questNumber: Long
 )

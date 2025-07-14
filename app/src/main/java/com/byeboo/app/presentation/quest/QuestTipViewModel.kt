@@ -40,7 +40,7 @@ class QuestTipViewModel @Inject constructor(
             result.onSuccess { tip ->
                 val questType = QuestType.from(tip.step)
 
-                if (questType == QuestType.EMOTION_FACE && tip.step != "감정 직면") {
+                if (questType == QuestType.RECORDING && tip.step != "감정 직면") {
                     Log.w("QuestTipViewModel", "Unknown step: ${tip.step}, fallback to 감정 직면")
                 }
 

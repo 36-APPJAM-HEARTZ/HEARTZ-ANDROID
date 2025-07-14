@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.domain.repository.QuestInProgressRepository
-import com.byeboo.app.domain.repository.QuestStateRepository
+import com.byeboo.app.domain.repository.quest.QuestStateRepository
 import com.byeboo.app.presentation.quest.model.Quest
 import com.byeboo.app.presentation.quest.model.QuestGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -57,7 +57,8 @@ class QuestViewModel @Inject constructor(
                                     questId = quest.questId,
                                     questNumber = quest.questNumber,
                                     state = state,
-                                    questQuestion = quest.question
+                                    questQuestion = quest.question,
+                                    type = QuestType.from(quest.questStyle)
                                 )
                             }
                         )
@@ -120,13 +121,13 @@ class QuestViewModel @Inject constructor(
         viewModelScope.launch {
             _uiState.update { it.copy(showQuitModal = false) }
             when (quest.type) {
-                QuestType.EMOTION_FACE -> _sideEffect.emit(
+                QuestType.RECORDING -> _sideEffect.emit(
                     QuestSideEffect.NavigateToQuestRecording(
                         quest.questId
                     )
                 )
 
-                QuestType.EMOTION_ORGANIZE -> _sideEffect.emit(
+                QuestType.ACTIVE -> _sideEffect.emit(
                     QuestSideEffect.NavigateToQuestBehavior(
                         quest.questId
                     )

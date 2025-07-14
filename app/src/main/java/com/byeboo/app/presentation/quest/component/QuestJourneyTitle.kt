@@ -67,7 +67,7 @@ private fun QuestJourneyTitlePreview() {
         QuestJourneyTitle(
             dayCount = 10,
             nickname = "하츠핑",
-            questTitle = QuestType.EMOTION_FACE
+            questTitle = QuestType.ACTIVE
         )
     }
 }

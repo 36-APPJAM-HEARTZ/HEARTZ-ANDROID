@@ -15,5 +15,6 @@ data class QuestStepModel(
 data class QuestItemModel(
     val questId: Long,
     val question: String,
+    val questStyle: String,
     val questNumber: Long
 )

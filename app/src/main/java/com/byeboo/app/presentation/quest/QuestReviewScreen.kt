@@ -105,14 +105,14 @@ fun QuestReviewScreen(
 
             item {
                 when (uiState.type) {
-                    QuestType.EMOTION_FACE ->
+                    QuestType.RECORDING ->
                         QuestContent(
                             titleIcon = QuestContentType.THINKING,
                             titleText = "이렇게 생각했어요",
                             contentText = uiState.questAnswer
                         )
 
-                    QuestType.EMOTION_ORGANIZE -> {
+                    QuestType.ACTIVE -> {
                         Row(
                             modifier = Modifier.fillMaxWidth()
                         ) {

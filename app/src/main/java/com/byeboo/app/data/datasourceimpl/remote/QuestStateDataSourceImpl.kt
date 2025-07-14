@@ -5,7 +5,7 @@ import com.byeboo.app.data.dto.base.BaseResponse
 import com.byeboo.app.data.dto.base.NullableBaseResponse
 import com.byeboo.app.data.dto.response.QuestCountResponseDto
 import com.byeboo.app.data.dto.response.QuestDialogueResponseDto
-import com.byeboo.app.data.service.QuestService
+import com.byeboo.app.data.service.quest.QuestService
 import javax.inject.Inject
 
 class QuestStateDataSourceImpl @Inject constructor(

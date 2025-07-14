@@ -17,6 +17,7 @@ fun QuestInProgressResponseDto.toDomain(): QuestInProgressModel {
                     QuestItemModel(
                         questId = questDto.questId,
                         question = questDto.question,
+                        questStyle = questDto.questStyle,
                         questNumber = questDto.questNumber
                     )
                 }
