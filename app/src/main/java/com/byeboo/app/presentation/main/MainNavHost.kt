@@ -35,9 +35,6 @@ fun MainNavHost(
         launchSingleTop = true
         restoreState = true
     }
-
-    val sharedViewModel: QuestViewModel = hiltViewModel()
-
     NavHost(
         modifier = modifier,
         enterTransition = { EnterTransition.None },
