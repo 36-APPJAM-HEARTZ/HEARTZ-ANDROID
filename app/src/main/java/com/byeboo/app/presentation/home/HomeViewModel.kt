@@ -41,12 +41,13 @@ class HomeViewModel @Inject constructor(
             if (isStarted) {
                 questStateRepository.getQuestCount().collect { model ->
                     _uiState.update { current ->
-                        val newState = current.copy(
+                        current.copy(
                             isQuestStarted = isStarted,
                             journey = journey,
-                            dialogue = dialogue
+                            dialogue = dialogue,
+                            currentStep = model.count,
+                            totalSteps = 30
                         )
-                        if (current != newState) newState else current
                     }
                 }
             }

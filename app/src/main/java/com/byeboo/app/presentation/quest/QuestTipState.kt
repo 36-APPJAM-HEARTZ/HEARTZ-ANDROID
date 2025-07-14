@@ -7,7 +7,7 @@ import kotlinx.collections.immutable.persistentListOf
 
 @Immutable
 data class QuestTipState(
-    val step: QuestType = QuestType.EMOTION_FACE,
+    val step: QuestType = QuestType.ACTIVE,
     val stepNumber: Long = 0,
     val questNumber: Long = 0,
     val question: String = "",
