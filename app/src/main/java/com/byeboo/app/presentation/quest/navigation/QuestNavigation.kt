@@ -76,8 +76,8 @@ fun NavGraphBuilder.questGraph(
             val questId = questTip.questId
 
             QuestTipScreen(
+                navController = navController,
                 questId = questId,
-                navigateToBack = { navController.popBackStack() },
                 bottomPadding = bottomPadding
             )
         }

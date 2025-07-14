@@ -1,4 +1,4 @@
-package com.byeboo.app.data.datasource.remote
+package com.byeboo.app.data.datasource.remote.quest
 
 import com.byeboo.app.data.dto.base.BaseResponse
 import com.byeboo.app.data.dto.base.NullableBaseResponse
