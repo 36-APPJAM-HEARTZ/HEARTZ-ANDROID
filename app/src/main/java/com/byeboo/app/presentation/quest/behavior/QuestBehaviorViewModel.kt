@@ -3,10 +3,8 @@ package com.byeboo.app.presentation.quest.behavior
 import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import coil.util.CoilUtils.result
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.domain.model.QuestContentLengthValidator
-import com.byeboo.app.domain.model.QuestStyle
 import com.byeboo.app.domain.repository.quest.QuestDetailBehaviorRepository
 import com.byeboo.app.domain.repository.quest.QuestRecordedDetailRepository
 import com.byeboo.app.presentation.quest.model.Quest
@@ -81,7 +79,7 @@ class QuestBehaviorViewModel @Inject constructor(
                         question = detail.question,
                         answer = detail.answer,
                         imageUrl = detail.imageUrl.toString(),
-                        questEmotionState = detail.questEmotionState,
+                        selectedEmotion = LargeTagType.fromKorean(detail.questEmotionState),
                         emotionDescription = detail.emotionDescription,
                     )
                 }
