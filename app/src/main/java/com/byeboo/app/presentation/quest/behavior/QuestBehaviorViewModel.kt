@@ -6,7 +6,6 @@ import androidx.lifecycle.viewModelScope
 import coil.util.CoilUtils.result
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.domain.model.QuestContentLengthValidator
-import com.byeboo.app.domain.model.QuestDetailModel
 import com.byeboo.app.domain.model.QuestStyle
 import com.byeboo.app.domain.repository.quest.QuestDetailBehaviorRepository
 import com.byeboo.app.presentation.quest.model.Quest

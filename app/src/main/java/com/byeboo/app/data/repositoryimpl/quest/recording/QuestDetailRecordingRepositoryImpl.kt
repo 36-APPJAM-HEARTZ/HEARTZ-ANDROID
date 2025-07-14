@@ -1,9 +1,8 @@
 package com.byeboo.app.data.repositoryimpl.quest.recording
 
-import com.byeboo.app.core.model.QuestDetailEntity
 import com.byeboo.app.data.datasource.remote.QuestDetailRemoteDataSource
 import com.byeboo.app.data.mapper.todomain.toDomain
-import com.byeboo.app.domain.model.QuestDetailModel
+import com.byeboo.app.domain.model.quest.QuestDetailModel
 import com.byeboo.app.domain.repository.quest.QuestDetailRecordingRepository
 import javax.inject.Inject
 
