@@ -48,11 +48,12 @@ fun QuestTipScreen(
     questViewModel: QuestViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val selectedQuest by questViewModel.selectedQuest.collectAsStateWithLifecycle()
+    val questUiState by questViewModel.uiState.collectAsStateWithLifecycle()
+    val selectedQuest = questUiState.selectedQuest
+    val questGroups = questUiState.questGroups
+
 
     LaunchedEffect(questId) {
-        val questGroups = questViewModel.questGroups.value
-
         val quest = questGroups
             .flatMap { it.quests }
             .find { it.questId == questId }
@@ -61,7 +62,6 @@ fun QuestTipScreen(
             viewModel.loadQuestTip(quest)
         }
     }
-
     LaunchedEffect(selectedQuest?.questId) {
         selectedQuest?.let { quest ->
             if (quest.questId == questId) {
