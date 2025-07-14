@@ -54,7 +54,7 @@ fun QuestRecordingScreen(
     modifier: Modifier = Modifier,
     viewModel: QuestRecordingViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
     val showBottomSheet by viewModel.showBottomSheet.collectAsStateWithLifecycle()
     val isEmotionSelected by viewModel.isEmotionSelected.collectAsStateWithLifecycle()
