@@ -1,7 +1,9 @@
 package com.byeboo.app.presentation.quest.component
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.util.noRippleClickable
 import com.byeboo.app.presentation.quest.QuestState
@@ -26,7 +28,7 @@ fun QuestBox(
         is QuestState.Complete -> {
             CompleteContent(
                 questNumber = questNumber,
-                imageResId = R.drawable.quest_complete,
+                imageResId = R.drawable.ic_quest_main_complete,
                 modifier = clickableModifier
             )
         }
