@@ -9,9 +9,7 @@ import javax.inject.Inject
 class QuestTipDataSourceImpl @Inject constructor(
     private val questTipService: QuestTipService
 ) : QuestTipDataSource {
-    override suspend fun getQuestTip(
-        questId: Long
-    ): BaseResponse<QuestTipResponseDto> {
+    override suspend fun getQuestTip(questId: Long): BaseResponse<QuestTipResponseDto> {
         return questTipService.getQuestTip(questId)
     }
 }
