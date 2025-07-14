@@ -46,11 +46,12 @@ fun QuestTipScreen(
     questViewModel: QuestViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
-    val selectedQuest by questViewModel.selectedQuest.collectAsStateWithLifecycle()
+    val questUiState by questViewModel.uiState.collectAsStateWithLifecycle()
+    val selectedQuest = questUiState.selectedQuest
+    val questGroups = questUiState.questGroups
+
 
     LaunchedEffect(questId) {
-        val questGroups = questViewModel.questGroups.value
-
         val quest = questGroups
             .flatMap { it.quests }
             .find { it.questId == questId }
@@ -59,7 +60,6 @@ fun QuestTipScreen(
             viewModel.loadQuestTip(quest)
         }
     }
-
     LaunchedEffect(selectedQuest?.questId) {
         selectedQuest?.let { quest ->
             if (quest.questId == questId) {
@@ -91,7 +91,7 @@ fun QuestTipScreen(
 
         Box(
             modifier = Modifier.fillMaxWidth(),
-        ){
+        ) {
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
                 contentDescription = "닫기",

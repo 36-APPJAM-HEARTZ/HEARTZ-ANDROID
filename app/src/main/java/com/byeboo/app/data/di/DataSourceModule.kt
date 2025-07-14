@@ -1,11 +1,9 @@
 package com.byeboo.app.data.di
 
-import com.byeboo.app.data.datasource.local.DummyLocalDataSource
-import com.byeboo.app.data.datasource.remote.DummyRemoteDataSource
+import com.byeboo.app.data.datasource.remote.QuestInProgressDataSource
 import com.byeboo.app.data.datasource.remote.QuestStateDataSource
 import com.byeboo.app.data.datasource.remote.UserRemoteDataSource
-import com.byeboo.app.data.datasourceimpl.local.DummyLocalDataSourceImpl
-import com.byeboo.app.data.datasourceimpl.remote.DummyRemoteDataSourceImpl
+import com.byeboo.app.data.datasourceimpl.remote.QuestInProgressDataSourceImpl
 import com.byeboo.app.data.datasourceimpl.remote.QuestStateDataSourceImpl
 import com.byeboo.app.data.datasourceimpl.remote.UserRemoteDataSourceImpl
 import dagger.Binds
@@ -19,17 +17,13 @@ import javax.inject.Singleton
 abstract class DataSourceModule {
     @Binds
     @Singleton
-    abstract fun bindDummyRemoteDataSource(impl: DummyRemoteDataSourceImpl): DummyRemoteDataSource
-
-    @Binds
-    @Singleton
-    abstract fun bindDummyLocalDataSource(impl: DummyLocalDataSourceImpl): DummyLocalDataSource
-
-    @Binds
-    @Singleton
     abstract fun bindUserRemoteDataSource(impl: UserRemoteDataSourceImpl): UserRemoteDataSource
 
     @Binds
     @Singleton
     abstract fun bindsQuestStateDataSource(impl: QuestStateDataSourceImpl): QuestStateDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindsQuestInProgressDataSource(impl: QuestInProgressDataSourceImpl): QuestInProgressDataSource
 }

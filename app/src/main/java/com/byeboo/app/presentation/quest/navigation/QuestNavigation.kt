@@ -1,6 +1,7 @@
 package com.byeboo.app.presentation.quest.navigation
 
 import androidx.compose.ui.unit.Dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
@@ -12,6 +13,7 @@ import com.byeboo.app.presentation.quest.QuestReviewScreen
 import com.byeboo.app.presentation.quest.QuestScreen
 import com.byeboo.app.presentation.quest.QuestStartScreen
 import com.byeboo.app.presentation.quest.QuestTipScreen
+import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.behavior.navigation.questBehaviorGraph
 import com.byeboo.app.presentation.quest.record.navigation.questRecordGraph
 
@@ -56,8 +58,10 @@ fun NavGraphBuilder.questGraph(
             )
         }
 
-        composable<Quest> {
+        composable<Quest> {backStackEntry ->
+            val viewModel = hiltViewModel<QuestViewModel>(backStackEntry)
             QuestScreen(
+                viewModel = viewModel,
                 navigateToQuestTip = navigateToQuestTip,
                 navigateToQuestRecording = navigateToQuestRecording,
                 navigateToQuestBehavior = navigateToQuestBehavior,
@@ -84,7 +88,7 @@ fun NavGraphBuilder.questGraph(
 
             QuestReviewScreen(
                 questId = questId,
-                navigateToQuest = navigateToQuest,
+                navigateToBack = { navController.popBackStack() },
                 bottomPadding = bottomPadding
             )
         }

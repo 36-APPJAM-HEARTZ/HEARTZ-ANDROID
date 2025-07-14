@@ -47,7 +47,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun QuestReviewScreen(
     questId: Long,
-    navigateToQuest: () -> Unit,
+    navigateToBack: () -> Unit,
     bottomPadding: Dp,
     viewModel: QuestReviewViewModel = hiltViewModel()
 ) {
@@ -61,7 +61,7 @@ fun QuestReviewScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collectLatest { effect ->
             when (effect) {
-                QuestReviewSideEffect.NavigateToQuest -> navigateToQuest()
+                QuestReviewSideEffect.NavigateToQuest -> navigateToBack()
             }
         }
     }

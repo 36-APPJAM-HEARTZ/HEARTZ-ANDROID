@@ -1,6 +1,5 @@
 package com.byeboo.app.data.di
 
-import com.byeboo.app.data.service.DummyService
 import com.byeboo.app.data.service.QuestService
 import com.byeboo.app.data.service.auth.UserService
 import dagger.Module
@@ -13,12 +12,6 @@ import retrofit2.Retrofit
 @Module
 @InstallIn(SingletonComponent::class)
 object ServiceModule {
-    @Provides
-    @Singleton
-    fun providesDummyService(retrofit: Retrofit): DummyService = retrofit.create(
-        DummyService::class.java
-    )
-
     @Provides
     @Singleton
     fun providesUserService(retrofit: Retrofit): UserService = retrofit.create(
