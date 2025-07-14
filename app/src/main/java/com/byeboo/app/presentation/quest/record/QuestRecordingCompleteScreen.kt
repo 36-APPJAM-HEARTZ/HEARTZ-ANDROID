@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest.record
 
+import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -48,10 +49,13 @@ fun QuestRecordingCompleteScreen(
     modifier: Modifier = Modifier,
     viewModel: QuestRecordingCompleteViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(questId) {
+        Log.d("QuestScreen", "questId = $questId")  // ← 추가
+
         viewModel.setQuestId(questId)
+        viewModel.getQuestRecordedDetail(questId)
     }
 
     LaunchedEffect(Unit) {
@@ -122,7 +126,7 @@ fun QuestRecordingCompleteScreen(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        text = uiState.questQuestion,
+                        text = uiState.question,
                         style = ByeBooTheme.typography.head1,
                         color = ByeBooTheme.colors.gray100,
                         modifier = Modifier.fillMaxWidth(),
@@ -134,7 +138,7 @@ fun QuestRecordingCompleteScreen(
                     QuestContent(
                         titleIcon = QuestContentType.THINKING,
                         titleText = "이렇게 생각했어요",
-                        contentText = uiState.questAnswer
+                        contentText = uiState.answer
                     )
 
                     Spacer(modifier = Modifier.height(48.dp))
