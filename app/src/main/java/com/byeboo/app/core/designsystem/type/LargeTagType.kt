@@ -1,5 +1,6 @@
 package com.byeboo.app.core.designsystem.type
 
+import android.R.attr.entries
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.unit.Dp
@@ -35,5 +36,16 @@ enum class LargeTagType(
         titleIcon = R.drawable.img_relief,
         titleResId = R.string.type_emotion_relief,
         title = "RELIEVED"
-    )
+    );
+
+    companion object {
+        fun fromKorean(value: String): LargeTagType {
+            return when (value) {
+                "슬픔" -> EMOTION_SADNESS
+                "후련함" -> EMOTION_RELIEF
+                "자기 이해" -> EMOTION_SELF_AWARE
+                else -> EMOTION_NEUTRAL
+            }
+        }
+    }
 }
