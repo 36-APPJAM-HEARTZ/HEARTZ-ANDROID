@@ -15,7 +15,7 @@ class UserRemoteDataSourceImpl @Inject constructor(
         return userService.updateUserInfo(request)
     }
 
-    override suspend fun getUserJourney(userId: Long): BaseResponse<UserJourneyResponseDto> {
-        return userService.getJourney(userId)
+    override suspend fun getUserJourney(): BaseResponse<UserJourneyResponseDto> {
+        return userService.getJourney()
     }
 }

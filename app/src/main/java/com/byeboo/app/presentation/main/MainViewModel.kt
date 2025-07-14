@@ -1,7 +1,7 @@
 package com.byeboo.app.presentation.main
 
 import androidx.lifecycle.ViewModel
-import com.byeboo.app.domain.repository.QuestStateRepository
+import com.byeboo.app.domain.repository.quest.QuestStateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

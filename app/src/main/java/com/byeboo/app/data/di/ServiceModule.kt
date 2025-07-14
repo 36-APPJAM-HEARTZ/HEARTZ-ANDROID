@@ -1,8 +1,9 @@
 package com.byeboo.app.data.di
 
 import com.byeboo.app.data.service.DummyService
-import com.byeboo.app.data.service.QuestService
+import com.byeboo.app.data.service.quest.QuestService
 import com.byeboo.app.data.service.auth.UserService
+import com.byeboo.app.data.service.quest.QuestTipService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,5 +30,11 @@ object ServiceModule {
     @Singleton
     fun providesQuestService(retrofit: Retrofit): QuestService = retrofit.create(
         QuestService::class.java
+    )
+
+    @Provides
+    @Singleton
+    fun provideQuestTipService(retrofit: Retrofit): QuestTipService = retrofit.create(
+        QuestTipService::class.java
     )
 }

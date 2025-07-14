@@ -29,23 +29,25 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleClickable
 import com.byeboo.app.presentation.quest.component.QuestContent
 import com.byeboo.app.presentation.quest.component.type.QuestContentType
+import com.byeboo.app.presentation.quest.util.navigateToQuestClearBackStack
 
 @Composable
 fun QuestTipScreen(
+    navController: NavController,
     questId: Long,
-    navigateToBack: (Long) -> Unit,
     bottomPadding: Dp,
     modifier: Modifier = Modifier,
     viewModel: QuestTipViewModel = hiltViewModel(),
-    questViewModel: QuestViewModel = hiltViewModel()
+    questViewModel: QuestViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val selectedQuest by questViewModel.selectedQuest.collectAsStateWithLifecycle()
 
     LaunchedEffect(questId) {
@@ -71,8 +73,8 @@ fun QuestTipScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                is QuestTipSideEffect.NavigateToBack -> {
-                    navigateToBack(questId)
+                is QuestTipSideEffect.NavigateToQuest -> {
+                    navController.navigateToQuestClearBackStack()
                 }
             }
         }
@@ -90,8 +92,10 @@ fun QuestTipScreen(
         Spacer(modifier = Modifier.height(67.dp))
 
         Box(
-            modifier = Modifier.fillMaxWidth(),
-        ){
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 16.dp),
+        ) {
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
                 contentDescription = "닫기",
@@ -148,52 +152,56 @@ fun QuestTipScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height((35.5).dp))
-
-                QuestContent(
-                    titleIcon = QuestContentType.THINKING,
-                    titleText = if (uiState.tipQuestion.isNotEmpty()) uiState.tipQuestion[0] else "",
-                    contentText = if (uiState.tipAnswer.isNotEmpty()) uiState.tipAnswer[0] else ""
-                )
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(32.dp))
-
-                HorizontalDivider(
-                    modifier = Modifier.fillMaxWidth(),
-                    thickness = 1.dp,
-                    color = ByeBooTheme.colors.whiteAlpha10
-                )
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(34.dp))
 
                 QuestContent(
                     titleIcon = QuestContentType.QUEST_REASON,
-                    titleText = if (uiState.tipQuestion.size > 1) uiState.tipQuestion[1] else "",
-                    contentText = if (uiState.tipAnswer.size > 1) uiState.tipAnswer[1] else ""
+                    titleText = "${uiState.questNumber}번째 퀘스트로 드리는 이유",
+                    contentText = uiState.tipAnswer[0]
                 )
             }
 
             item {
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
                 HorizontalDivider(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
                     thickness = 1.dp,
                     color = ByeBooTheme.colors.whiteAlpha10
                 )
             }
 
             item {
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(24.dp))
+
+                QuestContent(
+                    titleIcon = QuestContentType.THINKING,
+                    titleText = "이런 걸 생각해보며 작성해 주세요.",
+                    contentText = uiState.tipAnswer[1]
+                )
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(24.dp))
+
+                HorizontalDivider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp),
+                    thickness = 1.dp,
+                    color = ByeBooTheme.colors.whiteAlpha10
+                )
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(24.dp))
 
                 QuestContent(
                     titleIcon = QuestContentType.FEELING_CHANGE,
-                    titleText = if (uiState.tipQuestion.size > 2) uiState.tipQuestion[2] else "",
-                    contentText = if (uiState.tipAnswer.size > 2) uiState.tipAnswer[2] else ""
+                    titleText = "이 퀘스트가 끝나면 어떤 변화가 생길까요?",
+                    contentText = uiState.tipAnswer[2]
                 )
             }
         }
