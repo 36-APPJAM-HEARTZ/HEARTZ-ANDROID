@@ -11,5 +11,4 @@ interface QuestDetailService {
     suspend fun getQuestDetail(
         @Path("questId") questId: Long
     ): BaseResponse<QuestDetailResponseDto>
-
 }
