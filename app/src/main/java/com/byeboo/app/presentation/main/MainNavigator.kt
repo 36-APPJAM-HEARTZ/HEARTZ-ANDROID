@@ -105,8 +105,8 @@ class MainNavigator(
         navController.navigateToQuest(navOptions)
     }
 
-    fun navigateToQuestTip(questId: Long, navOptions: NavOptions? = null) {
-        navController.navigateToQuestTip(questId, navOptions)
+    fun navigateToQuestTip(questId: Long, questType: QuestType, navOptions: NavOptions? = null) {
+        navController.navigateToQuestTip(questId, questType, navOptions)
     }
 
     fun navigateToQuestRecording(questId: Long, navOptions: NavOptions? = null) {
@@ -125,8 +125,8 @@ class MainNavigator(
         navController.navigateToQuestBehaviorComplete(questId, navOptions)
     }
 
-    fun navigateToQuestReview(questId: Long, questType: QuestType, navOptions: NavOptions? = null) {
-        navController.navigateToQuestReview(questId, questType, navOptions)
+    fun navigateToQuestReview(questId: Long, navOptions: NavOptions? = null) {
+        navController.navigateToQuestReview(questId, navOptions)
     }
 
     fun navigateToHomeAmulet(navOptions: NavOptions) {

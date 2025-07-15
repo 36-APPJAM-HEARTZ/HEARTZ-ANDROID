@@ -3,6 +3,7 @@ package com.byeboo.app.presentation.quest.record
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.designsystem.type.LargeTagType
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.domain.model.QuestContentLengthValidator
 import com.byeboo.app.domain.model.quest.QuestRecording
 import com.byeboo.app.domain.repository.quest.QuestDetailRecordingRepository
@@ -107,7 +108,7 @@ class QuestRecordingViewModel @Inject constructor(
     fun onTipClick() {
         val questId = uiState.value.questId
         viewModelScope.launch {
-            _sideEffect.emit(QuestRecordingSideEffect.NavigateToQuestTip(questId))
+            _sideEffect.emit(QuestRecordingSideEffect.NavigateToQuestTip(questId, QuestType.RECORDING))
         }
     }
 

@@ -36,6 +36,7 @@ import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.domain.model.QuestValidator
 import com.byeboo.app.presentation.quest.behavior.component.QuestPhotoPicker
 import com.byeboo.app.presentation.quest.component.QuestQuitModal
@@ -48,7 +49,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun QuestBehaviorWritingScreen(
     questId: Long,
     navigateToQuest: () -> Unit,
-    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestTip: (Long, QuestType) -> Unit,
     navigateToQuestBehaviorComplete: (Long) -> Unit,
     bottomPadding: Dp,
     modifier: Modifier = Modifier,
@@ -83,10 +84,8 @@ fun QuestBehaviorWritingScreen(
         viewModel.sideEffect.collectLatest {
             when (it) {
                 is QuestBehaviorSideEffect.NavigateToQuest -> navigateToQuest()
-                is QuestBehaviorSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId)
-                is QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete -> navigateToQuestBehaviorComplete(
-                    it.questId
-                )
+                is QuestBehaviorSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId, it.questType)
+                is QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete -> navigateToQuestBehaviorComplete(it.questId)
             }
         }
     }

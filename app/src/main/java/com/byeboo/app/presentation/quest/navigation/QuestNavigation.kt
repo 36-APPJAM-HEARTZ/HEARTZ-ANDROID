@@ -7,6 +7,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.core.util.routeNavigation
 import com.byeboo.app.presentation.quest.QuestReviewScreen
 import com.byeboo.app.presentation.quest.QuestScreen
@@ -24,8 +25,8 @@ fun NavController.navigateToQuest(navOptions: NavOptions? = null) {
     navigate(Quest, navOptions)
 }
 
-fun NavController.navigateToQuestTip(questId: Long, navOptions: NavOptions? = null) {
-    navigate(QuestTip(questId), navOptions)
+fun NavController.navigateToQuestTip(questId: Long, questType: QuestType, navOptions: NavOptions? = null) {
+    navigate(QuestTip(questId, questType), navOptions)
 }
 
 fun NavController.navigateToQuestReview(
@@ -44,7 +45,7 @@ fun NavGraphBuilder.questGraph(
     navigateToQuestBehavior: (Long) -> Unit,
     navigateToQuestReview: (Long) -> Unit,
     navigateToQuestRecordingComplete: (Long) -> Unit,
-    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestTip: (Long, QuestType) -> Unit,
     navigateToQuestBehaviorComplete: (Long) -> Unit,
     padding: Dp
 ) {
@@ -73,10 +74,12 @@ fun NavGraphBuilder.questGraph(
         composable<QuestTip> { backStackEntry ->
             val questTip = backStackEntry.toRoute<QuestTip>()
             val questId = questTip.questId
+            val questType = questTip.questType
 
             QuestTipScreen(
                 navigateUp = navigateUp,
                 questId = questId,
+                questType = questType,
                 bottomPadding = padding
             )
         }

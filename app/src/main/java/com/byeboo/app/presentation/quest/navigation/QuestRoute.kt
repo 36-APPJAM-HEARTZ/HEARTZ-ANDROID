@@ -14,7 +14,7 @@ data object Quest : MainTabRoute {
 data object QuestStart : Route
 
 @Serializable
-data class QuestTip(val questId: Long) : Route
+data class QuestTip(val questId: Long, val questType: QuestType) : Route
 
 @Serializable
 data class QuestReview(val questId: Long) : Route

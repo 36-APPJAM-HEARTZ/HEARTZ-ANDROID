@@ -105,7 +105,7 @@ class QuestViewModel @Inject constructor(
     fun onTipClick() {
         val quest = uiState.value.selectedQuest ?: return
         viewModelScope.launch {
-            _sideEffect.emit(QuestSideEffect.NavigateToQuestTip(quest.questId))
+            _sideEffect.emit(QuestSideEffect.NavigateToQuestTip(quest.questId, quest.type))
         }
     }
 
@@ -115,15 +115,11 @@ class QuestViewModel @Inject constructor(
             _uiState.update { it.copy(showQuitModal = false) }
             when (quest.type) {
                 QuestType.RECORDING -> _sideEffect.emit(
-                    QuestSideEffect.NavigateToQuestRecording(
-                        quest.questId
-                    )
+                    QuestSideEffect.NavigateToQuestRecording(quest.questId)
                 )
 
                 QuestType.ACTIVE -> _sideEffect.emit(
-                    QuestSideEffect.NavigateToQuestBehavior(
-                        quest.questId
-                    )
+                    QuestSideEffect.NavigateToQuestBehavior(quest.questId)
                 )
             }
         }

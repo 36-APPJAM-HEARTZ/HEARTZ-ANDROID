@@ -25,6 +25,7 @@ import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.text.DescriptionText
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.presentation.quest.component.QuestBox
 import com.byeboo.app.presentation.quest.component.QuestModal
 import com.byeboo.app.presentation.quest.component.QuestStepTitle
@@ -32,7 +33,7 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun QuestScreen(
-    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestTip: (Long, QuestType) -> Unit,
     navigateToQuestRecording: (Long) -> Unit,
     navigateToQuestBehavior: (Long) -> Unit,
     navigateToQuestReview: (Long) -> Unit,
@@ -54,11 +55,10 @@ fun QuestScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collectLatest {
             when (it) {
-                is QuestSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId)
+                is QuestSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId, it.questType)
                 is QuestSideEffect.NavigateToQuestRecording -> navigateToQuestRecording(it.questId)
                 is QuestSideEffect.NavigateToQuestBehavior -> navigateToQuestBehavior(it.questId)
                 is QuestSideEffect.NavigateToQuestReview -> navigateToQuestReview(it.questId)
-
                 is QuestSideEffect.NavigateToHome -> navigateToHome()
             }
         }

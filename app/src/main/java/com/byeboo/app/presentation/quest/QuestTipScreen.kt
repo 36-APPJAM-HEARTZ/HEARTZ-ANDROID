@@ -32,6 +32,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.core.util.noRippleClickable
 import com.byeboo.app.presentation.quest.component.QuestContent
 import com.byeboo.app.presentation.quest.component.type.QuestContentType
@@ -40,6 +41,7 @@ import com.byeboo.app.presentation.quest.component.type.QuestContentType
 fun QuestTipScreen(
     navigateUp: () -> Unit,
     questId: Long,
+    questType: QuestType,
     bottomPadding: Dp,
     modifier: Modifier = Modifier,
     viewModel: QuestTipViewModel = hiltViewModel(),
@@ -48,7 +50,6 @@ fun QuestTipScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val questUiState by questViewModel.uiState.collectAsStateWithLifecycle()
     val questGroups = questUiState.questGroups
-
 
     LaunchedEffect(questId, questGroups) {
         val quest = questGroups
@@ -164,11 +165,19 @@ fun QuestTipScreen(
             item {
                 Spacer(modifier = Modifier.height(24.dp))
 
-                QuestContent(
-                    titleIcon = QuestContentType.THINKING,
-                    titleText = "이런 걸 생각해보며 작성해 주세요.",
-                    contentText = uiState.tipAnswer[1]
-                )
+                if (questType.questName == "RECORDING") {
+                    QuestContent(
+                        titleIcon = QuestContentType.THINKING,
+                        titleText = "이런 걸 생각해보며 작성해 주세요.",
+                        contentText = uiState.tipAnswer[1]
+                    )
+                } else {
+                    QuestContent(
+                        titleIcon = QuestContentType.THINKING,
+                        titleText = "이렇게 해보면 좋아요.",
+                        contentText = uiState.tipAnswer[1]
+                    )
+                }
             }
 
             item {

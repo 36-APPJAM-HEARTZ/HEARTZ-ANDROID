@@ -36,6 +36,7 @@ import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.core.util.addFocusCleaner
 import com.byeboo.app.domain.model.QuestContentLengthValidator
 import com.byeboo.app.presentation.quest.component.QuestQuitModal
@@ -48,7 +49,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun QuestRecordingScreen(
     questId: Long,
     navigateToQuest: () -> Unit,
-    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestTip: (Long, QuestType) -> Unit,
     navigateToQuestRecordingComplete: (Long) -> Unit,
     bottomPadding: Dp,
     modifier: Modifier = Modifier,
@@ -69,13 +70,8 @@ fun QuestRecordingScreen(
         viewModel.sideEffect.collectLatest {
             when (it) {
                 is QuestRecordingSideEffect.NavigateToQuest -> navigateToQuest()
-                is QuestRecordingSideEffect.NavigateToQuestTip -> {
-                    navigateToQuestTip(it.questId)
-                }
-
-                is QuestRecordingSideEffect.NavigateToQuestRecordingComplete -> navigateToQuestRecordingComplete(
-                    it.questId
-                )
+                is QuestRecordingSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId, it.questType)
+                is QuestRecordingSideEffect.NavigateToQuestRecordingComplete -> navigateToQuestRecordingComplete(it.questId)
             }
         }
     }
