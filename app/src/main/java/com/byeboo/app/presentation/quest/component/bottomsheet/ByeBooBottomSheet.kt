@@ -48,7 +48,7 @@ fun ByeBooBottomSheet(
             onDismissRequest = onDismiss,
             modifier = modifier,
             sheetState = sheetState,
-            containerColor = ByeBooTheme.colors.gray900Alpha80,
+            containerColor = ByeBooTheme.colors.blackAlpha80,
             scrimColor = if (isBackgroundDimmed) {
                 ByeBooTheme.colors.blackAlpha80
             } else {

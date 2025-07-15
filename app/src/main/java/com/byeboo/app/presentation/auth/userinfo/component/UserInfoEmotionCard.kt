@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleClickable
@@ -33,9 +35,10 @@ fun UserInfoEmotionCard(
     val textColor = if (isSelected) ByeBooTheme.colors.primary300 else ByeBooTheme.colors.gray300
     val backgroundColor =
         if (isSelected) {
+            //TODO: 선택되었을 때 블러처리 색상 변경해주기
             ByeBooTheme.colors.primary300Alpha10
         } else {
-            ByeBooTheme.colors.whiteAlpha10
+            ByeBooTheme.colors.blackAlpha80
         }
 
     Box(
@@ -63,7 +66,9 @@ fun UserInfoEmotionCard(
             Text(
                 text = content,
                 style = ByeBooTheme.typography.body5,
-                color = textColor
+                color = textColor,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
             )
         }
     }

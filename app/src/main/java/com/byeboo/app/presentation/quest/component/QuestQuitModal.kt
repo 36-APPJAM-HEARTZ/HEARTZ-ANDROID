@@ -21,6 +21,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.byeboo.app.core.designsystem.component.button.ByeBooButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.designsystem.ui.theme.blackAlpha80
 import com.byeboo.app.core.designsystem.ui.theme.gray900Alpha80
 
 @Composable
@@ -39,7 +40,7 @@ fun QuestQuitModal(
             modifier = modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
-                .background(color = gray900Alpha80)
+                .background(color = blackAlpha80)
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
