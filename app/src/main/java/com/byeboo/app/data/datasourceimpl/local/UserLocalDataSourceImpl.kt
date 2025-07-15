@@ -89,7 +89,6 @@ class UserLocalDataSourceImpl @Inject constructor(
             dataStore.edit { preferences ->
                 preferences.clear()
             }
-        }.onFailure { e ->
         }
     }
 

@@ -38,6 +38,7 @@ fun NavController.navigateToQuestReview(
 }
 
 fun NavGraphBuilder.questGraph(
+    navigateUp: () -> Unit,
     navController: NavController,
     navigateToQuest: () -> Unit,
     navigateToHome: () -> Unit,
@@ -47,18 +48,18 @@ fun NavGraphBuilder.questGraph(
     navigateToQuestRecordingComplete: (Long) -> Unit,
     navigateToQuestTip: (Long) -> Unit,
     navigateToQuestBehaviorComplete: (Long) -> Unit,
-    bottomPadding: Dp
+    padding: Dp
 ) {
     routeNavigation<Quest, QuestStart> {
         composable<QuestStart> {
             QuestStartScreen(
                 navigateToQuest = navigateToQuest,
                 navigateToHome = navigateToHome,
-                padding = bottomPadding
+                padding = padding
             )
         }
 
-        composable<Quest> {backStackEntry ->
+        composable<Quest> { backStackEntry ->
             val viewModel = hiltViewModel<QuestViewModel>(backStackEntry)
             QuestScreen(
                 viewModel = viewModel,
@@ -67,7 +68,7 @@ fun NavGraphBuilder.questGraph(
                 navigateToQuestBehavior = navigateToQuestBehavior,
                 navigateToQuestReview = navigateToQuestReview,
                 navigateToHome = navigateToHome,
-                bottomPadding = bottomPadding
+                bottomPadding = padding
             )
         }
 
@@ -76,9 +77,9 @@ fun NavGraphBuilder.questGraph(
             val questId = questTip.questId
 
             QuestTipScreen(
-                navController = navController,
+                navigateUp = navigateUp,
                 questId = questId,
-                bottomPadding = bottomPadding
+                bottomPadding = padding
             )
         }
 
@@ -89,7 +90,7 @@ fun NavGraphBuilder.questGraph(
             QuestReviewScreen(
                 questId = questId,
                 navigateToBack = { navController.popBackStack() },
-                bottomPadding = bottomPadding
+                bottomPadding = padding
             )
         }
 
@@ -97,14 +98,14 @@ fun NavGraphBuilder.questGraph(
             navigateToQuest = navigateToQuest,
             navigateToQuestTip = navigateToQuestTip,
             navigateToQuestRecordingComplete = navigateToQuestRecordingComplete,
-            bottomPadding = bottomPadding
+            bottomPadding = padding
         )
 
         questBehaviorGraph(
             navigateToQuest = navigateToQuest,
             navigateToQuestTip = navigateToQuestTip,
             navigateToQuestBehaviorComplete = navigateToQuestBehaviorComplete,
-            bottomPadding = bottomPadding
+            bottomPadding = padding
         )
     }
 }

@@ -10,7 +10,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import com.byeboo.app.core.model.QuestType
-import com.byeboo.app.presentation.auth.navigation.Onboarding
 import com.byeboo.app.presentation.auth.navigation.navigateToLoading
 import com.byeboo.app.presentation.auth.navigation.navigateToOnboarding
 import com.byeboo.app.presentation.auth.navigation.navigateToUserInfo
@@ -26,6 +25,7 @@ import com.byeboo.app.presentation.quest.navigation.navigateToQuestStart
 import com.byeboo.app.presentation.quest.navigation.navigateToQuestTip
 import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecording
 import com.byeboo.app.presentation.quest.record.navigation.navigateToQuestRecordingComplete
+import com.byeboo.app.presentation.splash.navigation.Splash
 
 class MainNavigator(
     val navController: NavHostController
@@ -35,7 +35,7 @@ class MainNavigator(
             navController
                 .currentBackStackEntryAsState().value?.destination
 
-    val startDestination = Onboarding
+    val startDestination = Splash
 
 
     val currentTab: MainNavTab?

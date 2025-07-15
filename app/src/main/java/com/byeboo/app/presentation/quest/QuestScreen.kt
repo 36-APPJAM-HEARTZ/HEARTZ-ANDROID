@@ -1,6 +1,5 @@
 package com.byeboo.app.presentation.quest
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -69,8 +68,6 @@ fun QuestScreen(
         }
     }
 
-    BackHandler { viewModel.onBackClick() }
-
     if (uiState.showQuitModal) {
         QuestModal(
             onDismissRequest = { viewModel.onDismissModal() },
@@ -94,7 +91,7 @@ fun QuestScreen(
                 text = uiState.progressPeriod.toString()
             )
             DescriptionText(
-                nicknameText = "하츠핑님, 지금",
+                nicknameText = "${uiState.userName}님, 지금",
                 title = uiState.journeyTitle,
                 guideText = "을 진행 중이에요.",
                 contentText = "오늘도 한 걸음 나아가볼까요?"
