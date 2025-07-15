@@ -17,7 +17,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,7 +36,6 @@ import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.text.ContentText
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.presentation.quest.component.QuestContent
 import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
 import com.byeboo.app.presentation.quest.component.QuestTitle
@@ -52,10 +50,12 @@ fun QuestReviewScreen(
     viewModel: QuestReviewViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val selectedImageUri by viewModel.selectedImageUri.collectAsState()
+    val hasImage = !uiState.imageUrl.isNullOrBlank()
+
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
+        viewModel.getQuestRecordedDetail(questId)
     }
 
     LaunchedEffect(Unit) {
@@ -81,8 +81,7 @@ fun QuestReviewScreen(
             tint = ByeBooTheme.colors.white,
             modifier = Modifier
                 .align(Alignment.End)
-                .clickable { viewModel.onCloseClick()
-           }
+                .clickable { viewModel.onCloseClick() }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -97,67 +96,62 @@ fun QuestReviewScreen(
                     stepNumber = uiState.stepNumber,
                     questNumber = uiState.questNumber,
                     createdAt = uiState.createdAt,
-                    questQuestion = uiState.questQuestion
+                    questQuestion = uiState.question
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
             }
 
-            item {
-                when (uiState.type) {
-                    QuestType.RECORDING ->
-                        QuestContent(
-                            titleIcon = QuestContentType.THINKING,
-                            titleText = "이렇게 생각했어요",
-                            contentText = uiState.questAnswer
+            if (hasImage) {
+                item {
+                    Row(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Icon(
+                            imageVector = ImageVector.vectorResource(R.drawable.ic_think),
+                            contentDescription = "title icon",
+                            modifier = Modifier.padding(end = 8.dp),
+                            tint = Color.Unspecified
                         )
 
-                    QuestType.ACTIVE -> {
-                        Row(
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Icon(
-                                imageVector = ImageVector.vectorResource(R.drawable.ic_think),
-                                contentDescription = "title icon",
-                                modifier = Modifier.padding(end = 8.dp),
+                        Text(
+                            text = "이렇게 완료했어요",
+                            color = ByeBooTheme.colors.gray200,
+                            style = ByeBooTheme.typography.body2
+                        )
+                    }
 
-                                tint = Color.Unspecified
-                            )
-
-                            Text(
-                                text = "이렇게 완료했어요",
-                                color = ByeBooTheme.colors.gray200,
-                                style = ByeBooTheme.typography.body2
-                            )
-                        }
-
-                        Column(
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(360 / 312f)
+                            .clip(RoundedCornerShape(12.dp))
+                    ) {
+                        AsyncImage(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .aspectRatio(360 / 312f)
-                                .clip(RoundedCornerShape(12.dp))
-                        ) {
-                            selectedImageUri?.let { uri ->
-                                AsyncImage(
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .aspectRatio(1f),
-                                    model = ImageRequest.Builder(LocalContext.current)
-                                        .data(uri)
-                                        .crossfade(true)
-                                        .build(),
-                                    contentDescription = "uploaded image",
-                                    contentScale = ContentScale.Crop
-                                )
-                            }
-                        }
+                                .aspectRatio(1f),
+                            model = ImageRequest.Builder(LocalContext.current)
+                                .data(uiState.imageUrl)
+                                .crossfade(true)
+                                .build(),
+                            contentDescription = "uploaded image",
+                            contentScale = ContentScale.Crop
+                        )
 
                         Spacer(modifier = Modifier.height(8.dp))
-
-                        if (uiState.questAnswer.isNotBlank()) {
-                            ContentText(uiState.questAnswer)
-                        }
                     }
+                    if (uiState.answer.isNotBlank()) {
+                        ContentText(uiState.answer)
+                    }
+                }
+            } else {
+                item {
+                    QuestContent(
+                        titleIcon = QuestContentType.THINKING,
+                        titleText = "이렇게 생각했어요",
+                        contentText = uiState.answer
+                    )
                 }
             }
 
@@ -166,7 +160,7 @@ fun QuestReviewScreen(
 
                 QuestEmotionDescriptionContent(
                     questEmotionDescription = uiState.emotionDescription,
-                    emotionType = uiState.emotion
+                    emotionType = uiState.selectedEmotion
                 )
 
                 Spacer(modifier = Modifier.height(28.dp))
