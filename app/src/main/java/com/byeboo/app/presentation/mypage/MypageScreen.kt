@@ -1,6 +1,7 @@
 package com.byeboo.app.presentation.mypage
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -99,12 +100,19 @@ fun MyPageScreen(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        ByeBooButton(
-            onClick = navigateToCompletedJourney,
-            buttonText = "완료한 여정 돌아보기",
-            buttonTextColor = ByeBooTheme.colors.gray50,
-            buttonBackgroundColor = ByeBooTheme.colors.whiteAlpha10,
-            buttonStrokeColor = ByeBooTheme.colors.primary300
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(12.dp))
+                .background(color = ByeBooTheme.colors.whiteAlpha10)
+                .border(width = 1.dp, color = ByeBooTheme.colors.primary300, shape = RoundedCornerShape(12.dp))
+                .padding(horizontal = 24.dp, vertical = 21.dp)
+        ) {
+            Text(
+                text = "완료한 여정 돌아보기",
+                style = ByeBooTheme.typography.body2,
+                color = ByeBooTheme.colors.gray50
+            )
+        }
     }
 }
