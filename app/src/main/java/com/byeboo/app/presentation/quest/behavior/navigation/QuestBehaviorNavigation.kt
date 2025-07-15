@@ -11,7 +11,6 @@ import com.byeboo.app.presentation.quest.behavior.QuestBehaviorCompleteScreen
 import com.byeboo.app.presentation.quest.behavior.QuestBehaviorWritingScreen
 import com.byeboo.app.presentation.quest.behavior.navigation.QuestBehavior.QuestBehaviorComplete
 import com.byeboo.app.presentation.quest.behavior.navigation.QuestBehavior.QuestBehaviorWriting
-import com.byeboo.app.presentation.quest.record.navigation.QuestRecord
 
 fun NavController.navigateToQuestBehavior(questId: Long, navOptions: NavOptions? = null) {
     navigate(QuestBehaviorWriting(questId), navOptions)

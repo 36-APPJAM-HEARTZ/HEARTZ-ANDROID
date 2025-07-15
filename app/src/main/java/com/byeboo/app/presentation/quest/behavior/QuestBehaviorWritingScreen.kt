@@ -23,6 +23,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -58,6 +59,7 @@ fun QuestBehaviorWritingScreen(
     val isEmotionSelected by viewModel.isEmotionSelected.collectAsStateWithLifecycle()
     val selectedImageUrl by viewModel.selectedImageUri.collectAsStateWithLifecycle()
     val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     if (showQuitModal) {
         QuestQuitModal(
@@ -226,7 +228,8 @@ fun QuestBehaviorWritingScreen(
                 QuestTextField(
                     questWritingState = uiState.contentState,
                     value = uiState.contents,
-                    onValueChange = viewModel::updateContent
+                    onValueChange = viewModel::updateContent,
+                    placeholder = "꼭 적지 않아도 괜찮지만, 글로 정리해보면 스스로에게 한 걸음 더 가까워질 수 있어요."
                 )
 
                 Spacer(modifier = Modifier.height(24.dp))
@@ -248,7 +251,7 @@ fun QuestBehaviorWritingScreen(
     }
 
     ByeBooBottomSheet(
-        navigateButton = viewModel::onCompleteClick,
+        navigateButton = {viewModel.uploadImage(context)},
         showBottomSheet = showBottomSheet,
         onDismiss = {
             viewModel.closeBottomSheet()

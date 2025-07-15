@@ -1,5 +1,6 @@
 package com.byeboo.app.data.di
 
+import com.byeboo.app.data.datasource.remote.QuestBehaviorAnswerDataSource
 import com.byeboo.app.data.datasource.remote.QuestInProgressDataSource
 import com.byeboo.app.data.datasource.remote.UserRemoteDataSource
 import com.byeboo.app.data.datasource.remote.quest.QuestDetailRemoteDataSource
@@ -7,6 +8,7 @@ import com.byeboo.app.data.datasource.remote.quest.QuestRecordedDetailDataSource
 import com.byeboo.app.data.datasource.remote.quest.QuestRecordingDataSource
 import com.byeboo.app.data.datasource.remote.quest.QuestStateDataSource
 import com.byeboo.app.data.datasource.remote.quest.QuestTipDataSource
+import com.byeboo.app.data.datasourceimpl.remote.QuestBehaviorAnswerDataSourceImpl
 import com.byeboo.app.data.datasourceimpl.remote.QuestInProgressDataSourceImpl
 import com.byeboo.app.data.datasourceimpl.remote.UserRemoteDataSourceImpl
 import com.byeboo.app.data.datasourceimpl.remote.quest.QuestDetailRemoteDataSourceImpl
@@ -42,6 +44,10 @@ abstract class DataSourceModule {
     @Binds
     @Singleton
     abstract fun bindsQuestTipDataSource(impl: QuestTipDataSourceImpl): QuestTipDataSource
+
+    @Binds
+    @Singleton
+    abstract fun bindQuestBehaviorAnswerDataSource(impl: QuestBehaviorAnswerDataSourceImpl) : QuestBehaviorAnswerDataSource
 
     @Binds
     @Singleton
