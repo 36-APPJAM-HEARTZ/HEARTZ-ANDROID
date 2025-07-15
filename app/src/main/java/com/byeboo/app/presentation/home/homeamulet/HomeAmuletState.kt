@@ -8,15 +8,28 @@ data class HomeAmuletState(
     val isLoading: Boolean = true
 )
 
-enum class AmuletType(val journeyName: String, val imageRes: Int) {
-    EMOTION_FACE("감정 직면", R.drawable.img_emotion_face),
-    EMOTION_ORGANIZE("감정 정리", R.drawable.img_emotion_organize);
+sealed interface HomeAmuletSideEffect {
+    data object NavigateToHomeOnboarding : HomeAmuletSideEffect
+}
+
+enum class AmuletType(
+    val journeyName: String,
+    val frontImg: Int,
+    val backImg: Int
+) {
+    EMOTION_FACE(
+        "감정 직면",
+        R.drawable.img_recording_amulet_front,
+        R.drawable.img_recording_amulet_back
+    ),
+    EMOTION_ORGANIZE(
+        "감정 정리",
+        R.drawable.img_active_amulet_front,
+        R.drawable.img_active_amulet_back
+    );
 
     companion object {
         fun from(journeyName: String): AmuletType =
             entries.find { it.journeyName == journeyName } ?: EMOTION_FACE
     }
-}
-sealed interface HomeAmuletSideEffect {
-    data object NavigateToHomeOnboarding : HomeAmuletSideEffect
 }
