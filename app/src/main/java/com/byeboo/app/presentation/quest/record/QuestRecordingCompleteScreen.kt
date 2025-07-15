@@ -75,12 +75,12 @@ fun QuestRecordingCompleteScreen(
         Spacer(modifier = Modifier.height(67.dp))
 
         Icon(
-            imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
+            imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
             contentDescription = "back button",
             tint = ByeBooTheme.colors.white,
             modifier = Modifier
+                .align(Alignment.End)
                 .clickable { viewModel.onCloseClick() }
-                .align(alignment = Alignment.Start)
         )
 
         Spacer(modifier = Modifier.height(16.dp))
