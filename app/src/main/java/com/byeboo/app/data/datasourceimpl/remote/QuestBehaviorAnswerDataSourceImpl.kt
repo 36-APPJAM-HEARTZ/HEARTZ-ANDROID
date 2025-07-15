@@ -5,7 +5,6 @@ import com.byeboo.app.data.dto.base.BaseResponse
 import com.byeboo.app.data.dto.base.NullableBaseResponse
 import com.byeboo.app.data.dto.request.QuestBehaviorAnswerRequestDto
 import com.byeboo.app.data.dto.request.QuestSignedUrlRequestDto
-import com.byeboo.app.data.dto.response.QuestBehaviorAnswerResponseDto
 import com.byeboo.app.data.dto.response.QuestSingedUrlResponseDto
 import com.byeboo.app.data.service.quest.QuestBehaviorService
 import okhttp3.RequestBody
@@ -31,7 +30,4 @@ class QuestBehaviorAnswerDataSourceImpl @Inject constructor(
         return questBehaviorService.postQuestAnswer(questId = questId, request = request)
     }
 
-    override suspend fun getQuestBehaviorAnswer(questId: Long): BaseResponse<QuestBehaviorAnswerResponseDto> {
-        return questBehaviorService.getQuestBehaviorAnswer(questId = questId)
-    }
 }

@@ -5,7 +5,6 @@ import com.byeboo.app.data.mapper.quest.toData
 import com.byeboo.app.data.mapper.quest.toDomain
 import com.byeboo.app.domain.model.BehaviorAnswerRequestModel
 import com.byeboo.app.domain.model.SignedUrlRequestModel
-import com.byeboo.app.domain.model.quest.QuestBehaviorAnswerModel
 import com.byeboo.app.domain.repository.QuestBehaviorAnswerRepository
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -35,11 +34,5 @@ class QuestBehaviorAnswerRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getQuestBehaviorAnswer(questId: Long): Result<QuestBehaviorAnswerModel> {
-        return runCatching {
-            val response = questBehaviorAnswerDataSource.getQuestBehaviorAnswer(questId)
-            response.data.toDomain()
-        }
-    }
 
 }

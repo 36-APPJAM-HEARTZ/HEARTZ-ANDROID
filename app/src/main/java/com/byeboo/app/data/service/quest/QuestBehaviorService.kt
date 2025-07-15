@@ -4,7 +4,6 @@ import com.byeboo.app.data.dto.base.BaseResponse
 import com.byeboo.app.data.dto.base.NullableBaseResponse
 import com.byeboo.app.data.dto.request.QuestBehaviorAnswerRequestDto
 import com.byeboo.app.data.dto.request.QuestSignedUrlRequestDto
-import com.byeboo.app.data.dto.response.QuestBehaviorAnswerResponseDto
 import com.byeboo.app.data.dto.response.QuestSingedUrlResponseDto
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -33,10 +32,5 @@ interface QuestBehaviorService {
         @Path("questId") questId: Long,
         @Body request: QuestBehaviorAnswerRequestDto
     ): NullableBaseResponse<Unit>
-
-    @GET("/api/v1/quests/answer/{questId}")
-    suspend fun getQuestBehaviorAnswer(
-        @Path("questId") questId: Long,
-    ): BaseResponse<QuestBehaviorAnswerResponseDto>
 
 }
