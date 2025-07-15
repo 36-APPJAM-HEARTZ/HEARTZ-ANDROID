@@ -1,6 +1,5 @@
 package com.byeboo.app.presentation.quest.record
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.designsystem.type.LargeTagType

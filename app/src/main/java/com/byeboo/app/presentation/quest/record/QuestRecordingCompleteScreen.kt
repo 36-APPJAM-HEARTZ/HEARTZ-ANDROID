@@ -1,6 +1,5 @@
 package com.byeboo.app.presentation.quest.record
 
-import android.util.Log
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -52,8 +51,6 @@ fun QuestRecordingCompleteScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(questId) {
-        Log.d("QuestScreen", "questId = $questId")  // ← 추가
-
         viewModel.setQuestId(questId)
         viewModel.getQuestRecordedDetail(questId)
     }
