@@ -4,7 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.domain.model.QuestContentLengthValidator
+import com.byeboo.app.domain.model.quest.QuestRecording
 import com.byeboo.app.domain.repository.quest.QuestDetailRecordingRepository
+import com.byeboo.app.domain.repository.quest.QuestRecordingRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,11 +19,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuestRecordingViewModel @Inject constructor(
-    val questDetailRecordingRepository: QuestDetailRecordingRepository
+    val questDetailRecordingRepository: QuestDetailRecordingRepository,
+    val questRecordingRepository: QuestRecordingRepository
 ) : ViewModel() {
-    private val _state = MutableStateFlow(QuestRecordingState())
-    val state: StateFlow<QuestRecordingState>
-        get() = _state.asStateFlow()
+    private val _uiState = MutableStateFlow(QuestRecordingState())
+    val uiState: StateFlow<QuestRecordingState>
+        get() = _uiState.asStateFlow()
 
     private val _sideEffect = MutableSharedFlow<QuestRecordingSideEffect>()
     val sideEffect: SharedFlow<QuestRecordingSideEffect>
@@ -38,7 +41,7 @@ class QuestRecordingViewModel @Inject constructor(
         get() = _showQuitModal.asStateFlow()
 
     fun setQuestId(questId: Long) {
-        _state.update {
+        _uiState.update {
             it.copy(questId = questId)
         }
     }
@@ -47,7 +50,7 @@ class QuestRecordingViewModel @Inject constructor(
         viewModelScope.launch {
             val result = questDetailRecordingRepository.getQuestRecordingDetail(questId)
             result.onSuccess { detail ->
-                _state.update {
+                _uiState.update {
                     it.copy(
                         step = detail.step,
                         stepNumber = detail.stepNumber,
@@ -59,9 +62,27 @@ class QuestRecordingViewModel @Inject constructor(
         }
     }
 
+    fun postQuestRecording() {
+        val questId = uiState.value.questId
+        val answer = uiState.value.questAnswer
+        val emotion = uiState.value.selectedEmotion.title
+
+        viewModelScope.launch {
+            val request = QuestRecording(
+                answer = answer,
+                questEmotionState = emotion
+            )
+            val result = questRecordingRepository.postRecording(questId, request)
+
+            if (result.isSuccess) {
+                _sideEffect.emit(QuestRecordingSideEffect.NavigateToQuestRecordingComplete(questId))
+            }
+        }
+    }
+
     fun updateContent(questAnswer: String) {
         val contentState = QuestContentLengthValidator.validate(questAnswer)
-        _state.update {
+        _uiState.update {
             it.copy(
                 questAnswer = questAnswer,
                 contentsState = contentState
@@ -84,7 +105,7 @@ class QuestRecordingViewModel @Inject constructor(
     }
 
     fun onTipClick() {
-        val questId = state.value.questId
+        val questId = uiState.value.questId
         viewModelScope.launch {
             _sideEffect.emit(QuestRecordingSideEffect.NavigateToQuestTip(questId))
         }
@@ -103,6 +124,6 @@ class QuestRecordingViewModel @Inject constructor(
     }
 
     fun updateSelectedEmotion(emotion: LargeTagType) {
-        _state.value = _state.value.copy(selectedEmotion = emotion)
+        _uiState.value = _uiState.value.copy(selectedEmotion = emotion)
     }
 }

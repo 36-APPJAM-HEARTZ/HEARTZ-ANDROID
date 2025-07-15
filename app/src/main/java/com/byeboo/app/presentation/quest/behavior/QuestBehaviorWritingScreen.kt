@@ -53,7 +53,7 @@ fun QuestBehaviorWritingScreen(
     modifier: Modifier = Modifier,
     viewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val showBottomSheet by viewModel.showBottomSheet.collectAsStateWithLifecycle()
     val isEmotionSelected by viewModel.isEmotionSelected.collectAsStateWithLifecycle()
     val selectedImageUrl by viewModel.selectedImageUri.collectAsStateWithLifecycle()
@@ -147,7 +147,7 @@ fun QuestBehaviorWritingScreen(
 
             item {
                 Text(
-                    text = uiState.questTitle,
+                    text = uiState.question,
                     color = ByeBooTheme.colors.gray100,
                     textAlign = TextAlign.Center,
                     style = ByeBooTheme.typography.head1

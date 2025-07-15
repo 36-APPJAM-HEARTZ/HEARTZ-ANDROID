@@ -7,8 +7,8 @@
     <string name="ic_mypage_desc">내 정보</string>
 
     <!--공통 컴포넌트 LargeTag-->
-    <string name="type_emotion_neutral">그저그런</string>
-    <string name="type_emotion_self_aware">자기이해</string>
+    <string name="type_emotion_neutral">그저 그런</string>
+    <string name="type_emotion_self_aware">자기 이해</string>
     <string name="type_emotion_sadness">슬픔</string>
     <string name="type_emotion_relief">후련함</string>
     

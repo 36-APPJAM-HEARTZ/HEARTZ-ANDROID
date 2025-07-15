@@ -1,4 +1,4 @@
-package com.byeboo.app.data.mapper.todomain
+package com.byeboo.app.data.mapper.quest
 
 import com.byeboo.app.data.dto.response.QuestDetailResponseDto
 import com.byeboo.app.domain.model.QuestStyle
