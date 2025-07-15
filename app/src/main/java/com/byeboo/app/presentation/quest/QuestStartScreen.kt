@@ -27,6 +27,7 @@ import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleClickable
+import com.byeboo.app.presentation.auth.loading.LoadingViewModel
 import com.byeboo.app.presentation.quest.component.GuideContent
 
 @Composable
@@ -35,9 +36,12 @@ fun QuestStartScreen(
     navigateToHome: () -> Unit,
     padding: Dp,
     modifier: Modifier = Modifier,
-    viewModel: QuestStartViewModel = hiltViewModel()
+    viewModel: QuestStartViewModel = hiltViewModel(),
+    loadingViewModel: LoadingViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val nickname by loadingViewModel.nickname.collectAsStateWithLifecycle()
+
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { effect ->
@@ -73,8 +77,6 @@ fun QuestStartScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
         Spacer(modifier = Modifier.weight(1f))
 
         Column(
@@ -82,14 +84,12 @@ fun QuestStartScreen(
                 .fillMaxWidth()
         ) {
             GuideContent(
-                userName = uiState.nickname,
+                userName = nickname.toString(),
                 guideText = "님의 상황에 꼭 맞춘\n${uiState.journeyName} 여정의 퀘스트 30개를 드릴게요.\n\n제가 드리는 퀘스트와 함꼐\n이별을 극복해나가요!"
             )
         }
 
         Spacer(modifier = Modifier.weight(1f))
-
-        Spacer(modifier = Modifier.height(20.dp))
 
         ByeBooButton(
             onClick = viewModel::onStartClick,
