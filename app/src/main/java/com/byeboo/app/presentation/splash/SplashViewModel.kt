@@ -15,7 +15,7 @@ class SplashViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    private val _sideEffect = MutableSharedFlow<SplashSideEffect>()
+    private val _sideEffect = MutableSharedFlow<SplashState>()
     val sideEffect = _sideEffect.asSharedFlow()
 
     init {
@@ -29,9 +29,9 @@ class SplashViewModel @Inject constructor(
             val isLoggedIn = userRepository.isLoggedIn()
 
             val effect = if (isLoggedIn) {
-                SplashSideEffect.NavigateToHome
+                SplashState.NavigateToHome
             } else {
-                SplashSideEffect.NavigateToOnboarding
+                SplashState.NavigateToOnboarding
             }
 
             _sideEffect.emit(effect)

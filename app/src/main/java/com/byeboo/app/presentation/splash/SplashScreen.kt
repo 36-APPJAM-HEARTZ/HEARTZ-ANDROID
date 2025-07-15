@@ -25,8 +25,8 @@ fun SplashScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
-                SplashSideEffect.NavigateToHome -> navigateToHome()
-                SplashSideEffect.NavigateToOnboarding -> navigateToOnboarding()
+                SplashState.NavigateToHome -> navigateToHome()
+                SplashState.NavigateToOnboarding -> navigateToOnboarding()
             }
         }
     }
