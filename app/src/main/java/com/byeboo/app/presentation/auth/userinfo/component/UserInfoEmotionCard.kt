@@ -35,10 +35,9 @@ fun UserInfoEmotionCard(
     val textColor = if (isSelected) ByeBooTheme.colors.primary300 else ByeBooTheme.colors.gray300
     val backgroundColor =
         if (isSelected) {
-            //TODO: 선택되었을 때 블러처리 색상 변경해주기
             ByeBooTheme.colors.primary300Alpha10
         } else {
-            ByeBooTheme.colors.blackAlpha80
+            ByeBooTheme.colors.whiteAlpha10
         }
 
     Box(
