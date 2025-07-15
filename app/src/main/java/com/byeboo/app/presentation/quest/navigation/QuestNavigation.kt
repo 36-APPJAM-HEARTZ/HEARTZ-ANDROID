@@ -7,7 +7,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.core.util.routeNavigation
 import com.byeboo.app.presentation.quest.QuestReviewScreen
 import com.byeboo.app.presentation.quest.QuestScreen
@@ -31,10 +30,9 @@ fun NavController.navigateToQuestTip(questId: Long, navOptions: NavOptions? = nu
 
 fun NavController.navigateToQuestReview(
     questId: Long,
-    questType: QuestType,
     navOptions: NavOptions? = null
 ) {
-    navigate(QuestReview(questId, questType), navOptions)
+    navigate(QuestReview(questId), navOptions)
 }
 
 fun NavGraphBuilder.questGraph(
@@ -44,7 +42,7 @@ fun NavGraphBuilder.questGraph(
     navigateToHome: () -> Unit,
     navigateToQuestRecording: (Long) -> Unit,
     navigateToQuestBehavior: (Long) -> Unit,
-    navigateToQuestReview: (Long, QuestType) -> Unit,
+    navigateToQuestReview: (Long) -> Unit,
     navigateToQuestRecordingComplete: (Long) -> Unit,
     navigateToQuestTip: (Long) -> Unit,
     navigateToQuestBehaviorComplete: (Long) -> Unit,

@@ -17,4 +17,4 @@ data object QuestStart : Route
 data class QuestTip(val questId: Long) : Route
 
 @Serializable
-data class QuestReview(val questId: Long, val questType: QuestType) : Route
+data class QuestReview(val questId: Long) : Route
