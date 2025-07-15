@@ -58,7 +58,7 @@ fun QuestCompleteCard(
         Spacer(modifier = Modifier.height(16.dp))
 
         Text(
-            text = "기특해요 ! \n점점 극복에 가까워지고 있어요 :)",
+            text = "기특해요 !\n점점 극복해나가고 있어요 :)",
             color = ByeBooTheme.colors.gray300,
             textAlign = TextAlign.Center,
             style = ByeBooTheme.typography.body3
