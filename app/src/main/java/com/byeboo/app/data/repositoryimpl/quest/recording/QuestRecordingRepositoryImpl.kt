@@ -1,7 +1,6 @@
 package com.byeboo.app.data.repositoryimpl.quest.recording
 
 import com.byeboo.app.data.datasource.remote.quest.QuestRecordingDataSource
-import com.byeboo.app.data.dto.base.NullableBaseResponse
 import com.byeboo.app.data.mapper.quest.toData
 import com.byeboo.app.domain.model.quest.QuestRecording
 import com.byeboo.app.domain.repository.quest.QuestRecordingRepository
@@ -13,7 +12,10 @@ class QuestRecordingRepositoryImpl @Inject constructor(
     override suspend fun postRecording(
         questId: Long,
         request: QuestRecording
-    ): NullableBaseResponse<Unit> {
-        return questRecordingDataSource.postQuestRecording(questId, request.toData())
+    ): Result<Unit> = runCatching {
+        val response = questRecordingDataSource.postQuestRecording(questId, request.toData())
+        if (response.success) {
+            Unit
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest.behavior
 
+import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -47,12 +48,14 @@ fun QuestBehaviorCompleteScreen(
     bottomPadding: Dp,
     viewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsState()
 
     val selectedImageUri by viewModel.selectedImageUri.collectAsStateWithLifecycle()
+    val imageUri = selectedImageUri ?: uiState.imageUrl.takeIf { it.isNotBlank() }?.let { Uri.parse(it) }
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
+        viewModel.getQuestRecordedDetail(questId)
     }
 
     LaunchedEffect(Unit) {
@@ -103,7 +106,7 @@ fun QuestBehaviorCompleteScreen(
                     stepNumber = uiState.stepNumber,
                     questNumber = uiState.questNumber,
                     createdAt = uiState.createdAt,
-                    questQuestion = uiState.questTitle,
+                    questQuestion = uiState.question,
                 )
             }
 
@@ -118,13 +121,10 @@ fun QuestBehaviorCompleteScreen(
                             .aspectRatio(360 / 312f)
                             .clip(RoundedCornerShape(12.dp))
                     ) {
-                        selectedImageUri?.let { uri ->
+                        imageUri?.let { uri ->
                             AsyncImage(
-                                model = ImageRequest
-                                    .Builder(LocalContext.current)
-                                    .data(uri)
-                                    .crossfade(true)
-                                    .build(),
+                                model = ImageRequest.Builder(LocalContext.current).data(uri)
+                                    .crossfade(true).build(),
                                 contentDescription = "uploaded image",
                                 modifier = Modifier.fillMaxSize(),
                                 contentScale = ContentScale.Crop
@@ -134,8 +134,8 @@ fun QuestBehaviorCompleteScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    if (uiState.contents.isNotBlank()) {
-                        ContentText(uiState.contents)
+                    if (uiState.answer.isNotBlank()) {
+                        ContentText(uiState.answer)
                     }
                 }
 
@@ -166,7 +166,7 @@ fun QuestBehaviorCompleteScreen(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     QuestEmotionDescriptionCard(
-                        questEmotionDescription = uiState.contents,
+                        questEmotionDescription = uiState.emotionDescription,
                         emotionType = uiState.selectedEmotion
                     )
                 }

@@ -5,11 +5,10 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.designsystem.type.LargeTagType
-
-
 import com.byeboo.app.data.mapper.todata.toData
 import com.byeboo.app.domain.model.QuestContentLengthValidator
 import com.byeboo.app.domain.repository.quest.QuestDetailBehaviorRepository
+import com.byeboo.app.domain.repository.quest.QuestRecordedDetailRepository
 import com.byeboo.app.domain.usecase.UploadImageUseCase
 import com.byeboo.app.presentation.quest.model.Quest
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,11 +24,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuestBehaviorViewModel @Inject constructor(
-    private val questDetailBehaviorRepository: QuestDetailBehaviorRepository,
+    val questDetailBehaviorRepository: QuestDetailBehaviorRepository,
+    val questRecordedDetailRepository: QuestRecordedDetailRepository,
     private val uploadImageUseCase: UploadImageUseCase
 ) : ViewModel() {
-    private val _state = MutableStateFlow(QuestBehaviorState())
-    val state: StateFlow<QuestBehaviorState> = _state.asStateFlow()
+    private val _uiState = MutableStateFlow(QuestBehaviorState())
+    val uiState: StateFlow<QuestBehaviorState> = _uiState.asStateFlow()
 
     private val _sideEffect = MutableSharedFlow<QuestBehaviorSideEffect>()
     val sideEffect: SharedFlow<QuestBehaviorSideEffect> = _sideEffect
@@ -50,8 +50,11 @@ class QuestBehaviorViewModel @Inject constructor(
     val showQuitModal: StateFlow<Boolean>
         get() = _showQuitModal.asStateFlow()
 
+
+
+
     fun setQuestId(questId: Long) {
-        _state.update {
+        _uiState.update {
             it.copy(questId = questId)
         }
     }
@@ -60,12 +63,32 @@ class QuestBehaviorViewModel @Inject constructor(
         viewModelScope.launch {
             val result = questDetailBehaviorRepository.getQuestBehaviorDetail(questId)
             result.onSuccess { detail ->
-                _state.update {
+                _uiState.update {
                     it.copy(
                         stepMissionTitle = detail.step,
                         stepNumber = detail.stepNumber,
                         questNumber = detail.questNumber,
-                        questTitle = detail.question
+                        question = detail.question
+                    )
+                }
+            }
+        }
+    }
+
+    fun getQuestRecordedDetail(questId: Long) {
+        viewModelScope.launch {
+            val result = questRecordedDetailRepository.getQuestRecordedDetail(questId)
+            result.onSuccess { detail ->
+                _uiState.update {
+                    it.copy(
+                        stepNumber = detail.stepNumber,
+                        questNumber = detail.questNumber,
+                        createdAt = detail.createdAt,
+                        question = detail.question,
+                        answer = detail.answer,
+                        imageUrl = detail.imageUrl.toString(),
+                        selectedEmotion = LargeTagType.fromKorean(detail.questEmotionState),
+                        emotionDescription = detail.emotionDescription,
                     )
                 }
             }
@@ -75,9 +98,9 @@ class QuestBehaviorViewModel @Inject constructor(
     fun uploadImage(context: Context) {
         viewModelScope.launch {
             val imageUrl = _selectedImageUri.value ?: return@launch
-            val questId = _state.value.questId
-            val answer = _state.value.contents
-            val emotion = _state.value.selectedEmotion.toData()
+            val questId = _uiState.value.questId
+            val answer = _uiState.value.contents
+            val emotion = _uiState.value.selectedEmotion.toData()
 
             runCatching {
                 val inputStream = context.contentResolver.openInputStream(imageUrl)
@@ -106,7 +129,7 @@ class QuestBehaviorViewModel @Inject constructor(
 
     fun updateSelectedImage(uri: Uri?) {
         _selectedImageUri.value = uri
-        _state.update {
+        _uiState.update {
             it.copy(
                 imageCount = if (uri != null) 1 else 0
             )
@@ -115,7 +138,7 @@ class QuestBehaviorViewModel @Inject constructor(
 
     fun updateContent(text: String) {
         val contentState = QuestContentLengthValidator.validate(text)
-        _state.update {
+        _uiState.update {
             it.copy(
                 contents = text,
                 contentState = contentState
@@ -131,6 +154,14 @@ class QuestBehaviorViewModel @Inject constructor(
         _showQuitModal.value = false
     }
 
+    fun onCompleteClick() {
+        val questId = uiState.value.questId
+
+        viewModelScope.launch {
+            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
+        }
+    }
+
     fun onQuitClick() {
         viewModelScope.launch {
             _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuest)
@@ -138,7 +169,7 @@ class QuestBehaviorViewModel @Inject constructor(
     }
 
     fun onTipClick() {
-        val questId = state.value.questId
+        val questId = uiState.value.questId
 
         viewModelScope.launch {
             _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestTip(questId))
@@ -158,7 +189,7 @@ class QuestBehaviorViewModel @Inject constructor(
     }
 
     fun updateSelectedEmotion(emotion: LargeTagType) {
-        _state.value = _state.value.copy(selectedEmotion = emotion)
+        _uiState.value = _uiState.value.copy(selectedEmotion = emotion)
     }
 
     fun onCloseClick() {

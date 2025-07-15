@@ -48,10 +48,11 @@ fun QuestRecordingCompleteScreen(
     modifier: Modifier = Modifier,
     viewModel: QuestRecordingCompleteViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
+        viewModel.getQuestRecordedDetail(questId)
     }
 
     LaunchedEffect(Unit) {
@@ -122,7 +123,7 @@ fun QuestRecordingCompleteScreen(
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        text = uiState.questQuestion,
+                        text = uiState.question,
                         style = ByeBooTheme.typography.head1,
                         color = ByeBooTheme.colors.gray100,
                         modifier = Modifier.fillMaxWidth(),
@@ -134,7 +135,7 @@ fun QuestRecordingCompleteScreen(
                     QuestContent(
                         titleIcon = QuestContentType.THINKING,
                         titleText = "이렇게 생각했어요",
-                        contentText = uiState.questAnswer
+                        contentText = uiState.answer
                     )
 
                     Spacer(modifier = Modifier.height(48.dp))

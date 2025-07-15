@@ -9,11 +9,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun QuestTitle(
@@ -23,6 +26,9 @@ fun QuestTitle(
     questQuestion: String
 
 ) {
+    val date = remember(createdAt) {
+        LocalDate.parse(createdAt).format(DateTimeFormatter.ofPattern("yyyy. MM. dd."))
+    }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -45,7 +51,7 @@ fun QuestTitle(
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = createdAt,
+            text = "$date",
             color = ByeBooTheme.colors.gray400,
             style = ByeBooTheme.typography.body5
         )
