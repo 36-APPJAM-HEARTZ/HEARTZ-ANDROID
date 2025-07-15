@@ -25,12 +25,12 @@ fun CompleteContent(
 ) {
     QuestCardContainer(
         modifier = modifier,
-        backgroundColor = ByeBooTheme.colors.primary300Alpha20
+        backgroundColor = ByeBooTheme.colors.whiteAlpha10
     ) {
         BackgroundImageLayer(imageResId)
         QuestNumberLabel(
             questNumber = questNumber,
-            color = ByeBooTheme.colors.primary300,
+            color = ByeBooTheme.colors.whiteAlpha50,
             modifier = Modifier
                 .align(Alignment.TopStart)
         )
@@ -45,7 +45,8 @@ fun AvailableContent(
 ) {
     QuestCardContainer(
         modifier = modifier,
-        backgroundColor = ByeBooTheme.colors.primary300
+        backgroundColor = ByeBooTheme.colors.primary300Alpha20,
+        borderColor = ByeBooTheme.colors.primary300
     ) {
         BackgroundImageLayer(imageResId)
         QuestNumberLabel(
