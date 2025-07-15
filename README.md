@@ -1,16 +1,21 @@
-# 💔 ByeBoo
+<img width="13824" height="5760" alt="byeboo_banner" src="https://github.com/user-attachments/assets/251e7e9a-14dd-4de8-8480-0758559c4e4b" />
 
+# 💔 ByeBoo 서비스 소개
 > 이별을 **성장의 디딤돌**로 만드는 정서 회복 경험을 제공합니다!<br/>
->이별 후의 감정을 맞춤형 퀘스트로 정리하고 극복하도록 돕는 감정 케어 서비스<br/>
+>이별 후의 감정을 맞춤형 퀘스트로 정리하고 극복하도록 돕는 감정 케어 서비스 ByeBoo에서 보리와 함께 이별을 극복하세요!<br/>
 <br/>
 
 ## ⭐ ByeBoo 주요 기능
-🏠 **홈** <br/>
+**➊ 스플래시 & 온보딩**  
+메인 캐릭터 ‘보리’의 스토리와 함께 ByeBoo 서비스의 세계관을 만날 수 있습니다.  
+내러티브 기반 온보딩으로 사용자 몰입을 유도합니다.<br/>
+
+**➋ 홈 <br/>**
 ByeBoo의 메인 캐릭터인 '보리'를 만나볼 수 있으며<br/>
 보리가 해주는 위로와 응원의 한마디를 제공 받을 수 있습니다.<br/>
 또한, 퀘스트 및 전체 연정의 진행 상태를 한 눈에 확인할 수 있습니다.<br/>
 
-🕹️ **퀘스트** <br/>
+**➌ 퀘스트** <br/>
 하나의 이별 극복 여정은 총 5단계로 구성되며, 한 여정은 총 30개의 퀘스트로 이루어집니다.<br/>
 사용자는 단계별 퀘스트에 따라 감정과 상황을 직면하고 정리해 나가는 경험을 할 수 있습니다.<br/>
 >**📝질문형**<br/>
@@ -24,14 +29,35 @@ ByeBoo의 메인 캐릭터인 '보리'를 만나볼 수 있으며<br/>
 <br/>
 
 
-## **👀 Contributors**
+## **👀 Android Developer**
 
-|                              👑 이종훈 <br> [@fredleeJH](https://github.com/fredleeJH)                   |                           정소희 <br> [@sohee6989](https://github.com/sohee6989)                             |                  주아연 <br> [@znayeonzn](https://github.com/znayeonzn)                             |
-|:--------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------:|
-| <img width="250" src="https://avatars.githubusercontent.com/u/155813460?v=4"/> | <img width="250" src="https://avatars.githubusercontent.com/u/144779368?v=4"/> | <img width="250" src="https://avatars.githubusercontent.com/u/142514626?v=4"/> |
-|                                              `정보 입력`<br>`홈`<br>`온보딩`                                                    |                                              `텍스트 기반 퀘스트`<br>`마이페이지`                                               |                           `행동 기반 퀘스트`<br>`오프보딩`<br>                                                      |
+|이종훈<br/>[@fredleeJH](https://github.com/fredleeJH)|정소희<br/>[@sohee6989](https://github.com/sohee6989)|주아연<br/>[@znayeonzn](https://github.com/znayeonzn)|
+|:---:|:---:|:---:|
+|<img src="https://github.com/user-attachments/assets/e8e8f4f0-83e5-4a4c-b304-b01a3c43b61d" width="250">|<img src="https://github.com/user-attachments/assets/feaa0eff-85d6-4571-8901-4004b22a58fc" width="250">|<img src="https://github.com/user-attachments/assets/31c5cebb-d1fc-4ca6-973c-098fc3fccafe" width="250">|
+|`온보딩`<br/> `퀘스트 홈`|`질문형 퀘스트`<br/> `마이페이지`|`행동형 퀘스트`|
 
+</table>
 <br/>
+
+<!--*## 📸 시연 영상
+| 정보입력 | 온보딩 |
+|:-:|:-:|
+| <img src="" width="180"/> | <img src="" width="180"/> |
+
+| 퀘스트 홈 | 질문형 퀘스트 작성 | 행동형 퀘스트 작성 |
+|:-:|:-:|:-:|
+| <img src="" width="180"/> | <img src="" width="180"/> | <img src="" width="180"/> | 
+
+| 퀘스트 TIP | 퀘스트 다시보기 |
+|:-:|:-:|
+| <img src="" width="180"/> | <img src="" width="180"/> |
+
+
+
+| 마이페이지 |  |  
+|:-:|:-:|
+| <img src="" width="180"/> | <img src="" width="180"/> | 
+-->
 
 ## **⚒️ Tech Stacks**
 | 항목              | 기술 스택 |
@@ -48,7 +74,7 @@ ByeBoo의 메인 캐릭터인 '보리'를 만나볼 수 있으며<br/>
 
 <br/>
 
-### **🔍 기술 선정 이유** ###
+### **🔍 Tech Stack 소개** ###
 
 **1️⃣ Architecture: Clean Architecture** <br/>
 기존 과제에서 폴더링을 제대로 사용해보지 못하여 클린 아키텍처 구조를 도입했습니다.<br/>
