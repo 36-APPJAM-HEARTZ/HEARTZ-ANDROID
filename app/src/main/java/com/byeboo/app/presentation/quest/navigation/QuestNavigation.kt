@@ -29,10 +29,7 @@ fun NavController.navigateToQuestTip(questId: Long, questType: QuestType, navOpt
     navigate(QuestTip(questId, questType), navOptions)
 }
 
-fun NavController.navigateToQuestReview(
-    questId: Long,
-    navOptions: NavOptions? = null
-) {
+fun NavController.navigateToQuestReview(questId: Long, navOptions: NavOptions? = null) {
     navigate(QuestReview(questId), navOptions)
 }
 
