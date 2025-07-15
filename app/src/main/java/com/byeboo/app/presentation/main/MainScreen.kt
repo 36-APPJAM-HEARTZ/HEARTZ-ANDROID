@@ -1,5 +1,7 @@
 package com.byeboo.app.presentation.main
 
+import android.app.Activity
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
@@ -10,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.navOptions
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
@@ -24,20 +27,41 @@ fun MainScreen(
     viewModel: MainViewModel = hiltViewModel()
 ) {
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
     var isNavigating by remember { mutableStateOf(false) }
+    val currentTab = navigator.currentTab
+
+    BackHandler(enabled = currentTab != null) {
+        when (currentTab) {
+            MainNavTab.HOME -> {
+                // 홈에서 백 버튼 시 앱 종료
+                (context as? Activity)?.finish()
+            }
+            MainNavTab.QUEST -> {
+                // 퀘스트에서 백 버튼 시 홈으로 이동
+                navigator.navigate(MainNavTab.HOME)
+            }
+            MainNavTab.MYPAGE -> {
+                // 마이페이지에서 백 버튼 시 홈으로 이동
+                navigator.navigate(MainNavTab.HOME)
+            }
+            else -> {
+                // 기본 백핸들러 동작
+                navigator.navigateUp()
+            }
+        }
+    }
 
     Scaffold(
         bottomBar = {
             MainBottomBar(
                 visible = navigator.showBottomBar(),
                 tabs = MainNavTab.entries.toImmutableList(),
-                currentTab = navigator.currentTab,
+                currentTab = currentTab,
                 onTabSelected = { selectedTab ->
-                    if (isNavigating) return@MainBottomBar
-
+                    if (isNavigating || selectedTab == currentTab) return@MainBottomBar
                     scope.launch {
                         isNavigating = true
-
                         try {
                             val navOptions = navOptions {
                                 popUpTo(Home) {
@@ -47,7 +71,6 @@ fun MainScreen(
                                 launchSingleTop = true
                                 restoreState = true
                             }
-
                             if (selectedTab == MainNavTab.QUEST) {
                                 val isStarted = viewModel.isQuestStarted()
                                 if (isStarted) {
@@ -71,7 +94,7 @@ fun MainScreen(
     ) {
         MainNavHost(
             navigator = navigator,
-            bottomPadding = it.calculateBottomPadding(),
+            padding = it.calculateBottomPadding(),
             modifier = Modifier
         )
     }

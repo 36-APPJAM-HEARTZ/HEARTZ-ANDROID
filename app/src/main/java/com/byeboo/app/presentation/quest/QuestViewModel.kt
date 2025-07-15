@@ -3,8 +3,7 @@ package com.byeboo.app.presentation.quest
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.model.QuestType
-import com.byeboo.app.domain.repository.QuestInProgressRepository
-import com.byeboo.app.domain.repository.quest.QuestStateRepository
+import com.byeboo.app.domain.usecase.QuestUseCase
 import com.byeboo.app.presentation.quest.model.Quest
 import com.byeboo.app.presentation.quest.model.QuestGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +18,7 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class QuestViewModel @Inject constructor(
-    private val questInProgressRepository: QuestInProgressRepository,
-    private val questStateRepository: QuestStateRepository
+    private val questUseCase: QuestUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(QuestUiState())
@@ -35,47 +33,45 @@ class QuestViewModel @Inject constructor(
 
     private fun loadQuests() {
         viewModelScope.launch {
-            val journey = questStateRepository.getUserJourney()
-            _uiState.update { it.copy(journeyTitle = journey ?: "") }
+            val data = questUseCase()
 
-            questInProgressRepository.getInProgressQuest()
-                .onSuccess { result ->
-                    val currentStep = result.currentStep
-                    val steps = result.steps
+            val currentStep = data.inProgressQuest.currentStep
+            val steps = data.inProgressQuest.steps
 
-                    val questGroups = steps.map { step ->
-                        QuestGroup(
-                            questNumber = step.stepNumber,
-                            stepTitle = step.stepTitle,
-                            quests = step.quests.map { quest ->
-                                val state = when {
-                                    quest.questNumber < currentStep -> QuestState.Complete
-                                    quest.questNumber == currentStep.toLong() -> QuestState.Available
-                                    else -> QuestState.Locked
-                                }
-                                Quest(
-                                    questId = quest.questId,
-                                    questNumber = quest.questNumber,
-                                    state = state,
-                                    questQuestion = quest.question,
-                                    type = QuestType.from(quest.questStyle)
-                                )
-                            }
+            val questGroups = steps.map { step ->
+                QuestGroup(
+                    questNumber = step.stepNumber,
+                    stepTitle = step.stepTitle,
+                    quests = step.quests.map { quest ->
+                        val state = when {
+                            quest.questNumber < currentStep -> QuestState.Complete
+                            quest.questNumber == currentStep.toLong() -> QuestState.Available
+                            else -> QuestState.Locked
+                        }
+                        Quest(
+                            questId = quest.questId,
+                            questNumber = quest.questNumber,
+                            state = state,
+                            questQuestion = quest.question,
+                            type = QuestType.from(quest.questStyle)
                         )
                     }
+                )
+            }
 
-                    val currentStepIndex = questGroups.indexOfFirst {
-                        it.quests.any { it.state is QuestState.Available }
-                    }.coerceAtLeast(0)
+            val currentStepIndex = questGroups.indexOfFirst {
+                it.quests.any { it.state is QuestState.Available }
+            }.coerceAtLeast(0)
 
-                    _uiState.update {
-                        it.copy(
-                            questGroups = questGroups,
-                            currentStepIndex = currentStepIndex,
-                            progressPeriod = result.progressPeriod
-                        )
-                    }
-                }
+            _uiState.update {
+                it.copy(
+                    questGroups = questGroups,
+                    currentStepIndex = currentStepIndex,
+                    progressPeriod = data.inProgressQuest.progressPeriod,
+                    journeyTitle = data.journeyTitle,
+                    userName = data.userNickname
+                )
+            }
         }
     }
 
@@ -112,6 +108,7 @@ class QuestViewModel @Inject constructor(
     fun onTipClick() {
         val quest = uiState.value.selectedQuest ?: return
         viewModelScope.launch {
+            _uiState.update { it.copy(showQuitModal = false) }
             _sideEffect.emit(QuestSideEffect.NavigateToQuestTip(quest.questId))
         }
     }
@@ -136,9 +133,4 @@ class QuestViewModel @Inject constructor(
         }
     }
 
-    fun onBackClick() {
-        viewModelScope.launch {
-            _sideEffect.emit(QuestSideEffect.NavigateToHome)
-        }
-    }
 }

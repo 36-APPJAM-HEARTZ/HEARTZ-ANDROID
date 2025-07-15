@@ -46,7 +46,6 @@ fun NavGraphBuilder.homeGraph(
     composable<HomeAmulet> {
         HomeAmuletScreen(
             navigateToHomeOnboarding = navigateToHomeOnboarding,
-            padding = bottomPadding
         )
     }
 }

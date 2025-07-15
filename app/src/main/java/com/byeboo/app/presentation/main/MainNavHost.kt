@@ -5,21 +5,19 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navOptions
 import com.byeboo.app.presentation.auth.navigation.authGraph
 import com.byeboo.app.presentation.home.navigation.Home
 import com.byeboo.app.presentation.home.navigation.homeGraph
 import com.byeboo.app.presentation.mypage.navigation.myPageGraph
-import com.byeboo.app.presentation.quest.QuestViewModel
 import com.byeboo.app.presentation.quest.navigation.questGraph
 import com.byeboo.app.presentation.splash.navigation.splashGraph
 
 @Composable
 fun MainNavHost(
     navigator: MainNavigator,
-    bottomPadding: Dp,
+    padding: Dp,
     modifier: Modifier = Modifier
 ) {
     val clearStackNavOptions = navOptions {
@@ -50,7 +48,8 @@ fun MainNavHost(
             },
             navigateToOnboarding = {
                 navigator.navigateToOnboarding(clearStackNavOptions)
-            }
+            },
+            padding = padding
         )
         authGraph(
             navigateToUserInfo = {
@@ -62,10 +61,10 @@ fun MainNavHost(
             navigateToHomeAmulet = {
                 navigator.navigateToHomeAmulet(clearStackNavOptions)
             },
-            bottomPadding = bottomPadding
+            padding = padding
         )
         homeGraph(
-            bottomPadding = bottomPadding,
+            bottomPadding = padding,
             navigateToHome = {
                 navigator.navigateToHome(clearStackNavOptions)
             },
@@ -105,7 +104,8 @@ fun MainNavHost(
                     clearStackNavOptions
                 )
             },
-            bottomPadding = bottomPadding
+            navigateUp = navigator::navigateUp,
+            padding = padding
         )
         myPageGraph()
     }
