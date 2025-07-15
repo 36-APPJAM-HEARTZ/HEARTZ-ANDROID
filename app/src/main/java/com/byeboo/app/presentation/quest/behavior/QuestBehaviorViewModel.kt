@@ -119,8 +119,6 @@ class QuestBehaviorViewModel @Inject constructor(
 
             }.onSuccess {
                 _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
-            }.onFailure {
-                it.printStackTrace()
             }
         }
     }
