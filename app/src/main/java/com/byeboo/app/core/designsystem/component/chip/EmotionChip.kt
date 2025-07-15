@@ -31,6 +31,12 @@ fun EmotionChip(
         ByeBooTheme.colors.whiteAlpha10
     }
 
+    val textColor = if (isSelected) {
+        ByeBooTheme.colors.white
+    } else {
+        ByeBooTheme.colors.gray300
+    }
+
     Column(
         modifier = modifier
             .then(
@@ -54,7 +60,8 @@ fun EmotionChip(
 
         LargeTag(
             largeTagType = emotionType,
-            backgroundColor = backgroundColor
+            backgroundColor = backgroundColor,
+            textColor = textColor
         )
     }
 }
