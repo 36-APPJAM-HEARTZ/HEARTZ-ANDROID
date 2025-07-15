@@ -9,6 +9,7 @@ data class QuestUiState(
     val progressPeriod: Long = 1L,
     val journeyTitle: String = "",
     val currentStepIndex: Int = 0,
+    val userName: String = "",
     val selectedQuest: Quest? = null,
     val showQuitModal: Boolean = false,
     val isLoading: Boolean = false

@@ -8,11 +8,9 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -25,9 +23,6 @@ class HomeAmuletViewModel @Inject constructor(
 
     private val _sideEffect = MutableSharedFlow<HomeAmuletSideEffect>()
     val sideEffect: SharedFlow<HomeAmuletSideEffect> = _sideEffect.asSharedFlow()
-
-    val nickname: StateFlow<String?> = userRepository.getNickname()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), null)
 
     init {
         fetchUserJourney()
@@ -46,6 +41,7 @@ class HomeAmuletViewModel @Inject constructor(
             }
         }
     }
+
     fun navigateToHomeOnboarding() {
         viewModelScope.launch {
             _sideEffect.emit(HomeAmuletSideEffect.NavigateToHomeOnboarding)

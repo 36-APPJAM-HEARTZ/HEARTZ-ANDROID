@@ -27,18 +27,18 @@ fun NavGraphBuilder.authGraph(
     navigateToUserInfo: () -> Unit,
     navigateToLoading: () -> Unit,
     navigateToHomeAmulet: () -> Unit,
-    bottomPadding: Dp
+    padding: Dp
 ) {
     composable<Onboarding> {
         OnboardingScreen(
             navigateToUserInfo = navigateToUserInfo,
-            padding = bottomPadding
+            padding = padding
         )
     }
     composable<UserInfo> {
         UserInfoScreen(
             navigateToLoading = navigateToLoading,
-            padding = bottomPadding
+            padding = padding
         )
     }
     composable<Loading> {

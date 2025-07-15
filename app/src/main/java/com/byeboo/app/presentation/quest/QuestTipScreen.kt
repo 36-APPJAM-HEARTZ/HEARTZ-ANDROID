@@ -29,18 +29,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleClickable
 import com.byeboo.app.presentation.quest.component.QuestContent
 import com.byeboo.app.presentation.quest.component.type.QuestContentType
-import com.byeboo.app.presentation.quest.util.navigateToQuestClearBackStack
 
 @Composable
 fun QuestTipScreen(
-    navController: NavController,
+    navigateUp: () -> Unit,
     questId: Long,
     bottomPadding: Dp,
     modifier: Modifier = Modifier,
@@ -64,7 +62,7 @@ fun QuestTipScreen(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 is QuestTipSideEffect.NavigateToQuest -> {
-                    navController.navigateToQuestClearBackStack()
+                    navigateUp()
                 }
             }
         }
