@@ -108,7 +108,6 @@ class QuestViewModel @Inject constructor(
     fun onTipClick() {
         val quest = uiState.value.selectedQuest ?: return
         viewModelScope.launch {
-            _uiState.update { it.copy(showQuitModal = false) }
             _sideEffect.emit(QuestSideEffect.NavigateToQuestTip(quest.questId))
         }
     }
