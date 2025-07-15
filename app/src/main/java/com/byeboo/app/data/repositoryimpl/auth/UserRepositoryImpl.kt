@@ -22,16 +22,19 @@ class UserRepositoryImpl @Inject constructor(
             val userEntity = UserEntity(userId = response.data.id, nickname = response.data.name)
             userLocalDataSource.saveId(userEntity.userId!!)
             userLocalDataSource.saveNickname(userEntity.nickname!!)
-            userLocalDataSource.setLoggedIn(true)
+            userLocalDataSource.setLoggedIn(false)
+            userLocalDataSource.setQuestStarted(false)
             userEntity
         }
     }
+
     override suspend fun getUserJourney(): Result<UserJourney> {
         return runCatching {
             val response = userRemoteDataSource.getUserJourney()
             response.data.toDomain()
         }
     }
+
     override suspend fun getUserEntity(): UserEntity {
         return userLocalDataSource.getUserEntity()
     }
