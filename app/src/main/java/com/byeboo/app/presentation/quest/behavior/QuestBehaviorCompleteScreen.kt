@@ -47,7 +47,7 @@ fun QuestBehaviorCompleteScreen(
     bottomPadding: Dp,
     viewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.state.collectAsState()
+    val uiState by viewModel.state.collectAsStateWithLifecycle()
 
     val selectedImageUri by viewModel.selectedImageUri.collectAsStateWithLifecycle()
 
@@ -120,8 +120,11 @@ fun QuestBehaviorCompleteScreen(
                     ) {
                         selectedImageUri?.let { uri ->
                             AsyncImage(
-                                model = ImageRequest.Builder(LocalContext.current).data(uri)
-                                    .crossfade(true).build(),
+                                model = ImageRequest
+                                    .Builder(LocalContext.current)
+                                    .data(uri)
+                                    .crossfade(true)
+                                    .build(),
                                 contentDescription = "uploaded image",
                                 modifier = Modifier.fillMaxSize(),
                                 contentScale = ContentScale.Crop
