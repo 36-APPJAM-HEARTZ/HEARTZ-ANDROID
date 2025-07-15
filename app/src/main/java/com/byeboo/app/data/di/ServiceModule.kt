@@ -1,6 +1,6 @@
 package com.byeboo.app.data.di
 
-import com.byeboo.app.data.service.QuestBehaviorService
+import com.byeboo.app.data.service.quest.QuestBehaviorService
 import com.byeboo.app.data.service.quest.QuestService
 import com.byeboo.app.data.service.auth.UserService
 import com.byeboo.app.data.service.quest.QuestDetailService

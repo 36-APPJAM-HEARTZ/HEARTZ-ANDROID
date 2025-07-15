@@ -56,32 +56,6 @@ class QuestBehaviorViewModel @Inject constructor(
         }
     }
 
-    fun uploadImage(context: Context) {
-        viewModelScope.launch {
-            val imageUrl = _selectedImageUri.value ?: return@launch
-            val questId = _state.value.questId
-
-            runCatching {
-                val inputStream = context.contentResolver.openInputStream(imageUrl)
-                val imageBytes = inputStream?.readBytes() ?: error("이미지 파일을 읽을 수 없습니다.")
-                val contentType = context.contentResolver.getType(imageUrl) ?: "image/jpeg"
-                val imageKey = UUID.randomUUID().toString()
-
-                uploadImageUseCase(
-                    imageBytes = imageBytes,
-                    contentType = contentType,
-                    imageKey = imageKey,
-                    questId = questId,
-                    answer = _state.value.contents,
-                    emotion = _state.value.selectedEmotion.toData()
-                ).getOrThrow()
-            }.onSuccess {
-                _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
-            }
-        }
-    }
-
-
     fun getQuestDetailInfo(questId: Long) {
         viewModelScope.launch {
             val result = questDetailBehaviorRepository.getQuestBehaviorDetail(questId)
@@ -97,6 +71,38 @@ class QuestBehaviorViewModel @Inject constructor(
             }
         }
     }
+
+    fun uploadImage(context: Context) {
+        viewModelScope.launch {
+            val imageUrl = _selectedImageUri.value ?: return@launch
+            val questId = _state.value.questId
+            val answer = _state.value.contents
+            val emotion = _state.value.selectedEmotion.toData()
+
+            runCatching {
+                val inputStream = context.contentResolver.openInputStream(imageUrl)
+                val imageBytes = inputStream?.readBytes() ?: error("이미지 파일을 읽을 수 없습니다.")
+                val contentType = context.contentResolver.getType(imageUrl) ?: "image/jpeg"
+                val imageKey = UUID.randomUUID().toString()
+
+                uploadImageUseCase(
+                    imageBytes = imageBytes,
+                    contentType = contentType,
+                    imageKey = imageKey,
+                    questId = questId,
+                    answer = answer,
+                    emotion = emotion
+                ).getOrThrow()
+
+            }.onSuccess {
+                _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
+            }.onFailure {
+                it.printStackTrace()
+            }
+        }
+    }
+
+
 
     fun updateSelectedImage(uri: Uri?) {
         _selectedImageUri.value = uri
