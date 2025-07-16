@@ -27,7 +27,7 @@ import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun GuideContent(
-    userName: String,
+    userName: String?,
     guideText: String,
     modifier: Modifier = Modifier
 ) {
