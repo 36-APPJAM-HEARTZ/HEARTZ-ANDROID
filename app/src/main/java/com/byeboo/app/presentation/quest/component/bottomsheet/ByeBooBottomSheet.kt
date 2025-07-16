@@ -43,7 +43,8 @@ fun ByeBooBottomSheet(
     sheetState: SheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true),
     isBackgroundDimmed: Boolean = true,
     dragHandle: @Composable () -> Unit = {},
-    isSelected: Boolean = false
+    isSelected: Boolean = false,
+    isUploading: Boolean = false,
 ) {
     if (showBottomSheet) {
         ModalBottomSheet(
@@ -80,7 +81,6 @@ fun ByeBooBottomSheet(
                     color = ByeBooTheme.colors.gray50,
                     textAlign = TextAlign.Center,
                     style = ByeBooTheme.typography.head1
-
                 )
 
                 Spacer(modifier = Modifier.height(screenHeightDp(20.dp)))
@@ -91,8 +91,8 @@ fun ByeBooBottomSheet(
                         val newEmotion = if (selectedEmotion == it) null else it
                         selectedEmotion = newEmotion
                         onSelectedChanged(newEmotion != null)
-                    }
-
+                    },
+                    isUploading = isUploading // 전달!
                 )
 
                 Spacer(modifier = Modifier.height(screenHeightDp(37.dp)))
@@ -104,12 +104,10 @@ fun ByeBooBottomSheet(
                     onClick = {
                         selectedEmotion?.let { emotion ->
                             onEmotionSelected(emotion)
-                            onDismiss()
+                            navigateButton()
                         }
-
-                        navigateButton()
                     },
-                    isEnabled = isSelected
+                    isEnabled = isSelected && !isUploading
                 )
             }
         }
@@ -120,6 +118,7 @@ fun ByeBooBottomSheet(
 private fun EmotionChipList(
     selectedEmotion: LargeTagType?,
     onEmotionSelected: (LargeTagType) -> Unit,
+    isUploading: Boolean, // ← 추가
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.padding(horizontal = screenWidthDp(62.dp))) {
@@ -130,13 +129,16 @@ private fun EmotionChipList(
             EmotionChip(
                 emotionType = LargeTagType.EMOTION_NEUTRAL,
                 isSelected = selectedEmotion == LargeTagType.EMOTION_NEUTRAL,
+                enabled = !isUploading,
                 onChipClick = { onEmotionSelected(LargeTagType.EMOTION_NEUTRAL) }
             )
 
             Spacer(modifier = Modifier.width(screenWidthDp(20.dp)))
+
             EmotionChip(
                 emotionType = LargeTagType.EMOTION_SELF_AWARE,
                 isSelected = selectedEmotion == LargeTagType.EMOTION_SELF_AWARE,
+                enabled = !isUploading,
                 onChipClick = { onEmotionSelected(LargeTagType.EMOTION_SELF_AWARE) }
             )
         }
@@ -150,6 +152,7 @@ private fun EmotionChipList(
             EmotionChip(
                 emotionType = LargeTagType.EMOTION_SADNESS,
                 isSelected = selectedEmotion == LargeTagType.EMOTION_SADNESS,
+                enabled = !isUploading,
                 onChipClick = { onEmotionSelected(LargeTagType.EMOTION_SADNESS) }
             )
 
@@ -158,6 +161,7 @@ private fun EmotionChipList(
             EmotionChip(
                 emotionType = LargeTagType.EMOTION_RELIEF,
                 isSelected = selectedEmotion == LargeTagType.EMOTION_RELIEF,
+                enabled = !isUploading,
                 onChipClick = { onEmotionSelected(LargeTagType.EMOTION_RELIEF) }
             )
         }
