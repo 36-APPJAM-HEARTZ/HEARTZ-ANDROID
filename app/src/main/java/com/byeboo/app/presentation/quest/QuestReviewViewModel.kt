@@ -36,12 +36,6 @@ class QuestReviewViewModel @Inject constructor(
         }
     }
 
-    fun onCloseClick() {
-        viewModelScope.launch {
-            _sideEffect.emit(QuestReviewSideEffect.NavigateToQuest)
-        }
-    }
-
     fun getQuestRecordedDetail(questId: Long) {
         viewModelScope.launch {
             val result = questRecordedDetailRepository.getQuestRecordedDetail(questId)

@@ -75,7 +75,7 @@ fun QuestStartScreen(
                 tint = ByeBooTheme.colors.white,
                 modifier = Modifier
                     .size(24.dp)
-                    .noRippleClickable(viewModel::onBackClick)
+                    .noRippleClickable{viewModel.onBackClick()}
             )
         }
 

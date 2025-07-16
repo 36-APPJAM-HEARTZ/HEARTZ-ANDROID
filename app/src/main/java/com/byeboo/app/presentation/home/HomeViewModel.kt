@@ -7,9 +7,7 @@ import com.byeboo.app.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -19,13 +17,15 @@ class HomeViewModel @Inject constructor(
     private val questStateRepository: QuestStateRepository
 ) : ViewModel() {
 
-    val nickname: StateFlow<String?> = userRepository.getNickname()
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(30000), null)
-
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState
 
     init {
+        viewModelScope.launch {
+            userRepository.getNickname().collect { name ->
+                _uiState.update { it.copy(nickname = name) }
+            }
+        }
         viewModelScope.launch {
             val isStarted = questStateRepository.isQuestStarted()
             val journey = questStateRepository.getUserJourney() ?: "감정 직면"

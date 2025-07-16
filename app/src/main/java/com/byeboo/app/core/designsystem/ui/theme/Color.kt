@@ -37,6 +37,9 @@ val sand100 = Color(0xFFFFF8E5)
 
 val orange300 = Color(0xFFFDC6B0)
 
+val warning50 = Color(0xFFFFF5E6)
+val warning300 = Color(0xFFFF9601)
+
 // state
 val success50 = Color(0xFFE8F4FC)
 val success300 = Color(0xFF1491E0)
@@ -98,6 +101,8 @@ class ByeBooColors(
     softBlue600: Color,
     sand100: Color,
     orange300: Color,
+    warning50: Color,
+    warning300: Color,
     success50: Color,
     success300: Color,
     error50: Color,
@@ -165,6 +170,10 @@ class ByeBooColors(
     var sand100 by mutableStateOf(sand100)
         private set
     var orange300 by mutableStateOf(orange300)
+        private set
+    var warning50 by mutableStateOf(warning50)
+        private set
+    var warning300 by mutableStateOf(warning300)
         private set
     var success50 by mutableStateOf(success50)
         private set
@@ -241,6 +250,8 @@ class ByeBooColors(
         softBlue600,
         sand100,
         orange300,
+        warning50,
+        warning300,
         success50,
         success300,
         error50,
@@ -291,6 +302,8 @@ class ByeBooColors(
         softBlue600 = colors.softBlue600
         sand100 = colors.sand100
         orange300 = colors.orange300
+        warning50 = colors.warning50
+        warning300 = colors.warning300
         success50 = colors.success50
         success300 = colors.success300
         error50 = colors.error50
@@ -342,6 +355,8 @@ fun ByeBooDarkColors(
     SoftBlue600: Color = softBlue600,
     Sand100: Color = sand100,
     Orange300: Color = orange300,
+    Warning50: Color = warning50,
+    Warning300: Color = warning300,
     Success50: Color = success50,
     Success300: Color = success300,
     Error50: Color = error50,
@@ -389,6 +404,8 @@ fun ByeBooDarkColors(
     SoftBlue600,
     Sand100,
     Orange300,
+    Warning50,
+    Warning300,
     Success50,
     Success300,
     Error50,
