@@ -22,7 +22,8 @@ fun EmotionChip(
     modifier: Modifier = Modifier,
     emotionType: LargeTagType,
     isSelected: Boolean = false,
-    onChipClick: ((LargeTagType) -> Unit)? = null
+    enabled: Boolean = true,
+    onChipClick: ((LargeTagType) -> Unit)? = null,
 ) {
     val backgroundColor = if (isSelected) {
         ByeBooTheme.colors.primary300
@@ -37,14 +38,13 @@ fun EmotionChip(
     }
 
     Column(
-        modifier = modifier
-            .then(
-                if (onChipClick != null) {
-                    Modifier.noRippleClickable(onClick = { onChipClick(emotionType) })
-                } else {
-                    Modifier
-                }
-            ),
+        modifier = modifier.then(
+            if (onChipClick != null && enabled) {
+                Modifier.noRippleClickable { onChipClick(emotionType) }
+            } else {
+                Modifier
+            }
+        ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
