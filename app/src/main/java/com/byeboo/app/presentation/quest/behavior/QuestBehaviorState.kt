@@ -1,6 +1,7 @@
 package com.byeboo.app.presentation.quest.behavior
 
 import com.byeboo.app.core.designsystem.type.LargeTagType
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.domain.model.QuestWritingState
 
 data class QuestBehaviorState(
@@ -18,12 +19,12 @@ data class QuestBehaviorState(
     val emotionDescription: String = "",
     val isContentAvailable: Boolean = false,
     val contentState: QuestWritingState = QuestWritingState.BeforeWriting,
-    val selectedEmotion: LargeTagType = LargeTagType.EMOTION_NEUTRAL
+    val selectedEmotion: LargeTagType = LargeTagType.EMOTION_NEUTRAL,
 )
 
 sealed interface QuestBehaviorSideEffect {
     data object NavigateToQuest : QuestBehaviorSideEffect
-    data class NavigateToQuestTip(val questId: Long) : QuestBehaviorSideEffect
+    data class NavigateToQuestTip(val questId: Long, val questType: QuestType) : QuestBehaviorSideEffect
     data class NavigateToQuestBehaviorComplete(val questId: Long) : QuestBehaviorSideEffect
     data class CompleteAndClear(val questId: Long) : QuestBehaviorSideEffect
 }

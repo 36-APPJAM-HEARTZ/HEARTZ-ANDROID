@@ -2,16 +2,15 @@ package com.byeboo.app.presentation.quest.behavior
 
 import android.content.Context
 import android.net.Uri
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.designsystem.type.LargeTagType
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.data.mapper.todata.toData
 import com.byeboo.app.domain.model.QuestContentLengthValidator
 import com.byeboo.app.domain.repository.quest.QuestDetailBehaviorRepository
 import com.byeboo.app.domain.repository.quest.QuestRecordedDetailRepository
 import com.byeboo.app.domain.usecase.UploadImageUseCase
-import com.byeboo.app.presentation.quest.model.Quest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -43,9 +42,6 @@ class QuestBehaviorViewModel @Inject constructor(
 
     private val _selectedImageUri = MutableStateFlow<Uri?>(null)
     val selectedImageUri: StateFlow<Uri?> = _selectedImageUri
-
-    private val _selectedQuest = MutableStateFlow<Quest?>(null)
-    val selectedQuest: StateFlow<Quest?> = _selectedQuest.asStateFlow()
 
     private val _showQuitModal = MutableStateFlow(false)
     val showQuitModal: StateFlow<Boolean>
@@ -126,8 +122,6 @@ class QuestBehaviorViewModel @Inject constructor(
         }
     }
 
-
-
     fun updateSelectedImage(uri: Uri?) {
         _selectedImageUri.value = uri
         _uiState.update {
@@ -137,8 +131,8 @@ class QuestBehaviorViewModel @Inject constructor(
         }
     }
 
-    fun updateContent(text: String) {
-        val contentState = QuestContentLengthValidator.validate(text)
+    fun updateContent(isFocused: Boolean, text: String) {
+        val contentState = QuestContentLengthValidator.validate(isFocused, text)
         _uiState.update {
             it.copy(
                 contents = text,
@@ -182,7 +176,7 @@ class QuestBehaviorViewModel @Inject constructor(
         val questId = uiState.value.questId
 
         viewModelScope.launch {
-            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestTip(questId))
+            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestTip(questId, QuestType.ACTIVE))
         }
     }
 

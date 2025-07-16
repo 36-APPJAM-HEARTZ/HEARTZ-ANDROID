@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun ContentText(
@@ -24,7 +26,7 @@ fun ContentText(
                 color = ByeBooTheme.colors.whiteAlpha10,
                 shape = RoundedCornerShape(12.dp)
             )
-            .padding(horizontal = 24.dp, vertical = 18.dp)
+            .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(18.dp))
 
     ) {
         Text(

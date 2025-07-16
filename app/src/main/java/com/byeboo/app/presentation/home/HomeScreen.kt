@@ -21,6 +21,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.presentation.home.component.HomeProgressCard
 import com.byeboo.app.presentation.home.component.HomeQuestCard
 import com.byeboo.app.presentation.home.component.HomeTextCard
@@ -32,10 +33,8 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val nickname by viewModel.nickname.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bori_home))
-    val displayName = nickname ?: "하츠핑"
 
     Box(
         modifier = Modifier
@@ -55,8 +54,8 @@ fun HomeScreen(
             Column(
                 modifier = modifier
                     .fillMaxSize()
-                    .padding(horizontal = 24.dp)
-                    .padding(top = 67.dp)
+                    .padding(horizontal = screenHeightDp(24.dp))
+                    .padding(top = screenHeightDp(67.dp))
             ) {
                 if (uiState.isQuestStarted == true) {
                     HomeQuestCard(
@@ -64,9 +63,9 @@ fun HomeScreen(
                         subtitle = "퀘스트를 하고나면 한층 더 성장할 거에요.",
                         onClick = { navigateToQuest() }
                     )
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
                     HomeProgressCard(
-                        title = "${displayName}님의 자기 성찰 여정",
+                        title = "${uiState.nickname}님의 자기 성찰 여정",
                         currentStep = uiState.currentStep,
                         totalSteps = uiState.totalSteps
                     )
@@ -78,7 +77,7 @@ fun HomeScreen(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
                 HomeTextCard(
                     title = uiState.dialogue

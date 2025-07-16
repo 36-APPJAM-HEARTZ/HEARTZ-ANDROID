@@ -22,6 +22,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.input.ImeAction
@@ -29,6 +30,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.domain.model.QuestWritingState
 
 @Composable
@@ -39,7 +42,8 @@ fun QuestTextField(
     modifier: Modifier = Modifier,
     isEnabled: Boolean = true,
     placeholder: String = "",
-    isQuestion: Boolean = true
+    isQuestion: Boolean = true,
+    onFocusChanged: ((Boolean) -> Unit)? = null
 ) {
     val currentCharCount = value.length
     val maxCharCount = if (isQuestion) 500 else 200
@@ -50,18 +54,22 @@ fun QuestTextField(
         QuestWritingState.BeforeWriting -> Color.Unspecified
         QuestWritingState.Writing -> ByeBooTheme.colors.primary300
         QuestWritingState.OverLimit -> ByeBooTheme.colors.error300
+        QuestWritingState.Done -> Color.Unspecified
     }
 
     val textCountColor = when (questWritingState) {
         QuestWritingState.BeforeWriting -> ByeBooTheme.colors.gray300
         QuestWritingState.Writing -> ByeBooTheme.colors.primary300
         QuestWritingState.OverLimit -> ByeBooTheme.colors.error300
+        QuestWritingState.Done -> ByeBooTheme.colors.gray300
     }
 
     val keyboardController = LocalSoftwareKeyboardController.current
     val scrollState = rememberScrollState()
 
     val focusState = remember { mutableStateOf(false) }
+    val focusManager = LocalFocusManager.current
+
 
     Box(
         modifier = modifier
@@ -70,7 +78,7 @@ fun QuestTextField(
             .clip(RoundedCornerShape(12.dp))
             .border(width = 1.dp, color = textFieldBorderColor, shape = RoundedCornerShape(12.dp))
             .background(color = ByeBooTheme.colors.whiteAlpha10)
-            .padding(horizontal = 24.dp, vertical = 16.dp)
+            .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(16.dp))
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()
@@ -80,9 +88,12 @@ fun QuestTextField(
                 onValueChange = onValueChange,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(240.dp)
+                    .height(screenHeightDp(240.dp))
                     .verticalScroll(scrollState)
-                    .onFocusChanged { focusState.value = it.isFocused },
+                    .onFocusChanged {
+                        focusState.value = it.isFocused
+                        onFocusChanged?.invoke(it.isFocused)
+                    },
                 enabled = isEnabled,
                 textStyle = ByeBooTheme.typography.body3.copy(
                     color = ByeBooTheme.colors.white
@@ -93,6 +104,7 @@ fun QuestTextField(
                 ),
                 keyboardActions = KeyboardActions(onDone = {
                     keyboardController?.hide()
+                    focusManager.clearFocus()
                 }),
                 cursorBrush = SolidColor(ByeBooTheme.colors.white),
                 decorationBox = { innerTextField ->
@@ -123,7 +135,7 @@ fun QuestTextField(
                 textAlign = TextAlign.End,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(18.dp)
+                    .height(screenHeightDp(18.dp))
             )
         }
     }

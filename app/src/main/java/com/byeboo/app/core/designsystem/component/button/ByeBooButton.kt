@@ -17,10 +17,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleClickable
+import com.byeboo.app.core.util.screenHeightDp
 
 @Composable
 fun ByeBooButton(
@@ -29,7 +31,8 @@ fun ByeBooButton(
     buttonTextColor: Color,
     modifier: Modifier = Modifier,
     buttonBackgroundColor: Color = Color.Unspecified,
-    buttonStrokeColor: Color = Color.Unspecified
+    buttonStrokeColor: Color = Color.Unspecified,
+    textAlign: TextAlign = TextAlign.Center
 ) {
     Row(
         modifier = modifier
@@ -38,14 +41,15 @@ fun ByeBooButton(
             .background(color = buttonBackgroundColor)
             .border(width = 1.dp, color = buttonStrokeColor, shape = RoundedCornerShape(12.dp))
             .noRippleClickable(onClick = onClick)
-            .padding(vertical = 16.dp),
+            .padding(vertical = screenHeightDp(16.dp)),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = buttonText,
             style = ByeBooTheme.typography.body1,
-            color = buttonTextColor
+            color = buttonTextColor,
+            textAlign = textAlign
         )
     }
 }

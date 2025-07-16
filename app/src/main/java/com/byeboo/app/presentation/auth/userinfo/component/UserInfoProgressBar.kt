@@ -13,6 +13,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun StepProgressBar(
@@ -22,14 +24,14 @@ fun StepProgressBar(
     inactiveColor: Color = ByeBooTheme.colors.primary300Alpha20
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(6.dp),
-        modifier = modifier.padding(vertical = 13.dp)
+        horizontalArrangement = Arrangement.spacedBy(screenWidthDp(6.dp)),
+        modifier = modifier.padding(vertical = screenHeightDp(13.dp))
     ) {
         repeat(3) { index ->
             Box(
                 modifier = Modifier
                     .weight(1f)
-                    .height(6.dp)
+                    .height(screenHeightDp(6.dp))
                     .clip(RoundedCornerShape(12.dp))
                     .background(if (index == currentStep - 1) activeColor else inactiveColor)
             )

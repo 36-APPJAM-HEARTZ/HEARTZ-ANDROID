@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun QuestStepTitle(
@@ -24,7 +25,7 @@ fun QuestStepTitle(
             tagText = "STEP $stepNumber"
         )
 
-        Spacer(modifier = Modifier.width(8.dp))
+        Spacer(modifier = Modifier.width(screenWidthDp(8.dp)))
 
         Text(
             text = stepTitle,

@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -36,6 +37,8 @@ import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.text.ContentText
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.presentation.quest.component.QuestContent
 import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
 import com.byeboo.app.presentation.quest.component.QuestTitle
@@ -53,6 +56,9 @@ fun QuestReviewScreen(
     val hasImage = !uiState.imageUrl.isNullOrBlank()
 
 
+    BackHandler(enabled = true) {
+        navigateToBack()
+    }
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
         viewModel.getQuestRecordedDetail(questId)
@@ -70,10 +76,10 @@ fun QuestReviewScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
-            .padding(horizontal = 24.dp)
+            .padding(horizontal = screenWidthDp(24.dp))
             .padding(bottom = bottomPadding)
     ) {
-        Spacer(modifier = Modifier.height(67.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(67.dp)))
 
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
@@ -81,16 +87,16 @@ fun QuestReviewScreen(
             tint = ByeBooTheme.colors.white,
             modifier = Modifier
                 .align(Alignment.End)
-                .clickable { viewModel.onCloseClick() }
+                .clickable { navigateToBack() }
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
         LazyColumn(
             modifier = Modifier.fillMaxWidth()
         ) {
             item {
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(10.dp)))
 
                 QuestTitle(
                     stepNumber = uiState.stepNumber,
@@ -99,7 +105,7 @@ fun QuestReviewScreen(
                     questQuestion = uiState.question
                 )
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
             }
 
             if (hasImage) {
@@ -110,7 +116,7 @@ fun QuestReviewScreen(
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_think),
                             contentDescription = "title icon",
-                            modifier = Modifier.padding(end = 8.dp),
+                            modifier = Modifier.padding(end = screenHeightDp(8.dp)),
                             tint = Color.Unspecified
                         )
 
@@ -139,7 +145,7 @@ fun QuestReviewScreen(
                             contentScale = ContentScale.Crop
                         )
 
-                        Spacer(modifier = Modifier.height(8.dp))
+                        Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
                     }
                     if (uiState.answer.isNotBlank()) {
                         ContentText(uiState.answer)
@@ -156,14 +162,14 @@ fun QuestReviewScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(48.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(48.dp)))
 
                 QuestEmotionDescriptionContent(
                     questEmotionDescription = uiState.emotionDescription,
                     emotionType = uiState.selectedEmotion
                 )
 
-                Spacer(modifier = Modifier.height(28.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(28.dp)))
             }
         }
     }
@@ -187,7 +193,7 @@ private fun QuestEmotionDescriptionContent(
                 tint = Color.Unspecified
             )
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(screenWidthDp(8.dp)))
 
             Text(
                 text = "퀘스트 완료 후, 이런 감정을 느꼈어요",
@@ -196,13 +202,13 @@ private fun QuestEmotionDescriptionContent(
             )
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(12.dp)))
 
         QuestEmotionDescriptionCard(
             questEmotionDescription = questEmotionDescription,
             emotionType = emotionType
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
     }
 }

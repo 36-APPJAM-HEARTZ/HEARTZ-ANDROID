@@ -6,6 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.core.util.routeNavigation
 import com.byeboo.app.presentation.quest.behavior.QuestBehaviorCompleteScreen
 import com.byeboo.app.presentation.quest.behavior.QuestBehaviorViewModel
@@ -24,7 +25,7 @@ fun NavController.navigateToQuestBehaviorComplete(questId: Long, navOptions: Nav
 fun NavGraphBuilder.questBehaviorGraph(
     viewModel: QuestBehaviorViewModel,
     navigateToQuest: () -> Unit,
-    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestTip: (Long, QuestType) -> Unit,
     navigateToQuestBehaviorComplete: (Long) -> Unit,
     bottomPadding: Dp
 ) {

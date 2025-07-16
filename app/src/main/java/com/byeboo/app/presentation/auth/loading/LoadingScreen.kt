@@ -5,7 +5,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,6 +26,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
 
 @Composable
 fun LoadingScreen(
@@ -51,7 +53,8 @@ fun LoadingScreen(
     ) {
         Box(
             modifier = Modifier
-                .size(110.dp)
+                .width(screenHeightDp(110.dp))
+                .height(screenHeightDp(110.dp))
                 .graphicsLayer(
                     scaleX = 4f,
                     scaleY = 4f

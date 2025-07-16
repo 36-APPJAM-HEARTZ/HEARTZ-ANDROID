@@ -24,6 +24,8 @@ import androidx.compose.ui.window.DialogProperties
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun OffboardingModal(
@@ -42,7 +44,7 @@ fun OffboardingModal(
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
                 .background(color = ByeBooTheme.colors.gray900Alpha80)
-                .padding(24.dp),
+                .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(24.dp)),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -52,7 +54,7 @@ fun OffboardingModal(
                 color = ByeBooTheme.colors.gray400
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
 
             Text(
                 text = titleText,
@@ -61,7 +63,7 @@ fun OffboardingModal(
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
             Image(
                 painter = painterResource(id = R.drawable.bori_clover),
@@ -69,7 +71,7 @@ fun OffboardingModal(
                 modifier = Modifier.size(160.dp)
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
             Text(
                 text = guideText,
@@ -78,7 +80,7 @@ fun OffboardingModal(
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
             ByeBooButton(
                 onClick = onClick,

@@ -28,6 +28,8 @@ import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
 import com.byeboo.app.core.designsystem.component.chip.EmotionChip
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -48,7 +50,7 @@ fun ByeBooBottomSheet(
             onDismissRequest = onDismiss,
             modifier = modifier,
             sheetState = sheetState,
-            containerColor = ByeBooTheme.colors.gray900Alpha80,
+            containerColor = ByeBooTheme.colors.blackAlpha80,
             scrimColor = if (isBackgroundDimmed) {
                 ByeBooTheme.colors.blackAlpha80
             } else {
@@ -68,7 +70,7 @@ fun ByeBooBottomSheet(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 24.dp, vertical = 8.dp),
+                    .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(8.dp)),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 ByeBooDragHandle()
@@ -81,7 +83,7 @@ fun ByeBooBottomSheet(
 
                 )
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(20.dp)))
 
                 EmotionChipList(
                     selectedEmotion = selectedEmotion,
@@ -93,7 +95,7 @@ fun ByeBooBottomSheet(
 
                 )
 
-                Spacer(modifier = Modifier.height(37.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(37.dp)))
 
                 ByeBooActivationButton(
                     buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
@@ -120,7 +122,7 @@ private fun EmotionChipList(
     onEmotionSelected: (LargeTagType) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier.padding(horizontal = 62.dp)) {
+    Column(modifier = modifier.padding(horizontal = screenWidthDp(62.dp))) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
@@ -131,7 +133,7 @@ private fun EmotionChipList(
                 onChipClick = { onEmotionSelected(LargeTagType.EMOTION_NEUTRAL) }
             )
 
-            Spacer(modifier = Modifier.width(20.dp))
+            Spacer(modifier = Modifier.width(screenWidthDp(20.dp)))
             EmotionChip(
                 emotionType = LargeTagType.EMOTION_SELF_AWARE,
                 isSelected = selectedEmotion == LargeTagType.EMOTION_SELF_AWARE,
@@ -139,7 +141,7 @@ private fun EmotionChipList(
             )
         }
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(20.dp)))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -151,7 +153,7 @@ private fun EmotionChipList(
                 onChipClick = { onEmotionSelected(LargeTagType.EMOTION_SADNESS) }
             )
 
-            Spacer(modifier = Modifier.width(20.dp))
+            Spacer(modifier = Modifier.width(screenWidthDp(20.dp)))
 
             EmotionChip(
                 emotionType = LargeTagType.EMOTION_RELIEF,
