@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.auth.onboarding
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.byeboo.app.R
+import com.byeboo.app.core.designsystem.component.backhandler.ByeBooBackHandler
 import com.byeboo.app.core.designsystem.component.button.ByeBooButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.screenHeightDp
@@ -45,6 +47,14 @@ fun OnboardingScreen(
     val pageSpace = if (pageIndex == 2) 24.dp else 16.dp
 
     val buttonText = if (pageIndex == 2) "시작하기" else "다음으로"
+
+    if (pageIndex != 0) {
+        BackHandler {
+            viewModel.previousPage()
+        }
+    } else {
+        ByeBooBackHandler()
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -69,25 +79,27 @@ fun OnboardingScreen(
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                Row(
-                    modifier = Modifier.clickable { viewModel.skipPage(navigateToUserInfo) },
-                    verticalAlignment = Alignment.CenterVertically
+                if (pageIndex != 2) {
+                    Row(
+                        modifier = Modifier.clickable { viewModel.skipPage(navigateToUserInfo) },
+                        verticalAlignment = Alignment.CenterVertically
 
-                ) {
-                    Text(
-                        text = "Skip",
-                        color = ByeBooTheme.colors.primary300,
-                        style = ByeBooTheme.typography.body5.copy(
-                            textDecoration = TextDecoration.Underline
+                    ) {
+                        Text(
+                            text = "Skip",
+                            color = ByeBooTheme.colors.primary300,
+                            style = ByeBooTheme.typography.body5.copy(
+                                textDecoration = TextDecoration.Underline
+                            )
                         )
-                    )
 
-                    Icon(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_right),
-                        contentDescription = "next",
-                        tint = ByeBooTheme.colors.primary200,
-                        modifier = Modifier.size(12.dp)
-                    )
+                        Icon(
+                            imageVector = ImageVector.vectorResource(id = R.drawable.ic_right),
+                            contentDescription = "next",
+                            tint = ByeBooTheme.colors.primary200,
+                            modifier = Modifier.size(12.dp)
+                        )
+                    }
                 }
             }
 
