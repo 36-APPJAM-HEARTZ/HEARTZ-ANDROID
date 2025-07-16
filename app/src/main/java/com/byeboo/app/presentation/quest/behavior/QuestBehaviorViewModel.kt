@@ -126,8 +126,8 @@ class QuestBehaviorViewModel @Inject constructor(
         }
     }
 
-    fun updateContent(text: String) {
-        val contentState = QuestContentLengthValidator.validate(text)
+    fun updateContent(isFocused: Boolean, text: String) {
+        val contentState = QuestContentLengthValidator.validate(isFocused, text)
         _uiState.update {
             it.copy(
                 contents = text,

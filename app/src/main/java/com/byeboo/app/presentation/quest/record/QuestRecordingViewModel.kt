@@ -81,8 +81,8 @@ class QuestRecordingViewModel @Inject constructor(
         }
     }
 
-    fun updateContent(questAnswer: String) {
-        val contentState = QuestContentLengthValidator.validate(questAnswer)
+    fun updateContent(isFocused: Boolean, questAnswer: String) {
+        val contentState = QuestContentLengthValidator.validate(isFocused, questAnswer)
         _uiState.update {
             it.copy(
                 questAnswer = questAnswer,
@@ -108,7 +108,12 @@ class QuestRecordingViewModel @Inject constructor(
     fun onTipClick() {
         val questId = uiState.value.questId
         viewModelScope.launch {
-            _sideEffect.emit(QuestRecordingSideEffect.NavigateToQuestTip(questId, QuestType.RECORDING))
+            _sideEffect.emit(
+                QuestRecordingSideEffect.NavigateToQuestTip(
+                    questId,
+                    QuestType.RECORDING
+                )
+            )
         }
     }
 
