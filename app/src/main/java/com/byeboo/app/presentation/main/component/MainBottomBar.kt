@@ -5,6 +5,7 @@ import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -48,29 +49,35 @@ fun MainBottomBar(
         enter = EnterTransition.None,
         exit = ExitTransition.None
     ) {
-        Column(
-            modifier = Modifier.background(ByeBooTheme.colors.blackAlpha50)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(ByeBooTheme.colors.black.copy(alpha = 0.7f))
         ) {
-            HorizontalDivider(
-                thickness = 1.dp,
-                color = ByeBooTheme.colors.gray700
-            )
-            Row(
-                modifier = Modifier
-                    .navigationBarsPadding()
-                    .fillMaxWidth()
-                    .padding(vertical = 10.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
+            Column(
+                modifier = Modifier.background(ByeBooTheme.colors.blackAlpha50)
             ) {
-                tabs.forEach { tab ->
-                    key(tab.route) {
-                        val selected = currentTab == tab
-                        MainBottomBarItem(
-                            tab = tab,
-                            selected = selected,
-                            onClick = { onTabSelected(tab) }
-                        )
+                HorizontalDivider(
+                    thickness = 1.dp,
+                    color = ByeBooTheme.colors.gray700
+                )
+                Row(
+                    modifier = Modifier
+                        .navigationBarsPadding()
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    tabs.forEach { tab ->
+                        key(tab.route) {
+                            val selected = currentTab == tab
+                            MainBottomBarItem(
+                                tab = tab,
+                                selected = selected,
+                                onClick = { onTabSelected(tab) }
+                            )
+                        }
                     }
                 }
             }
