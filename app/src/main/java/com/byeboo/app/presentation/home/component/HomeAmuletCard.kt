@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
@@ -70,8 +71,9 @@ fun HomeAmuletCard(
                     color = ByeBooTheme.colors.secondary100,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .align(BiasAlignment(0f, 0.25f))
                         .padding(horizontal = screenWidthDp(37.dp))
+                        .padding(top = screenHeightDp(139.dp))
+
                 )
             }
         } else {

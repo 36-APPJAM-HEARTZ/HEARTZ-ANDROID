@@ -72,7 +72,6 @@ fun HomeAmuletScreen(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                // TODO: 이거 80 어디서 준건가..?
                 Box(
                     modifier = Modifier.height(screenHeightDp(80.dp)),
                     contentAlignment = Alignment.Center
@@ -99,7 +98,6 @@ fun HomeAmuletScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                // TODO: 이거 굳이 박스?
                 Box(
                     modifier = Modifier.height(screenHeightDp(80.dp)),
                     contentAlignment = Alignment.Center
