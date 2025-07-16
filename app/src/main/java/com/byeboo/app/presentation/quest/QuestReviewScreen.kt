@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -53,6 +54,9 @@ fun QuestReviewScreen(
     val hasImage = !uiState.imageUrl.isNullOrBlank()
 
 
+    BackHandler(enabled = true) {
+        navigateToBack()
+    }
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
         viewModel.getQuestRecordedDetail(questId)
@@ -81,7 +85,7 @@ fun QuestReviewScreen(
             tint = ByeBooTheme.colors.white,
             modifier = Modifier
                 .align(Alignment.End)
-                .clickable { viewModel.onCloseClick() }
+                .clickable { navigateToBack() }
         )
 
         Spacer(modifier = Modifier.height(16.dp))
