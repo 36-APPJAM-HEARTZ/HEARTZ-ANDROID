@@ -63,6 +63,7 @@ fun QuestBehaviorWritingScreen(
     val isEmotionSelected by viewModel.isEmotionSelected.collectAsStateWithLifecycle()
     val selectedImageUrl by viewModel.selectedImageUri.collectAsStateWithLifecycle()
     val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
+    val isUploading by viewModel.isUploading.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
 
@@ -281,11 +282,11 @@ fun QuestBehaviorWritingScreen(
         onEmotionSelected = { selectedEmotion ->
             viewModel.isEmotionSelected(true)
             viewModel.updateSelectedEmotion(selectedEmotion)
-            viewModel.closeBottomSheet()
         },
         onSelectedChanged = { isSelected ->
             viewModel.isEmotionSelected(isSelected)
         },
-        isSelected = isEmotionSelected
+        isSelected = isEmotionSelected,
+        isUploading = isUploading
     )
 }

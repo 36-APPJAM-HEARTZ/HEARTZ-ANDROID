@@ -47,8 +47,8 @@ class QuestBehaviorViewModel @Inject constructor(
     val showQuitModal: StateFlow<Boolean>
         get() = _showQuitModal.asStateFlow()
 
-    private val _isImageLoading = MutableStateFlow(true)
-    val isImageLoading: StateFlow<Boolean> = _isImageLoading.asStateFlow()
+    private val _isUploading = MutableStateFlow(false)
+    val isUploading: StateFlow<Boolean> = _isUploading.asStateFlow()
 
 
     fun setQuestId(questId: Long) {
@@ -92,9 +92,10 @@ class QuestBehaviorViewModel @Inject constructor(
             }
         }
     }
-
     fun uploadImage(context: Context) {
         viewModelScope.launch {
+            _isUploading.value = true
+
             val imageUrl = _selectedImageUri.value ?: return@launch
             val questId = _uiState.value.questId
             val answer = _uiState.value.contents
@@ -118,9 +119,13 @@ class QuestBehaviorViewModel @Inject constructor(
             }.onSuccess {
                 _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
                 _sideEffect.emit(QuestBehaviorSideEffect.CompleteAndClear(questId))
+                closeBottomSheet()
             }
+
+            _isUploading.value = false
         }
     }
+
 
     fun updateSelectedImage(uri: Uri?) {
         _selectedImageUri.value = uri
@@ -140,11 +145,6 @@ class QuestBehaviorViewModel @Inject constructor(
             )
         }
     }
-
-    fun setImageLoading(value: Boolean) {
-        _isImageLoading.value = value
-    }
-
     fun clearQuestInput() {
         _selectedImageUri.value = null
         _uiState.value.contents = ""
@@ -156,14 +156,6 @@ class QuestBehaviorViewModel @Inject constructor(
 
     fun onDismissModal() {
         _showQuitModal.value = false
-    }
-
-    fun onCompleteClick() {
-        val questId = uiState.value.questId
-
-        viewModelScope.launch {
-            _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
-        }
     }
 
     fun onQuitClick() {
