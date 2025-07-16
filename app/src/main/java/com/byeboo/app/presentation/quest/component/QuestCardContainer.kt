@@ -18,6 +18,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun QuestCardContainer(
@@ -43,7 +45,7 @@ fun QuestCardContainer(
                     Modifier
                 }
             )
-            .padding(8.dp)
+            .padding(horizontal = screenWidthDp(8.dp), vertical = screenHeightDp(8.dp))
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             content()
@@ -58,8 +60,8 @@ fun BackgroundImageLayer(imageResId: Int) {
         contentDescription = null,
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 3.dp)
-            .padding(top = 6.dp)
+            .padding(horizontal = screenWidthDp(3.dp))
+            .padding(top = screenHeightDp(6.dp))
     )
 }
 

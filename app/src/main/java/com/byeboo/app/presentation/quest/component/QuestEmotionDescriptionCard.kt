@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.chip.EmotionChip
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun QuestEmotionDescriptionCard(
@@ -31,12 +33,12 @@ fun QuestEmotionDescriptionCard(
                 color = ByeBooTheme.colors.whiteAlpha10,
                 shape = RoundedCornerShape(12.dp)
             )
-            .padding(horizontal = 24.dp, vertical = 18.dp)
+            .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(18.dp))
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             EmotionChip(emotionType = emotionType, isSelected = true)
 
-            Spacer(modifier = modifier.width(24.dp))
+            Spacer(modifier = modifier.width(screenWidthDp(24.dp)))
 
             Text(
                 text = questEmotionDescription,

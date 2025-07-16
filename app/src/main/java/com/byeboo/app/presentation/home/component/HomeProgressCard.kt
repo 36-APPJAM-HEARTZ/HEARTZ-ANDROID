@@ -20,6 +20,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun HomeProgressCard(
@@ -35,7 +37,7 @@ fun HomeProgressCard(
                 ByeBooTheme.colors.whiteAlpha10,
                 RoundedCornerShape(12.dp)
             )
-            .padding(horizontal = 24.dp, vertical = 16.dp)
+            .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(16.dp))
     ) {
         Column {
             Text(
@@ -44,7 +46,7 @@ fun HomeProgressCard(
                 color = ByeBooTheme.colors.gray50
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(screenHeightDp(10.dp)))
 
             Row(
                 verticalAlignment = Alignment.CenterVertically
@@ -53,7 +55,7 @@ fun HomeProgressCard(
                     progress = if (totalSteps > 0) currentStep.toFloat() / totalSteps else 0f,
                     modifier = Modifier
                         .weight(1f)
-                        .height(6.dp)
+                        .height(screenHeightDp(6.dp))
                 )
 
                 Spacer(modifier = Modifier.width(8.dp))

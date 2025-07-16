@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleClickable
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun HomeQuestCard(
@@ -38,7 +40,7 @@ fun HomeQuestCard(
             .background(backgroundColor, shape)
             .border(1.dp, ByeBooTheme.colors.primary300, shape)
             .noRippleClickable { onClick() }
-            .padding(horizontal = 24.dp, vertical = 16.dp)
+            .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(16.dp))
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -50,7 +52,7 @@ fun HomeQuestCard(
                     style = ByeBooTheme.typography.sub2,
                     color = ByeBooTheme.colors.gray50
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
                 Text(
                     text = subtitle,
                     style = ByeBooTheme.typography.body5,

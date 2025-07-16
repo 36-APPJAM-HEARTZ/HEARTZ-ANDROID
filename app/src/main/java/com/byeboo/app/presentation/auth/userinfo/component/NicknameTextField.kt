@@ -30,6 +30,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.presentation.auth.userinfo.model.UserInfoValidationState
 
 @Composable
@@ -62,14 +64,14 @@ fun NicknameTextField(
         UserInfoValidationState.Empty -> ByeBooTheme.colors.gray400
     }
 
-    Column(modifier = modifier.padding(vertical = 8.dp)) {
+    Column(modifier = modifier.padding(vertical = screenHeightDp(8.dp))) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .border(1.dp, borderColor, shape)
                 .clip(shape)
                 .background(ByeBooTheme.colors.whiteAlpha10)
-                .padding(horizontal = 24.dp, vertical = 18.dp)
+                .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(18.dp))
         ) {
             BasicTextField(
                 value = value,
@@ -114,7 +116,7 @@ fun NicknameTextField(
             }
         }
 
-        Spacer(modifier = Modifier.padding(top = 16.dp))
+        Spacer(modifier = Modifier.padding(top = screenHeightDp(16.dp)))
 
         if (validationState == UserInfoValidationState.Valid) {
             Row(

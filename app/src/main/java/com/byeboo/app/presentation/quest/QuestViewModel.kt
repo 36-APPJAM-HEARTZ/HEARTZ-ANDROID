@@ -7,7 +7,6 @@ import com.byeboo.app.domain.usecase.QuestUseCase
 import com.byeboo.app.presentation.quest.model.Quest
 import com.byeboo.app.presentation.quest.model.QuestGroup
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -15,6 +14,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class QuestViewModel @Inject constructor(
@@ -88,10 +88,7 @@ class QuestViewModel @Inject constructor(
 
                 is QuestState.Complete -> {
                     _sideEffect.emit(
-                        QuestSideEffect.NavigateToQuestReview(
-                            questId = quest.questId,
-                            type = quest.type
-                        )
+                        QuestSideEffect.NavigateToQuestReview(questId = quest.questId)
                     )
                 }
 
@@ -108,7 +105,7 @@ class QuestViewModel @Inject constructor(
     fun onTipClick() {
         val quest = uiState.value.selectedQuest ?: return
         viewModelScope.launch {
-            _sideEffect.emit(QuestSideEffect.NavigateToQuestTip(quest.questId))
+            _sideEffect.emit(QuestSideEffect.NavigateToQuestTip(quest.questId, quest.type))
         }
     }
 
@@ -118,18 +115,13 @@ class QuestViewModel @Inject constructor(
             _uiState.update { it.copy(showQuitModal = false) }
             when (quest.type) {
                 QuestType.RECORDING -> _sideEffect.emit(
-                    QuestSideEffect.NavigateToQuestRecording(
-                        quest.questId
-                    )
+                    QuestSideEffect.NavigateToQuestRecording(quest.questId)
                 )
 
                 QuestType.ACTIVE -> _sideEffect.emit(
-                    QuestSideEffect.NavigateToQuestBehavior(
-                        quest.questId
-                    )
+                    QuestSideEffect.NavigateToQuestBehavior(quest.questId)
                 )
             }
         }
     }
-
 }

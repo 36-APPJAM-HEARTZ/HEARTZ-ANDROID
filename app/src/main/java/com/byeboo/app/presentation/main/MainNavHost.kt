@@ -43,66 +43,33 @@ fun MainNavHost(
         startDestination = navigator.startDestination
     ) {
         splashGraph(
-            navigateToHome = {
-                navigator.navigateToHome(clearStackNavOptions)
-            },
-            navigateToOnboarding = {
-                navigator.navigateToOnboarding(clearStackNavOptions)
-            },
+            navigateToHome = { navigator.navigateToHome(clearStackNavOptions) },
+            navigateToOnboarding = { navigator.navigateToOnboarding(clearStackNavOptions) },
             padding = padding
         )
         authGraph(
-            navigateToUserInfo = {
-                navigator.navigateToUserInfo(clearStackNavOptions)
-            },
-            navigateToLoading = {
-                navigator.navigateToLoading(clearStackNavOptions)
-            },
-            navigateToHomeAmulet = {
-                navigator.navigateToHomeAmulet(clearStackNavOptions)
-            },
+            navigateToUserInfo = { navigator.navigateToUserInfo(clearStackNavOptions) },
+            navigateToLoading = { navigator.navigateToLoading(clearStackNavOptions) },
+            navigateToHomeAmulet = { navigator.navigateToHomeAmulet(clearStackNavOptions) },
             padding = padding
         )
         homeGraph(
             bottomPadding = padding,
-            navigateToHome = {
-                navigator.navigateToHome(clearStackNavOptions)
-            },
-            navigateToHomeOnboarding = {
-                navigator.navigateToHomeOnboarding(clearStackNavOptions)
-            },
-            navigateToQuest = {
-                navigator.navigateToQuest(questNavOptions)
-            },
-            navigateToQuestStart = {
-                navigator.navigateToQuestStart(questNavOptions)
-            }
+            navigateToHome = { navigator.navigateToHome(clearStackNavOptions) },
+            navigateToHomeOnboarding = { navigator.navigateToHomeOnboarding(clearStackNavOptions) },
+            navigateToQuest = { navigator.navigateToQuest(questNavOptions) },
+            navigateToQuestStart = { navigator.navigateToQuestStart(questNavOptions) }
 
         )
         questGraph(
             navigateToQuest = { navigator.navigateToQuest(clearStackNavOptions) },
             navigateToHome = { navigator.navigateToHome(clearStackNavOptions) },
-            navigateToQuestRecording = { questId -> navigator.navigateToQuestRecording(questId) },
+            navigateToQuestRecording = { questId,  -> navigator.navigateToQuestRecording(questId) },
             navigateToQuestBehavior = { questId -> navigator.navigateToQuestBehavior(questId) },
-            navigateToQuestReview = { questId, questType ->
-                navigator.navigateToQuestReview(
-                    questId,
-                    questType
-                )
-            },
-            navigateToQuestRecordingComplete = { questId ->
-                navigator.navigateToQuestRecordingComplete(
-                    questId,
-                    clearStackNavOptions
-                )
-            },
-            navigateToQuestTip = { questId -> navigator.navigateToQuestTip(questId) },
-            navigateToQuestBehaviorComplete = { questId ->
-                navigator.navigateToQuestBehaviorComplete(
-                    questId,
-                    clearStackNavOptions
-                )
-            },
+            navigateToQuestReview = { questId -> navigator.navigateToQuestReview(questId) },
+            navigateToQuestRecordingComplete = { questId -> navigator.navigateToQuestRecordingComplete(questId, clearStackNavOptions) },
+            navigateToQuestTip = { questId, questType -> navigator.navigateToQuestTip(questId, questType) },
+            navigateToQuestBehaviorComplete = { questId -> navigator.navigateToQuestBehaviorComplete(questId, clearStackNavOptions) },
             navigateUp = navigator::navigateUp,
             padding = padding
         )
