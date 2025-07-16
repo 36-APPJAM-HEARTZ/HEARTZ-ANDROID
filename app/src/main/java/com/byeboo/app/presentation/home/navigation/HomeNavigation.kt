@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.byeboo.app.core.designsystem.component.backhandler.ByeBooBackHandler
 import com.byeboo.app.core.navigation.MainTabRoute
 import com.byeboo.app.core.navigation.Route
 import com.byeboo.app.presentation.home.HomeScreen
@@ -38,12 +39,14 @@ fun NavGraphBuilder.homeGraph(
         )
     }
     composable<HomeOnboarding> {
+        ByeBooBackHandler()
         HomeOnboardingScreen(
             navigateToHome = navigateToHome,
             bottomPadding = bottomPadding
         )
     }
     composable<HomeAmulet> {
+        ByeBooBackHandler()
         HomeAmuletScreen(
             navigateToHomeOnboarding = navigateToHomeOnboarding,
         )
