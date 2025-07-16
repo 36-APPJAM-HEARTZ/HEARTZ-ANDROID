@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.byeboo.app.R
@@ -132,7 +131,8 @@ fun QuestBehaviorCompleteScreen(
                                 model = ImageRequest
                                     .Builder(LocalContext.current)
                                     .data(imageUri)
-                                    .crossfade(true)
+                                    .memoryCachePolicy(coil.request.CachePolicy.DISABLED)
+                                    .diskCachePolicy(coil.request.CachePolicy.DISABLED)
                                     .build(),
                                 contentDescription = "uploaded image",
                                 modifier = Modifier.fillMaxSize(),
