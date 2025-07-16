@@ -20,6 +20,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -52,7 +54,7 @@ fun QuestBehaviorWritingScreen(
     navigateToQuestBehaviorComplete: (Long) -> Unit,
     bottomPadding: Dp,
     modifier: Modifier = Modifier,
-    viewModel: QuestBehaviorViewModel = hiltViewModel()
+    viewModel: QuestBehaviorViewModel
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val showBottomSheet by viewModel.showBottomSheet.collectAsStateWithLifecycle()
@@ -75,8 +77,8 @@ fun QuestBehaviorWritingScreen(
     }
 
     LaunchedEffect(questId) {
-        viewModel.setQuestId(questId)
-        viewModel.getQuestDetailInfo(questId)
+            viewModel.setQuestId(questId)
+            viewModel.getQuestDetailInfo(questId)
     }
 
     LaunchedEffect(Unit) {
@@ -152,7 +154,8 @@ fun QuestBehaviorWritingScreen(
                     text = uiState.question,
                     color = ByeBooTheme.colors.gray100,
                     textAlign = TextAlign.Center,
-                    style = ByeBooTheme.typography.head1
+                    style = ByeBooTheme.typography.head1,
+                    modifier = Modifier.fillMaxWidth()
                 )
 
                 Spacer(modifier = Modifier.height(25.dp))

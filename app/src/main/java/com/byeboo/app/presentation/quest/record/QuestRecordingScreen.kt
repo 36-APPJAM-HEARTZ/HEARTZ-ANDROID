@@ -148,9 +148,9 @@ fun QuestRecordingScreen(
 
                 Text(
                     text = "${uiState.questNumber}번째 퀘스트",
+                    modifier = Modifier.fillMaxWidth(),
                     color = ByeBooTheme.colors.secondary300,
                     style = ByeBooTheme.typography.body5,
-                    modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
             }
@@ -160,9 +160,9 @@ fun QuestRecordingScreen(
 
                 Text(
                     text = uiState.questQuestion,
+                    modifier = Modifier.fillMaxWidth(),
                     color = ByeBooTheme.colors.gray100,
                     style = ByeBooTheme.typography.head1,
-                    modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center
                 )
             }

@@ -2,6 +2,7 @@ package com.byeboo.app.presentation.quest.behavior
 
 import android.content.Context
 import android.net.Uri
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.designsystem.type.LargeTagType
@@ -50,7 +51,8 @@ class QuestBehaviorViewModel @Inject constructor(
     val showQuitModal: StateFlow<Boolean>
         get() = _showQuitModal.asStateFlow()
 
-
+    private val _isImageLoading = MutableStateFlow(true)
+    val isImageLoading: StateFlow<Boolean> = _isImageLoading.asStateFlow()
 
 
     fun setQuestId(questId: Long) {
@@ -105,7 +107,7 @@ class QuestBehaviorViewModel @Inject constructor(
             runCatching {
                 val inputStream = context.contentResolver.openInputStream(imageUrl)
                 val imageBytes = inputStream?.readBytes() ?: error("이미지 파일을 읽을 수 없습니다.")
-                val contentType = context.contentResolver.getType(imageUrl) ?: "image/jpeg"
+                val contentType = context.contentResolver.getType(imageUrl).toString()
                 val imageKey = UUID.randomUUID().toString()
 
                 uploadImageUseCase(
@@ -142,6 +144,10 @@ class QuestBehaviorViewModel @Inject constructor(
                 contentState = contentState
             )
         }
+    }
+
+    fun setImageLoading(value: Boolean) {
+        _isImageLoading.value = value
     }
 
     fun onBackClicked() {

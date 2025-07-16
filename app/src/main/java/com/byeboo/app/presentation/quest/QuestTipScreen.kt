@@ -33,6 +33,7 @@ import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleClickable
+import com.byeboo.app.presentation.quest.behavior.QuestBehaviorViewModel
 import com.byeboo.app.presentation.quest.component.QuestContent
 import com.byeboo.app.presentation.quest.component.type.QuestContentType
 

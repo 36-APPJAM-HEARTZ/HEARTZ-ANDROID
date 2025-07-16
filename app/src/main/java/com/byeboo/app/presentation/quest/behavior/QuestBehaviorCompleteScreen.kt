@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.text.ContentText
@@ -52,6 +55,7 @@ fun QuestBehaviorCompleteScreen(
 
     val selectedImageUri by viewModel.selectedImageUri.collectAsStateWithLifecycle()
     val imageUri = selectedImageUri ?: uiState.imageUrl.takeIf { it.isNotBlank() }?.let { Uri.parse(it) }
+    val isImageLoading by viewModel.isImageLoading.collectAsStateWithLifecycle()
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
@@ -118,16 +122,28 @@ fun QuestBehaviorCompleteScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .aspectRatio(360 / 312f)
+                            .aspectRatio(312 / 312f)
                             .clip(RoundedCornerShape(12.dp))
                     ) {
-                        imageUri?.let { uri ->
-                            AsyncImage(
-                                model = ImageRequest.Builder(LocalContext.current).data(uri)
-                                    .crossfade(true).build(),
+
+                        if (imageUri != null) {
+                            SubcomposeAsyncImage(
+                                model = ImageRequest
+                                    .Builder(LocalContext.current)
+                                    .data(imageUri)
+                                    .crossfade(true)
+                                    .build(),
                                 contentDescription = "uploaded image",
                                 modifier = Modifier.fillMaxSize(),
-                                contentScale = ContentScale.Crop
+                                contentScale = ContentScale.Crop,
+                                loading = {
+                                    Box(
+                                        modifier = Modifier.fillMaxSize(),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        CircularProgressIndicator()
+                                    }
+                                }
                             )
                         }
                     }
