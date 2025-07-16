@@ -23,13 +23,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun OnboardingScreen(
@@ -53,11 +54,11 @@ fun OnboardingScreen(
             modifier = Modifier.fillMaxSize()
         )
         Column(
-            modifier = Modifier.padding(top = padding + 27.dp),
+            modifier = Modifier.padding(top = screenHeightDp(padding + 27.dp)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Row(
-                modifier = Modifier.padding(start = 24.dp, end = 24.dp, bottom = 16.dp),
+                modifier = Modifier.padding(horizontal = screenWidthDp(24.dp)),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
@@ -95,12 +96,10 @@ fun OnboardingScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 45.dp),
+                    .padding(horizontal = screenWidthDp(45.dp)),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 contents.forEach { content ->
-
-                    Spacer(modifier = Modifier.height(12.dp))
 
                     Image(
                         painter = painterResource(id = content.imageRes),
@@ -109,7 +108,7 @@ fun OnboardingScreen(
                         contentScale = ContentScale.FillWidth
                     )
 
-                    Spacer(modifier = Modifier.height(pageSpace))
+                    Spacer(modifier = Modifier.height(screenHeightDp(pageSpace)))
 
                     Text(
                         text = content.title,
@@ -117,15 +116,15 @@ fun OnboardingScreen(
                         style = ByeBooTheme.typography.body3,
                         textAlign = TextAlign.Center
                     )
-
-                    Spacer(modifier = Modifier.height(12.dp))
                 }
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
             ByeBooButton(
-                modifier = Modifier.padding(horizontal = 24.dp),
+                modifier = Modifier
+                    .padding(horizontal = screenWidthDp(24.dp))
+                    .padding(bottom = padding),
                 buttonText = buttonText,
                 onClick = {
                     if (pageIndex == 2) {
@@ -137,8 +136,6 @@ fun OnboardingScreen(
                 buttonTextColor = ByeBooTheme.colors.white,
                 buttonBackgroundColor = ByeBooTheme.colors.primary300
             )
-
-            Spacer(modifier = Modifier.height(8.dp + padding))
         }
     }
 }

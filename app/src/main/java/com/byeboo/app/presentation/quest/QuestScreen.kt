@@ -26,6 +26,8 @@ import com.byeboo.app.core.designsystem.component.text.DescriptionText
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.model.QuestType
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.presentation.quest.component.QuestBox
 import com.byeboo.app.presentation.quest.component.QuestModal
 import com.byeboo.app.presentation.quest.component.QuestStepTitle
@@ -33,10 +35,10 @@ import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun QuestScreen(
-    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestTip: (Long, QuestType) -> Unit,
     navigateToQuestRecording: (Long) -> Unit,
     navigateToQuestBehavior: (Long) -> Unit,
-    navigateToQuestReview: (Long, QuestType) -> Unit,
+    navigateToQuestReview: (Long) -> Unit,
     navigateToHome: () -> Unit,
     bottomPadding: Dp,
     viewModel: QuestViewModel = hiltViewModel()
@@ -55,14 +57,10 @@ fun QuestScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collectLatest {
             when (it) {
-                is QuestSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId)
+                is QuestSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId, it.questType)
                 is QuestSideEffect.NavigateToQuestRecording -> navigateToQuestRecording(it.questId)
                 is QuestSideEffect.NavigateToQuestBehavior -> navigateToQuestBehavior(it.questId)
-                is QuestSideEffect.NavigateToQuestReview -> navigateToQuestReview(
-                    it.questId,
-                    it.type
-                )
-
+                is QuestSideEffect.NavigateToQuestReview -> navigateToQuestReview(it.questId)
                 is QuestSideEffect.NavigateToHome -> navigateToHome()
             }
         }
@@ -74,7 +72,9 @@ fun QuestScreen(
             questNumber = uiState.selectedQuest?.questNumber ?: 0L,
             questQuestion = uiState.selectedQuest?.questQuestion ?: "",
             navigateToTip = viewModel::onTipClick,
-            progressButton = viewModel::onQuestStart
+            progressButton = viewModel::onQuestStart,
+            modifier = Modifier.fillMaxWidth()
+                //.padding(horizontal = screenHeightDp(48.dp)),
         )
     }
 
@@ -82,8 +82,8 @@ fun QuestScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(ByeBooTheme.colors.black)
-            .padding(horizontal = 24.dp)
-            .padding(top = 67.dp)
+            .padding(horizontal = screenWidthDp(24.dp))
+            .padding(top = screenHeightDp(67.dp))
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             MiddleTag(
@@ -104,9 +104,9 @@ fun QuestScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(ByeBooTheme.colors.black),
-            horizontalArrangement = Arrangement.spacedBy(21.dp),
-            verticalArrangement = Arrangement.spacedBy(20.dp),
-            contentPadding = PaddingValues(bottom = bottomPadding + 37.dp)
+            horizontalArrangement = Arrangement.spacedBy(screenWidthDp(21.dp)),
+            verticalArrangement = Arrangement.spacedBy(screenHeightDp(20.dp)),
+            contentPadding = PaddingValues(bottom = screenWidthDp(bottomPadding + 37.dp))
         ) {
             uiState.questGroups.forEachIndexed { stepIndex, group ->
                 item(span = { GridItemSpan(3) }, key = group.stepTitle) {
@@ -114,14 +114,14 @@ fun QuestScreen(
                         HorizontalDivider(
                             thickness = 1.dp,
                             color = ByeBooTheme.colors.whiteAlpha10,
-                            modifier = Modifier.padding(vertical = 8.dp)
+                            modifier = Modifier.padding(vertical = screenHeightDp(8.dp))
                         )
-                        Spacer(modifier = Modifier.padding(top = 24.dp))
+                        Spacer(modifier = Modifier.padding(top = screenHeightDp(24.dp)))
                         QuestStepTitle(
                             stepNumber = (stepIndex + 1).toLong(),
                             stepTitle = group.stepTitle
                         )
-                        Spacer(modifier = Modifier.padding(top = 8.dp))
+                        Spacer(modifier = Modifier.padding(top = screenHeightDp(8.dp)))
                     }
                 }
                 group.quests.forEach { quest ->

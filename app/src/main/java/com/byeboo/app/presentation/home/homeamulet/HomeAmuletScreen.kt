@@ -27,6 +27,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleClickable
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.presentation.home.component.HomeAmuletCard
 
 @Composable
@@ -53,6 +55,7 @@ fun HomeAmuletScreen(
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop
         )
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -63,14 +66,14 @@ fun HomeAmuletScreen(
             modifier = Modifier
                 .align(Alignment.Center)
                 .fillMaxWidth()
-                .padding(horizontal = 35.dp),
+                .padding(horizontal = screenWidthDp(35.dp)),
             contentAlignment = Alignment.Center
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Box(
-                    modifier = Modifier.height(80.dp),
+                    modifier = Modifier.height(screenHeightDp(80.dp)),
                     contentAlignment = Alignment.Center
                 ) {
                     if (!isFlipped) {
@@ -81,10 +84,11 @@ fun HomeAmuletScreen(
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(bottom = 32.dp)
+                                .padding(bottom = screenHeightDp(32.dp)),
                         )
                     }
                 }
+
                 HomeAmuletCard(
                     frontImageRes = uiState.journey.frontImg,
                     backImageRes = uiState.journey.backImg,
@@ -93,8 +97,9 @@ fun HomeAmuletScreen(
                     onFlip = { isFlipped = true },
                     modifier = Modifier.fillMaxWidth()
                 )
+
                 Box(
-                    modifier = Modifier.height(80.dp),
+                    modifier = Modifier.height(screenHeightDp(80.dp)),
                     contentAlignment = Alignment.Center
                 ) {
                     if (isFlipped) {
@@ -106,7 +111,7 @@ fun HomeAmuletScreen(
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(top = 32.dp)
+                                .padding(top = screenHeightDp(32.dp))
                                 .noRippleClickable {
                                     viewModel.navigateToHomeOnboarding()
                                 }

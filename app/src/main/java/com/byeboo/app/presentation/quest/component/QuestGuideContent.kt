@@ -22,6 +22,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun GuideContent(
@@ -32,7 +34,7 @@ fun GuideContent(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 49.dp, vertical = 26.dp),
+            .padding(horizontal = screenWidthDp(49.dp), vertical = screenHeightDp(26.dp)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -52,7 +54,7 @@ fun GuideContent(
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(32.dp)))
 
         Image(
             painter = painterResource(id = R.drawable.bori_clover),
@@ -63,7 +65,7 @@ fun GuideContent(
             contentScale = ContentScale.Fit
         )
 
-        Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(32.dp)))
 
         Text(
             buildAnnotatedString {

@@ -14,6 +14,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun LargeTag(
@@ -24,8 +25,7 @@ fun LargeTag(
 ) {
     Box(
         modifier = modifier
-            // Todo: width 수정
-            .width(85.dp)
+            .width(screenWidthDp(85.dp))
             .background(
                 color = backgroundColor,
                 shape = RoundedCornerShape(largeTagType.roundedCorner)

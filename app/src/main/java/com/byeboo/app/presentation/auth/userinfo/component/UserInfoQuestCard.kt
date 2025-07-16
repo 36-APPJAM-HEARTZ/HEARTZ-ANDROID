@@ -21,6 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleClickable
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun UserInfoQuestCard(
@@ -40,7 +42,7 @@ fun UserInfoQuestCard(
             .background(ByeBooTheme.colors.whiteAlpha10)
             .border(2.dp, borderColor, RoundedCornerShape(12.dp))
             .noRippleClickable(onCardClick)
-            .padding(vertical = 24.dp)
+            .padding(vertical = screenHeightDp(24.dp))
     ) {
         Column(
             modifier = Modifier
@@ -51,15 +53,19 @@ fun UserInfoQuestCard(
                 painter = painterResource(imageRes),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(56.dp)
+                    .size(width = screenWidthDp(56.dp), height = screenHeightDp(56.dp))
             )
-            Spacer(modifier = Modifier.height(10.dp))
+
+            Spacer(modifier = Modifier.height(screenHeightDp(10.dp)))
+
             Text(
                 text = title,
                 style = ByeBooTheme.typography.sub2,
                 color = textColor
             )
-            Spacer(modifier = Modifier.height(8.dp))
+
+            Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
+
             Text(
                 text = content,
                 style = ByeBooTheme.typography.body5,

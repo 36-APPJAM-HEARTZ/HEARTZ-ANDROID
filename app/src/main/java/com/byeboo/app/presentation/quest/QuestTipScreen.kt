@@ -32,7 +32,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.core.util.noRippleClickable
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.presentation.quest.component.QuestContent
 import com.byeboo.app.presentation.quest.component.type.QuestContentType
 
@@ -40,6 +43,7 @@ import com.byeboo.app.presentation.quest.component.type.QuestContentType
 fun QuestTipScreen(
     navigateUp: () -> Unit,
     questId: Long,
+    questType: QuestType,
     bottomPadding: Dp,
     modifier: Modifier = Modifier,
     viewModel: QuestTipViewModel = hiltViewModel(),
@@ -48,7 +52,6 @@ fun QuestTipScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val questUiState by questViewModel.uiState.collectAsStateWithLifecycle()
     val questGroups = questUiState.questGroups
-
 
     LaunchedEffect(questId, questGroups) {
         val quest = questGroups
@@ -74,15 +77,15 @@ fun QuestTipScreen(
         modifier = modifier
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
-            .padding(horizontal = 24.dp)
+            .padding(horizontal = screenWidthDp(24.dp))
             .padding(bottom = bottomPadding)
     ) {
-        Spacer(modifier = Modifier.height(67.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(67.dp)))
 
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp),
+                .padding(bottom = screenHeightDp(16.dp)),
         ) {
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
@@ -108,7 +111,7 @@ fun QuestTipScreen(
                 .fillMaxWidth()
         ) {
             item {
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(10.dp)))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -117,7 +120,7 @@ fun QuestTipScreen(
                 ) {
                     SmallTag(tagText = "STEP ${uiState.stepNumber}")
 
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(screenWidthDp(8.dp)))
 
                     Text(
                         text = "${uiState.questNumber}번째 퀘스트",
@@ -128,7 +131,7 @@ fun QuestTipScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(12.dp)))
 
                 Text(
                     text = uiState.question,
@@ -140,7 +143,7 @@ fun QuestTipScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(34.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(34.dp)))
 
                 QuestContent(
                     titleIcon = QuestContentType.QUEST_REASON,
@@ -150,7 +153,37 @@ fun QuestTipScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
+
+                HorizontalDivider(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = screenHeightDp(8.dp)),
+                    thickness = 1.dp,
+                    color = ByeBooTheme.colors.whiteAlpha10
+                )
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
+
+                if (questType.questName == "RECORDING") {
+                    QuestContent(
+                        titleIcon = QuestContentType.THINKING,
+                        titleText = "이런 걸 생각해보며 작성해 주세요.",
+                        contentText = uiState.tipAnswer[1]
+                    )
+                } else {
+                    QuestContent(
+                        titleIcon = QuestContentType.THINKING,
+                        titleText = "이렇게 해보면 좋아요.",
+                        contentText = uiState.tipAnswer[1]
+                    )
+                }
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
 
                 HorizontalDivider(
                     modifier = Modifier
@@ -162,29 +195,7 @@ fun QuestTipScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(24.dp))
-
-                QuestContent(
-                    titleIcon = QuestContentType.THINKING,
-                    titleText = "이런 걸 생각해보며 작성해 주세요.",
-                    contentText = uiState.tipAnswer[1]
-                )
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(24.dp))
-
-                HorizontalDivider(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp),
-                    thickness = 1.dp,
-                    color = ByeBooTheme.colors.whiteAlpha10
-                )
-            }
-
-            item {
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
 
                 QuestContent(
                     titleIcon = QuestContentType.FEELING_CHANGE,

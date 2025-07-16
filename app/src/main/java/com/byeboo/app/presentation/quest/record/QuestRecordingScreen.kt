@@ -36,7 +36,10 @@ import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.core.util.addFocusCleaner
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.domain.model.QuestContentLengthValidator
 import com.byeboo.app.presentation.quest.component.QuestQuitModal
 import com.byeboo.app.presentation.quest.component.QuestTextField
@@ -48,7 +51,7 @@ import kotlinx.coroutines.flow.collectLatest
 fun QuestRecordingScreen(
     questId: Long,
     navigateToQuest: () -> Unit,
-    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestTip: (Long, QuestType) -> Unit,
     navigateToQuestRecordingComplete: (Long) -> Unit,
     bottomPadding: Dp,
     modifier: Modifier = Modifier,
@@ -69,9 +72,10 @@ fun QuestRecordingScreen(
         viewModel.sideEffect.collectLatest {
             when (it) {
                 is QuestRecordingSideEffect.NavigateToQuest -> navigateToQuest()
-                is QuestRecordingSideEffect.NavigateToQuestTip -> {
-                    navigateToQuestTip(it.questId)
-                }
+                is QuestRecordingSideEffect.NavigateToQuestTip -> navigateToQuestTip(
+                    it.questId,
+                    it.questType
+                )
 
                 is QuestRecordingSideEffect.NavigateToQuestRecordingComplete -> navigateToQuestRecordingComplete(
                     it.questId
@@ -100,10 +104,10 @@ fun QuestRecordingScreen(
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
             .addFocusCleaner(focusManager)
-            .padding(horizontal = 24.dp)
-            .padding(bottom = bottomPadding)
+            .padding(horizontal = screenWidthDp(24.dp))
+            .padding(bottom = screenHeightDp(bottomPadding))
     ) {
-        Spacer(modifier = Modifier.height(67.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(67.dp)))
 
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
@@ -114,14 +118,14 @@ fun QuestRecordingScreen(
                 .clickable { viewModel.onBackClick() }
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
             item {
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(10.dp)))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -133,7 +137,7 @@ fun QuestRecordingScreen(
                         tagColor = ByeBooTheme.colors.gray300
                     )
 
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(screenWidthDp(8.dp)))
 
                     Text(
                         text = uiState.step,
@@ -144,7 +148,7 @@ fun QuestRecordingScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(12.dp)))
 
                 Text(
                     text = "${uiState.questNumber}번째 퀘스트",
@@ -156,7 +160,7 @@ fun QuestRecordingScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(12.dp)))
 
                 Text(
                     text = uiState.questQuestion,
@@ -168,7 +172,7 @@ fun QuestRecordingScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(25.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(25.dp)))
 
                 Box(
                     modifier = Modifier.fillMaxWidth(),
@@ -183,22 +187,28 @@ fun QuestRecordingScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
 
                 QuestTextField(
                     questWritingState = uiState.contentsState,
                     value = uiState.questAnswer,
                     onValueChange = {
                         if (it.length <= 500) {
-                            viewModel.updateContent(it)
+                            viewModel.updateContent(isFocused = true, it)
                         }
                     },
-                    placeholder = "글로 적다 보면, 스스로에게 한 걸음 더 가까워질 수 있어요."
+                    placeholder = "글로 적다 보면, 스스로에게 한 걸음 더 가까워질 수 있어요.",
+                    onFocusChanged = { isFocused ->
+                        viewModel.updateContent(
+                            isFocused = isFocused,
+                            questAnswer = uiState.questAnswer
+                        )
+                    }
                 )
             }
 
             item {
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
                 Text(
                     text = "*10글자 이상 입력해주세요.",
@@ -210,7 +220,7 @@ fun QuestRecordingScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(54.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(54.dp)))
 
                 ByeBooActivationButton(
                     buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,

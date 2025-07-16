@@ -25,16 +25,12 @@ fun NavController.navigateToQuest(navOptions: NavOptions? = null) {
     navigate(Quest, navOptions)
 }
 
-fun NavController.navigateToQuestTip(questId: Long, navOptions: NavOptions? = null) {
-    navigate(QuestTip(questId), navOptions)
+fun NavController.navigateToQuestTip(questId: Long, questType: QuestType, navOptions: NavOptions? = null) {
+    navigate(QuestTip(questId, questType), navOptions)
 }
 
-fun NavController.navigateToQuestReview(
-    questId: Long,
-    questType: QuestType,
-    navOptions: NavOptions? = null
-) {
-    navigate(QuestReview(questId, questType), navOptions)
+fun NavController.navigateToQuestReview(questId: Long, navOptions: NavOptions? = null) {
+    navigate(QuestReview(questId), navOptions)
 }
 
 fun NavGraphBuilder.questGraph(
@@ -44,9 +40,9 @@ fun NavGraphBuilder.questGraph(
     navigateToHome: () -> Unit,
     navigateToQuestRecording: (Long) -> Unit,
     navigateToQuestBehavior: (Long) -> Unit,
-    navigateToQuestReview: (Long, QuestType) -> Unit,
+    navigateToQuestReview: (Long) -> Unit,
     navigateToQuestRecordingComplete: (Long) -> Unit,
-    navigateToQuestTip: (Long) -> Unit,
+    navigateToQuestTip: (Long, QuestType) -> Unit,
     navigateToQuestBehaviorComplete: (Long) -> Unit,
     padding: Dp
 ) {
@@ -75,10 +71,12 @@ fun NavGraphBuilder.questGraph(
         composable<QuestTip> { backStackEntry ->
             val questTip = backStackEntry.toRoute<QuestTip>()
             val questId = questTip.questId
+            val questType = questTip.questType
 
             QuestTipScreen(
                 navigateUp = navigateUp,
                 questId = questId,
+                questType = questType,
                 bottomPadding = padding
             )
         }

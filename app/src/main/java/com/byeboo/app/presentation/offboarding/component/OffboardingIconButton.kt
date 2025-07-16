@@ -21,6 +21,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun OffboardingIconButton(
@@ -33,7 +35,7 @@ fun OffboardingIconButton(
             .clip(RoundedCornerShape(12.dp))
             .background(color = ByeBooTheme.colors.primary300)
             .clickable(onClick = onClick)
-            .padding(vertical = 16.dp),
+            .padding(vertical = screenHeightDp(16.dp)),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -43,7 +45,7 @@ fun OffboardingIconButton(
             tint = ByeBooTheme.colors.primary50
         )
 
-        Spacer(modifier = Modifier.width(11.dp))
+        Spacer(modifier = Modifier.width(screenWidthDp(11.dp)))
 
         Text(
             text = "새로운 이별 극복 여정 시작하기",
