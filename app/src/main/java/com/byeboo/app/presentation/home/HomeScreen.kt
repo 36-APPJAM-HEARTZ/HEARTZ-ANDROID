@@ -65,7 +65,7 @@ fun HomeScreen(
                     )
                     Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
                     HomeProgressCard(
-                        title = "${uiState.nickname}님의 자기 성찰 여정",
+                        title = "${uiState.nickname}님의 ${uiState.journey} 여정",
                         currentStep = uiState.currentStep,
                         totalSteps = uiState.totalSteps
                     )
