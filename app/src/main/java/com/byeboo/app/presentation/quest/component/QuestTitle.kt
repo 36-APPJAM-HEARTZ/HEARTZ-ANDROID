@@ -15,6 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -32,14 +34,14 @@ fun QuestTitle(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 10.dp)
+            .padding(vertical = screenHeightDp(10.dp))
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically
         ) {
             SmallTag(tagText = "STEP $stepNumber")
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(screenWidthDp(8.dp)))
 
             Text(
                 text = "${questNumber}번째 퀘스트",
@@ -48,7 +50,7 @@ fun QuestTitle(
             )
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(12.dp)))
 
         Text(
             text = "$date",
@@ -56,7 +58,7 @@ fun QuestTitle(
             style = ByeBooTheme.typography.body5
         )
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(12.dp)))
 
         Text(
             text = questQuestion,

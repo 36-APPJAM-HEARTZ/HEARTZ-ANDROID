@@ -17,6 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun QuestCompleteCard(
@@ -29,8 +31,8 @@ fun QuestCompleteCard(
                 shape = RoundedCornerShape(12.dp)
             )
             .padding(
-                horizontal = 60.dp,
-                vertical = 24.dp
+                horizontal = screenWidthDp(60.dp),
+                vertical = screenHeightDp(24.dp)
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -48,14 +50,14 @@ fun QuestCompleteCard(
             style = ByeBooTheme.typography.head1
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
         Image(
             painter = painterResource(id = R.drawable.img_congrate),
             contentDescription = "complete bori img"
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
         Text(
             text = "기특해요 !\n점점 극복해나가고 있어요 :)",

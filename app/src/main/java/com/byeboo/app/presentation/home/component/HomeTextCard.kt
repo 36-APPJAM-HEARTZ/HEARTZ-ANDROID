@@ -13,6 +13,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun HomeTextCard(
@@ -26,7 +28,7 @@ fun HomeTextCard(
                 ByeBooTheme.colors.primary50,
                 RoundedCornerShape(12.dp)
             )
-            .padding(horizontal = 24.dp, vertical = 9.dp)
+            .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(9.dp))
     ) {
         Text(
             text = title,

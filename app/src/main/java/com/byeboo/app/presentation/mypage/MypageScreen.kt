@@ -27,8 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.byeboo.app.R
-import com.byeboo.app.core.designsystem.component.button.ByeBooButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun MyPageScreen(
@@ -42,8 +43,8 @@ fun MyPageScreen(
         modifier = modifier
             .fillMaxSize()
             .background(ByeBooTheme.colors.black)
-            .padding(horizontal = 24.dp)
-            .padding(top = 67.dp),
+            .padding(horizontal = screenWidthDp(24.dp))
+            .padding(top = screenHeightDp(67.dp)),
     ) {
         Text(
             text = "마이페이지",
@@ -53,14 +54,14 @@ fun MyPageScreen(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
                 .background(color = ByeBooTheme.colors.whiteAlpha10)
-                .padding(horizontal = 24.dp, vertical = 18.dp)
+                .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(18.dp))
         ) {
             Text(
                 text = nickname ?: "",
@@ -69,17 +70,17 @@ fun MyPageScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
 
         HorizontalDivider(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 8.dp),
+                .padding(vertical = screenHeightDp(8.dp)),
             thickness = 1.dp,
             color = ByeBooTheme.colors.whiteAlpha10
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
 
         Row() {
             Icon(
@@ -88,7 +89,7 @@ fun MyPageScreen(
                 tint = Color.Unspecified
             )
 
-            Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.width(screenWidthDp(8.dp)))
 
             Text(
                 text = "나의 기록",
@@ -98,7 +99,7 @@ fun MyPageScreen(
             )
         }
 
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(12.dp)))
 
         Column(
             modifier = Modifier
@@ -106,7 +107,7 @@ fun MyPageScreen(
                 .clip(RoundedCornerShape(12.dp))
                 .background(color = ByeBooTheme.colors.whiteAlpha10)
                 .border(width = 1.dp, color = ByeBooTheme.colors.primary300, shape = RoundedCornerShape(12.dp))
-                .padding(horizontal = 24.dp, vertical = 21.dp)
+                .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(21.dp))
         ) {
             Text(
                 text = "완료한 여정 돌아보기",

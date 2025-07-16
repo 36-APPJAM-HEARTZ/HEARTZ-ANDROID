@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
@@ -23,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.Dp
@@ -32,7 +32,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.addFocusCleaner
 import com.byeboo.app.core.util.noRippleClickable
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.domain.model.NicknameValidationResult
 import com.byeboo.app.presentation.auth.userinfo.component.StepProgressBar
 import com.byeboo.app.presentation.auth.userinfo.model.toValidationState
@@ -52,6 +55,7 @@ fun UserInfoScreen(
     var previousPage by remember { mutableStateOf(0) }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val coroutineScope = rememberCoroutineScope()
+    val focusManager = LocalFocusManager.current
     val isStepValid by remember(
         pagerState.currentPage,
         uiState.nicknameValidation,
@@ -86,7 +90,9 @@ fun UserInfoScreen(
     }
 
     Box(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize()
+            .addFocusCleaner(focusManager)
     ) {
         Image(
             painter = painterResource(R.drawable.bg_userinfo),
@@ -97,9 +103,9 @@ fun UserInfoScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 24.dp)
+                .padding(horizontal = screenWidthDp(24.dp))
         ) {
-            Spacer(modifier = Modifier.padding(top = padding + 27.dp))
+            Spacer(modifier = Modifier.padding(top = screenHeightDp(padding + 27.dp)))
             if (pagerState.currentPage != 0) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
@@ -116,7 +122,7 @@ fun UserInfoScreen(
                         }
                 )
             }
-            Spacer(modifier = Modifier.padding(top = 16.dp))
+            Spacer(modifier = Modifier.padding(top = screenHeightDp(16.dp)))
 
             StepProgressBar(currentStep = pagerState.currentPage + 1)
 

@@ -37,6 +37,8 @@ import coil.request.ImageRequest
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.text.ContentText
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.presentation.quest.component.QuestCompleteCard
 import com.byeboo.app.presentation.quest.component.QuestCompleteTitle
 import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
@@ -73,10 +75,10 @@ fun QuestBehaviorCompleteScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(ByeBooTheme.colors.black)
-            .padding(horizontal = 24.dp)
-            .padding(bottom = bottomPadding),
+            .padding(horizontal = screenWidthDp(24.dp))
+            .padding(bottom = screenHeightDp(bottomPadding)),
     ) {
-        Spacer(modifier = Modifier.height(67.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(67.dp)))
 
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
@@ -87,19 +89,19 @@ fun QuestBehaviorCompleteScreen(
                 .clickable { viewModel.onCloseClick() }
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
         LazyColumn(
             modifier = Modifier.fillMaxWidth()
         ) {
             item {
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
 
                 QuestCompleteCard(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(32.dp)))
             }
             item {
                 QuestCompleteTitle(
@@ -112,7 +114,7 @@ fun QuestBehaviorCompleteScreen(
 
             item {
                 Column(
-                    modifier = Modifier.padding(vertical = 24.dp),
+                    modifier = Modifier.padding(vertical = screenHeightDp(24.dp)),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Column(
@@ -132,19 +134,19 @@ fun QuestBehaviorCompleteScreen(
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(8.dp))
+                    Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
 
                     if (uiState.answer.isNotBlank()) {
                         ContentText(uiState.answer)
                     }
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
             }
 
             item {
                 Column(
-                    modifier = Modifier.padding(vertical = 24.dp)
+                    modifier = Modifier.padding(vertical = screenHeightDp(24.dp))
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically
@@ -152,7 +154,7 @@ fun QuestBehaviorCompleteScreen(
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_think),
                             contentDescription = "title icon",
-                            modifier = Modifier.padding(end = 8.dp),
+                            modifier = Modifier.padding(end = screenHeightDp(8.dp)),
                             tint = Color.Unspecified
                         )
 

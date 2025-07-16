@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
@@ -37,6 +38,9 @@ import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.model.QuestType
+import com.byeboo.app.core.util.addFocusCleaner
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.domain.model.QuestValidator
 import com.byeboo.app.presentation.quest.behavior.component.QuestPhotoPicker
 import com.byeboo.app.presentation.quest.component.QuestQuitModal
@@ -61,6 +65,7 @@ fun QuestBehaviorWritingScreen(
     val selectedImageUrl by viewModel.selectedImageUri.collectAsStateWithLifecycle()
     val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
 
     if (showQuitModal) {
         QuestQuitModal(
@@ -96,7 +101,8 @@ fun QuestBehaviorWritingScreen(
         modifier = modifier
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
-            .padding(horizontal = 24.dp, vertical = 8.dp)
+            .addFocusCleaner(focusManager)
+            .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(8.dp))
             .padding(bottom = bottomPadding)
     ) {
         Icon(
@@ -104,7 +110,7 @@ fun QuestBehaviorWritingScreen(
             contentDescription = "back button",
             tint = ByeBooTheme.colors.white,
             modifier = Modifier
-                .padding(top = 67.dp, bottom = 16.dp)
+                .padding(top = screenHeightDp(67.dp), bottom = screenHeightDp(16.dp))
                 .align(Alignment.Start)
                 .clickable { viewModel.onBackClicked() }
         )
@@ -122,7 +128,7 @@ fun QuestBehaviorWritingScreen(
                         tagText = "STEP ${uiState.stepNumber}"
                     )
 
-                    Spacer(modifier = Modifier.width(12.dp))
+                    Spacer(modifier = Modifier.width(screenWidthDp(12.dp)))
 
                     Text(
                         text = "${uiState.stepMissionTitle}",
@@ -131,7 +137,7 @@ fun QuestBehaviorWritingScreen(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(12.dp)))
             }
 
             item {
@@ -143,7 +149,7 @@ fun QuestBehaviorWritingScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(12.dp)))
             }
 
             item {
@@ -154,7 +160,7 @@ fun QuestBehaviorWritingScreen(
                     style = ByeBooTheme.typography.head1
                 )
 
-                Spacer(modifier = Modifier.height(25.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(25.dp)))
             }
 
             item {
@@ -169,14 +175,14 @@ fun QuestBehaviorWritingScreen(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
             }
 
             item {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     MiddleTag(middleTagType = MiddleTagType.QUEST_ESSENTIAL, text = "필수")
 
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(screenWidthDp(8.dp)))
 
                     Text(
                         text = "사진 첨부",
@@ -184,7 +190,7 @@ fun QuestBehaviorWritingScreen(
                         style = ByeBooTheme.typography.body2
                     )
 
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(screenWidthDp(8.dp)))
 
                     Text(
                         text = "(${uiState.imageCount}/1)",
@@ -193,7 +199,7 @@ fun QuestBehaviorWritingScreen(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
             }
 
             item {
@@ -204,14 +210,14 @@ fun QuestBehaviorWritingScreen(
                     }
                 )
 
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
             }
 
             item {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     MiddleTag(middleTagType = MiddleTagType.QUEST_OPTIONAL, text = "선택")
 
-                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(screenWidthDp(8.dp)))
 
                     Text(
                         text = "생각 적기",
@@ -220,18 +226,29 @@ fun QuestBehaviorWritingScreen(
                     )
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
             }
 
             item {
                 QuestTextField(
                     questWritingState = uiState.contentState,
                     value = uiState.contents,
-                    onValueChange = viewModel::updateContent,
-                    placeholder = "꼭 적지 않아도 괜찮지만, 글로 정리해보면 스스로에게 한 걸음 더 가까워질 수 있어요."
+                    onValueChange = {
+                        if (it.length <= 200){
+                            viewModel.updateContent(isFocused = true, it)
+                        }
+                    },
+                    placeholder = "꼭 적지 않아도 괜찮지만, 글로 정리해보면 스스로에게 한 걸음 더 가까워질 수 있어요.",
+                    isQuestion = false,
+                    onFocusChanged = {isFocused ->
+                        viewModel.updateContent(
+                            isFocused = isFocused,
+                            text = uiState.contents
+                        )
+                    }
                 )
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
             }
 
             item {

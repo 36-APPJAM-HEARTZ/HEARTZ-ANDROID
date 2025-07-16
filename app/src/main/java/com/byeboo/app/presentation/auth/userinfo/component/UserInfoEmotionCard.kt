@@ -22,6 +22,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleClickable
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun UserInfoEmotionCard(
@@ -46,22 +48,22 @@ fun UserInfoEmotionCard(
             .background(backgroundColor)
             .border(2.dp, borderColor, RoundedCornerShape(12.dp))
             .noRippleClickable(onCardClick)
-            .padding(vertical = 12.dp)
+            .padding(vertical = screenHeightDp(12.dp))
     ) {
         Column(
             modifier = Modifier
                 .align(Alignment.Center)
-                .padding(horizontal = 11.5.dp),
+                .padding(horizontal = screenHeightDp(11.5.dp)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Image(
                 painter = painterResource(imageRes),
                 contentDescription = null,
                 modifier = Modifier
-                    .width(73.dp)
-                    .height(100.dp)
+                    .width(screenWidthDp(73.dp))
+                    .height(screenHeightDp(100.dp))
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(screenHeightDp(10.dp)))
             Text(
                 text = content,
                 style = ByeBooTheme.typography.body5,

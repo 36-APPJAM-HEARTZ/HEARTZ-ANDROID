@@ -27,6 +27,8 @@ import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleClickable
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.presentation.auth.loading.LoadingViewModel
 import com.byeboo.app.presentation.quest.component.GuideContent
 
@@ -62,8 +64,8 @@ fun QuestStartScreen(
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(top = 67.dp)
-                .padding(horizontal = 24.dp),
+                .padding(top = screenHeightDp(67.dp))
+                .padding(horizontal = screenWidthDp(24.dp)),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -97,10 +99,10 @@ fun QuestStartScreen(
             buttonTextColor = ByeBooTheme.colors.white,
             buttonBackgroundColor = ByeBooTheme.colors.primary300,
             modifier = Modifier
-                .padding(horizontal = 24.dp)
+                .padding(horizontal = screenWidthDp(24.dp))
                 .padding(bottom = padding)
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
     }
 }

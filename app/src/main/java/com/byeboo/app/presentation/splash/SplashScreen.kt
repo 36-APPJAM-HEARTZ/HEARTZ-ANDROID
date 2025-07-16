@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.byeboo.app.R
+import com.byeboo.app.core.util.screenHeightDp
 
 @Composable
 fun SplashScreen(
@@ -43,9 +44,9 @@ fun SplashScreen(
             painter = painterResource(R.drawable.img_splash_logo),
             contentDescription = null,
             modifier = Modifier
-                .padding(horizontal = 76.dp)
+                .padding(horizontal = screenHeightDp(76.dp))
                 // TODO: 화면 비율을 맞춰 보겠습니다~
-                .padding(top = padding + 250.dp)
+                .padding(top = screenHeightDp(padding + 250.dp))
         )
     }
 

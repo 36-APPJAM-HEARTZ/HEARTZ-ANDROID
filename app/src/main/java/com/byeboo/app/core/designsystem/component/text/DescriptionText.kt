@@ -11,6 +11,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
 
 @Composable
 fun DescriptionText(
@@ -36,7 +37,7 @@ fun DescriptionText(
             },
             style = ByeBooTheme.typography.head1
         )
-        Spacer(modifier = Modifier.padding(top = 8.dp))
+        Spacer(modifier = Modifier.padding(top = screenHeightDp(8.dp)))
         Text(
             text = contentText,
             style = ByeBooTheme.typography.body5,

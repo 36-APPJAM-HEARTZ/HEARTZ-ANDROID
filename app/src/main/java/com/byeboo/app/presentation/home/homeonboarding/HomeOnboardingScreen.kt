@@ -36,6 +36,8 @@ import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleCombineClickable
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.presentation.home.component.HomeTextCard
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -85,8 +87,8 @@ fun HomeOnboardingScreen(
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .padding(horizontal = 24.dp)
-                .padding(top = 67.dp),
+                .padding(horizontal = screenWidthDp(24.dp))
+                .padding(top = screenHeightDp(67.dp)),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             AnimatedVisibility(
@@ -96,7 +98,7 @@ fun HomeOnboardingScreen(
                 HomeTextCard(title = "BYE BOO에 오신 걸 환영해요 :)")
             }
 
-            Spacer(modifier = Modifier.padding(vertical = 8.dp))
+            Spacer(modifier = Modifier.padding(vertical = screenHeightDp(8.dp)))
 
             AnimatedVisibility(
                 visible = showSecondText,
@@ -120,7 +122,7 @@ fun HomeOnboardingScreen(
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
                     Image(
                         imageVector = ImageVector.vectorResource(id = R.drawable.speech_bubble),
@@ -132,14 +134,14 @@ fun HomeOnboardingScreen(
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
             Image(
                 painter = painterResource(id = R.drawable.home_onboarding),
                 contentDescription = "보리 캐릭터",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(bottom = bottomPadding + 89.dp)
+                    .padding(bottom = screenHeightDp(bottomPadding + 89.dp))
                     .noRippleCombineClickable(
                         onLongClick = {
                             haptic.performHapticFeedback(HapticFeedbackType.LongPress)

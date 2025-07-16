@@ -11,6 +11,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun ByeBooDragHandle(
@@ -19,12 +21,12 @@ fun ByeBooDragHandle(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .padding(top = 24.dp, bottom = 33.dp)
+            .padding(top = screenHeightDp(24.dp), bottom = screenHeightDp(33.dp))
     ) {
         Box(
             modifier = Modifier
-                .width(70.dp)
-                .height(4.dp)
+                .width(screenWidthDp(70.dp))
+                .height(screenHeightDp(4.dp))
                 .background(ByeBooTheme.colors.white)
         )
         content()

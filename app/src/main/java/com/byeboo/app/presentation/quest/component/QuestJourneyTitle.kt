@@ -17,6 +17,7 @@ import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.model.QuestType
+import com.byeboo.app.core.util.screenHeightDp
 
 @Composable
 fun QuestJourneyTitle(
@@ -27,14 +28,14 @@ fun QuestJourneyTitle(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 19.dp)
+            .padding(vertical = screenHeightDp(19.dp))
     ) {
         MiddleTag(
             middleTagType = MiddleTagType.QUEST_START_DAY,
             text = dayCount.toString()
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
 
         Text(
             buildAnnotatedString {
@@ -50,7 +51,7 @@ fun QuestJourneyTitle(
             style = ByeBooTheme.typography.head1
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
 
         Text(
             text = "오늘도 한 걸음 나아가볼까요?",

@@ -29,6 +29,7 @@ import coil.compose.AsyncImage
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.noRippleClickable
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 internal fun QuestPhotoPicker(
@@ -49,7 +50,7 @@ internal fun QuestPhotoPicker(
 
     Box(
         modifier = modifier
-            .width(96.dp)
+            .width(screenWidthDp(96.dp))
             .aspectRatio(1f)
             .clip(RoundedCornerShape(12.dp))
             .background(color = ByeBooTheme.colors.whiteAlpha10)
@@ -71,7 +72,7 @@ private fun ImageUploadButton(
 ) {
     Box(
         modifier = modifier
-            .width(96.dp)
+            .width(screenWidthDp(96.dp))
             .aspectRatio(1f)
             .clip(RoundedCornerShape(12.dp))
             .background(color = ByeBooTheme.colors.whiteAlpha10)

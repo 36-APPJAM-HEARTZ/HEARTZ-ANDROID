@@ -23,6 +23,8 @@ import com.byeboo.app.core.designsystem.component.button.ByeBooButton
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.designsystem.ui.theme.blackAlpha80
 import com.byeboo.app.core.designsystem.ui.theme.gray900Alpha80
+import com.byeboo.app.core.util.screenHeightDp
+import com.byeboo.app.core.util.screenWidthDp
 
 @Composable
 fun QuestQuitModal(
@@ -41,7 +43,7 @@ fun QuestQuitModal(
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
                 .background(color = blackAlpha80)
-                .padding(24.dp),
+                .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(24.dp)),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
@@ -51,7 +53,7 @@ fun QuestQuitModal(
                 color = ByeBooTheme.colors.gray50
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
             Text(
                 text = "작성하시던 내용은\n저장되지 않아요.",
@@ -60,7 +62,7 @@ fun QuestQuitModal(
                 textAlign = TextAlign.Center
             )
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -75,7 +77,7 @@ fun QuestQuitModal(
                     modifier = Modifier.weight(1f)
                 )
 
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(screenWidthDp(16.dp)))
 
                 ByeBooButton(
                     onClick = quitButton,
