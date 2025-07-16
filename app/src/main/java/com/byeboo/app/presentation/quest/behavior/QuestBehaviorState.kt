@@ -11,7 +11,7 @@ data class QuestBehaviorState(
     val question: String = "",
     val imageCount: Int = 0,
     val createdAt: String = "",
-    val contents: String = "",
+    var contents: String = "",
     val answer: String = "",
     val imageUrl: String = "",
     val questEmotionState: String = "",
@@ -25,4 +25,5 @@ sealed interface QuestBehaviorSideEffect {
     data object NavigateToQuest : QuestBehaviorSideEffect
     data class NavigateToQuestTip(val questId: Long) : QuestBehaviorSideEffect
     data class NavigateToQuestBehaviorComplete(val questId: Long) : QuestBehaviorSideEffect
+    data class CompleteAndClear(val questId: Long) : QuestBehaviorSideEffect
 }

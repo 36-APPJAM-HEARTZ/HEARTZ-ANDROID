@@ -55,7 +55,6 @@ fun QuestBehaviorCompleteScreen(
 
     val selectedImageUri by viewModel.selectedImageUri.collectAsStateWithLifecycle()
     val imageUri = selectedImageUri ?: uiState.imageUrl.takeIf { it.isNotBlank() }?.let { Uri.parse(it) }
-    val isImageLoading by viewModel.isImageLoading.collectAsStateWithLifecycle()
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)

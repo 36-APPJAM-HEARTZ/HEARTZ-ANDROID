@@ -121,6 +121,7 @@ class QuestBehaviorViewModel @Inject constructor(
 
             }.onSuccess {
                 _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
+                _sideEffect.emit(QuestBehaviorSideEffect.CompleteAndClear(questId))
             }
         }
     }
@@ -148,6 +149,11 @@ class QuestBehaviorViewModel @Inject constructor(
 
     fun setImageLoading(value: Boolean) {
         _isImageLoading.value = value
+    }
+
+    fun clearQuestInput() {
+        _selectedImageUri.value = null
+        _uiState.value.contents = ""
     }
 
     fun onBackClicked() {

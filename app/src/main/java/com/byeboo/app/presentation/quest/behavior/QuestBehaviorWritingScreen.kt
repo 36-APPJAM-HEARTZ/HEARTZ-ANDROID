@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest.behavior
 
+import QuestPhotoPicker
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,8 +21,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -30,7 +29,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
@@ -39,7 +37,6 @@ import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.domain.model.QuestValidator
-import com.byeboo.app.presentation.quest.behavior.component.QuestPhotoPicker
 import com.byeboo.app.presentation.quest.component.QuestQuitModal
 import com.byeboo.app.presentation.quest.component.QuestTextField
 import com.byeboo.app.presentation.quest.component.bottomsheet.ByeBooBottomSheet
@@ -89,6 +86,10 @@ fun QuestBehaviorWritingScreen(
                 is QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete -> navigateToQuestBehaviorComplete(
                     it.questId
                 )
+                is QuestBehaviorSideEffect.CompleteAndClear -> {
+                    viewModel.clearQuestInput()
+                    navigateToQuestBehaviorComplete(it.questId)
+                }
             }
         }
     }
@@ -207,7 +208,6 @@ fun QuestBehaviorWritingScreen(
                         viewModel.updateSelectedImage(url)
                     }
                 )
-
                 Spacer(modifier = Modifier.height(16.dp))
             }
 

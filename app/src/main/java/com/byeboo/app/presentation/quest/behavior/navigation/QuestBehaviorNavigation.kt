@@ -1,7 +1,6 @@
 package com.byeboo.app.presentation.quest.behavior.navigation
 
 import androidx.compose.ui.unit.Dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
