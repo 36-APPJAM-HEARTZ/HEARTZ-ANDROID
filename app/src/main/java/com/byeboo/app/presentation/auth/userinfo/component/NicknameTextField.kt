@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -27,11 +29,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
+import com.byeboo.app.presentation.auth.userinfo.component.NicknameTextField
 import com.byeboo.app.presentation.auth.userinfo.model.UserInfoValidationState
 
 @Composable
@@ -64,14 +68,18 @@ fun NicknameTextField(
         UserInfoValidationState.Empty -> ByeBooTheme.colors.gray400
     }
 
+    val textFieldPadding =
+    if (validationState == UserInfoValidationState.Invalid) 16.5.dp else 18.dp
+
     Column(modifier = modifier.padding(vertical = screenHeightDp(8.dp))) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
+                .height(57.dp)
                 .border(1.dp, borderColor, shape)
                 .clip(shape)
                 .background(ByeBooTheme.colors.whiteAlpha10)
-                .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(18.dp))
+                .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(textFieldPadding))
         ) {
             BasicTextField(
                 value = value,
@@ -90,18 +98,25 @@ fun NicknameTextField(
                     }
                 ),
                 decorationBox = { innerTextField ->
-                    Box(
+
+                    Row(
                         modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.CenterStart
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        if (value.isEmpty()) {
-                            Text(
-                                text = "닉네임을 입력해주세요",
-                                style = ByeBooTheme.typography.body3,
-                                color = ByeBooTheme.colors.gray300
-                            )
+
+                        Box(
+                            modifier = Modifier.weight(1f),
+                            contentAlignment = Alignment.CenterStart
+                        ) {
+                            if (value.isEmpty()) {
+                                Text(
+                                    text = "닉네임을 입력해주세요",
+                                    style = ByeBooTheme.typography.body3,
+                                    color = ByeBooTheme.colors.gray300
+                                )
+                            }
+                            innerTextField()
                         }
-                        innerTextField()
                     }
                 }
             )
@@ -111,12 +126,13 @@ fun NicknameTextField(
                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_error),
                     contentDescription = "Invalid",
                     tint = Color.Unspecified,
-                    modifier = Modifier.align(Alignment.CenterEnd)
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .size(24.dp)
                 )
             }
         }
-
-        Spacer(modifier = Modifier.padding(top = screenHeightDp(16.dp)))
+        Spacer(modifier = Modifier.padding(bottom = screenHeightDp(16.dp)))
 
         if (validationState == UserInfoValidationState.Valid) {
             Row(
@@ -163,3 +179,4 @@ fun NicknameTextField(
         }
     }
 }
+
