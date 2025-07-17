@@ -20,7 +20,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -52,10 +51,8 @@ fun QuestBehaviorCompleteScreen(
     bottomPadding: Dp,
     viewModel: QuestBehaviorViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
-
-    val selectedImageUri by viewModel.selectedImageUri.collectAsStateWithLifecycle()
-    val imageUri = selectedImageUri ?: uiState.imageUrl.takeIf { it.isNotBlank() }?.let { Uri.parse(it) }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val imageUri = uiState.selectedImageUri ?: uiState.imageUrl.takeIf { it.isNotBlank() }?.let { Uri.parse(it) }
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
