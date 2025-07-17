@@ -79,7 +79,7 @@ fun NavGraphBuilder.questGraph(
             val questType = questTip.questType
 
             QuestTipScreen(
-                navigateUp = navigateUp,
+                navigateToQuest = navigateUp,
                 questId = questId,
                 questType = questType,
                 bottomPadding = padding

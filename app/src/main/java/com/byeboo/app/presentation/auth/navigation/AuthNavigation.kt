@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.byeboo.app.core.designsystem.component.backhandler.ByeBooBackHandler
 import com.byeboo.app.core.navigation.Route
 import com.byeboo.app.presentation.auth.loading.LoadingScreen
 import com.byeboo.app.presentation.auth.onboarding.OnboardingScreen
@@ -42,6 +43,7 @@ fun NavGraphBuilder.authGraph(
         )
     }
     composable<Loading> {
+        ByeBooBackHandler()
         LoadingScreen(
             navigateToHomeAmulet = navigateToHomeAmulet
         )

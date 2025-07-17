@@ -52,8 +52,6 @@ fun QuestScreen(
                 .sumOf { group ->
                     1 + (group.quests.size + 2) / 3
                 }
-
-            listState.scrollToItem(index = scrollIndex)
             listState.animateScrollToItem(index = scrollIndex)
         }
     }
@@ -62,7 +60,11 @@ fun QuestScreen(
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collectLatest {
             when (it) {
-                is QuestSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId, it.questType)
+                is QuestSideEffect.NavigateToQuestTip -> navigateToQuestTip(
+                    it.questId,
+                    it.questType
+                )
+
                 is QuestSideEffect.NavigateToQuestRecording -> navigateToQuestRecording(it.questId)
                 is QuestSideEffect.NavigateToQuestBehavior -> navigateToQuestBehavior(it.questId)
                 is QuestSideEffect.NavigateToQuestReview -> navigateToQuestReview(it.questId)
@@ -96,8 +98,8 @@ fun QuestScreen(
             )
             DescriptionText(
                 nicknameText = "${uiState.userName}님, 지금",
-                title = "${uiState.journeyTitle}여정",
-                guideText = "을 진행 중이에요.",
+                title = "${uiState.journeyTitle} 여정",
+                guideText = "을 진행 중이에요",
                 contentText = "오늘도 한 걸음 나아가볼까요?"
             )
         }
