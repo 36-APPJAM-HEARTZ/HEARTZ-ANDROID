@@ -5,7 +5,6 @@ import com.byeboo.app.R
 data class HomeAmuletState(
     val journey: AmuletType = AmuletType.EMOTION_FACE,
     val journeyDescription: String = "",
-    val isLoading: Boolean = true
 )
 
 sealed interface HomeAmuletSideEffect {
