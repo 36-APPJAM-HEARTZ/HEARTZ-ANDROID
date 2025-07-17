@@ -129,7 +129,7 @@ fun QuestReviewScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .aspectRatio(360 / 312f)
+                            .aspectRatio(312 / 312f)
                             .clip(RoundedCornerShape(12.dp))
                     ) {
                         SubcomposeAsyncImage(

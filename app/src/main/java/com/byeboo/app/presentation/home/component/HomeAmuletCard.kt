@@ -45,7 +45,8 @@ fun HomeAmuletCard(
 
     Box(
         modifier = modifier
-            .aspectRatio(290f/419f)
+            .fillMaxWidth()
+            .aspectRatio(290/419f)
             .graphicsLayer {
                 rotationY = rotation
                 this.cameraDistance = cameraDistance
@@ -73,8 +74,7 @@ fun HomeAmuletCard(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = screenWidthDp(37.dp))
-                        .padding(top = screenHeightDp(139.dp))
-                )
+                        .padding(top = screenHeightDp(150.dp)))
             }
         } else {
             Box(

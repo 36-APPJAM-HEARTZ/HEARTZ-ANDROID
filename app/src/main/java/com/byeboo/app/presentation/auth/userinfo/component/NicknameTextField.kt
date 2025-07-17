@@ -68,18 +68,14 @@ fun NicknameTextField(
         UserInfoValidationState.Empty -> ByeBooTheme.colors.gray400
     }
 
-    val textFieldPadding =
-    if (validationState == UserInfoValidationState.Invalid) 16.5.dp else 18.dp
-
     Column(modifier = modifier.padding(vertical = screenHeightDp(8.dp))) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(57.dp)
                 .border(1.dp, borderColor, shape)
                 .clip(shape)
                 .background(ByeBooTheme.colors.whiteAlpha10)
-                .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(textFieldPadding))
+                .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(18.dp))
         ) {
             BasicTextField(
                 value = value,
