@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.screenHeightDp
@@ -19,9 +20,13 @@ fun DescriptionText(
     title: String,
     guideText: String,
     contentText: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    top: Dp = 0.dp,
+    bottom: Dp = 0.dp,
+    start: Dp = 0.dp,
+    end: Dp = 0.dp,
 ) {
-    Column(modifier = modifier.padding(vertical = 20.dp)) {
+    Column(modifier = modifier.padding(top = top, bottom = bottom, start = start, end= end)) {
         Text(
             buildAnnotatedString {
                 withStyle(style = SpanStyle(color = ByeBooTheme.colors.gray50)) {
@@ -37,7 +42,7 @@ fun DescriptionText(
             },
             style = ByeBooTheme.typography.head1
         )
-        Spacer(modifier = Modifier.padding(top = screenHeightDp(8.dp)))
+        Spacer(modifier = Modifier.padding(top = 8.dp))
         Text(
             text = contentText,
             style = ByeBooTheme.typography.body5,

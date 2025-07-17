@@ -91,6 +91,12 @@ class QuestRecordingViewModel @Inject constructor(
         }
     }
 
+    fun updateTextFieldContent(isFocused: Boolean, questAnswer: String) {
+        _uiState.update {
+            it.copy(questAnswer = questAnswer)
+        }
+    }
+
     fun onBackClick() {
         _showQuitModal.value = true
     }

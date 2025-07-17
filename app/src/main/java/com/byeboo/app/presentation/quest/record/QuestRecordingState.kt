@@ -13,7 +13,7 @@ data class  QuestRecordingState(
     val questNumber: Long = 0,
     val questQuestion: String = "",
     val questAnswer: String = "",
-    val contentsState: QuestWritingState = QuestWritingState.BeforeWriting,
+    val contentsState: QuestWritingState = QuestWritingState.Empty,
     val selectedEmotion: LargeTagType = LargeTagType.EMOTION_NEUTRAL
 )
 

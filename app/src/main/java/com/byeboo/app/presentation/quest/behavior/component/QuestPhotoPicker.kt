@@ -66,7 +66,6 @@ private fun ImageUploadButton(
             .width(screenWidthDp(96.dp))
             .aspectRatio(1f)
             .clip(RoundedCornerShape(12.dp))
-            .background(color = ByeBooTheme.colors.whiteAlpha10)
             .noRippleClickable { onImageClick() },
         contentAlignment = Alignment.Center
     ) {

@@ -2,16 +2,11 @@ package com.byeboo.app.domain.model
 
 object QuestContentLengthValidator {
     fun validate(isFocused: Boolean, text: String, maxLength: Int = 500): QuestWritingState {
-        return if (isFocused) {
-            if (text.isBlank()) {
-                QuestWritingState.BeforeWriting
-            } else if (text.length > maxLength) {
-                QuestWritingState.OverLimit
-            } else {
-                QuestWritingState.Writing
-            }
-        } else {
-            QuestWritingState.Done
+        return when {
+            text.isBlank() -> QuestWritingState.Empty
+            isFocused -> QuestWritingState.Writing
+            text.length > maxLength -> QuestWritingState.OverLimit
+            else -> QuestWritingState.Ready
         }
     }
 

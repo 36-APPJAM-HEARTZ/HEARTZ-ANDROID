@@ -114,9 +114,10 @@ fun QuestReviewScreen(
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_think),
                             contentDescription = "title icon",
-                            modifier = Modifier.padding(end = screenHeightDp(8.dp)),
                             tint = Color.Unspecified
                         )
+
+                        Spacer(modifier = Modifier.width(screenWidthDp(8.dp)))
 
                         Text(
                             text = "이렇게 완료했어요",
@@ -132,6 +133,9 @@ fun QuestReviewScreen(
                             .clip(RoundedCornerShape(12.dp))
                     ) {
                         SubcomposeAsyncImage(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .aspectRatio(1f),
                             model = ImageRequest
                                 .Builder(LocalContext.current)
                                 .data(uiState.imageUrl)
@@ -139,7 +143,6 @@ fun QuestReviewScreen(
                                 .diskCachePolicy(coil.request.CachePolicy.DISABLED)
                                 .build(),
                             contentDescription = "uploaded image",
-                            modifier = Modifier.fillMaxSize(),
                             contentScale = ContentScale.Crop,
                             loading = {
                                 Box(
@@ -168,7 +171,7 @@ fun QuestReviewScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(screenHeightDp(48.dp)))
+                Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
 
                 QuestEmotionDescriptionContent(
                     questEmotionDescription = uiState.emotionDescription,

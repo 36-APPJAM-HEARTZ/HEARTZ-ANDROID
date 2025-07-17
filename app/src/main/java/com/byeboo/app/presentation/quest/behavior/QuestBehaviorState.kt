@@ -19,7 +19,7 @@ data class QuestBehaviorState(
     val questEmotionState: String = "",
     val emotionDescription: String = "",
     val isContentAvailable: Boolean = false,
-    val contentState: QuestWritingState = QuestWritingState.BeforeWriting,
+    val contentState: QuestWritingState = QuestWritingState.Ready,
     val selectedEmotion: LargeTagType = LargeTagType.EMOTION_NEUTRAL,
     val showBottomSheet: Boolean = false,
     val isEmotionSelected: Boolean = false,
