@@ -39,7 +39,7 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindQuestDetailRemoteDataSource(impl: QuestDetailRemoteDataSourceImpl) : QuestDetailRemoteDataSource
+    abstract fun bindQuestDetailRemoteDataSource(impl: QuestDetailRemoteDataSourceImpl): QuestDetailRemoteDataSource
 
     @Binds
     @Singleton
@@ -47,7 +47,7 @@ abstract class DataSourceModule {
 
     @Binds
     @Singleton
-    abstract fun bindQuestBehaviorAnswerDataSource(impl: QuestBehaviorAnswerDataSourceImpl) : QuestBehaviorAnswerDataSource
+    abstract fun bindQuestBehaviorAnswerDataSource(impl: QuestBehaviorAnswerDataSourceImpl): QuestBehaviorAnswerDataSource
 
     @Binds
     @Singleton

@@ -4,5 +4,5 @@ sealed class QuestWritingState {
     object Empty : QuestWritingState()
     object Writing : QuestWritingState()
     object OverLimit : QuestWritingState()
-    object Ready: QuestWritingState()
+    object Ready : QuestWritingState()
 }

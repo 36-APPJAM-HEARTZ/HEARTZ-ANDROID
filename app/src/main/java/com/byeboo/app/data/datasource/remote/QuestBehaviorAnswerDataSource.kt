@@ -9,7 +9,7 @@ import okhttp3.RequestBody
 import retrofit2.Response
 
 interface QuestBehaviorAnswerDataSource {
-    suspend fun postQuestSignedUrl(request: QuestSignedUrlRequestDto) : BaseResponse<QuestSingedUrlResponseDto>
-    suspend fun putImageToSignedUrl(signedUrl: String, requestBody : RequestBody) : Response<Unit>
-    suspend fun postQuestBehaviorAnswer(questId: Long, request: QuestBehaviorAnswerRequestDto) : NullableBaseResponse<Unit>
+    suspend fun postQuestSignedUrl(request: QuestSignedUrlRequestDto): BaseResponse<QuestSingedUrlResponseDto>
+    suspend fun putImageToSignedUrl(signedUrl: String, requestBody: RequestBody): Response<Unit>
+    suspend fun postQuestBehaviorAnswer(questId: Long, request: QuestBehaviorAnswerRequestDto): NullableBaseResponse<Unit>
 }

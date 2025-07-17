@@ -23,7 +23,7 @@ fun EmotionChip(
     emotionType: LargeTagType,
     isSelected: Boolean = false,
     enabled: Boolean = true,
-    onChipClick: ((LargeTagType) -> Unit)? = null,
+    onChipClick: ((LargeTagType) -> Unit)? = null
 ) {
     val backgroundColor = if (isSelected) {
         ByeBooTheme.colors.primary300

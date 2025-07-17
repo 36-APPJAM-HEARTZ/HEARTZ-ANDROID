@@ -46,7 +46,7 @@ fun QuestTipScreen(
     bottomPadding: Dp,
     modifier: Modifier = Modifier,
     viewModel: QuestTipViewModel = hiltViewModel(),
-    questViewModel: QuestViewModel = hiltViewModel(),
+    questViewModel: QuestViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val questUiState by questViewModel.uiState.collectAsStateWithLifecycle()
@@ -81,7 +81,7 @@ fun QuestTipScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = screenHeightDp(16.dp)),
+                .padding(bottom = screenHeightDp(16.dp))
         ) {
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_cancel),
@@ -90,7 +90,7 @@ fun QuestTipScreen(
                 modifier = Modifier
                     .size(24.dp)
                     .align(Alignment.CenterEnd)
-                    .noRippleClickable(viewModel::onCloseClick),
+                    .noRippleClickable(viewModel::onCloseClick)
             )
 
             Text(

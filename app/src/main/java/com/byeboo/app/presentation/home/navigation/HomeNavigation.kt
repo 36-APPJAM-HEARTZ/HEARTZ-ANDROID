@@ -48,7 +48,7 @@ fun NavGraphBuilder.homeGraph(
     composable<HomeAmulet> {
         ByeBooBackHandler()
         HomeAmuletScreen(
-            navigateToHomeOnboarding = navigateToHomeOnboarding,
+            navigateToHomeOnboarding = navigateToHomeOnboarding
         )
     }
 }

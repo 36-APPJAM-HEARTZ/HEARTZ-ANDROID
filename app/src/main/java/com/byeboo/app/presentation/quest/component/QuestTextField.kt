@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -51,7 +50,7 @@ fun QuestTextField(
     isEnabled: Boolean = true,
     placeholder: String = "",
     isQuestion: Boolean = true,
-    onFocusChanged: ((Boolean) -> Unit)? = null,
+    onFocusChanged: ((Boolean) -> Unit)? = null
 ) {
     val currentCharCount = value.length
     val maxCharCount = if (isQuestion) 500 else 200

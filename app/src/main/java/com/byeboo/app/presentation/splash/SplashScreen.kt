@@ -49,5 +49,4 @@ fun SplashScreen(
                 .padding(top = screenHeightDp(padding + 250.dp))
         )
     }
-
 }

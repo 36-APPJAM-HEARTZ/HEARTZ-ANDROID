@@ -2,7 +2,7 @@ package com.byeboo.app.data.mapper.todata
 
 import com.byeboo.app.core.designsystem.type.LargeTagType
 
-fun LargeTagType.toData() : String = when(this) {
+fun LargeTagType.toData(): String = when (this) {
     LargeTagType.EMOTION_NEUTRAL -> "NEUTRAL"
     LargeTagType.EMOTION_SADNESS -> "SAD"
     LargeTagType.EMOTION_RELIEF -> "RELIEVED"

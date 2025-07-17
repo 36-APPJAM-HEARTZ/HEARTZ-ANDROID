@@ -1,7 +1,7 @@
 package com.byeboo.app.domain.model
 
 data class SignedUrlRequestModel(
-    val contentType : String,
+    val contentType: String,
     val imageKey: String
 )
 

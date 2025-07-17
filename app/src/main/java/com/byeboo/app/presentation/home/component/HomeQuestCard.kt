@@ -32,7 +32,7 @@ fun HomeQuestCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     backgroundColor: Color = ByeBooTheme.colors.whiteAlpha10,
-    shape: Shape = RoundedCornerShape(12.dp),
+    shape: Shape = RoundedCornerShape(12.dp)
 ) {
     Box(
         modifier = modifier

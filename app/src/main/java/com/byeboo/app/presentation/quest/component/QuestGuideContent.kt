@@ -69,12 +69,16 @@ fun GuideContent(
 
         Text(
             buildAnnotatedString {
-                withStyle(style = ByeBooTheme.typography.body1.toSpanStyle()
-                    .copy(color = ByeBooTheme.colors.primary300)) {
+                withStyle(
+                    style = ByeBooTheme.typography.body1.toSpanStyle()
+                        .copy(color = ByeBooTheme.colors.primary300)
+                ) {
                     append(userName)
                 }
-                withStyle(style = ByeBooTheme.typography.body3.toSpanStyle()
-                    .copy(color = ByeBooTheme.colors.gray300)) {
+                withStyle(
+                    style = ByeBooTheme.typography.body3.toSpanStyle()
+                        .copy(color = ByeBooTheme.colors.gray300)
+                ) {
                     append(guideText)
                 }
             },

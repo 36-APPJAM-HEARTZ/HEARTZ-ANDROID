@@ -36,7 +36,7 @@ fun QuestStartScreen(
     navigateToHome: () -> Unit,
     padding: Dp,
     modifier: Modifier = Modifier,
-    viewModel: QuestStartViewModel = hiltViewModel(),
+    viewModel: QuestStartViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 

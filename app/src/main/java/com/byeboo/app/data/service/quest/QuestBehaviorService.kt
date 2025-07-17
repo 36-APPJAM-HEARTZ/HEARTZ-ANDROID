@@ -8,7 +8,6 @@ import com.byeboo.app.data.dto.response.QuestSingedUrlResponseDto
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -24,7 +23,7 @@ interface QuestBehaviorService {
     @PUT
     suspend fun putImageToUrl(
         @Url presignedUrl: String,
-        @Body requestBody: RequestBody,
+        @Body requestBody: RequestBody
     ): Response<Unit>
 
     @POST("/api/v1/quests/{questId}/active")
@@ -32,5 +31,4 @@ interface QuestBehaviorService {
         @Path("questId") questId: Long,
         @Body request: QuestBehaviorAnswerRequestDto
     ): NullableBaseResponse<Unit>
-
 }

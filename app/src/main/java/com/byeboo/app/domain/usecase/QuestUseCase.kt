@@ -4,8 +4,8 @@ import com.byeboo.app.domain.model.quest.QuestData
 import com.byeboo.app.domain.repository.QuestInProgressRepository
 import com.byeboo.app.domain.repository.UserRepository
 import com.byeboo.app.domain.repository.quest.QuestStateRepository
-import kotlinx.coroutines.flow.firstOrNull
 import javax.inject.Inject
+import kotlinx.coroutines.flow.firstOrNull
 
 class QuestUseCase @Inject constructor(
     private val questInProgressRepository: QuestInProgressRepository,

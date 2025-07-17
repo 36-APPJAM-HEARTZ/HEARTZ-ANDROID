@@ -7,13 +7,13 @@ import com.byeboo.app.data.dto.request.QuestBehaviorAnswerRequestDto
 import com.byeboo.app.data.dto.request.QuestSignedUrlRequestDto
 import com.byeboo.app.data.dto.response.QuestSingedUrlResponseDto
 import com.byeboo.app.data.service.quest.QuestBehaviorService
+import javax.inject.Inject
 import okhttp3.RequestBody
 import retrofit2.Response
-import javax.inject.Inject
 
 class QuestBehaviorAnswerDataSourceImpl @Inject constructor(
     private val questBehaviorService: QuestBehaviorService
-): QuestBehaviorAnswerDataSource {
+) : QuestBehaviorAnswerDataSource {
 
     override suspend fun postQuestSignedUrl(request: QuestSignedUrlRequestDto): BaseResponse<QuestSingedUrlResponseDto> {
         return questBehaviorService.postQuestSignedUrl(request = request)
@@ -29,5 +29,4 @@ class QuestBehaviorAnswerDataSourceImpl @Inject constructor(
     ): NullableBaseResponse<Unit> {
         return questBehaviorService.postQuestAnswer(questId = questId, request = request)
     }
-
 }

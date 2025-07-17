@@ -8,8 +8,8 @@ import com.byeboo.app.domain.model.NicknameValidator
 import com.byeboo.app.domain.model.QuestStyle
 import com.byeboo.app.domain.model.UserInfoModel
 import com.byeboo.app.domain.model.toJourneyText
-import com.byeboo.app.domain.repository.quest.QuestStateRepository
 import com.byeboo.app.domain.repository.UserRepository
+import com.byeboo.app.domain.repository.quest.QuestStateRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow

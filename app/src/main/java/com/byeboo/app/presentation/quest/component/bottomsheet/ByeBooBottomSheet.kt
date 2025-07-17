@@ -31,7 +31,6 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ByeBooBottomSheet(
@@ -45,7 +44,7 @@ fun ByeBooBottomSheet(
     isBackgroundDimmed: Boolean = true,
     dragHandle: @Composable () -> Unit = {},
     isSelected: Boolean = false,
-    isUploading: Boolean = false,
+    isUploading: Boolean = false
 ) {
     if (showBottomSheet) {
         ModalBottomSheet(

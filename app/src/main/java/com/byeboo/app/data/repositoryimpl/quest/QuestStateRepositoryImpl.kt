@@ -6,10 +6,10 @@ import com.byeboo.app.data.mapper.quest.toDomain
 import com.byeboo.app.domain.model.quest.QuestDialogue
 import com.byeboo.app.domain.model.quest.QuestStateModel
 import com.byeboo.app.domain.repository.quest.QuestStateRepository
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import javax.inject.Inject
 
 class QuestStateRepositoryImpl @Inject constructor(
     private val questStateDataSource: QuestStateDataSource,

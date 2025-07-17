@@ -6,7 +6,7 @@ import com.byeboo.app.core.model.QuestType
 import com.byeboo.app.domain.model.QuestWritingState
 
 @Immutable
-data class  QuestRecordingState(
+data class QuestRecordingState(
     val questId: Long = 0,
     val step: String = "",
     val stepNumber: Long = 0,

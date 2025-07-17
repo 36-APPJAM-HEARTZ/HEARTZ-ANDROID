@@ -2,13 +2,12 @@ package com.byeboo.app.data.repositoryimpl
 
 import com.byeboo.app.data.datasource.remote.QuestBehaviorAnswerDataSource
 import com.byeboo.app.data.mapper.quest.toData
-import com.byeboo.app.data.mapper.quest.toDomain
 import com.byeboo.app.domain.model.BehaviorAnswerRequestModel
 import com.byeboo.app.domain.model.SignedUrlRequestModel
 import com.byeboo.app.domain.repository.QuestBehaviorAnswerRepository
+import javax.inject.Inject
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
-import javax.inject.Inject
 
 class QuestBehaviorAnswerRepositoryImpl @Inject constructor(
     private val questBehaviorAnswerDataSource: QuestBehaviorAnswerDataSource
@@ -21,7 +20,11 @@ class QuestBehaviorAnswerRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun putImageToSignedUrl(signUrl: String, imageBytes: ByteArray, contentType: String): Result<Unit> {
+    override suspend fun putImageToSignedUrl(
+        signUrl: String,
+        imageBytes: ByteArray,
+        contentType: String
+    ): Result<Unit> {
         return runCatching {
             val body = imageBytes.toRequestBody(contentType.toMediaTypeOrNull())
             questBehaviorAnswerDataSource.putImageToSignedUrl(signUrl, body)
@@ -33,6 +36,4 @@ class QuestBehaviorAnswerRepositoryImpl @Inject constructor(
             questBehaviorAnswerDataSource.postQuestBehaviorAnswer(questId, request.toData())
         }
     }
-
-
 }

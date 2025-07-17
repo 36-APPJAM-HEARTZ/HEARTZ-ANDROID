@@ -12,12 +12,10 @@ fun SignedUrlRequestModel.toData(): QuestSignedUrlRequestDto {
     )
 }
 
-fun BehaviorAnswerRequestModel.toData(): QuestBehaviorAnswerRequestDto{
+fun BehaviorAnswerRequestModel.toData(): QuestBehaviorAnswerRequestDto {
     return QuestBehaviorAnswerRequestDto(
         answer = this.answer,
         questEmotionState = this.questEmotionState,
         imageKey = imageKey
     )
 }
-
-

@@ -8,6 +8,3 @@ interface QuestBehaviorAnswerRepository {
     suspend fun putImageToSignedUrl(signUrl: String, imageBytes: ByteArray, contentType: String): Result<Unit>
     suspend fun postQuestBehaviorAnswer(questId: Long, request: BehaviorAnswerRequestModel): Result<Unit>
 }
-
-
-

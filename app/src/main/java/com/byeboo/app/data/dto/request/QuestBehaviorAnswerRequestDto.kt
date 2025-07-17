@@ -3,7 +3,6 @@ package com.byeboo.app.data.dto.request
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data class QuestBehaviorAnswerRequestDto(
     @SerialName("answer")
@@ -13,4 +12,3 @@ data class QuestBehaviorAnswerRequestDto(
     @SerialName("imageKey")
     val imageKey: String
 )
-

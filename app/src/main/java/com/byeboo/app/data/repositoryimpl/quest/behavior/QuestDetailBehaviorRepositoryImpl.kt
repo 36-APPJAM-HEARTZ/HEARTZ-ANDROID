@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class QuestDetailBehaviorRepositoryImpl @Inject constructor(
     private val questDetailRemoteDataSource: QuestDetailRemoteDataSource
-) : QuestDetailBehaviorRepository{
+) : QuestDetailBehaviorRepository {
     override suspend fun getQuestBehaviorDetail(questId: Long): Result<QuestDetailModel> {
         return runCatching {
             val response = questDetailRemoteDataSource.getQuestDetail(questId)
