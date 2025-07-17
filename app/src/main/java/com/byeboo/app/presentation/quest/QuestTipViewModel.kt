@@ -21,8 +21,7 @@ class QuestTipViewModel @Inject constructor(
     private val questTipRepository: QuestTipRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(QuestTipState())
-    val uiState: StateFlow<QuestTipState>
-        get() = _uiState.asStateFlow()
+    val uiState: StateFlow<QuestTipState> = _uiState.asStateFlow()
 
     private val _sideEffect = MutableSharedFlow<QuestTipSideEffect>()
     val sideEffect: SharedFlow<QuestTipSideEffect> = _sideEffect
