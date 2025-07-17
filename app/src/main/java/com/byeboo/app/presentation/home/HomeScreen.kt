@@ -33,10 +33,8 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val nickname by viewModel.nickname.collectAsStateWithLifecycle()
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.bori_home))
-    val displayName = nickname ?: "하츠핑"
 
     Box(
         modifier = Modifier
@@ -67,7 +65,7 @@ fun HomeScreen(
                     )
                     Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
                     HomeProgressCard(
-                        title = "${displayName}님의 자기 성찰 여정",
+                        title = "${uiState.nickname}님의 ${uiState.journey} 여정",
                         currentStep = uiState.currentStep,
                         totalSteps = uiState.totalSteps
                     )

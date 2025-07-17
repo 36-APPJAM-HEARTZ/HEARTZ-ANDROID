@@ -1,6 +1,5 @@
 package com.byeboo.app.presentation.quest
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,7 +40,7 @@ import com.byeboo.app.presentation.quest.component.type.QuestContentType
 
 @Composable
 fun QuestTipScreen(
-    navigateUp: () -> Unit,
+    navigateToQuest: () -> Unit,
     questId: Long,
     questType: QuestType,
     bottomPadding: Dp,
@@ -65,14 +64,11 @@ fun QuestTipScreen(
         viewModel.sideEffect.collect { sideEffect ->
             when (sideEffect) {
                 is QuestTipSideEffect.NavigateToQuest -> {
-                    navigateUp()
+                    navigateToQuest()
                 }
             }
         }
     }
-
-    BackHandler { viewModel.onCloseClick() }
-
     Column(
         modifier = modifier
             .fillMaxSize()

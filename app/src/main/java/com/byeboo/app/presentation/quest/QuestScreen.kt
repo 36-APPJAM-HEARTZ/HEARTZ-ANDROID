@@ -4,14 +4,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -44,20 +43,28 @@ fun QuestScreen(
     viewModel: QuestViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val gridState = rememberLazyGridState()
+    val listState = rememberLazyListState()
 
-    LaunchedEffect(uiState.currentStepIndex, uiState.questGroups) {
-        val scrollIndex = uiState.questGroups
-            .take(uiState.currentStepIndex)
-            .sumOf { it.quests.size + 1 }
-
-        gridState.animateScrollToItem(index = scrollIndex)
+    LaunchedEffect(uiState.currentStepIndex) {
+        if (uiState.questGroups.isNotEmpty() && uiState.currentStepIndex >= 0) {
+            val scrollIndex = uiState.questGroups
+                .take(uiState.currentStepIndex)
+                .sumOf { group ->
+                    1 + (group.quests.size + 2) / 3
+                }
+            listState.animateScrollToItem(index = scrollIndex)
+        }
     }
+
 
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collectLatest {
             when (it) {
-                is QuestSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId, it.questType)
+                is QuestSideEffect.NavigateToQuestTip -> navigateToQuestTip(
+                    it.questId,
+                    it.questType
+                )
+
                 is QuestSideEffect.NavigateToQuestRecording -> navigateToQuestRecording(it.questId)
                 is QuestSideEffect.NavigateToQuestBehavior -> navigateToQuestBehavior(it.questId)
                 is QuestSideEffect.NavigateToQuestReview -> navigateToQuestReview(it.questId)
@@ -74,7 +81,6 @@ fun QuestScreen(
             navigateToTip = viewModel::onTipClick,
             progressButton = viewModel::onQuestStart,
             modifier = Modifier.fillMaxWidth()
-                .padding(horizontal = screenHeightDp(48.dp))
         )
     }
 
@@ -92,25 +98,21 @@ fun QuestScreen(
             )
             DescriptionText(
                 nicknameText = "${uiState.userName}님, 지금",
-                title = uiState.journeyTitle,
-                guideText = "을 진행 중이에요.",
-                contentText = "오늘도 한 걸음 나아가볼까요?",
-                modifier = Modifier.padding(top = screenHeightDp(8.dp), bottom = screenHeightDp(20.dp))
+                title = "${uiState.journeyTitle} 여정",
+                guideText = "을 진행 중이에요",
+                contentText = "오늘도 한 걸음 나아가볼까요?"
             )
         }
-
-        LazyVerticalGrid(
-            state = gridState,
-            columns = GridCells.Fixed(3),
+        LazyColumn(
+            state = listState,
             modifier = Modifier
                 .fillMaxWidth()
                 .background(ByeBooTheme.colors.black),
-            horizontalArrangement = Arrangement.spacedBy(screenWidthDp(21.dp)),
-            verticalArrangement = Arrangement.spacedBy(screenHeightDp(20.dp)),
+            verticalArrangement = Arrangement.spacedBy(screenWidthDp(20.dp)),
             contentPadding = PaddingValues(bottom = screenHeightDp(bottomPadding + 37.dp))
         ) {
             uiState.questGroups.forEachIndexed { stepIndex, group ->
-                item(span = { GridItemSpan(3) }, key = group.stepTitle) {
+                item(key = "header_$stepIndex") {
                     Column {
                         HorizontalDivider(
                             thickness = 1.dp,
@@ -125,14 +127,26 @@ fun QuestScreen(
                         Spacer(modifier = Modifier.padding(top = screenHeightDp(8.dp)))
                     }
                 }
-                group.quests.forEach { quest ->
-                    item(key = quest.questNumber) {
-                        QuestBox(
-                            questId = quest.questId,
-                            questNumber = quest.questNumber,
-                            state = quest.state,
-                            onQuestClick = viewModel::onQuestClick
-                        )
+                val questChunks = group.quests.chunked(3)
+                questChunks.forEachIndexed { chunkIndex, questChunk ->
+                    item(key = "quest_row_${stepIndex}_$chunkIndex") {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(21.dp)
+                        ) {
+                            questChunk.forEach { quest ->
+                                QuestBox(
+                                    modifier = Modifier.weight(1f),
+                                    questId = quest.questId,
+                                    questNumber = quest.questNumber,
+                                    state = quest.state,
+                                    onQuestClick = viewModel::onQuestClick
+                                )
+                            }
+                            repeat(3 - questChunk.size) {
+                                Spacer(modifier = Modifier.weight(1f))
+                            }
+                        }
                     }
                 }
             }

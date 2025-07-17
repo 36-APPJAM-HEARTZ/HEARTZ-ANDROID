@@ -1,6 +1,3 @@
-package com.byeboo.app.presentation.quest.behavior.component
-
-import android.R.attr.contentDescription
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,10 +11,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -37,17 +30,15 @@ internal fun QuestPhotoPicker(
     onImageClick: (Uri?) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var selectedImageUrl by remember { mutableStateOf(imageUrl) }
-    var uploadedImage by remember { mutableStateOf(false) }
+    val uploadedImage = imageUrl != null
 
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
-        selectedImageUrl = uri
-        uploadedImage = uri != null
-        onImageClick(uri)
+        if (uri != null) {
+            onImageClick(uri)
+        }
     }
-
     Box(
         modifier = modifier
             .width(screenWidthDp(96.dp))
@@ -56,7 +47,7 @@ internal fun QuestPhotoPicker(
             .background(color = ByeBooTheme.colors.whiteAlpha10)
     ) {
         ImageUploadButton(
-            imageUrl = selectedImageUrl,
+            imageUrl = imageUrl,
             isUploaded = uploadedImage,
             onImageClick = { photoPickerLauncher.launch("image/*") }
         )
@@ -84,7 +75,9 @@ private fun ImageUploadButton(
                     AsyncImage(
                         model = imageUrl,
                         contentDescription = "selected image",
-                        modifier = Modifier.fillMaxSize().clip(RoundedCornerShape(12.dp)),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clip(RoundedCornerShape(12.dp)),
                         contentScale = ContentScale.Crop
                     )
                 } else {

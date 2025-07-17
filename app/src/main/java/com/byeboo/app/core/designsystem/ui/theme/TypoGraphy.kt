@@ -15,9 +15,9 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.byeboo.app.R
 
-val suitSemiBold = FontFamily(Font(R.font.suit_semibold, FontWeight.SemiBold))
-val suitMedium = FontFamily(Font(R.font.suit_medium, FontWeight.Medium))
-val suitRegular = FontFamily(Font(R.font.suit_regular, FontWeight.Normal))
+val pretendardSemiBold = FontFamily(Font(R.font.pretendard_semibold, FontWeight.SemiBold))
+val pretendardMedium = FontFamily(Font(R.font.pretendard_medium, FontWeight.Medium))
+val pretendardRegular = FontFamily(Font(R.font.pretendard_regular, FontWeight.Normal))
 
 private fun ByeBooTextStyle(
     fontFamily: FontFamily,
@@ -115,79 +115,79 @@ class ByeBooTypography internal constructor(
 fun ByeBooTypography(): ByeBooTypography {
     return ByeBooTypography(
         head1 = ByeBooTextStyle(
-            fontFamily = suitSemiBold,
+            fontFamily = pretendardSemiBold,
             fontSize = 24.sp,
             lineHeight = 31.sp,
             letterSpacing = 0.em
         ),
         head2 = ByeBooTextStyle(
-            fontFamily = suitMedium,
+            fontFamily = pretendardMedium,
             fontSize = 22.sp,
             lineHeight = 26.sp,
             letterSpacing = 0.em
         ),
         sub1 = ByeBooTextStyle(
-            fontFamily = suitSemiBold,
+            fontFamily = pretendardSemiBold,
             fontSize = 20.sp,
             lineHeight = 24.sp,
             letterSpacing = 0.em
         ),
         sub2 = ByeBooTextStyle(
-            fontFamily = suitSemiBold,
+            fontFamily = pretendardSemiBold,
             fontSize = 18.sp,
             lineHeight = 22.sp,
             letterSpacing = 0.em
         ),
         sub3 = ByeBooTextStyle(
-            fontFamily = suitMedium,
+            fontFamily = pretendardMedium,
             fontSize = 18.sp,
             lineHeight = 22.sp,
             letterSpacing = 0.em
         ),
         sub4 = ByeBooTextStyle(
-            fontFamily = suitRegular,
+            fontFamily = pretendardRegular,
             fontSize = 18.sp,
             lineHeight = 22.sp,
             letterSpacing = 0.em
         ),
         body1 = ByeBooTextStyle(
-            fontFamily = suitSemiBold,
+            fontFamily = pretendardSemiBold,
             fontSize = 16.sp,
             lineHeight = 21.sp,
             letterSpacing = 0.em
         ),
         body2 = ByeBooTextStyle(
-            fontFamily = suitMedium,
+            fontFamily = pretendardMedium,
             fontSize = 16.sp,
             lineHeight = 21.sp,
             letterSpacing = 0.em
         ),
         body3 = ByeBooTextStyle(
-            fontFamily = suitRegular,
+            fontFamily = pretendardRegular,
             fontSize = 16.sp,
             lineHeight = 21.sp,
             letterSpacing = 0.em
         ),
         body4 = ByeBooTextStyle(
-            fontFamily = suitSemiBold,
+            fontFamily = pretendardSemiBold,
             fontSize = 14.sp,
             lineHeight = 18.sp,
             letterSpacing = 0.em
         ),
         body5 = ByeBooTextStyle(
-            fontFamily = suitRegular,
+            fontFamily = pretendardRegular,
             fontSize = 14.sp,
             lineHeight = 18.sp,
             letterSpacing = 0.em
         ),
         cap1 = ByeBooTextStyle(
-            fontFamily = suitMedium,
+            fontFamily = pretendardMedium,
             fontSize = 12.sp,
             lineHeight = 16.sp,
             letterSpacing = 0.em
         ),
         cap2 = ByeBooTextStyle(
-            fontFamily = suitRegular,
+            fontFamily = pretendardRegular,
             fontSize = 12.sp,
             lineHeight = 16.sp,
             letterSpacing = 0.em

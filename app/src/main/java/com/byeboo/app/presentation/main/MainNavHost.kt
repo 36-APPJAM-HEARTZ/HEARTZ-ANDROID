@@ -5,12 +5,14 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.navOptions
 import com.byeboo.app.presentation.auth.navigation.authGraph
 import com.byeboo.app.presentation.home.navigation.Home
 import com.byeboo.app.presentation.home.navigation.homeGraph
 import com.byeboo.app.presentation.mypage.navigation.myPageGraph
+import com.byeboo.app.presentation.quest.behavior.QuestBehaviorViewModel
 import com.byeboo.app.presentation.quest.navigation.questGraph
 import com.byeboo.app.presentation.splash.navigation.splashGraph
 
@@ -33,6 +35,8 @@ fun MainNavHost(
         launchSingleTop = true
         restoreState = true
     }
+    val questBehaviorViewModel: QuestBehaviorViewModel = hiltViewModel()
+
     NavHost(
         modifier = modifier,
         enterTransition = { EnterTransition.None },
@@ -42,6 +46,7 @@ fun MainNavHost(
         navController = navigator.navController,
         startDestination = navigator.startDestination
     ) {
+
         splashGraph(
             navigateToHome = { navigator.navigateToHome(clearStackNavOptions) },
             navigateToOnboarding = { navigator.navigateToOnboarding(clearStackNavOptions) },
@@ -62,7 +67,6 @@ fun MainNavHost(
 
         )
         questGraph(
-            navController = navigator.navController,
             navigateToQuest = { navigator.navigateToQuest(clearStackNavOptions) },
             navigateToHome = { navigator.navigateToHome(clearStackNavOptions) },
             navigateToQuestRecording = { questId,  -> navigator.navigateToQuestRecording(questId) },
@@ -72,6 +76,7 @@ fun MainNavHost(
             navigateToQuestTip = { questId, questType -> navigator.navigateToQuestTip(questId, questType) },
             navigateToQuestBehaviorComplete = { questId -> navigator.navigateToQuestBehaviorComplete(questId, clearStackNavOptions) },
             navigateUp = navigator::navigateUp,
+            viewModel = questBehaviorViewModel,
             padding = padding
         )
         myPageGraph()

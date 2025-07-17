@@ -32,7 +32,7 @@ fun HomeTextCard(
     ) {
         Text(
             text = title,
-            style = ByeBooTheme.typography.body4,
+            style = ByeBooTheme.typography.body5,
             color = ByeBooTheme.colors.primary400,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()

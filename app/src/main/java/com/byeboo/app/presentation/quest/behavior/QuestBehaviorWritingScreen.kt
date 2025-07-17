@@ -61,33 +61,13 @@ fun QuestBehaviorWritingScreen(
     navigateToQuestBehaviorComplete: (Long) -> Unit,
     bottomPadding: Dp,
     modifier: Modifier = Modifier,
-    viewModel: QuestBehaviorViewModel = hiltViewModel()
+    viewModel: QuestBehaviorViewModel
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val showBottomSheet by viewModel.showBottomSheet.collectAsStateWithLifecycle()
-    val isEmotionSelected by viewModel.isEmotionSelected.collectAsStateWithLifecycle()
-    val selectedImageUrl by viewModel.selectedImageUri.collectAsStateWithLifecycle()
-    val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
     val bringIntoViewRequester = remember { BringIntoViewRequester() }
     val isFocused = remember { mutableStateOf(false) }
-
-    if (showQuitModal) {
-        QuestQuitModal(
-            onDismissRequest = { viewModel.onDismissModal() },
-            stayButton = {
-                viewModel.onDismissModal()
-            },
-            quitButton = {
-                viewModel.onDismissModal()
-                viewModel.onQuitClick()
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = screenHeightDp(48.dp))
-        )
-    }
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
@@ -106,8 +86,26 @@ fun QuestBehaviorWritingScreen(
                 is QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete -> navigateToQuestBehaviorComplete(
                     it.questId
                 )
+
+                is QuestBehaviorSideEffect.CompleteAndClear -> {
+                    viewModel.clearQuestInput()
+                    navigateToQuestBehaviorComplete(it.questId)
+                }
             }
         }
+    }
+
+    if (uiState.showQuitModal) {
+        QuestQuitModal(
+            onDismissRequest = { viewModel.onDismissModal() },
+            stayButton = {
+                viewModel.onDismissModal()
+            },
+            quitButton = {
+                viewModel.onDismissModal()
+                viewModel.onQuitClick()
+            }
+        )
     }
 
     LaunchedEffect(isFocused.value) {
@@ -181,7 +179,8 @@ fun QuestBehaviorWritingScreen(
                     text = uiState.question,
                     color = ByeBooTheme.colors.gray100,
                     textAlign = TextAlign.Center,
-                    style = ByeBooTheme.typography.head1
+                    style = ByeBooTheme.typography.head1,
+                    modifier = Modifier.fillMaxWidth()
                 )
 
                 Spacer(modifier = Modifier.height(screenHeightDp(25.dp)))
@@ -228,7 +227,7 @@ fun QuestBehaviorWritingScreen(
 
             item {
                 QuestPhotoPicker(
-                    imageUrl = selectedImageUrl,
+                    imageUrl = uiState.selectedImageUri,
                     onImageClick = { url ->
                         viewModel.updateSelectedImage(url)
                     }
@@ -284,7 +283,7 @@ fun QuestBehaviorWritingScreen(
                     buttonDisableTextColor = ByeBooTheme.colors.gray300,
                     onClick = {
                         viewModel.openBottomSheet()
-                        viewModel.updateSelectedImage(selectedImageUrl)
+                        viewModel.updateSelectedImage(uiState.selectedImageUri)
                     },
                     isEnabled = QuestValidator.validButton(uiState.imageCount)
                 )
@@ -294,18 +293,18 @@ fun QuestBehaviorWritingScreen(
 
     ByeBooBottomSheet(
         navigateButton = { viewModel.uploadImage(context) },
-        showBottomSheet = showBottomSheet,
+        showBottomSheet = uiState.showBottomSheet,
         onDismiss = {
             viewModel.closeBottomSheet()
         },
         onEmotionSelected = { selectedEmotion ->
             viewModel.isEmotionSelected(true)
             viewModel.updateSelectedEmotion(selectedEmotion)
-            viewModel.closeBottomSheet()
         },
         onSelectedChanged = { isSelected ->
             viewModel.isEmotionSelected(isSelected)
         },
-        isSelected = isEmotionSelected
+        isSelected = uiState.isEmotionSelected,
+        isUploading = uiState.isUploading
     )
 }
