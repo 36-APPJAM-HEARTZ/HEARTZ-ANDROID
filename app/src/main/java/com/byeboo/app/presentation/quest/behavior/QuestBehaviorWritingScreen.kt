@@ -59,26 +59,8 @@ fun QuestBehaviorWritingScreen(
     viewModel: QuestBehaviorViewModel
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val showBottomSheet by viewModel.showBottomSheet.collectAsStateWithLifecycle()
-    val isEmotionSelected by viewModel.isEmotionSelected.collectAsStateWithLifecycle()
-    val selectedImageUrl by viewModel.selectedImageUri.collectAsStateWithLifecycle()
-    val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
-    val isUploading by viewModel.isUploading.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
-
-    if (showQuitModal) {
-        QuestQuitModal(
-            onDismissRequest = { viewModel.onDismissModal() },
-            stayButton = {
-                viewModel.onDismissModal()
-            },
-            quitButton = {
-                viewModel.onDismissModal()
-                viewModel.onQuitClick()
-            }
-        )
-    }
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
@@ -89,16 +71,34 @@ fun QuestBehaviorWritingScreen(
         viewModel.sideEffect.collectLatest {
             when (it) {
                 is QuestBehaviorSideEffect.NavigateToQuest -> navigateToQuest()
-                is QuestBehaviorSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId, it.questType)
+                is QuestBehaviorSideEffect.NavigateToQuestTip -> navigateToQuestTip(
+                    it.questId,
+                    it.questType
+                )
+
                 is QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete -> navigateToQuestBehaviorComplete(
                     it.questId
                 )
+
                 is QuestBehaviorSideEffect.CompleteAndClear -> {
                     viewModel.clearQuestInput()
                     navigateToQuestBehaviorComplete(it.questId)
                 }
             }
         }
+    }
+
+    if (uiState.showQuitModal) {
+        QuestQuitModal(
+            onDismissRequest = { viewModel.onDismissModal() },
+            stayButton = {
+                viewModel.onDismissModal()
+            },
+            quitButton = {
+                viewModel.onDismissModal()
+                viewModel.onQuitClick()
+            }
+        )
     }
 
     BackHandler { viewModel.onBackClicked() }
@@ -211,7 +211,7 @@ fun QuestBehaviorWritingScreen(
 
             item {
                 QuestPhotoPicker(
-                    imageUrl = selectedImageUrl,
+                    imageUrl = uiState.selectedImageUri,
                     onImageClick = { url ->
                         viewModel.updateSelectedImage(url)
                     }
@@ -241,13 +241,13 @@ fun QuestBehaviorWritingScreen(
                     questWritingState = uiState.contentState,
                     value = uiState.contents,
                     onValueChange = {
-                        if (it.length <= 200){
+                        if (it.length <= 200) {
                             viewModel.updateContent(isFocused = true, it)
                         }
                     },
                     placeholder = "꼭 적지 않아도 괜찮지만, 글로 정리해보면 스스로에게 한 걸음 더 가까워질 수 있어요.",
                     isQuestion = false,
-                    onFocusChanged = {isFocused ->
+                    onFocusChanged = { isFocused ->
                         viewModel.updateContent(
                             isFocused = isFocused,
                             text = uiState.contents
@@ -265,7 +265,7 @@ fun QuestBehaviorWritingScreen(
                     buttonDisableTextColor = ByeBooTheme.colors.gray300,
                     onClick = {
                         viewModel.openBottomSheet()
-                        viewModel.updateSelectedImage(selectedImageUrl)
+                        viewModel.updateSelectedImage(uiState.selectedImageUri)
                     },
                     isEnabled = QuestValidator.validButton(uiState.imageCount)
                 )
@@ -274,8 +274,8 @@ fun QuestBehaviorWritingScreen(
     }
 
     ByeBooBottomSheet(
-        navigateButton = {viewModel.uploadImage(context)},
-        showBottomSheet = showBottomSheet,
+        navigateButton = { viewModel.uploadImage(context) },
+        showBottomSheet = uiState.showBottomSheet,
         onDismiss = {
             viewModel.closeBottomSheet()
         },
@@ -286,7 +286,7 @@ fun QuestBehaviorWritingScreen(
         onSelectedChanged = { isSelected ->
             viewModel.isEmotionSelected(isSelected)
         },
-        isSelected = isEmotionSelected,
-        isUploading = isUploading
+        isSelected = uiState.isEmotionSelected,
+        isUploading = uiState.isUploading
     )
 }
