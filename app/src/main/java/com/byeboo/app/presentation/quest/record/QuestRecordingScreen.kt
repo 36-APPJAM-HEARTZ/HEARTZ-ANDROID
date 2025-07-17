@@ -1,6 +1,5 @@
 package com.byeboo.app.presentation.quest.record
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,12 +13,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -44,6 +47,7 @@ import com.byeboo.app.domain.model.QuestContentLengthValidator
 import com.byeboo.app.presentation.quest.component.QuestQuitModal
 import com.byeboo.app.presentation.quest.component.QuestTextField
 import com.byeboo.app.presentation.quest.component.bottomsheet.ByeBooBottomSheet
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -62,6 +66,8 @@ fun QuestRecordingScreen(
     val showBottomSheet by viewModel.showBottomSheet.collectAsStateWithLifecycle()
     val isEmotionSelected by viewModel.isEmotionSelected.collectAsStateWithLifecycle()
     val focusManager = LocalFocusManager.current
+    val bringIntoViewRequester = remember { BringIntoViewRequester() }
+    val isFocused = remember { mutableStateOf(false) }
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
@@ -84,6 +90,13 @@ fun QuestRecordingScreen(
         }
     }
 
+    LaunchedEffect(isFocused.value) {
+        if (isFocused.value) {
+            delay(300)
+            bringIntoViewRequester.bringIntoView()
+        }
+    }
+
     if (showQuitModal) {
         QuestQuitModal(
             onDismissRequest = { viewModel.onDismissModal() },
@@ -97,8 +110,6 @@ fun QuestRecordingScreen(
         )
     }
 
-    BackHandler { viewModel.onBackClick() }
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -107,13 +118,15 @@ fun QuestRecordingScreen(
             .padding(horizontal = screenWidthDp(24.dp))
             .padding(bottom = screenHeightDp(bottomPadding))
     ) {
-        Spacer(modifier = Modifier.height(screenHeightDp(67.dp)))
-
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
             contentDescription = "back button",
             tint = ByeBooTheme.colors.white,
             modifier = Modifier
+                .padding(
+                    top = screenHeightDp((27.dp) + bottomPadding),
+                    bottom = screenHeightDp(16.dp)
+                )
                 .align(Alignment.Start)
                 .clickable { viewModel.onBackClick() }
         )
@@ -121,8 +134,7 @@ fun QuestRecordingScreen(
         Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
         LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
             item {
                 Spacer(modifier = Modifier.height(screenHeightDp(10.dp)))
@@ -189,34 +201,36 @@ fun QuestRecordingScreen(
             item {
                 Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
 
-                QuestTextField(
-                    questWritingState = uiState.contentsState,
-                    value = uiState.questAnswer,
-                    onValueChange = {
-                        if (it.length <= 500) {
-                            viewModel.updateContent(isFocused = true, it)
-                        }
-                    },
-                    placeholder = "글로 적다 보면, 스스로에게 한 걸음 더 가까워질 수 있어요.",
-                    onFocusChanged = { isFocused ->
-                        viewModel.updateContent(
-                            isFocused = isFocused,
-                            questAnswer = uiState.questAnswer
-                        )
-                    }
-                )
-            }
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .bringIntoViewRequester(bringIntoViewRequester)
+                ) {
+                    QuestTextField(
+                        questWritingState = uiState.contentsState,
+                        value = uiState.questAnswer,
+                        onValueChange = {
+                            if (it.length <= 500) {
+                                viewModel.updateContent(isFocused = true, it)
+                            }
+                        },
+                        placeholder = "글로 적다 보면, 스스로에게 한 걸음 더 가까워질 수 있어요.",
+                        onFocusChanged = {
+                            isFocused.value = it
+                        },
+                    )
+                    Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
-            item {
-                Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
+                    Text(
+                        text = "*10글자 이상 입력해주세요.",
+                        style = ByeBooTheme.typography.cap2,
+                        color = ByeBooTheme.colors.gray400,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Start
+                    )
 
-                Text(
-                    text = "*10글자 이상 입력해주세요.",
-                    style = ByeBooTheme.typography.cap2,
-                    color = ByeBooTheme.colors.gray400,
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Start
-                )
+                    Spacer(modifier = Modifier.height(screenHeightDp(12.dp)))
+                }
             }
 
             item {
@@ -229,6 +243,8 @@ fun QuestRecordingScreen(
                     onClick = viewModel::openBottomSheet,
                     isEnabled = QuestContentLengthValidator.validButton(uiState.questAnswer)
                 )
+
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }

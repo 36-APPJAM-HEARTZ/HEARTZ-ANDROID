@@ -122,7 +122,7 @@ fun UserInfoScreen(
                         }
                 )
             }
-            Spacer(modifier = Modifier.padding(top = screenHeightDp(16.dp)))
+            Spacer(modifier = Modifier.padding(top = 16.dp))
 
             StepProgressBar(currentStep = pagerState.currentPage + 1)
 

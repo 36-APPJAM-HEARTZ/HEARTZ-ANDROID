@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,6 +29,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -35,12 +37,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.byeboo.app.R
+import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.component.text.ContentText
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
+import com.byeboo.app.presentation.quest.component.CreatedText
 import com.byeboo.app.presentation.quest.component.QuestCompleteCard
-import com.byeboo.app.presentation.quest.component.QuestCompleteTitle
 import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
 
 @Composable
@@ -53,7 +56,8 @@ fun QuestBehaviorCompleteScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     val selectedImageUri by viewModel.selectedImageUri.collectAsStateWithLifecycle()
-    val imageUri = selectedImageUri ?: uiState.imageUrl.takeIf { it.isNotBlank() }?.let { Uri.parse(it) }
+    val imageUri =
+        selectedImageUri ?: uiState.imageUrl.takeIf { it.isNotBlank() }?.let { Uri.parse(it) }
 
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
@@ -104,12 +108,37 @@ fun QuestBehaviorCompleteScreen(
                 Spacer(modifier = Modifier.height(screenHeightDp(32.dp)))
             }
             item {
-                QuestCompleteTitle(
-                    stepNumber = uiState.stepNumber,
-                    questNumber = uiState.questNumber,
-                    createdAt = uiState.createdAt,
-                    questQuestion = uiState.question,
-                )
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+                    SmallTag(tagText = "STEP ${uiState.stepNumber}")
+
+                    Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
+
+                    Text(
+                        text = "${uiState.questNumber}번째 퀘스트",
+                        style = ByeBooTheme.typography.body2,
+                        color = ByeBooTheme.colors.gray500
+                    )
+
+                    Spacer(modifier = Modifier.height(screenHeightDp(12.dp)))
+
+                    CreatedText(uiState.createdAt)
+
+                    Spacer(modifier = Modifier.height(screenHeightDp(12.dp)))
+
+                    Text(
+                        text = uiState.question,
+                        style = ByeBooTheme.typography.head1,
+                        color = ByeBooTheme.colors.gray100,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center
+                    )
+
+                    Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
+                }
             }
 
             item {
@@ -120,7 +149,6 @@ fun QuestBehaviorCompleteScreen(
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .aspectRatio(360 / 312f)
                             .clip(RoundedCornerShape(12.dp))
                     ) {
                         imageUri?.let { uri ->
@@ -128,7 +156,9 @@ fun QuestBehaviorCompleteScreen(
                                 model = ImageRequest.Builder(LocalContext.current).data(uri)
                                     .crossfade(true).build(),
                                 contentDescription = "uploaded image",
-                                modifier = Modifier.fillMaxSize(),
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .aspectRatio(1f),
                                 contentScale = ContentScale.Crop
                             )
                         }
@@ -171,6 +201,8 @@ fun QuestBehaviorCompleteScreen(
                         questEmotionDescription = uiState.emotionDescription,
                         emotionType = uiState.selectedEmotion
                     )
+
+                    Spacer(modifier = Modifier.height(24.dp))
                 }
             }
         }

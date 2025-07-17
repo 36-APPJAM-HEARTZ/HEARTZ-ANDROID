@@ -17,24 +17,24 @@ class OnboardingViewModel @Inject constructor() : ViewModel() {
     private val pages: PersistentList<List<OnboardingState>> = persistentListOf(
         persistentListOf(
             OnboardingState(
-                title = "저는 당신이 털어놓은 감정을 담는 주머니,\n보리라고 해요.",
+                title = "저는 당신이 털어놓은 감정을 담는 주머니, 보리라고 해요.",
                 imageRes = R.drawable.img_onboarding_1st
             ),
 
             OnboardingState(
-                title = "이별 후 걸림돌 같은 감정들을 털어놔주시면\n제 안에서 조약돌이 되어 쌓여요.",
+                title = "이별 후 걸림돌 같은 감정들을 털어놔주시면 제 안에서 조약돌이 되어 쌓여요.",
                 imageRes = R.drawable.img_onboarding_2nd
             )
         ),
 
         persistentListOf(
             OnboardingState(
-                title = "당신이 준비가 되었을 때\n조약돌들을 하나씩 꺼내 바닥에 놓아드려요.",
+                title = "당신이 준비가 되었을 때 조약돌들을 하나씩 꺼내 바닥에 놓아드려요.",
                 imageRes = R.drawable.img_onboarding_3rd
             ),
 
             OnboardingState(
-                title = "제가 모아둔 조약돌을 디딤돌 삼아\n한 걸음 한 걸음 미래로 나아가 주세요.",
+                title = "제가 모아둔 조약돌을 디딤돌 삼아 한 걸음 한 걸음 미래로 나아가 주세요.",
                 imageRes = R.drawable.img_onboarding_4th
             )
         ),

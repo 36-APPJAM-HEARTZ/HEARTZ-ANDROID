@@ -74,7 +74,7 @@ fun QuestScreen(
             navigateToTip = viewModel::onTipClick,
             progressButton = viewModel::onQuestStart,
             modifier = Modifier.fillMaxWidth()
-                //.padding(horizontal = screenHeightDp(48.dp)),
+                .padding(horizontal = screenHeightDp(48.dp))
         )
     }
 
@@ -94,7 +94,8 @@ fun QuestScreen(
                 nicknameText = "${uiState.userName}님, 지금",
                 title = uiState.journeyTitle,
                 guideText = "을 진행 중이에요.",
-                contentText = "오늘도 한 걸음 나아가볼까요?"
+                contentText = "오늘도 한 걸음 나아가볼까요?",
+                modifier = Modifier.padding(top = screenHeightDp(8.dp), bottom = screenHeightDp(20.dp))
             )
         }
 
@@ -106,7 +107,7 @@ fun QuestScreen(
                 .background(ByeBooTheme.colors.black),
             horizontalArrangement = Arrangement.spacedBy(screenWidthDp(21.dp)),
             verticalArrangement = Arrangement.spacedBy(screenHeightDp(20.dp)),
-            contentPadding = PaddingValues(bottom = screenWidthDp(bottomPadding + 37.dp))
+            contentPadding = PaddingValues(bottom = screenHeightDp(bottomPadding + 37.dp))
         ) {
             uiState.questGroups.forEachIndexed { stepIndex, group ->
                 item(span = { GridItemSpan(3) }, key = group.stepTitle) {

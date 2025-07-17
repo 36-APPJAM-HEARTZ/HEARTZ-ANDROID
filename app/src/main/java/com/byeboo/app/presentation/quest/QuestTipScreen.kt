@@ -202,6 +202,8 @@ fun QuestTipScreen(
                     titleText = "이 퀘스트가 끝나면 어떤 변화가 생길까요?",
                     contentText = uiState.tipAnswer[2]
                 )
+
+                Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
             }
         }
     }

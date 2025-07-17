@@ -46,7 +46,7 @@ fun HomeProgressCard(
                 color = ByeBooTheme.colors.gray50
             )
 
-            Spacer(modifier = Modifier.height(screenHeightDp(10.dp)))
+            Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
 
             Row(
                 verticalAlignment = Alignment.CenterVertically

@@ -11,14 +11,14 @@ data class QuestBehaviorState(
     val questNumber: Long = 1,
     val question: String = "",
     val imageCount: Int = 0,
-    val createdAt: String = "",
+    val createdAt: String = java.time.LocalDate.now().toString(),
     val contents: String = "",
     val answer: String = "",
     val imageUrl: String = "",
     val questEmotionState: String = "",
     val emotionDescription: String = "",
     val isContentAvailable: Boolean = false,
-    val contentState: QuestWritingState = QuestWritingState.BeforeWriting,
+    val contentState: QuestWritingState = QuestWritingState.Empty,
     val selectedEmotion: LargeTagType = LargeTagType.EMOTION_NEUTRAL,
 )
 

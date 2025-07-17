@@ -50,11 +50,11 @@ fun MainBottomBar(
         exit = ExitTransition.None
     ) {
         Column(
-            modifier = Modifier.background(ByeBooTheme.colors.blackAlpha50)
+            modifier = Modifier.background(ByeBooTheme.colors.gray900)
         ) {
             HorizontalDivider(
                 thickness = 1.dp,
-                color = ByeBooTheme.colors.gray700
+                color = ByeBooTheme.colors.gray800
             )
             Row(
                 modifier = Modifier

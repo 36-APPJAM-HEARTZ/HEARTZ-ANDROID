@@ -30,7 +30,9 @@ fun UserInfoEmotionScreen(
         DescriptionText(
             title = "감정 상태",
             guideText = "를 알려주세요",
-            contentText = "이별 후, 어떤 감정으로 하루를 보내고 계신가요?"
+            contentText = "이별 후, 어떤 감정으로 하루를 보내고 계신가요?",
+            top = 20.dp,
+            bottom = 20.dp
         )
         Row(
             modifier = Modifier.padding(vertical = 8.dp),

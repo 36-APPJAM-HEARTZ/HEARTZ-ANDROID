@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -75,17 +76,19 @@ fun OnboardingScreen(
 
                 ) {
                     Text(
-                        text = "Skip",
+                        text = "SKIP",
                         color = ByeBooTheme.colors.primary300,
                         style = ByeBooTheme.typography.body5.copy(
                             textDecoration = TextDecoration.Underline
                         )
                     )
 
+                    Spacer(modifier = Modifier.width(screenWidthDp(4.dp)))
+
                     Icon(
                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_right),
                         contentDescription = "next",
-                        tint = ByeBooTheme.colors.primary200,
+                        tint = ByeBooTheme.colors.primary300,
                         modifier = Modifier.size(12.dp)
                     )
                 }
@@ -96,7 +99,7 @@ fun OnboardingScreen(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = screenWidthDp(45.dp)),
+                    .padding(horizontal = screenWidthDp(35.dp)),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 contents.forEach { content ->

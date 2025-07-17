@@ -1,6 +1,5 @@
 package com.byeboo.app.presentation.quest.behavior
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,12 +13,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.relocation.BringIntoViewRequester
+import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -46,6 +49,7 @@ import com.byeboo.app.presentation.quest.behavior.component.QuestPhotoPicker
 import com.byeboo.app.presentation.quest.component.QuestQuitModal
 import com.byeboo.app.presentation.quest.component.QuestTextField
 import com.byeboo.app.presentation.quest.component.bottomsheet.ByeBooBottomSheet
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,6 +70,8 @@ fun QuestBehaviorWritingScreen(
     val showQuitModal by viewModel.showQuitModal.collectAsStateWithLifecycle()
     val context = LocalContext.current
     val focusManager = LocalFocusManager.current
+    val bringIntoViewRequester = remember { BringIntoViewRequester() }
+    val isFocused = remember { mutableStateOf(false) }
 
     if (showQuitModal) {
         QuestQuitModal(
@@ -76,7 +82,10 @@ fun QuestBehaviorWritingScreen(
             quitButton = {
                 viewModel.onDismissModal()
                 viewModel.onQuitClick()
-            }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = screenHeightDp(48.dp))
         )
     }
 
@@ -89,28 +98,42 @@ fun QuestBehaviorWritingScreen(
         viewModel.sideEffect.collectLatest {
             when (it) {
                 is QuestBehaviorSideEffect.NavigateToQuest -> navigateToQuest()
-                is QuestBehaviorSideEffect.NavigateToQuestTip -> navigateToQuestTip(it.questId, it.questType)
-                is QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete -> navigateToQuestBehaviorComplete(it.questId)
+                is QuestBehaviorSideEffect.NavigateToQuestTip -> navigateToQuestTip(
+                    it.questId,
+                    it.questType
+                )
+
+                is QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete -> navigateToQuestBehaviorComplete(
+                    it.questId
+                )
             }
         }
     }
 
-    BackHandler { viewModel.onBackClicked() }
+    LaunchedEffect(isFocused.value) {
+        if (isFocused.value) {
+            delay(300)
+            bringIntoViewRequester.bringIntoView()
+        }
+    }
 
     Column(
         modifier = modifier
             .fillMaxSize()
             .background(color = ByeBooTheme.colors.black)
             .addFocusCleaner(focusManager)
-            .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(8.dp))
-            .padding(bottom = bottomPadding)
+            .padding(horizontal = screenWidthDp(24.dp))
+            .padding(bottom = screenHeightDp(bottomPadding))
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
             contentDescription = "back button",
             tint = ByeBooTheme.colors.white,
             modifier = Modifier
-                .padding(top = screenHeightDp(67.dp), bottom = screenHeightDp(16.dp))
+                .padding(
+                    top = screenHeightDp((27.dp) + bottomPadding),
+                    bottom = screenHeightDp(16.dp)
+                )
                 .align(Alignment.Start)
                 .clickable { viewModel.onBackClicked() }
         )
@@ -125,7 +148,8 @@ fun QuestBehaviorWritingScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     SmallTag(
-                        tagText = "STEP ${uiState.stepNumber}"
+                        tagText = "STEP ${uiState.stepNumber}",
+                        tagColor = ByeBooTheme.colors.gray300
                     )
 
                     Spacer(modifier = Modifier.width(screenWidthDp(12.dp)))
@@ -230,28 +254,30 @@ fun QuestBehaviorWritingScreen(
             }
 
             item {
-                QuestTextField(
-                    questWritingState = uiState.contentState,
-                    value = uiState.contents,
-                    onValueChange = {
-                        if (it.length <= 200){
-                            viewModel.updateContent(isFocused = true, it)
-                        }
-                    },
-                    placeholder = "꼭 적지 않아도 괜찮지만, 글로 정리해보면 스스로에게 한 걸음 더 가까워질 수 있어요.",
-                    isQuestion = false,
-                    onFocusChanged = {isFocused ->
-                        viewModel.updateContent(
-                            isFocused = isFocused,
-                            text = uiState.contents
-                        )
-                    }
-                )
-
-                Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
+                Column {
+                    QuestTextField(
+                        questWritingState = uiState.contentState,
+                        value = uiState.contents,
+                        onValueChange = {
+                            if (it.length <= 200) {
+                                viewModel.updateContent(isFocused = true, it)
+                            }
+                        },
+                        placeholder = "꼭 적지 않아도 괜찮지만, 글로 정리해보면 스스로에게 한 걸음 더 가까워질 수 있어요.",
+                        isQuestion = false,
+                        onFocusChanged = {
+                            isFocused.value = it
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .bringIntoViewRequester(bringIntoViewRequester)
+                    )
+                }
             }
 
             item {
+                Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
+
                 ByeBooActivationButton(
                     buttonDisableColor = ByeBooTheme.colors.whiteAlpha10,
                     buttonText = "완료",
@@ -267,7 +293,7 @@ fun QuestBehaviorWritingScreen(
     }
 
     ByeBooBottomSheet(
-        navigateButton = {viewModel.uploadImage(context)},
+        navigateButton = { viewModel.uploadImage(context) },
         showBottomSheet = showBottomSheet,
         onDismiss = {
             viewModel.closeBottomSheet()

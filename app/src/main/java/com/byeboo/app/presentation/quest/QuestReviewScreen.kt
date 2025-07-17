@@ -112,9 +112,10 @@ fun QuestReviewScreen(
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_think),
                             contentDescription = "title icon",
-                            modifier = Modifier.padding(end = screenHeightDp(8.dp)),
                             tint = Color.Unspecified
                         )
+
+                        Spacer(modifier = Modifier.width(screenWidthDp(8.dp)))
 
                         Text(
                             text = "이렇게 완료했어요",
@@ -123,20 +124,21 @@ fun QuestReviewScreen(
                         )
                     }
 
+                    Spacer(modifier = Modifier.height(12.dp))
+
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .aspectRatio(360 / 312f)
-                            .clip(RoundedCornerShape(12.dp))
                     ) {
                         AsyncImage(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .aspectRatio(1f),
                             model = ImageRequest.Builder(LocalContext.current)
                                 .data(uiState.imageUrl)
                                 .crossfade(true)
                                 .build(),
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .clip(RoundedCornerShape(12.dp))
+                                .aspectRatio(1f),
                             contentDescription = "uploaded image",
                             contentScale = ContentScale.Crop
                         )

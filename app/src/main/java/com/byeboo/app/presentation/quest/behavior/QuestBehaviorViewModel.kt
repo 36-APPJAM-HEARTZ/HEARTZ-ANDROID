@@ -136,6 +136,12 @@ class QuestBehaviorViewModel @Inject constructor(
         }
     }
 
+    fun updateTextFieldContent(isFocused: Boolean, questAnswer: String) {
+        _uiState.update {
+            it.copy(answer = questAnswer)
+        }
+    }
+
     fun onBackClicked() {
         _showQuitModal.value = true
     }
