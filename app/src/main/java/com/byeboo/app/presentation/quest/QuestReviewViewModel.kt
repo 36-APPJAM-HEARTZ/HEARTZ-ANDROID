@@ -1,6 +1,5 @@
 package com.byeboo.app.presentation.quest
 
-import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.designsystem.type.LargeTagType
@@ -26,9 +25,6 @@ class QuestReviewViewModel @Inject constructor(
     private val _sideEffect = MutableSharedFlow<QuestReviewSideEffect>()
     val sideEffect: SharedFlow<QuestReviewSideEffect>
         get() = _sideEffect
-
-    private val _selectedImageUri = MutableStateFlow<Uri?>(null)
-    val selectedImageUri: StateFlow<Uri?> = _selectedImageUri
 
     fun setQuestId(questId: Long) {
         _uiState.update {

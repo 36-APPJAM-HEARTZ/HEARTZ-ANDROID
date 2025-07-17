@@ -19,7 +19,7 @@ class QuestStartViewModel @Inject constructor(
     private val userRepository: UserRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(QuestStartState())
-    val uiState: StateFlow<QuestStartState> = _uiState
+    val uiState: StateFlow<QuestStartState> = _uiState.asStateFlow()
 
     private val _sideEffect = MutableSharedFlow<QuestStartSideEffect>()
     val sideEffect: SharedFlow<QuestStartSideEffect> = _sideEffect
