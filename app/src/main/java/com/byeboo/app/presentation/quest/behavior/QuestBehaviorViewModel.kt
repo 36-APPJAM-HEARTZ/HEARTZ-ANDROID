@@ -12,6 +12,7 @@ import com.byeboo.app.domain.repository.quest.QuestDetailBehaviorRepository
 import com.byeboo.app.domain.repository.quest.QuestRecordedDetailRepository
 import com.byeboo.app.domain.usecase.UploadImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -139,6 +140,7 @@ class QuestBehaviorViewModel @Inject constructor(
         _uiState.update {
             it.copy(
                 selectedImageUri = null,
+                imageCount = 0,
                 contents = ""
             )
         }
@@ -155,6 +157,14 @@ class QuestBehaviorViewModel @Inject constructor(
     fun onQuitClick() {
         viewModelScope.launch {
             _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuest)
+
+            delay(300)
+
+            _uiState.update {
+                it.copy(
+                    selectedImageUri = null, imageCount = 0, contents = ""
+                )
+            }
         }
     }
 
@@ -185,5 +195,7 @@ class QuestBehaviorViewModel @Inject constructor(
         viewModelScope.launch {
             _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuest)
         }
+
     }
+
 }
