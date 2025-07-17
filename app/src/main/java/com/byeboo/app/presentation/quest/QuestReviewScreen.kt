@@ -171,7 +171,7 @@ fun QuestReviewScreen(
             }
 
             item {
-                Spacer(modifier = Modifier.height(screenHeightDp(48.dp)))
+                Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
 
                 QuestEmotionDescriptionContent(
                     questEmotionDescription = uiState.emotionDescription,

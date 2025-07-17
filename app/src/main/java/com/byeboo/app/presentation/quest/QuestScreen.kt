@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -80,7 +81,9 @@ fun QuestScreen(
             questQuestion = uiState.selectedQuest?.questQuestion ?: "",
             navigateToTip = viewModel::onTipClick,
             progressButton = viewModel::onQuestStart,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = screenWidthDp(48.dp))
         )
     }
 
@@ -96,6 +99,9 @@ fun QuestScreen(
                 middleTagType = MiddleTagType.QUEST_START_DAY,
                 text = uiState.progressPeriod.toString()
             )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
             DescriptionText(
                 nicknameText = "${uiState.userName}님, 지금",
                 title = "${uiState.journeyTitle} 여정",
