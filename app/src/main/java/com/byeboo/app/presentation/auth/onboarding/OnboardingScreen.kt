@@ -99,7 +99,7 @@ fun OnboardingScreen(
                         Icon(
                             imageVector = ImageVector.vectorResource(id = R.drawable.ic_right),
                             contentDescription = "next",
-                            tint = ByeBooTheme.colors.primary200,
+                            tint = ByeBooTheme.colors.primary300,
                             modifier = Modifier.size(12.dp)
                         )
                     }
