@@ -7,12 +7,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.BiasAlignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
@@ -71,9 +71,9 @@ fun HomeAmuletCard(
                     color = ByeBooTheme.colors.secondary100,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
+                        .fillMaxWidth()
                         .padding(horizontal = screenWidthDp(37.dp))
                         .padding(top = screenHeightDp(139.dp))
-
                 )
             }
         } else {
