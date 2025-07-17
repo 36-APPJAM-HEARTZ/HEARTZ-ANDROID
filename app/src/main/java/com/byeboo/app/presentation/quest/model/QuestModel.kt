@@ -1,7 +1,6 @@
 package com.byeboo.app.presentation.quest.model
 
-import com.byeboo.app.core.model.QuestType
-import com.byeboo.app.presentation.quest.QuestState
+import com.byeboo.app.core.model.quest.QuestType
 
 data class QuestGroup(
     val questNumber: Long,

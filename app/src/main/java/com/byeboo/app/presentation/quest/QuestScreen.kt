@@ -25,12 +25,13 @@ import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.text.DescriptionText
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.model.QuestType
+import com.byeboo.app.core.model.quest.QuestType
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
-import com.byeboo.app.presentation.quest.component.QuestBox
-import com.byeboo.app.presentation.quest.component.QuestModal
-import com.byeboo.app.presentation.quest.component.QuestStepTitle
+import com.byeboo.app.presentation.quest.model.QuestSideEffect
+import com.byeboo.app.presentation.quest.component.chip.QuestBox
+import com.byeboo.app.presentation.quest.component.modal.QuestModal
+import com.byeboo.app.presentation.quest.component.text.QuestStepTitle
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable

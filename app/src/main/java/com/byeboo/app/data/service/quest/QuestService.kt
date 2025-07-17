@@ -2,9 +2,9 @@ package com.byeboo.app.data.service.quest
 
 import com.byeboo.app.data.dto.base.BaseResponse
 import com.byeboo.app.data.dto.base.NullableBaseResponse
-import com.byeboo.app.data.dto.response.QuestCountResponseDto
-import com.byeboo.app.data.dto.response.QuestDialogueResponseDto
-import com.byeboo.app.data.dto.response.QuestInProgressResponseDto
+import com.byeboo.app.data.dto.response.quest.QuestCountResponseDto
+import com.byeboo.app.data.dto.response.quest.QuestDialogueResponseDto
+import com.byeboo.app.data.dto.response.quest.QuestInProgressResponseDto
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 

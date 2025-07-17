@@ -1,7 +1,7 @@
 package com.byeboo.app.data.service.quest
 
 import com.byeboo.app.data.dto.base.NullableBaseResponse
-import com.byeboo.app.data.dto.request.QuestRecordingRequestDto
+import com.byeboo.app.data.dto.request.quest.QuestRecordingRequestDto
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.Path

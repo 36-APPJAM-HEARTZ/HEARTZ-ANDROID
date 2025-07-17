@@ -39,7 +39,7 @@ import com.byeboo.app.core.util.addFocusCleaner
 import com.byeboo.app.core.util.noRippleClickable
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
-import com.byeboo.app.domain.model.NicknameValidationResult
+import com.byeboo.app.domain.model.auth.NicknameValidationResult
 import com.byeboo.app.presentation.auth.userinfo.component.StepProgressBar
 import com.byeboo.app.presentation.auth.userinfo.model.toValidationState
 import com.byeboo.app.presentation.auth.userinfo.screen.UserInfoEmotionScreen

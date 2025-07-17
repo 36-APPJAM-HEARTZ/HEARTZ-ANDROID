@@ -1,7 +1,7 @@
 package com.byeboo.app.data.mapper.quest
 
-import com.byeboo.app.data.dto.response.QuestTipResponseDto
-import com.byeboo.app.data.dto.response.Tip
+import com.byeboo.app.data.dto.response.quest.QuestTipResponseDto
+import com.byeboo.app.data.dto.response.quest.Tip
 import com.byeboo.app.domain.model.quest.QuestTip
 import com.byeboo.app.domain.model.quest.QuestTips
 

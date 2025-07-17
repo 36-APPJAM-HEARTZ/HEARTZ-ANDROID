@@ -5,9 +5,9 @@ import android.net.Uri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.designsystem.type.LargeTagType
-import com.byeboo.app.core.model.QuestType
-import com.byeboo.app.data.mapper.todata.toData
-import com.byeboo.app.domain.model.QuestWritingState
+import com.byeboo.app.core.model.quest.QuestType
+import com.byeboo.app.data.mapper.quest.toData
+import com.byeboo.app.domain.model.quest.QuestWritingState
 import com.byeboo.app.domain.repository.quest.QuestDetailBehaviorRepository
 import com.byeboo.app.domain.repository.quest.QuestRecordedDetailRepository
 import com.byeboo.app.domain.usecase.UploadImageUseCase

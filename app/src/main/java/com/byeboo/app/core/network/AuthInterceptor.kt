@@ -1,6 +1,6 @@
 package com.byeboo.app.core.network
 
-import com.byeboo.app.domain.repository.TokenRepository
+import com.byeboo.app.domain.repository.auth.TokenRepository
 import javax.inject.Inject
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor

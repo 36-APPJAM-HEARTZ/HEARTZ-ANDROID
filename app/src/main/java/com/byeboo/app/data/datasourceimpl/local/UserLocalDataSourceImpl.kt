@@ -6,7 +6,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.byeboo.app.core.model.UserEntity
+import com.byeboo.app.core.model.auth.UserEntity
 import com.byeboo.app.data.datasource.local.UserLocalDataSource
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow

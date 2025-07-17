@@ -33,10 +33,10 @@ import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.screenWidthDp
-import com.byeboo.app.presentation.quest.component.CreatedText
-import com.byeboo.app.presentation.quest.component.QuestCompleteCard
-import com.byeboo.app.presentation.quest.component.QuestContent
-import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
+import com.byeboo.app.presentation.quest.component.text.CreatedText
+import com.byeboo.app.presentation.quest.component.card.QuestCompleteCard
+import com.byeboo.app.presentation.quest.component.text.QuestContent
+import com.byeboo.app.presentation.quest.component.card.QuestEmotionDescriptionCard
 import com.byeboo.app.presentation.quest.component.type.QuestContentType
 
 @Composable

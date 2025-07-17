@@ -3,8 +3,8 @@ package com.byeboo.app.presentation.quest.record
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.byeboo.app.core.designsystem.type.LargeTagType
-import com.byeboo.app.core.model.QuestType
-import com.byeboo.app.domain.model.QuestContentLengthValidator
+import com.byeboo.app.core.model.quest.QuestType
+import com.byeboo.app.domain.model.quest.QuestContentLengthValidator
 import com.byeboo.app.domain.model.quest.QuestRecording
 import com.byeboo.app.domain.repository.quest.QuestDetailRecordingRepository
 import com.byeboo.app.domain.repository.quest.QuestRecordingRepository

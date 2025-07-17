@@ -1,9 +1,9 @@
 package com.byeboo.app.data.service.auth
 
 import com.byeboo.app.data.dto.base.BaseResponse
-import com.byeboo.app.data.dto.request.UserInfoRequestDto
-import com.byeboo.app.data.dto.response.UserInfoResponseDto
-import com.byeboo.app.data.dto.response.UserJourneyResponseDto
+import com.byeboo.app.data.dto.request.auth.UserInfoRequestDto
+import com.byeboo.app.data.dto.response.auth.UserInfoResponseDto
+import com.byeboo.app.data.dto.response.auth.UserJourneyResponseDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST

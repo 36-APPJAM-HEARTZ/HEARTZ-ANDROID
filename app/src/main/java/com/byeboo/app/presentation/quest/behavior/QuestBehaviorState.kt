@@ -2,8 +2,8 @@ package com.byeboo.app.presentation.quest.behavior
 
 import android.net.Uri
 import com.byeboo.app.core.designsystem.type.LargeTagType
-import com.byeboo.app.core.model.QuestType
-import com.byeboo.app.domain.model.QuestWritingState
+import com.byeboo.app.core.model.quest.QuestType
+import com.byeboo.app.domain.model.quest.QuestWritingState
 
 data class QuestBehaviorState(
     val stepNumber: Long = 1,

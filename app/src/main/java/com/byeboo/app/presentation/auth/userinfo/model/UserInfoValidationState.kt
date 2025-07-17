@@ -1,6 +1,6 @@
 package com.byeboo.app.presentation.auth.userinfo.model
 
-import com.byeboo.app.domain.model.NicknameValidationResult
+import com.byeboo.app.domain.model.auth.NicknameValidationResult
 
 sealed class UserInfoValidationState {
     object Empty : UserInfoValidationState()
