@@ -36,6 +36,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.byeboo.app.R
+import com.byeboo.app.core.designsystem.component.text.ContentText
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
@@ -135,8 +136,14 @@ fun QuestBehaviorCompleteScreen(
                             )
                         }
                     }
-                    Spacer(modifier = Modifier.height(screenHeightDp(24.dp)))
+                    Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
+
+                    if (uiState.answer.isNotBlank()) {
+                        ContentText(uiState.answer)
+                    }
                 }
+
+                Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
             }
 
             item {
