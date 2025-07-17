@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest.behavior
 
+import QuestPhotoPicker
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -32,7 +33,6 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
@@ -45,7 +45,6 @@ import com.byeboo.app.core.util.addFocusCleaner
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.domain.model.QuestValidator
-import com.byeboo.app.presentation.quest.behavior.component.QuestPhotoPicker
 import com.byeboo.app.presentation.quest.component.QuestQuitModal
 import com.byeboo.app.presentation.quest.component.QuestTextField
 import com.byeboo.app.presentation.quest.component.bottomsheet.ByeBooBottomSheet
