@@ -41,7 +41,7 @@ fun QuestStartScreen(
     viewModel: QuestStartViewModel = hiltViewModel(),
     loadingViewModel: LoadingViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val nickname by loadingViewModel.nickname.collectAsStateWithLifecycle()
 
 

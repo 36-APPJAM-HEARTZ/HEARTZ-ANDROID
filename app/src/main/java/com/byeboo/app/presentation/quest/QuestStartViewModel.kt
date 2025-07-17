@@ -16,8 +16,8 @@ import kotlinx.coroutines.launch
 class QuestStartViewModel @Inject constructor(
     private val questStateRepository: QuestStateRepository
 ) : ViewModel() {
-    private val _state = MutableStateFlow(QuestStartState())
-    val state: StateFlow<QuestStartState> = _state.asStateFlow()
+    private val _uiState = MutableStateFlow(QuestStartState())
+    val uiState: StateFlow<QuestStartState> = _uiState.asStateFlow()
 
     private val _sideEffect = MutableSharedFlow<QuestStartSideEffect>()
     val sideEffect: SharedFlow<QuestStartSideEffect> = _sideEffect
