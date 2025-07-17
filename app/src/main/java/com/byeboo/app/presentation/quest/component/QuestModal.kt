@@ -45,67 +45,61 @@ fun QuestModal(
         onDismissRequest = onDismissRequest,
         properties = dialogProperties
     ) {
-        Box(
-            modifier = Modifier
+        Column(
+            modifier = modifier
                 .fillMaxWidth()
-                .background(ByeBooTheme.colors.blackAlpha80)
+                .clip(RoundedCornerShape(12.dp))
+                .background(color = ByeBooTheme.colors.gray800)
+                .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(24.dp)),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Column(
-                modifier = modifier
+            Image(
+                painter = painterResource(id = R.drawable.bori_quest_banner),
+                contentDescription = "이미지",
+                Modifier
                     .fillMaxWidth()
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(color = ByeBooTheme.colors.gray900Alpha80)
-                    .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(24.dp)),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.bori_quest_banner),
-                    contentDescription = "이미지",
-                    Modifier
-                        .fillMaxWidth()
-                        .height(screenHeightDp(58.dp))
-                )
+                    .height(screenHeightDp(58.dp))
+            )
 
-                Spacer(modifier = Modifier.height(screenHeightDp((17.5).dp)))
+            Spacer(modifier = Modifier.height(screenHeightDp((17.5).dp)))
 
-                Text(
-                    text = "${questNumber}번째 퀘스트",
-                    style = ByeBooTheme.typography.body2,
-                    color = ByeBooTheme.colors.gray400
-                )
+            Text(
+                text = "${questNumber}번째 퀘스트",
+                style = ByeBooTheme.typography.body2,
+                color = ByeBooTheme.colors.gray400
+            )
 
-                Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
+            Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
 
-                Text(
-                    text = questQuestion,
-                    style = ByeBooTheme.typography.sub2,
-                    color = ByeBooTheme.colors.gray50,
-                    textAlign = TextAlign.Center
-                )
+            Text(
+                text = questQuestion,
+                style = ByeBooTheme.typography.sub2,
+                color = ByeBooTheme.colors.gray50,
+                textAlign = TextAlign.Center
+            )
 
-                Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
+            Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline)) {
-                            append(text = "작성 TIP")
-                        }
-                    },
-                    style = ByeBooTheme.typography.body4,
-                    color = ByeBooTheme.colors.gray300,
-                    modifier = Modifier.clickable { navigateToTip() }
-                )
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(style = SpanStyle(textDecoration = TextDecoration.Underline)) {
+                        append(text = "작성 TIP")
+                    }
+                },
+                style = ByeBooTheme.typography.body4,
+                color = ByeBooTheme.colors.gray300,
+                modifier = Modifier.clickable { navigateToTip() }
+            )
 
-                Spacer(modifier = Modifier.height(screenHeightDp((17.5).dp)))
+            Spacer(modifier = Modifier.height(screenHeightDp((17.5).dp)))
 
-                ByeBooButton(
-                    onClick = progressButton,
-                    buttonText = "진행하기",
-                    buttonTextColor = ByeBooTheme.colors.white,
-                    buttonBackgroundColor = ByeBooTheme.colors.primary300
-                )
-            }
+            ByeBooButton(
+                onClick = progressButton,
+                buttonText = "진행하기",
+                buttonTextColor = ByeBooTheme.colors.white,
+                buttonBackgroundColor = ByeBooTheme.colors.primary300
+            )
         }
     }
 }

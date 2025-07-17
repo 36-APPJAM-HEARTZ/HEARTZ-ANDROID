@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,12 +34,11 @@ import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
+import com.byeboo.app.presentation.quest.component.CreatedText
 import com.byeboo.app.presentation.quest.component.QuestCompleteCard
 import com.byeboo.app.presentation.quest.component.QuestContent
 import com.byeboo.app.presentation.quest.component.QuestEmotionDescriptionCard
 import com.byeboo.app.presentation.quest.component.type.QuestContentType
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 @Composable
 fun QuestRecordingCompleteScreen(
@@ -146,23 +144,12 @@ fun QuestRecordingCompleteScreen(
                         questEmotionDescription = uiState.emotionDescription,
                         emotionType = uiState.selectedEmotion
                     )
+
+                    Spacer(modifier = Modifier.height(24.dp))
                 }
             }
         }
     }
-}
-
-@Composable
-private fun CreatedText(createdAt: String) {
-    val date = remember(createdAt) {
-        LocalDate.parse(createdAt).format(DateTimeFormatter.ofPattern("yyyy. MM. dd."))
-    }
-
-    Text(
-        text = "$date.",
-        style = ByeBooTheme.typography.body5,
-        color = ByeBooTheme.colors.gray400
-    )
 }
 
 @Composable

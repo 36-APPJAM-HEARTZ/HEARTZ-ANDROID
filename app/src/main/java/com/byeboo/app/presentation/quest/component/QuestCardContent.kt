@@ -51,7 +51,7 @@ fun AvailableContent(
         BackgroundImageLayer(imageResId)
         QuestNumberLabel(
             questNumber = questNumber,
-            color = ByeBooTheme.colors.primary50,
+            color = ByeBooTheme.colors.primary300,
             modifier = Modifier
                 .align(Alignment.TopStart)
         )

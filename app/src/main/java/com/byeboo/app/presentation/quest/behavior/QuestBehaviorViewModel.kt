@@ -122,7 +122,7 @@ class QuestBehaviorViewModel @Inject constructor(
 
     fun updateContent(isFocused: Boolean, text: String) {
         val contentState = if (text.isEmpty()) {
-            QuestWritingState.BeforeWriting
+            QuestWritingState.Ready
         } else {
             QuestWritingState.Writing
         }
