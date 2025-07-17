@@ -83,7 +83,7 @@ fun QuestScreen(
             progressButton = viewModel::onQuestStart,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = screenWidthDp(48.dp))
+                .padding(horizontal = 24.dp)
         )
     }
 
