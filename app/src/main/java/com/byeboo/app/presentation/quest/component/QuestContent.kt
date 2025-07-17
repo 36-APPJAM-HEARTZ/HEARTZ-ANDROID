@@ -14,11 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.text.ContentText
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.presentation.quest.component.type.QuestContentType
 
@@ -49,21 +47,8 @@ fun QuestContent(
                 style = ByeBooTheme.typography.body2
             )
         }
-
-        Spacer(modifier = Modifier.height(screenHeightDp(12.dp)))
+        Spacer(modifier = Modifier.height(12.dp))
 
         ContentText(text = contentText)
-    }
-}
-
-@Preview()
-@Composable
-private fun QuestContentPreview() {
-    ByeBooTheme {
-        QuestContent(
-            titleIcon = QuestContentType.THINKING,
-            titleText = "제목을 입력해주세요.",
-            contentText = "내용을 입력해주세요."
-        )
     }
 }

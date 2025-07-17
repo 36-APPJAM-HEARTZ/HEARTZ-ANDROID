@@ -12,6 +12,8 @@ import com.byeboo.app.domain.repository.quest.QuestDetailBehaviorRepository
 import com.byeboo.app.domain.repository.quest.QuestRecordedDetailRepository
 import com.byeboo.app.domain.usecase.UploadImageUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.UUID
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,8 +22,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.UUID
-import javax.inject.Inject
 
 @HiltViewModel
 class QuestBehaviorViewModel @Inject constructor(
@@ -71,7 +71,7 @@ class QuestBehaviorViewModel @Inject constructor(
                         answer = detail.answer,
                         imageUrl = detail.imageUrl.toString(),
                         selectedEmotion = LargeTagType.fromKorean(detail.questEmotionState),
-                        emotionDescription = detail.emotionDescription,
+                        emotionDescription = detail.emotionDescription
                     )
                 }
             }
@@ -101,7 +101,6 @@ class QuestBehaviorViewModel @Inject constructor(
                     answer = answer,
                     emotion = emotion
                 ).getOrThrow()
-
             }.onSuccess {
                 _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuestBehaviorComplete(questId))
                 _sideEffect.emit(QuestBehaviorSideEffect.CompleteAndClear(questId))
@@ -162,7 +161,9 @@ class QuestBehaviorViewModel @Inject constructor(
 
             _uiState.update {
                 it.copy(
-                    selectedImageUri = null, imageCount = 0, contents = ""
+                    selectedImageUri = null,
+                    imageCount = 0,
+                    contents = ""
                 )
             }
         }
@@ -195,7 +196,5 @@ class QuestBehaviorViewModel @Inject constructor(
         viewModelScope.launch {
             _sideEffect.emit(QuestBehaviorSideEffect.NavigateToQuest)
         }
-
     }
-
 }

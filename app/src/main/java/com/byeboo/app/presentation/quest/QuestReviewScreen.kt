@@ -56,7 +56,6 @@ fun QuestReviewScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val hasImage = !uiState.imageUrl.isNullOrBlank()
 
-
     LaunchedEffect(questId) {
         viewModel.setQuestId(questId)
         viewModel.getQuestRecordedDetail(questId)
@@ -109,7 +108,8 @@ fun QuestReviewScreen(
             if (hasImage) {
                 item {
                     Row(
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
                             imageVector = ImageVector.vectorResource(R.drawable.ic_think),
@@ -125,6 +125,8 @@ fun QuestReviewScreen(
                             style = ByeBooTheme.typography.body2
                         )
                     }
+
+                    Spacer(modifier = Modifier.height(12.dp))
 
                     Column(
                         modifier = Modifier
@@ -153,10 +155,9 @@ fun QuestReviewScreen(
                                 }
                             }
                         )
-
-                        Spacer(modifier = Modifier.height(screenHeightDp(8.dp)))
                     }
                     if (uiState.answer.isNotBlank()) {
+                        Spacer(modifier = Modifier.height(8.dp))
                         ContentText(uiState.answer)
                     }
                 }

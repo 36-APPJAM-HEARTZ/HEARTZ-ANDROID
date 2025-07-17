@@ -1,6 +1,7 @@
 package com.byeboo.app.presentation.quest.behavior
 
 import QuestPhotoPicker
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -103,7 +104,8 @@ fun QuestBehaviorWritingScreen(
             quitButton = {
                 viewModel.onDismissModal()
                 viewModel.onQuitClick()
-            }
+            },
+            modifier = Modifier.padding(horizontal = 24.dp)
         )
     }
 
@@ -308,9 +310,4 @@ fun QuestBehaviorWritingScreen(
         isSelected = uiState.isEmotionSelected,
         isUploading = uiState.isUploading
     )
-}
-
-@Composable
-fun BackHandler(content: @Composable () -> Unit) {
-    TODO("Not yet implemented")
 }

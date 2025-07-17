@@ -1,6 +1,5 @@
 package com.byeboo.app.presentation.quest.record
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -111,8 +110,6 @@ fun QuestRecordingScreen(
         )
     }
 
-    BackHandler { viewModel.onBackClick() }
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -220,7 +217,7 @@ fun QuestRecordingScreen(
                         placeholder = "글로 적다 보면, 스스로에게 한 걸음 더 가까워질 수 있어요.",
                         onFocusChanged = {
                             isFocused.value = it
-                        },
+                        }
                     )
                     Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 
