@@ -114,6 +114,8 @@ fun QuestBehaviorWritingScreen(
         }
     }
 
+    BackHandler { viewModel.onBackClicked() }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -306,4 +308,9 @@ fun QuestBehaviorWritingScreen(
         isSelected = uiState.isEmotionSelected,
         isUploading = uiState.isUploading
     )
+}
+
+@Composable
+fun BackHandler(content: @Composable () -> Unit) {
+    TODO("Not yet implemented")
 }
