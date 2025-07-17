@@ -34,8 +34,11 @@ internal fun QuestPhotoPicker(
 
     val photoPickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
-    ) { uri: Uri? -> onImageClick(uri) }
-
+    ) { uri: Uri? ->
+        if (uri != null) {
+            onImageClick(uri)
+        }
+    }
     Box(
         modifier = modifier
             .width(screenWidthDp(96.dp))
