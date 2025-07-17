@@ -98,8 +98,7 @@ fun QuestTextField(
 
     Box(
         modifier = modifier
-            .fillMaxWidth()
-            .height(290.dp)
+            .fillMaxSize()
             .clip(RoundedCornerShape(12.dp))
             .border(width = 1.dp, color = textFieldBorderColor, shape = RoundedCornerShape(12.dp))
             .background(color = ByeBooTheme.colors.whiteAlpha10)
@@ -113,7 +112,7 @@ fun QuestTextField(
                 value = value,
                 onValueChange = onValueChange,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxSize()
                     .height(screenHeightDp(275.dp))
                     .verticalScroll(scrollState)
                     .onFocusChanged { focusStateChanged ->

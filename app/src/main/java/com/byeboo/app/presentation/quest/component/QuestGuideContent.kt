@@ -69,14 +69,15 @@ fun GuideContent(
 
         Text(
             buildAnnotatedString {
-                withStyle(style = SpanStyle(color = ByeBooTheme.colors.primary300)) {
+                withStyle(style = ByeBooTheme.typography.body1.toSpanStyle()
+                    .copy(color = ByeBooTheme.colors.primary300)) {
                     append(userName)
                 }
-                withStyle(style = SpanStyle(color = ByeBooTheme.colors.gray300)) {
+                withStyle(style = ByeBooTheme.typography.body3.toSpanStyle()
+                    .copy(color = ByeBooTheme.colors.gray300)) {
                     append(guideText)
                 }
             },
-            style = ByeBooTheme.typography.body3,
             textAlign = TextAlign.Center
         )
     }

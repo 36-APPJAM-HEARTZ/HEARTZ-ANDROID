@@ -115,7 +115,7 @@ class ByeBooTypography internal constructor(
 fun ByeBooTypography(): ByeBooTypography {
     return ByeBooTypography(
         head1 = ByeBooTextStyle(
-            fontFamily = pretendardSemiBold,
+            fontFamily = pretendardMedium,
             fontSize = 24.sp,
             lineHeight = 31.sp,
             letterSpacing = 0.em

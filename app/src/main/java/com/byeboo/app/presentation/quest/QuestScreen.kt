@@ -81,9 +81,7 @@ fun QuestScreen(
             questQuestion = uiState.selectedQuest?.questQuestion ?: "",
             navigateToTip = viewModel::onTipClick,
             progressButton = viewModel::onQuestStart,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = screenWidthDp(48.dp))
+            modifier = Modifier.fillMaxWidth()
         )
     }
 
