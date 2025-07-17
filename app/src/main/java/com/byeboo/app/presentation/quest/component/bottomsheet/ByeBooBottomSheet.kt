@@ -92,7 +92,7 @@ fun ByeBooBottomSheet(
                         selectedEmotion = newEmotion
                         onSelectedChanged(newEmotion != null)
                     },
-                    isUploading = isUploading // 전달!
+                    isUploading = isUploading
                 )
 
                 Spacer(modifier = Modifier.height(screenHeightDp(37.dp)))
@@ -118,7 +118,7 @@ fun ByeBooBottomSheet(
 private fun EmotionChipList(
     selectedEmotion: LargeTagType?,
     onEmotionSelected: (LargeTagType) -> Unit,
-    isUploading: Boolean, // ← 추가
+    isUploading: Boolean,
     modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier.padding(horizontal = screenWidthDp(62.dp))) {
