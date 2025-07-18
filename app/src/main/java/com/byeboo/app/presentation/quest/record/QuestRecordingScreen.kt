@@ -109,7 +109,8 @@ fun QuestRecordingScreen(
             quitButton = {
                 viewModel.onDismissModal()
                 viewModel.onQuitClick()
-            }
+            },
+            modifier = Modifier.padding(horizontal = screenWidthDp(24.dp))
         )
     }
 

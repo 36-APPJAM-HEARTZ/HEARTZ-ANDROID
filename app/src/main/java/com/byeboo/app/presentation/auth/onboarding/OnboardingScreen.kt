@@ -127,7 +127,7 @@ fun OnboardingScreen(
 
                     Text(
                         text = content.title,
-                        color = ByeBooTheme.colors.primary900,
+                        color = ByeBooTheme.colors.gray900,
                         style = ByeBooTheme.typography.body3,
                         textAlign = TextAlign.Center
                     )
