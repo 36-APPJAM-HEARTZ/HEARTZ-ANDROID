@@ -45,7 +45,7 @@ fun MiddleTag(
         Text(
             text = tagText,
             color = middleTagColor(middleTagType.textColor),
-            style = ByeBooTheme.typography.cap1
+            style = ByeBooTheme.typography.cap2
         )
     }
 }

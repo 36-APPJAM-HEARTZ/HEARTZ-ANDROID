@@ -47,7 +47,7 @@ fun QuestQuitModal(
         ) {
             Text(
                 text = "작성을 중단하시겠어요?",
-                style = ByeBooTheme.typography.sub2,
+                style = ByeBooTheme.typography.sub3,
                 color = ByeBooTheme.colors.gray50
             )
 
@@ -55,7 +55,7 @@ fun QuestQuitModal(
 
             Text(
                 text = "작성하시던 내용은\n저장되지 않아요.",
-                style = ByeBooTheme.typography.body2,
+                style = ByeBooTheme.typography.body3,
                 color = ByeBooTheme.colors.gray400,
                 textAlign = TextAlign.Center
             )

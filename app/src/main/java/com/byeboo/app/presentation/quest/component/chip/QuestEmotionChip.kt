@@ -37,6 +37,13 @@ fun EmotionChip(
         ByeBooTheme.colors.gray300
     }
 
+    val textStyle = if (isSelected) {
+        ByeBooTheme.typography.body4
+    } else {
+        ByeBooTheme.typography.body5
+    }
+
+
     Column(
         modifier = modifier.then(
             if (onChipClick != null && enabled) {
@@ -60,7 +67,8 @@ fun EmotionChip(
         LargeTag(
             largeTagType = emotionType,
             backgroundColor = backgroundColor,
-            textColor = textColor
+            textColor = textColor,
+            textStyle = textStyle
         )
     }
 }
