@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.screenHeightDp
@@ -88,19 +87,5 @@ fun CustomProgressBar(
                 .fillMaxWidth(progress.coerceIn(0f, 1f))
                 .background(progressColor)
         )
-    }
-}
-
-@Preview
-@Composable
-private fun HomeProgressCardPreview() {
-    ByeBooTheme {
-        Column(modifier = Modifier.padding(16.dp)) {
-            HomeProgressCard(
-                title = "하츠핑님의 자기 성찰 여정",
-                currentStep = 15,
-                totalSteps = 30
-            )
-        }
     }
 }

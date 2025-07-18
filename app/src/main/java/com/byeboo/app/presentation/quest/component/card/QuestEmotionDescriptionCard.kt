@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
@@ -46,16 +45,5 @@ fun QuestEmotionDescriptionCard(
                 color = ByeBooTheme.colors.gray300
             )
         }
-    }
-}
-
-@Preview
-@Composable
-private fun EmotionDescriptionCardPreview() {
-    ByeBooTheme {
-        QuestEmotionDescriptionCard(
-            questEmotionDescription = "마음이 가벼워졌다면 다행이에요. 당신은 지금 아주 건강하게 감정을 정리하고 있어요.",
-            emotionType = LargeTagType.EMOTION_NEUTRAL
-        )
     }
 }
