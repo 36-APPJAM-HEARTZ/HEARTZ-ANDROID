@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest.record
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -96,6 +97,8 @@ fun QuestRecordingScreen(
             bringIntoViewRequester.bringIntoView()
         }
     }
+
+    BackHandler { viewModel.onBackClick() }
 
     if (showQuitModal) {
         QuestQuitModal(
