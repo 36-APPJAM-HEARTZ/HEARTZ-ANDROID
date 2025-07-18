@@ -1,11 +1,11 @@
 <img width="13824" height="5760" alt="byeboo_banner" src="https://github.com/user-attachments/assets/251e7e9a-14dd-4de8-8480-0758559c4e4b" />
 
-# 💔 ByeBoo 서비스 소개
+# <img src="https://github.com/user-attachments/assets/0de35d49-4cff-457e-ada1-38dc904b17e3" height="50"/> ByeBoo 서비스 소개
 > 이별을 **성장의 디딤돌**로 만드는 정서 회복 경험을 제공합니다!<br/>
 >이별 후의 감정을 맞춤형 퀘스트로 정리하고 극복하도록 돕는 감정 케어 서비스 ByeBoo에서 보리와 함께 이별을 극복하세요!<br/>
 <br/>
 
-## ⭐ ByeBoo 주요 기능
+## <img src="https://github.com/user-attachments/assets/41a1bd46-2df1-4a55-b9b2-a9f5b6466bab" height="50"/> ByeBoo 주요 기능
 **➊ 스플래시 & 온보딩**  
 메인 캐릭터 ‘보리’의 스토리와 함께 ByeBoo 서비스의 세계관을 만날 수 있습니다.  
 내러티브 기반 온보딩으로 사용자 몰입을 유도합니다.<br/>
@@ -28,36 +28,32 @@ ByeBoo의 메인 캐릭터인 '보리'를 만나볼 수 있으며<br/>
 
 <br/>
 
+## **<img src="https://github.com/user-attachments/assets/42e2c253-80ba-4b71-89c6-a65af93ba304" height="50"/> Android Developer**
+<img src="https://github.com/user-attachments/assets/ae296261-d17f-42b3-8afb-88f9b68c504f" width="600"><br/>
 
-## **👀 Android Developer**
-
-|이종훈<br/>[@fredleeJH](https://github.com/fredleeJH)|정소희<br/>[@sohee6989](https://github.com/sohee6989)|주아연<br/>[@znayeonzn](https://github.com/znayeonzn)|
+|👑이종훈<br/>[@fredleeJH](https://github.com/fredleeJH)|정소희<br/>[@sohee6989](https://github.com/sohee6989)|주아연<br/>[@znayeonzn](https://github.com/znayeonzn)|
 |:---:|:---:|:---:|
 |<img src="https://github.com/user-attachments/assets/e8e8f4f0-83e5-4a4c-b304-b01a3c43b61d" width="250">|<img src="https://github.com/user-attachments/assets/feaa0eff-85d6-4571-8901-4004b22a58fc" width="250">|<img src="https://github.com/user-attachments/assets/31c5cebb-d1fc-4ca6-973c-098fc3fccafe" width="250">|
-|`온보딩`<br/> `퀘스트 홈`|`질문형 퀘스트`<br/> `마이페이지`|`행동형 퀘스트`|
+| `홈`<br/> `메인 퀘스트`|`질문형 퀘스트`<br/> `마이페이지`|`온보딩`<br/>`행동형 퀘스트`|
 
-</table>
+
 <br/>
 
-<!--*## 📸 시연 영상
-| 정보입력 | 온보딩 |
-|:-:|:-:|
-| <img src="" width="180"/> | <img src="" width="180"/> |
+## 📸 시연 영상
+| 스플래시 | 정보입력 | 퀘스트 온보딩 |
+|:-:|:-:|:-:|
+| <img src="https://github.com/user-attachments/assets/0552be82-dcdd-4fa1-b9f2-d35d82bf09c2" width="180"/> | <img src="https://github.com/user-attachments/assets/8f4285ee-9187-4b38-97bd-5f51ed745920" width="180"/> | <img src="https://github.com/user-attachments/assets/addf272d-2ed0-4939-ad2f-f9da5e3fce22" width="180"/> |
 
 | 퀘스트 홈 | 질문형 퀘스트 작성 | 행동형 퀘스트 작성 |
 |:-:|:-:|:-:|
-| <img src="" width="180"/> | <img src="" width="180"/> | <img src="" width="180"/> | 
+| <img src="https://github.com/user-attachments/assets/a79a7797-a1d0-4e2f-a7fa-d975dd64f164" width="180"/> | <img src="https://github.com/user-attachments/assets/dcd9ffc9-210e-418b-b414-11c25fa2ba03" width="180"/> | <img src="https://github.com/user-attachments/assets/3f00c024-1778-4683-9af3-ac2f0218ba8e" width="180"/> | 
 
 | 퀘스트 TIP | 퀘스트 다시보기 |
 |:-:|:-:|
-| <img src="" width="180"/> | <img src="" width="180"/> |
+| <img src="https://github.com/user-attachments/assets/9da769f5-6db0-4968-8598-24f054dad29e" width="180"/> | <img src="https://github.com/user-attachments/assets/a4d11bb1-7c60-4127-b20e-2d48269c379c" width="180"/> |
 
 
-
-| 마이페이지 |  |  
-|:-:|:-:|
-| <img src="" width="180"/> | <img src="" width="180"/> | 
--->
+<br/>
 
 ## **⚒️ Tech Stacks**
 | 항목              | 기술 스택 |
@@ -106,22 +102,28 @@ ByeBoo의 메인 캐릭터인 '보리'를 만나볼 수 있으며<br/>
 📂 byeboo
 ┣ 📂 core
 ┃ ┣ 📂 designsystem
+┃ ┣ 📂 model
+┃ ┣ 📂 navigation
+┃ ┣ 📂 network
 ┃ ┣ 📂 util
-┃ ┣ 📂 base
 ┣ 📂 data
-┃ ┣ 📂 dto 
-┃ ┣ 📂 service                
-┃ ┣ 📂 datasource            
-┃ ┣ 📂 datasourceimpl       
-┃ ┣ 📂 repositoryimpl   
+┃ ┣ 📂 datasource
+┃ ┣ 📂 datasourceimpl
+┃ ┣ 📂 di
+┃ ┣ 📂 dto
 ┃ ┣ 📂 mapper
+┃ ┣ 📂 repositoryimpl  
+┃ ┣ 📂 service                
 ┣ 📂 domain
 ┃ ┣ 📂 model           
 ┃ ┣ 📂 repository
+┃ ┣ 📂 usecase
 ┣ 📂 feature
+┃ ┣ 📂 auth
 ┃ ┣ 📂 home
-┃ ┃ ┣ 📄 HomeScreen.kt
-┃ ┃ ┣ 📄 HomeViewModel.kt
-┃ ┃ ┣ 📄 HomeUiState.kt
+┃ ┣ 📂 main
+┃ ┣ 📂 mypage
+┃ ┣ 📂 quest
+┃ ┣ 📂 splash
 
 ```
