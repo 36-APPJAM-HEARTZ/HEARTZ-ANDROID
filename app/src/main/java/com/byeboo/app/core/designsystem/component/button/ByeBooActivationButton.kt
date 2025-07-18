@@ -28,10 +28,10 @@ fun ByeBooActivationButton(
     isEnabled: Boolean = false
 ) {
     val byebooColor = ByeBooTheme.colors
-    val buttonBackgroundColor by remember {
+    val buttonBackgroundColor = remember {
         if (isEnabled) byebooColor.primary300 else buttonDisableColor
     }
-    val buttonTextColor by remember {
+    val buttonTextColor = remember {
         if (isEnabled) byebooColor.white else buttonDisableTextColor
     }
 
