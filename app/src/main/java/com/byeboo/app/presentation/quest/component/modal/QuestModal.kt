@@ -65,7 +65,7 @@ fun QuestModal(
 
             Text(
                 text = "${questNumber}번째 퀘스트",
-                style = ByeBooTheme.typography.body2,
+                style = ByeBooTheme.typography.body3,
                 color = ByeBooTheme.colors.gray400
             )
 
@@ -73,7 +73,7 @@ fun QuestModal(
 
             Text(
                 text = questQuestion,
-                style = ByeBooTheme.typography.sub2,
+                style = ByeBooTheme.typography.sub3,
                 color = ByeBooTheme.colors.gray50,
                 textAlign = TextAlign.Center
             )
@@ -86,7 +86,7 @@ fun QuestModal(
                         append(text = "작성 TIP")
                     }
                 },
-                style = ByeBooTheme.typography.body4,
+                style = ByeBooTheme.typography.body5,
                 color = ByeBooTheme.colors.gray300,
                 modifier = Modifier.clickable { navigateToTip() }
             )

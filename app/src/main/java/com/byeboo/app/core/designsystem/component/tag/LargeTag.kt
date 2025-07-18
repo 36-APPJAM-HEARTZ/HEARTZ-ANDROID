@@ -11,9 +11,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.type.LargeTagType
-import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
 
@@ -22,6 +22,7 @@ fun LargeTag(
     largeTagType: LargeTagType,
     backgroundColor: Color,
     textColor: Color,
+    textStyle: TextStyle,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -38,7 +39,7 @@ fun LargeTag(
         Text(
             text = stringResource(largeTagType.titleResId),
             color = textColor,
-            style = ByeBooTheme.typography.body4
+            style = textStyle
         )
     }
 }
