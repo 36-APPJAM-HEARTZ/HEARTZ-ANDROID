@@ -8,7 +8,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.screenHeightDp
@@ -34,13 +33,5 @@ fun ContentText(
             style = ByeBooTheme.typography.body5,
             color = ByeBooTheme.colors.gray300
         )
-    }
-}
-
-@Preview()
-@Composable
-private fun ContentTextPreview() {
-    ByeBooTheme {
-        ContentText("내용을 입력해주세요.")
     }
 }

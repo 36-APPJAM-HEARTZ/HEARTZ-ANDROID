@@ -18,7 +18,6 @@ import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
@@ -83,17 +82,6 @@ fun GuideContent(
                 }
             },
             textAlign = TextAlign.Center
-        )
-    }
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFF000000)
-@Composable
-fun GuideContentPreview() {
-    ByeBooTheme {
-        GuideContent(
-            userName = "하츠핑",
-            guideText = "님의 상황에 꼭 맞춘\n자기 성찰 여정의 퀘스트 30개를 드릴게요.\n\n제가 드리는 퀘스트와 함께\n이별을 극복해나가요!"
         )
     }
 }

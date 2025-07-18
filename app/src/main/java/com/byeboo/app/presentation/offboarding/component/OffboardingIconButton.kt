@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
@@ -51,17 +50,6 @@ fun OffboardingIconButton(
             text = "새로운 이별 극복 여정 시작하기",
             style = ByeBooTheme.typography.body1,
             color = ByeBooTheme.colors.white
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun OffboardingIconButtonPreview() {
-    ByeBooTheme {
-        OffboardingIconButton(
-            onClick = {},
-            modifier = Modifier.width(312.5.dp)
         )
     }
 }

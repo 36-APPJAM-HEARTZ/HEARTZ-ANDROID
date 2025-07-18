@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -89,17 +88,5 @@ fun OffboardingModal(
                 buttonBackgroundColor = ByeBooTheme.colors.primary300
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun OffboardingModalPreview() {
-    ByeBooTheme {
-        OffboardingModal(
-            onClick = {},
-            titleText = "감정 직면 여정을\n모두 마무리 했어요",
-            guideText = "보리가 하츠핑님께\n하고싶은 말이 있다고 해요"
-        )
     }
 }

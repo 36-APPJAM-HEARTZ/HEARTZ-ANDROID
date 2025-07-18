@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
@@ -57,18 +56,6 @@ fun QuestJourneyTitle(
             text = "오늘도 한 걸음 나아가볼까요?",
             color = ByeBooTheme.colors.gray400,
             style = ByeBooTheme.typography.body5
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun QuestJourneyTitlePreview() {
-    ByeBooTheme {
-        QuestJourneyTitle(
-            dayCount = 10,
-            nickname = "하츠핑",
-            questTitle = QuestType.ACTIVE
         )
     }
 }
