@@ -5,9 +5,9 @@ import com.byeboo.app.data.mapper.quest.toData
 import com.byeboo.app.domain.model.quest.BehaviorAnswerRequestModel
 import com.byeboo.app.domain.model.quest.SignedUrlRequestModel
 import com.byeboo.app.domain.repository.quest.QuestBehaviorAnswerRepository
+import javax.inject.Inject
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
-import javax.inject.Inject
 
 class QuestBehaviorAnswerRepositoryImpl @Inject constructor(
     private val questBehaviorAnswerDataSource: QuestBehaviorAnswerDataSource

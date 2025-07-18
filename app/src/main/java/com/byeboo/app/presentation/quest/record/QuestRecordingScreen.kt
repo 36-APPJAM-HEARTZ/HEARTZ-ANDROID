@@ -45,9 +45,9 @@ import com.byeboo.app.core.util.addFocusCleaner
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
 import com.byeboo.app.domain.model.quest.QuestContentLengthValidator
+import com.byeboo.app.presentation.quest.component.bottomsheet.ByeBooBottomSheet
 import com.byeboo.app.presentation.quest.component.modal.QuestQuitModal
 import com.byeboo.app.presentation.quest.component.text.textfield.QuestTextField
-import com.byeboo.app.presentation.quest.component.bottomsheet.ByeBooBottomSheet
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
@@ -109,7 +109,8 @@ fun QuestRecordingScreen(
             quitButton = {
                 viewModel.onDismissModal()
                 viewModel.onQuitClick()
-            }
+            },
+            modifier = Modifier.padding(horizontal = screenWidthDp(24.dp))
         )
     }
 

@@ -1,7 +1,5 @@
 package com.byeboo.app.domain.model.quest
 
-import com.byeboo.app.domain.model.quest.QuestWritingState
-
 object QuestContentLengthValidator {
     fun validate(isFocused: Boolean, text: String, maxLength: Int = 500): QuestWritingState {
         return when {

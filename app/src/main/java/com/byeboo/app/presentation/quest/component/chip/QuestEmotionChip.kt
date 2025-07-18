@@ -43,7 +43,6 @@ fun EmotionChip(
         ByeBooTheme.typography.body5
     }
 
-
     Column(
         modifier = modifier.then(
             if (onChipClick != null && enabled) {

@@ -22,7 +22,7 @@ class OnboardingViewModel @Inject constructor() : ViewModel() {
             ),
 
             OnboardingState(
-                title = "이별 후 걸림돌 같은 감정들을 털어놔주시면\n제 안에서 감정돌이 되어 쌓여요.",
+                title = "이별 후 걸림돌 같은 감정들을 털어놔 주시면\n제 안에서 감정돌이 되어 쌓여요.",
                 imageRes = R.drawable.img_onboarding_2nd
             )
         ),
@@ -44,7 +44,7 @@ class OnboardingViewModel @Inject constructor() : ViewModel() {
                 title = "자, 이제 시간이 됐어요.\n\n" +
                     "당신에게 꼭 맞는 이별 극복 여정에 따라\n" +
                     "퀘스트를 하나하나씩 진행하면서\n" +
-                    "감정을 정리하고, 극복해보아요.\n\n" +
+                    "감정을 정리하고, 극복해 보아요.\n\n" +
                     "저 보리가 항상 함께할게요.",
                 imageRes = R.drawable.img_onboarding_5th
             )

@@ -32,7 +32,7 @@ fun LargeTag(
                 color = backgroundColor,
                 shape = RoundedCornerShape(largeTagType.roundedCorner)
             )
-            .padding(vertical = screenHeightDp(largeTagType.verticalPadding),),
+            .padding(vertical = screenHeightDp(largeTagType.verticalPadding)),
         contentAlignment = Alignment.Center
 
     ) {
