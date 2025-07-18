@@ -41,8 +41,8 @@ import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
-import com.byeboo.app.presentation.quest.component.text.QuestContent
 import com.byeboo.app.presentation.quest.component.card.QuestEmotionDescriptionCard
+import com.byeboo.app.presentation.quest.component.text.QuestContent
 import com.byeboo.app.presentation.quest.component.text.QuestTitle
 import com.byeboo.app.presentation.quest.component.type.QuestContentType
 import kotlinx.coroutines.flow.collectLatest

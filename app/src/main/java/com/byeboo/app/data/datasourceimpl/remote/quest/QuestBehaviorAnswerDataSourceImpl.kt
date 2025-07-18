@@ -7,9 +7,9 @@ import com.byeboo.app.data.dto.request.quest.QuestBehaviorAnswerRequestDto
 import com.byeboo.app.data.dto.request.quest.QuestSignedUrlRequestDto
 import com.byeboo.app.data.dto.response.quest.QuestSingedUrlResponseDto
 import com.byeboo.app.data.service.quest.QuestBehaviorService
+import javax.inject.Inject
 import okhttp3.RequestBody
 import retrofit2.Response
-import javax.inject.Inject
 
 class QuestBehaviorAnswerDataSourceImpl @Inject constructor(
     private val questBehaviorService: QuestBehaviorService

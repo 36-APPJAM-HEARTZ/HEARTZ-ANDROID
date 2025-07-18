@@ -28,10 +28,10 @@ import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.model.quest.QuestType
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
-import com.byeboo.app.presentation.quest.model.QuestSideEffect
 import com.byeboo.app.presentation.quest.component.chip.QuestBox
 import com.byeboo.app.presentation.quest.component.modal.QuestModal
 import com.byeboo.app.presentation.quest.component.text.QuestStepTitle
+import com.byeboo.app.presentation.quest.model.QuestSideEffect
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
