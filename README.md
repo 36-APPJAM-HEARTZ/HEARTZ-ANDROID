@@ -42,15 +42,15 @@ ByeBoo의 메인 캐릭터인 '보리'를 만나볼 수 있으며<br/>
 ## 📸 시연 영상
 | 스플래시 | 정보입력 | 퀘스트 온보딩 |
 |:-:|:-:|:-:|
-| <img src="https://github.com/user-attachments/assets/0552be82-dcdd-4fa1-b9f2-d35d82bf09c2" width="180"/> | <img src="https://github.com/user-attachments/assets/8f4285ee-9187-4b38-97bd-5f51ed745920" width="180"/> | <img src="https://github.com/user-attachments/assets/addf272d-2ed0-4939-ad2f-f9da5e3fce22" width="180"/> |
+| <img src="https://github.com/user-attachments/assets/0552be82-dcdd-4fa1-b9f2-d35d82bf09c2" width="250"/> | <img src="https://github.com/user-attachments/assets/8f4285ee-9187-4b38-97bd-5f51ed745920" width="250"/> | <img src="https://github.com/user-attachments/assets/addf272d-2ed0-4939-ad2f-f9da5e3fce22" width="250"/> |
 
 | 퀘스트 홈 | 질문형 퀘스트 작성 | 행동형 퀘스트 작성 |
 |:-:|:-:|:-:|
-| <img src="https://github.com/user-attachments/assets/a79a7797-a1d0-4e2f-a7fa-d975dd64f164" width="180"/> | <img src="https://github.com/user-attachments/assets/dcd9ffc9-210e-418b-b414-11c25fa2ba03" width="180"/> | <img src="https://github.com/user-attachments/assets/3f00c024-1778-4683-9af3-ac2f0218ba8e" width="180"/> | 
+| <img src="https://github.com/user-attachments/assets/a79a7797-a1d0-4e2f-a7fa-d975dd64f164" width="250"/> | <img src="https://github.com/user-attachments/assets/dcd9ffc9-210e-418b-b414-11c25fa2ba03" width="250"/> | <img src="https://github.com/user-attachments/assets/3f00c024-1778-4683-9af3-ac2f0218ba8e" width="250"/> | 
 
 | 퀘스트 TIP | 퀘스트 다시보기 |
 |:-:|:-:|
-| <img src="https://github.com/user-attachments/assets/9da769f5-6db0-4968-8598-24f054dad29e" width="180"/> | <img src="https://github.com/user-attachments/assets/a4d11bb1-7c60-4127-b20e-2d48269c379c" width="180"/> |
+| <img src="https://github.com/user-attachments/assets/9da769f5-6db0-4968-8598-24f054dad29e" width="250"/> | <img src="https://github.com/user-attachments/assets/a4d11bb1-7c60-4127-b20e-2d48269c379c" width="250"/> |
 
 
 <br/>
