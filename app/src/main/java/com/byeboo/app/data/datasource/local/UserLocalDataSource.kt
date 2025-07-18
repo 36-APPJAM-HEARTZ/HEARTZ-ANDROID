@@ -1,6 +1,6 @@
 package com.byeboo.app.data.datasource.local
 
-import com.byeboo.app.core.model.UserEntity
+import com.byeboo.app.core.model.auth.UserEntity
 import kotlinx.coroutines.flow.Flow
 
 interface UserLocalDataSource {

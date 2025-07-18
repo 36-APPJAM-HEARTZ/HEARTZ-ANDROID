@@ -1,8 +1,8 @@
 package com.byeboo.app.domain.usecase
 
-import com.byeboo.app.domain.model.BehaviorAnswerRequestModel
-import com.byeboo.app.domain.model.SignedUrlRequestModel
-import com.byeboo.app.domain.repository.QuestBehaviorAnswerRepository
+import com.byeboo.app.domain.model.quest.BehaviorAnswerRequestModel
+import com.byeboo.app.domain.model.quest.SignedUrlRequestModel
+import com.byeboo.app.domain.repository.quest.QuestBehaviorAnswerRepository
 import javax.inject.Inject
 
 class UploadImageUseCase @Inject constructor(

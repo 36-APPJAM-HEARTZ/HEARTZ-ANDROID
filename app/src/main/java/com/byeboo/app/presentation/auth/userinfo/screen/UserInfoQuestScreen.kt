@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.R
 import com.byeboo.app.core.designsystem.component.text.DescriptionText
-import com.byeboo.app.domain.model.QuestStyle
+import com.byeboo.app.domain.model.auth.QuestStyle
 import com.byeboo.app.presentation.auth.userinfo.component.UserInfoQuestCard
 import kotlinx.collections.immutable.persistentListOf
 

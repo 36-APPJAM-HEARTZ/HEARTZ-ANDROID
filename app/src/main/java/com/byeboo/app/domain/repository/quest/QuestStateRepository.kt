@@ -2,7 +2,6 @@ package com.byeboo.app.domain.repository.quest
 
 import com.byeboo.app.domain.model.quest.QuestDialogue
 import com.byeboo.app.domain.model.quest.QuestStateModel
-import com.byeboo.app.domain.model.quest.QuestTip
 import kotlinx.coroutines.flow.Flow
 
 interface QuestStateRepository {

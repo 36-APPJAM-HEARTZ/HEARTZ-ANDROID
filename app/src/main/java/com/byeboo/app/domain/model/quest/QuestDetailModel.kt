@@ -1,6 +1,6 @@
 package com.byeboo.app.domain.model.quest
 
-import com.byeboo.app.domain.model.QuestStyle
+import com.byeboo.app.domain.model.auth.QuestStyle
 
 data class QuestDetailModel(
     val step: String,

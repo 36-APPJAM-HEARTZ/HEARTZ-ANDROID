@@ -1,7 +1,7 @@
 package com.byeboo.app.data.di
 
-import com.byeboo.app.data.repositoryimpl.QuestBehaviorAnswerRepositoryImpl
-import com.byeboo.app.data.repositoryimpl.QuestInProgressRepositoryImpl
+import com.byeboo.app.data.repositoryimpl.quest.QuestBehaviorAnswerRepositoryImpl
+import com.byeboo.app.data.repositoryimpl.quest.QuestInProgressRepositoryImpl
 import com.byeboo.app.data.repositoryimpl.auth.TokenRepositoryImpl
 import com.byeboo.app.data.repositoryimpl.auth.UserRepositoryImpl
 import com.byeboo.app.data.repositoryimpl.quest.QuestRecordedDetailRepositoryImpl
@@ -9,16 +9,16 @@ import com.byeboo.app.data.repositoryimpl.quest.QuestStateRepositoryImpl
 import com.byeboo.app.data.repositoryimpl.quest.QuestTipRepositoryImpl
 import com.byeboo.app.data.repositoryimpl.quest.behavior.QuestDetailBehaviorRepositoryImpl
 import com.byeboo.app.data.repositoryimpl.quest.recording.QuestDetailRecordingRepositoryImpl
-import com.byeboo.app.domain.repository.quest.QuestStateRepository
 import com.byeboo.app.data.repositoryimpl.quest.recording.QuestRecordingRepositoryImpl
-import com.byeboo.app.domain.repository.QuestBehaviorAnswerRepository
-import com.byeboo.app.domain.repository.QuestInProgressRepository
-import com.byeboo.app.domain.repository.TokenRepository
-import com.byeboo.app.domain.repository.UserRepository
+import com.byeboo.app.domain.repository.quest.QuestBehaviorAnswerRepository
+import com.byeboo.app.domain.repository.quest.QuestInProgressRepository
+import com.byeboo.app.domain.repository.auth.TokenRepository
+import com.byeboo.app.domain.repository.auth.UserRepository
 import com.byeboo.app.domain.repository.quest.QuestDetailBehaviorRepository
 import com.byeboo.app.domain.repository.quest.QuestDetailRecordingRepository
 import com.byeboo.app.domain.repository.quest.QuestRecordedDetailRepository
 import com.byeboo.app.domain.repository.quest.QuestRecordingRepository
+import com.byeboo.app.domain.repository.quest.QuestStateRepository
 import com.byeboo.app.domain.repository.quest.QuestTipRepository
 import dagger.Binds
 import dagger.Module
@@ -35,11 +35,15 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindQuestDetailBehaviorRepository(questDetailBehaviorRepositoryImpl: QuestDetailBehaviorRepositoryImpl) : QuestDetailBehaviorRepository
+    abstract fun bindQuestDetailBehaviorRepository(
+        questDetailBehaviorRepositoryImpl: QuestDetailBehaviorRepositoryImpl
+    ): QuestDetailBehaviorRepository
 
     @Binds
     @Singleton
-    abstract fun bindQuestDetailRecordingRepository(questDetailRecordingRepositoryImpl: QuestDetailRecordingRepositoryImpl): QuestDetailRecordingRepository
+    abstract fun bindQuestDetailRecordingRepository(
+        questDetailRecordingRepositoryImpl: QuestDetailRecordingRepositoryImpl
+    ): QuestDetailRecordingRepository
 
     @Binds
     @Singleton
@@ -51,11 +55,15 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindsQuestInProgressRepository(questInProgressRepositoryImpl: QuestInProgressRepositoryImpl): QuestInProgressRepository
+    abstract fun bindsQuestInProgressRepository(
+        questInProgressRepositoryImpl: QuestInProgressRepositoryImpl
+    ): QuestInProgressRepository
 
     @Binds
     @Singleton
-    abstract fun bindQuestBehaviorAnswerRepository(questBehaviorAnswerRepositoryImpl: QuestBehaviorAnswerRepositoryImpl): QuestBehaviorAnswerRepository
+    abstract fun bindQuestBehaviorAnswerRepository(
+        questBehaviorAnswerRepositoryImpl: QuestBehaviorAnswerRepositoryImpl
+    ): QuestBehaviorAnswerRepository
 
     @Binds
     @Singleton
@@ -63,9 +71,13 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindQuestRecordingRepository(questRecordingRepositoryImpl: QuestRecordingRepositoryImpl): QuestRecordingRepository
+    abstract fun bindQuestRecordingRepository(
+        questRecordingRepositoryImpl: QuestRecordingRepositoryImpl
+    ): QuestRecordingRepository
 
     @Binds
     @Singleton
-    abstract fun bindQuestRecordedDetailRepository(questRecordedDetailRepositoryImpl: QuestRecordedDetailRepositoryImpl): QuestRecordedDetailRepository
+    abstract fun bindQuestRecordedDetailRepository(
+        questRecordedDetailRepositoryImpl: QuestRecordedDetailRepositoryImpl
+    ): QuestRecordedDetailRepository
 }

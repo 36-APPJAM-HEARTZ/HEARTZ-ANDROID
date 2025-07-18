@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.HorizontalPager
@@ -37,7 +39,7 @@ import com.byeboo.app.core.util.addFocusCleaner
 import com.byeboo.app.core.util.noRippleClickable
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
-import com.byeboo.app.domain.model.NicknameValidationResult
+import com.byeboo.app.domain.model.auth.NicknameValidationResult
 import com.byeboo.app.presentation.auth.userinfo.component.StepProgressBar
 import com.byeboo.app.presentation.auth.userinfo.model.toValidationState
 import com.byeboo.app.presentation.auth.userinfo.screen.UserInfoEmotionScreen
@@ -109,23 +111,29 @@ fun UserInfoScreen(
                 .padding(horizontal = screenWidthDp(24.dp))
         ) {
             Spacer(modifier = Modifier.padding(top = screenHeightDp(padding + 27.dp)))
-            if (pagerState.currentPage != 0) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
-                    contentDescription = "뒤로가기",
-                    tint = ByeBooTheme.colors.white,
-                    modifier = Modifier
-                        .size(24.dp)
-                        .noRippleClickable {
-                            coroutineScope.launch {
-                                val targetPage = pagerState.currentPage - 1
-                                previousPage = pagerState.currentPage
-                                pagerState.scrollToPage(targetPage)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(24.dp)
+            ) {
+                if (pagerState.currentPage != 0) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_left),
+                        contentDescription = "뒤로가기",
+                        tint = ByeBooTheme.colors.white,
+                        modifier = Modifier
+                            .size(24.dp)
+                            .noRippleClickable {
+                                coroutineScope.launch {
+                                    val targetPage = pagerState.currentPage - 1
+                                    previousPage = pagerState.currentPage
+                                    pagerState.scrollToPage(targetPage)
+                                }
                             }
-                        }
-                )
+                    )
+                }
             }
-            Spacer(modifier = Modifier.padding(top = 16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             StepProgressBar(currentStep = pagerState.currentPage + 1)
 

@@ -1,5 +1,6 @@
 package com.byeboo.app.presentation.quest.record
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -39,13 +40,13 @@ import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.model.QuestType
+import com.byeboo.app.core.model.quest.QuestType
 import com.byeboo.app.core.util.addFocusCleaner
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
-import com.byeboo.app.domain.model.QuestContentLengthValidator
-import com.byeboo.app.presentation.quest.component.QuestQuitModal
-import com.byeboo.app.presentation.quest.component.QuestTextField
+import com.byeboo.app.domain.model.quest.QuestContentLengthValidator
+import com.byeboo.app.presentation.quest.component.modal.QuestQuitModal
+import com.byeboo.app.presentation.quest.component.text.textfield.QuestTextField
 import com.byeboo.app.presentation.quest.component.bottomsheet.ByeBooBottomSheet
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -96,6 +97,8 @@ fun QuestRecordingScreen(
             bringIntoViewRequester.bringIntoView()
         }
     }
+
+    BackHandler { viewModel.onBackClick() }
 
     if (showQuitModal) {
         QuestQuitModal(
@@ -217,7 +220,7 @@ fun QuestRecordingScreen(
                         placeholder = "글로 적다 보면, 스스로에게 한 걸음 더 가까워질 수 있어요.",
                         onFocusChanged = {
                             isFocused.value = it
-                        },
+                        }
                     )
                     Spacer(modifier = Modifier.height(screenHeightDp(16.dp)))
 

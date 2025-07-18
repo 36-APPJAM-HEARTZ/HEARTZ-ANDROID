@@ -1,6 +1,5 @@
 package com.byeboo.app.core.designsystem.type
 
-import android.R.attr.entries
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.ui.unit.Dp

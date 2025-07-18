@@ -1,8 +1,8 @@
 package com.byeboo.app.presentation.auth.userinfo
 
-import com.byeboo.app.domain.model.Feeling
-import com.byeboo.app.domain.model.NicknameValidationResult
-import com.byeboo.app.domain.model.QuestStyle
+import com.byeboo.app.domain.model.auth.Feeling
+import com.byeboo.app.domain.model.auth.NicknameValidationResult
+import com.byeboo.app.domain.model.auth.QuestStyle
 
 data class UserInfoState(
     val nickname: String = "",

@@ -84,7 +84,7 @@ fun HomeAmuletScreen(
                             textAlign = TextAlign.Center,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(bottom = screenHeightDp(32.dp)),
+                                .padding(bottom = screenHeightDp(32.dp))
                         )
                     }
                 }

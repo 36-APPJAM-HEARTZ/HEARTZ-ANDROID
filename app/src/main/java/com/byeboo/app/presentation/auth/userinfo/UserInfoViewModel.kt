@@ -2,14 +2,14 @@ package com.byeboo.app.presentation.auth.userinfo
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.byeboo.app.domain.model.Feeling
-import com.byeboo.app.domain.model.NicknameValidationResult
-import com.byeboo.app.domain.model.NicknameValidator
-import com.byeboo.app.domain.model.QuestStyle
-import com.byeboo.app.domain.model.UserInfoModel
-import com.byeboo.app.domain.model.toJourneyText
+import com.byeboo.app.domain.model.auth.Feeling
+import com.byeboo.app.domain.model.auth.NicknameValidationResult
+import com.byeboo.app.domain.model.auth.NicknameValidator
+import com.byeboo.app.domain.model.auth.QuestStyle
+import com.byeboo.app.domain.model.auth.UserInfoModel
+import com.byeboo.app.domain.model.auth.toJourneyText
+import com.byeboo.app.domain.repository.auth.UserRepository
 import com.byeboo.app.domain.repository.quest.QuestStateRepository
-import com.byeboo.app.domain.repository.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow

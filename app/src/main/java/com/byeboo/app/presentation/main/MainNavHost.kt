@@ -46,7 +46,6 @@ fun MainNavHost(
         navController = navigator.navController,
         startDestination = navigator.startDestination
     ) {
-
         splashGraph(
             navigateToHome = { navigator.navigateToHome(clearStackNavOptions) },
             navigateToOnboarding = { navigator.navigateToOnboarding(clearStackNavOptions) },
@@ -69,12 +68,27 @@ fun MainNavHost(
         questGraph(
             navigateToQuest = { navigator.navigateToQuest(clearStackNavOptions) },
             navigateToHome = { navigator.navigateToHome(clearStackNavOptions) },
-            navigateToQuestRecording = { questId,  -> navigator.navigateToQuestRecording(questId) },
+            navigateToQuestRecording = { questId -> navigator.navigateToQuestRecording(questId) },
             navigateToQuestBehavior = { questId -> navigator.navigateToQuestBehavior(questId) },
             navigateToQuestReview = { questId -> navigator.navigateToQuestReview(questId) },
-            navigateToQuestRecordingComplete = { questId -> navigator.navigateToQuestRecordingComplete(questId, clearStackNavOptions) },
-            navigateToQuestTip = { questId, questType -> navigator.navigateToQuestTip(questId, questType) },
-            navigateToQuestBehaviorComplete = { questId -> navigator.navigateToQuestBehaviorComplete(questId, clearStackNavOptions) },
+            navigateToQuestRecordingComplete = { questId ->
+                navigator.navigateToQuestRecordingComplete(
+                    questId,
+                    clearStackNavOptions
+                )
+            },
+            navigateToQuestTip = { questId, questType ->
+                navigator.navigateToQuestTip(
+                    questId,
+                    questType
+                )
+            },
+            navigateToQuestBehaviorComplete = { questId ->
+                navigator.navigateToQuestBehaviorComplete(
+                    questId,
+                    clearStackNavOptions
+                )
+            },
             navigateUp = navigator::navigateUp,
             viewModel = questBehaviorViewModel,
             padding = padding

@@ -25,12 +25,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.byeboo.app.core.designsystem.component.button.ByeBooActivationButton
-import com.byeboo.app.core.designsystem.component.chip.EmotionChip
+import com.byeboo.app.presentation.quest.component.chip.EmotionChip
 import com.byeboo.app.core.designsystem.type.LargeTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,7 +44,7 @@ fun ByeBooBottomSheet(
     isBackgroundDimmed: Boolean = true,
     dragHandle: @Composable () -> Unit = {},
     isSelected: Boolean = false,
-    isUploading: Boolean = false,
+    isUploading: Boolean = false
 ) {
     if (showBottomSheet) {
         ModalBottomSheet(

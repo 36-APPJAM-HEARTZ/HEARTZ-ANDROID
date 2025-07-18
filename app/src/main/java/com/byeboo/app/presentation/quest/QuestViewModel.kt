@@ -2,11 +2,14 @@ package com.byeboo.app.presentation.quest
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.byeboo.app.core.model.QuestType
+import com.byeboo.app.core.model.quest.QuestType
 import com.byeboo.app.domain.usecase.QuestUseCase
 import com.byeboo.app.presentation.quest.model.Quest
 import com.byeboo.app.presentation.quest.model.QuestGroup
+import com.byeboo.app.presentation.quest.model.QuestSideEffect
+import com.byeboo.app.presentation.quest.model.QuestState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,7 +17,6 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class QuestViewModel @Inject constructor(

@@ -44,7 +44,7 @@ fun MyPageScreen(
             .fillMaxSize()
             .background(ByeBooTheme.colors.black)
             .padding(horizontal = screenWidthDp(24.dp))
-            .padding(top = screenHeightDp(67.dp)),
+            .padding(top = screenHeightDp(67.dp))
     ) {
         Text(
             text = "마이페이지",
@@ -106,7 +106,11 @@ fun MyPageScreen(
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(12.dp))
                 .background(color = ByeBooTheme.colors.whiteAlpha10)
-                .border(width = 1.dp, color = ByeBooTheme.colors.primary300, shape = RoundedCornerShape(12.dp))
+                .border(
+                    width = 1.dp,
+                    color = ByeBooTheme.colors.primary300,
+                    shape = RoundedCornerShape(12.dp)
+                )
                 .padding(horizontal = screenWidthDp(24.dp), vertical = screenHeightDp(21.dp))
         ) {
             Text(

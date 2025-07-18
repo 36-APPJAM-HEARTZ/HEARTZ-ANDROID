@@ -142,14 +142,20 @@ fun HomeOnboardingScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = screenHeightDp(bottomPadding + 89.dp))
-                    .noRippleCombineClickable(
-                        onLongClick = {
-                            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-                            isTransitioning = true
-                            scope.launch {
-                                delay(500)
-                                navigateToHome()
-                            }
+                    .then(
+                        if (showSpeechBubble) {
+                            Modifier.noRippleCombineClickable(
+                                onLongClick = {
+                                    haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+                                    isTransitioning = true
+                                    scope.launch {
+                                        delay(500)
+                                        navigateToHome()
+                                    }
+                                }
+                            )
+                        } else {
+                            Modifier
                         }
                     ),
                 contentScale = ContentScale.Crop

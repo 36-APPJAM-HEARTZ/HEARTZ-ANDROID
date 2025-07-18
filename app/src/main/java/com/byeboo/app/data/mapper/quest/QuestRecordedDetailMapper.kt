@@ -1,6 +1,6 @@
 package com.byeboo.app.data.mapper.quest
 
-import com.byeboo.app.data.dto.response.QuestRecordedDetailResponseDto
+import com.byeboo.app.data.dto.response.quest.QuestRecordedDetailResponseDto
 import com.byeboo.app.domain.model.quest.QuestRecordedDetailModel
 
 fun QuestRecordedDetailResponseDto.toDomain(): QuestRecordedDetailModel {

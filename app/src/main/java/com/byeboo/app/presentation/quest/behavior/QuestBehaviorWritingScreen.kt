@@ -1,6 +1,7 @@
 package com.byeboo.app.presentation.quest.behavior
 
 import QuestPhotoPicker
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,13 +41,13 @@ import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.tag.SmallTag
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.model.QuestType
+import com.byeboo.app.core.model.quest.QuestType
 import com.byeboo.app.core.util.addFocusCleaner
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
-import com.byeboo.app.domain.model.QuestValidator
-import com.byeboo.app.presentation.quest.component.QuestQuitModal
-import com.byeboo.app.presentation.quest.component.QuestTextField
+import com.byeboo.app.domain.model.quest.QuestValidator
+import com.byeboo.app.presentation.quest.component.modal.QuestQuitModal
+import com.byeboo.app.presentation.quest.component.text.textfield.QuestTextField
 import com.byeboo.app.presentation.quest.component.bottomsheet.ByeBooBottomSheet
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -103,7 +104,8 @@ fun QuestBehaviorWritingScreen(
             quitButton = {
                 viewModel.onDismissModal()
                 viewModel.onQuitClick()
-            }
+            },
+            modifier = Modifier.padding(horizontal = 24.dp)
         )
     }
 
@@ -113,6 +115,8 @@ fun QuestBehaviorWritingScreen(
             bringIntoViewRequester.bringIntoView()
         }
     }
+
+    BackHandler { viewModel.onBackClicked() }
 
     Column(
         modifier = modifier

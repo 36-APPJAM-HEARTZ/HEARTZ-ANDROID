@@ -25,12 +25,13 @@ import com.byeboo.app.core.designsystem.component.tag.MiddleTag
 import com.byeboo.app.core.designsystem.component.text.DescriptionText
 import com.byeboo.app.core.designsystem.type.MiddleTagType
 import com.byeboo.app.core.designsystem.ui.theme.ByeBooTheme
-import com.byeboo.app.core.model.QuestType
+import com.byeboo.app.core.model.quest.QuestType
 import com.byeboo.app.core.util.screenHeightDp
 import com.byeboo.app.core.util.screenWidthDp
-import com.byeboo.app.presentation.quest.component.QuestBox
-import com.byeboo.app.presentation.quest.component.QuestModal
-import com.byeboo.app.presentation.quest.component.QuestStepTitle
+import com.byeboo.app.presentation.quest.model.QuestSideEffect
+import com.byeboo.app.presentation.quest.component.chip.QuestBox
+import com.byeboo.app.presentation.quest.component.modal.QuestModal
+import com.byeboo.app.presentation.quest.component.text.QuestStepTitle
 import kotlinx.coroutines.flow.collectLatest
 
 @Composable
@@ -57,7 +58,6 @@ fun QuestScreen(
         }
     }
 
-
     LaunchedEffect(Unit) {
         viewModel.sideEffect.collectLatest {
             when (it) {
@@ -81,7 +81,9 @@ fun QuestScreen(
             questQuestion = uiState.selectedQuest?.questQuestion ?: "",
             navigateToTip = viewModel::onTipClick,
             progressButton = viewModel::onQuestStart,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = screenWidthDp(24.dp))
         )
     }
 
@@ -104,7 +106,8 @@ fun QuestScreen(
                 nicknameText = "${uiState.userName}님, 지금",
                 title = "${uiState.journeyTitle} 여정",
                 guideText = "을 진행 중이에요",
-                contentText = "오늘도 한 걸음 나아가볼까요?"
+                contentText = "오늘도 한 걸음 나아가볼까요?",
+                bottom = 18.dp
             )
         }
         LazyColumn(
@@ -121,14 +124,14 @@ fun QuestScreen(
                         HorizontalDivider(
                             thickness = 1.dp,
                             color = ByeBooTheme.colors.whiteAlpha10,
-                            modifier = Modifier.padding(vertical = screenHeightDp(8.dp))
+                            modifier = Modifier.padding(vertical = 8.dp)
                         )
-                        Spacer(modifier = Modifier.padding(top = screenHeightDp(24.dp)))
+                        Spacer(modifier = Modifier.padding(top = 24.dp))
                         QuestStepTitle(
                             stepNumber = (stepIndex + 1).toLong(),
                             stepTitle = group.stepTitle
                         )
-                        Spacer(modifier = Modifier.padding(top = screenHeightDp(8.dp)))
+                        Spacer(modifier = Modifier.padding(top = 8.dp))
                     }
                 }
                 val questChunks = group.quests.chunked(3)
@@ -136,7 +139,7 @@ fun QuestScreen(
                     item(key = "quest_row_${stepIndex}_$chunkIndex") {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(21.dp)
+                            horizontalArrangement = Arrangement.spacedBy(screenWidthDp(21.dp))
                         ) {
                             questChunk.forEach { quest ->
                                 QuestBox(

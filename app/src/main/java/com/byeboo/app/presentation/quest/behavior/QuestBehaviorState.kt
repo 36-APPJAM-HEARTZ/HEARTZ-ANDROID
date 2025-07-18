@@ -2,8 +2,8 @@ package com.byeboo.app.presentation.quest.behavior
 
 import android.net.Uri
 import com.byeboo.app.core.designsystem.type.LargeTagType
-import com.byeboo.app.core.model.QuestType
-import com.byeboo.app.domain.model.QuestWritingState
+import com.byeboo.app.core.model.quest.QuestType
+import com.byeboo.app.domain.model.quest.QuestWritingState
 
 data class QuestBehaviorState(
     val stepNumber: Long = 1,
@@ -12,7 +12,7 @@ data class QuestBehaviorState(
     val questNumber: Long = 1,
     val question: String = "",
     val imageCount: Int = 0,
-    val createdAt: String = "",
+    val createdAt: String = java.time.LocalDate.now().toString(),
     var contents: String = "",
     val answer: String = "",
     val imageUrl: String = "",
