@@ -27,13 +27,8 @@ fun ByeBooActivationButton(
     modifier: Modifier = Modifier,
     isEnabled: Boolean = false
 ) {
-    val byebooColor = ByeBooTheme.colors
-    val buttonBackgroundColor by remember {
-        if (isEnabled) byebooColor.primary300 else buttonDisableColor
-    }
-    val buttonTextColor by remember {
-        if (isEnabled) byebooColor.white else buttonDisableTextColor
-    }
+    val buttonBackgroundColor = if (isEnabled) ByeBooTheme.colors.primary300 else buttonDisableColor
+    val buttonTextColor = if (isEnabled) ByeBooTheme.colors.white else buttonDisableTextColor
 
     Row(
         modifier = modifier
